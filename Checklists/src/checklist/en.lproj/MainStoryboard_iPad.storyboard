@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Tdm-ki-Gc2">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <development defaultVersion="4200" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller - Аварийные карты-->
+        <scene sceneID="4">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
+                <viewController id="2" customClass="MainViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="LionDefault.png" id="bQB-BB-zpN">
+                                <rect key="frame" x="0.0" y="-46" width="825" height="1006"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="tpK-Ef-b8T">
+                                <rect key="frame" x="35" y="312" width="711" height="101"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.89803928136825562" green="0.88627457618713379" blue="0.24313727021217346" alpha="1" colorSpace="deviceRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <size key="titleShadowOffset" width="2" height="2"/>
+                                <state key="normal" title="Действия в сложных ситуациях РПП">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onYellowButtonPressed:" destination="2" eventType="touchDown" id="jxt-ay-78c"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="pDQ-g0-beB">
+                                <rect key="frame" x="197" y="664" width="375" height="114"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
+                                <size key="titleShadowOffset" width="2" height="2"/>
+                                <state key="normal" title="Документы" backgroundImage="button_bg.jpg">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDocsButtonPressed:" destination="2" eventType="touchDown" id="A5j-D9-eDP"/>
+                                    <segue destination="2a3-oW-Ngl" kind="push" identifier="ShowDocumentsList" id="K9a-KP-ATK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="YG8-PB-reP">
+                                <rect key="frame" x="35" y="181" width="711" height="101"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.94509810209274292" green="0.63921570777893066" blue="0.1098039299249649" alpha="1" colorSpace="deviceRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <size key="titleShadowOffset" width="2" height="2"/>
+                                <state key="normal" title="Действия в сложных ситуациях">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onOrangeButtonPressed:" destination="2" eventType="touchDown" id="7g9-ej-PtQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="aJc-Fq-JzZ">
+                                <rect key="frame" x="35" y="48" width="711" height="101"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.93333339691162109" green="0.0" blue="0.10196079313755035" alpha="1" colorSpace="deviceRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <size key="titleShadowOffset" width="2" height="2"/>
+                                <state key="normal" title="Действия в аварийных случаях">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onRedButtonPressed:" destination="2" eventType="touchDown" id="wgE-K3-Ak7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="65I-wC-Hq6">
+                                <rect key="frame" x="197" y="823" width="375" height="69"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
+                                <size key="titleShadowOffset" width="2" height="2"/>
+                                <state key="normal" title="Статистика" backgroundImage="button_bg.jpg">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onStatButtonPressed:" destination="2" eventType="touchDown" id="XA4-HC-Lxo"/>
+                                    <segue destination="CWT-SF-7a4" kind="push" identifier="ShowStatSeque" id="9Ks-3L-aYZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Аварийные карты" id="mCv-9z-Qxm">
+                        <barButtonItem key="rightBarButtonItem" title="Настройки" id="uw3-H8-X77">
+                            <color key="tintColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="O68-xl-z5v" kind="push" identifier="ShowSettings" id="eOH-6M-wJr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="docsButton" destination="pDQ-g0-beB" id="f4C-jw-Wnq"/>
+                        <outlet property="orangeButton" destination="YG8-PB-reP" id="Ez3-0I-2Tc"/>
+                        <outlet property="redButton" destination="aJc-Fq-JzZ" id="B18-XT-Dgv"/>
+                        <outlet property="statButton" destination="65I-wC-Hq6" id="uQH-44-xM4"/>
+                        <outlet property="yellowButton" destination="tpK-Ef-b8T" id="QaV-ie-hMM"/>
+                        <segue destination="1L7-rh-3Yg" kind="push" identifier="ShowSituations" id="XyC-ob-jSH"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1018" y="-88"/>
+        </scene>
+        <!--Documents View Controller - Список документов-->
+        <scene sceneID="lDJ-Zs-Sun">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8nW-zC-QAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="2a3-oW-Ngl" customClass="DocumentsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rnr-vu-226">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outlet property="dataSource" destination="2a3-oW-Ngl" id="gUf-zo-SMt"/>
+                            <outlet property="delegate" destination="2a3-oW-Ngl" id="RKH-Kk-lpR"/>
+                            <outletCollection property="gestureRecognizers" destination="JCu-ke-Iar" appends="YES" id="fWZ-dM-ddo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Список документов" id="3Uu-Yc-yiD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="8Hr-oD-E24">
+                            <color key="tintColor" red="0.23966882370000001" green="0.35850345280000001" blue="0.84470663270000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="reloadDocumentsList:" destination="2a3-oW-Ngl" id="het-KD-ZMM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <swipeGestureRecognizer direction="right" id="JCu-ke-Iar">
+                    <connections>
+                        <action selector="onGetBack:" destination="2a3-oW-Ngl" id="SHM-fK-lVS"/>
+                        <outlet property="delegate" destination="2a3-oW-Ngl" id="L32-qY-BAd"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1057" y="1257"/>
+        </scene>
+        <!--Statistic View Controller - Статистика по борту-->
+        <scene sceneID="TXK-UK-9YR">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1FO-Tb-f96" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="CWT-SF-7a4" customClass="StatisticViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5UL-yq-cSY">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="CWT-SF-7a4" id="tPl-Ac-0Hg"/>
+                            <outlet property="delegate" destination="CWT-SF-7a4" id="09g-Gt-Pev"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Статистика по борту" id="gWv-eg-gfP"/>
+                    <connections>
+                        <outlet property="view" destination="5UL-yq-cSY" id="bP7-bo-mbd"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1977" y="1257"/>
+        </scene>
+        <!--Settings View Controller - Настройки-->
+        <scene sceneID="EYF-iN-qkz">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oou-8p-KiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="O68-xl-z5v" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rpx-k3-JUh">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="CKb-PC-E2S">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="67" id="m7A-ys-c89">
+                                        <rect key="frame" x="0.0" y="30" width="768" height="68"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="45" y="1" width="678" height="66"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Использовать голос:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="iaC-5P-Bb9">
+                                                    <rect key="frame" x="20" y="10" width="343" height="46"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="UbS-TB-wkT">
+                                                    <rect key="frame" x="579" y="19" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="onUseVoiceSwitchChanged:" destination="O68-xl-z5v" eventType="valueChanged" id="okp-gX-sgd"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="67" id="CnA-AC-8nc">
+                                        <rect key="frame" x="0.0" y="98" width="768" height="67"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="45" y="0.0" width="678" height="66"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Устройство привязано:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ahI-7n-NPS">
+                                                    <rect key="frame" x="20" y="0.0" width="332" height="66"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="rbR-4w-INf">
+                                                    <rect key="frame" x="579" y="19" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="onIsLinkedSwitchChanged:" destination="O68-xl-z5v" eventType="valueChanged" id="3HP-f7-Hvz"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="67" id="F7C-Qr-zMv">
+                                        <rect key="frame" x="0.0" y="165" width="768" height="68"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="45" y="0.0" width="678" height="66"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Восстановить настройки и данные &quot;по-умолчанию&quot;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5a0-Mf-gsE">
+                                                    <rect key="frame" x="20" y="7" width="651" height="53"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Настройки" id="hBm-Oz-dpQ"/>
+                    <connections>
+                        <outlet property="isLinkedSwitch" destination="rbR-4w-INf" id="387-6s-cDg"/>
+                        <outlet property="useVoiceSwitch" destination="UbS-TB-wkT" id="3wG-ub-8rb"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2010" y="-1253"/>
+        </scene>
+        <!--Situation View Controller - Ситуации-->
+        <scene sceneID="f2a-OU-cCC">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DAe-Tf-bsT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="1L7-rh-3Yg" customClass="SituationViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="z3l-BG-gp5">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="1L7-rh-3Yg" id="NgB-CA-9fz"/>
+                            <outlet property="delegate" destination="1L7-rh-3Yg" id="Rvg-Tm-mYi"/>
+                            <outletCollection property="gestureRecognizers" destination="pIO-xn-blj" appends="YES" id="5nM-80-pM0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Ситуации" id="CeZ-ow-9jZ"/>
+                    <connections>
+                        <segue destination="nPR-K9-sNd" kind="push" identifier="ShowPreconditions" id="uN9-OR-vdC"/>
+                        <segue destination="9rQ-Db-fWG" kind="push" identifier="ShowActions" id="pNn-kC-smF"/>
+                    </connections>
+                </tableViewController>
+                <swipeGestureRecognizer direction="right" id="pIO-xn-blj">
+                    <connections>
+                        <action selector="onGetBack:" destination="1L7-rh-3Yg" id="iKq-xs-zyK"/>
+                        <outlet property="delegate" destination="1L7-rh-3Yg" id="Sk3-up-1X4"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2010" y="-96"/>
+        </scene>
+        <!--Precond View Controller - Признаки-->
+        <scene sceneID="kww-rE-ali">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PNP-Fn-01H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="nPR-K9-sNd" customClass="PrecondViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="dhb-xC-Hyz">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="nPR-K9-sNd" id="f8C-BT-9uc"/>
+                            <outlet property="delegate" destination="nPR-K9-sNd" id="f3Y-Ga-l4R"/>
+                            <outletCollection property="gestureRecognizers" destination="sat-im-k3I" appends="YES" id="CTI-8g-EMr"/>
+                            <outletCollection property="gestureRecognizers" destination="hDM-DO-o2h" appends="YES" id="cCS-pJ-l11"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Признаки" id="5lr-j2-1a2">
+                        <barButtonItem key="rightBarButtonItem" title="Перейти к карте" id="Ij9-Ze-tVW">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="9rQ-Db-fWG" kind="push" identifier="ShowActions1" id="0eK-r9-a37"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <swipeGestureRecognizer direction="left" id="sat-im-k3I">
+                    <connections>
+                        <outlet property="delegate" destination="nPR-K9-sNd" id="z03-PU-gYp"/>
+                        <segue destination="9rQ-Db-fWG" kind="push" identifier="ShowActions2" id="vVY-F1-AaD"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="hDM-DO-o2h">
+                    <connections>
+                        <action selector="onGetBack:" destination="nPR-K9-sNd" id="tYW-Nl-JdJ"/>
+                        <outlet property="delegate" destination="nPR-K9-sNd" id="dqt-kV-W3Y"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="3235" y="1008"/>
+        </scene>
+        <!--Check List View Controller-->
+        <scene sceneID="cOM-8e-exf">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qn1-f9-aRG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="9rQ-Db-fWG" customClass="CheckListViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="f8D-f2-t6Q">
+                        <rect key="frame" x="0.0" y="64" width="768" height="916"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="9rQ-Db-fWG" id="DSH-fq-Jrr"/>
+                            <outlet property="delegate" destination="9rQ-Db-fWG" id="g8r-Zh-2LR"/>
+                            <outletCollection property="gestureRecognizers" destination="Lg8-hg-F6c" appends="YES" id="lDZ-9a-RB8"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="kR1-yX-MEn"/>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="vuz-Yk-cNB"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="i6j-rf-4JO">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" id="laa-qM-rks">
+                            <rect key="frame" x="237" y="6" width="293" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <state key="normal" title="Контрольная карта">
+                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onShowDetails:" destination="9rQ-Db-fWG" eventType="touchDown" id="nwr-yS-d7m"/>
+                            </connections>
+                        </button>
+                        <barButtonItem key="rightBarButtonItem" title="Начать снова" id="d4T-gS-twP">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onResetActions:" destination="9rQ-Db-fWG" id="dzT-b8-mpb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="resetButton" destination="d4T-gS-twP" id="0My-i8-8Kq"/>
+                        <outlet property="titleButton" destination="laa-qM-rks" id="7PP-FA-jpY"/>
+                    </connections>
+                </tableViewController>
+                <swipeGestureRecognizer direction="right" id="Lg8-hg-F6c">
+                    <connections>
+                        <action selector="onGetBack:" destination="9rQ-Db-fWG" id="lv7-9j-IbD"/>
+                        <outlet property="delegate" destination="9rQ-Db-fWG" id="LDh-ci-mHK"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="4257" y="-109"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="FzV-m6-vug">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iPi-4f-WYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="Tdm-ki-Gc2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="smQ-d7-e04">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="tcd-on-rAo"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="43" y="-88"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LionDefault.png" width="1920" height="1200"/>
+        <image name="button_bg.jpg" width="640" height="480"/>
+    </resources>
+    <classes>
+        <class className="CheckListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckListViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onGetBack:"/>
+                <relationship kind="action" name="onResetActions:"/>
+                <relationship kind="action" name="onShowDetails:"/>
+                <relationship kind="outlet" name="resetButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="titleButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="DocumentsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DocumentsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loadDocumentsList"/>
+                <relationship kind="action" name="onGetBack:"/>
+                <relationship kind="action" name="reloadDocumentsList:"/>
+            </relationships>
+        </class>
+        <class className="MainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onDocsButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="onOrangeButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="onRedButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="onStatButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="onYellowButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="docsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="orangeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="redButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="statButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="yellowButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="PrecondViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PrecondViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onGetBack:"/>
+                <relationship kind="action" name="onShowActions:"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onIsLinkedSwitchChanged:"/>
+                <relationship kind="action" name="onUseVoiceSwitchChanged:"/>
+                <relationship kind="outlet" name="isLinkedSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="useVoiceSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="SituationViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SituationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onGetBack:"/>
+            </relationships>
+        </class>
+        <class className="StatisticViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StatisticViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="0eK-r9-a37"/>
+    </inferredMetricsTieBreakers>
+</document>
