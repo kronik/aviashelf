@@ -28,7 +28,7 @@ echo "[production]" > config.local.ini
 echo "database.web.host = localhost" >> config.local.ini
 echo "database.web.username = root" >> config.local.ini
 echo "database.web.password = root" >> config.local.ini
-echo "database.web.dbname = portal" >> config.local.ini
+echo "database.web.dbname = aviashelf-portal" >> config.local.ini
  
 #setup: create initial database structure
 #php bootstrap.php setup
