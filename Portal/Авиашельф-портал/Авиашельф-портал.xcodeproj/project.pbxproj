@@ -13138,6 +13138,7 @@
 		026F81B21661CC6600139CDD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		026F81B31661CC6600139CDD /* trl.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trl.xml; sourceTree = "<group>"; };
 		026F81B41661CC6600139CDD /* update */ = {isa = PBXFileReference; lastKnownFileType = text; path = update; sourceTree = "<group>"; };
+		026F81B61661D5B700139CDD /* Dictionaries.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Dictionaries.php; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -47047,6 +47048,7 @@
 		026F81A91661CC6600139CDD /* models */ = {
 			isa = PBXGroup;
 			children = (
+				026F81B61661D5B700139CDD /* Dictionaries.php */,
 				026F81AA1661CC6600139CDD /* MemberContacts.php */,
 				026F81AB1661CC6600139CDD /* MemberLanguages.php */,
 				026F81AC1661CC6600139CDD /* Members.php */,

@@ -9077,5 +9077,15 @@
         <de>WARNUNG: ungetaggt</de>
         <id>1799</id>
     </text>
+    <text>
+        <en>Customers</en>
+        <ru>Сотрудники</ru>
+        <id>1800</id>
+    </text>
+    <text>
+        <en>Dictionaries</en>
+        <ru>Справочники</ru>
+        <id>1801</id>
+    </text>
 </trl>
 
