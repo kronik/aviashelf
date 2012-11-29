@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `member_languages` (
   KEY `language_id` (`language_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `dictionaries` (
+CREATE TABLE IF NOT EXISTS `dictionaries` (
 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
 `pos` smallint(5) unsigned NOT NULL,
