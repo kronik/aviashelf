@@ -1,5 +1,6 @@
 <?php
-    class Dictionaries extends Kwf_Model_Db
-    {
-        protected $_table = 'dictionaries';
-    }
+class Dictionaries extends Kwf_Model_Db
+{
+    protected $_table = 'dictionaries';
+}
+    
