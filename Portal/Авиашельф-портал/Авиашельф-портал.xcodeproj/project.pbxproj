@@ -13140,7 +13140,7 @@
 		026FBF291661E26B00139CDD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		026FBF2A1661E26B00139CDD /* trl.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trl.xml; sourceTree = "<group>"; };
 		026FBF2B1661E26B00139CDD /* update */ = {isa = PBXFileReference; lastKnownFileType = text; path = update; sourceTree = "<group>"; };
-		026FBF2E1661E41900139CDD /* Dictinaries.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Dictinaries.php; sourceTree = "<group>"; };
+		026FBF2E1661E41900139CDD /* Dictionaries.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Dictionaries.php; sourceTree = "<group>"; };
 		02D86AB5166206E40023ED1C /* Dictionaries.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Dictionaries.js; sourceTree = "<group>"; };
 		02D86AB7166209AD0023ED1C /* Dictionary.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Dictionary.php; sourceTree = "<group>"; };
 		02D86AB816620C2D0023ED1C /* DictionariesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DictionariesController.php; sourceTree = "<group>"; };
@@ -47065,7 +47065,7 @@
 				026FBF211661E26B00139CDD /* MemberContacts.php */,
 				026FBF221661E26B00139CDD /* MemberLanguages.php */,
 				026FBF231661E26B00139CDD /* Members.php */,
-				026FBF2E1661E41900139CDD /* Dictinaries.php */,
+				026FBF2E1661E41900139CDD /* Dictionaries.php */,
 				02D86AB7166209AD0023ED1C /* Dictionary.php */,
 				026FBF241661E26B00139CDD /* Row */,
 			);
