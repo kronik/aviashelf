@@ -2,9 +2,15 @@ var Dictionaries = Ext.extend(Ext.Panel,
 {
     initComponent : function(test)
     {
-        var dictionary = new Kwf.Auto.GridPanel({
-                                            controllerUrl   : '/dictionary',
-                                            region          : 'center',
+        var dictionary = new Kwf.Auto.FormPanel({
+                                        controllerUrl   : '/dictionary',
+                                        region          : 'center',
+                                        height          : 400
+                                        });
+                              
+        var dictionaryentries = new Kwf.Auto.GridPanel({
+                                            controllerUrl   : '/dictionaryentries',
+                                            region          : 'south',
                                             resizable       : true,
                                             split           : true,
                                             collapsible     : true,
@@ -20,7 +26,8 @@ var Dictionaries = Ext.extend(Ext.Panel,
                                        collapsible     : true,
                                        title           : trl('Dictionaries'),
                                        bindings: [dictionary, {
-                                                  queryParam: 'name'
+                                                  queryParam: 'name',
+                                                  item : dictionaryentries
                                                   }]
                                        });
 
@@ -28,7 +35,7 @@ var Dictionaries = Ext.extend(Ext.Panel,
         this.items = [grid, {
                    layout: 'border',
                    region: 'center',
-                   items: [dictionary]
+                   items: [dictionary, dictionaryentries]
                    }];
         Dictionaries.superclass.initComponent.call(this);
     }
