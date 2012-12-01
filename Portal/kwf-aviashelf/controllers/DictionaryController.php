@@ -15,11 +15,4 @@
             ->setAllowBlank(false)
             ->setWidth(300);
         }
-        
-        protected function _getWhere()
-        {
-            $ret = parent::_getWhere();
-            $ret['name = ?'] = $this->_getParam('name');
-            return $ret;
-        }
     }

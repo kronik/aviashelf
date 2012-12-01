@@ -13,9 +13,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_member'), 'default_members');
         $this->addResource(new Zend_Acl_Resource('default_member-contacts'), 'default_members');
         $this->addResource(new Zend_Acl_Resource('default_member-contact'), 'default_member-contacts');
-        
-        #$this->addResource(new Zend_Acl_Resource('default_dictionaries'), 'default_index');
-        
+                
         $this->addResource(new Zend_Acl_Resource('default_dictionary'), 'default_dictionaries');
         $this->addResource(new Zend_Acl_Resource('default_dictionaryentries'), 'default_dictionaries');
         $this->addResource(new Zend_Acl_Resource('default_dictionaryentry'), 'default_dictionaryentries');
