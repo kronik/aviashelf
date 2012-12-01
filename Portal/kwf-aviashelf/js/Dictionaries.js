@@ -30,7 +30,6 @@ var Dictionaries = Ext.extend(Ext.Panel,
                                                   item : dictionaryentries
                                                   }]
                                        });
-
         this.layout = 'border';
         this.items = [grid, {
                    layout: 'border',
