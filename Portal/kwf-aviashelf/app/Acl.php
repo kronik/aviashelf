@@ -18,7 +18,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_dictionary-entries'), 'default_dictionaries');
         $this->addResource(new Zend_Acl_Resource('default_dictionary-entry'), 'default_dictionary-entries');
         
-        $this->allow('guest', 'default_dictionaries'); 
+        $this->allow('guest', 'default_dictionaries');
         $this->allow('guest', 'default_index');
         $this->allow('guest', 'kwf_media_upload');
     }

@@ -4,7 +4,7 @@
         protected $_modelName = 'Dictionaries';
         protected $_defaultOrder = 'name';
         protected $_paging = 0;
-        protected $_buttons = array('save');
+        protected $_buttons = array('save', 'add');
         protected $_permissions = array('save', 'add');
         
         protected function _initColumns()
