@@ -1,12 +1,12 @@
 <?php
-    class DictionaryController extends Kwf_Controller_Action_Auto_Grid
+    class DictionaryEntriesController extends Kwf_Controller_Action_Auto_Grid
     {
         protected $_modelName = 'Dictionary';
         protected $_defaultOrder = 'value';
         protected $_paging = 0;
         protected $_buttons = array('add', 'delete');
         protected $_editDialog = array(
-                                       'controllerUrl' => '/DictionaryEntry',
+                                       'controllerUrl' => '/dictionary-entry',
                                        'width' => 450,
                                        'height' => 200
                                        );

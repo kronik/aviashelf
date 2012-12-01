@@ -3,12 +3,11 @@ var Dictionaries = Ext.extend(Ext.Panel,
     initComponent : function(test)
     {
         var dictionary = new Kwf.Auto.FormPanel({
-                                        controllerUrl   : '/dictionary',
-                                        region          : 'center'
+                                        controllerUrl   : '/dictionary'
                                         });
                               
         var dictionaryentries = new Kwf.Auto.GridPanel({
-                                            controllerUrl   : '/dictionaryentries',
+                                            controllerUrl   : '/dictionary-entries',
                                             region          : 'south',
                                             height          : 200,
                                             resizable       : true,
