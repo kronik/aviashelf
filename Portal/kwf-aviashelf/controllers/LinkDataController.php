@@ -2,7 +2,7 @@
 class LinkDataController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'LinkData';
-    protected $_defaultOrder = 'name';
+    protected $_defaultOrder = 'value';
     protected $_paging = 0;
     protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
@@ -13,8 +13,8 @@ class LinkDataController extends Kwf_Controller_Action_Auto_Grid
 
     protected function _initColumns()
     {
-        $this->_columns->add(new Kwf_Grid_Column('name', trl('Title')));
-        $this->_columns->add(new Kwf_Grid_Column('value', trl('Value')));
+        $this->_columns->add(new Kwf_Grid_Column('value', trl('Value')))
+        ->setWidth(300);
         $this->_columns->add(new Kwf_Grid_Column('desc', trl('Desc')))
             ->setRenderer('nl2Br')
             ->setWidth(300);

@@ -2,14 +2,9 @@ var Links = Ext.extend(Ext.Panel,
 {
     initComponent : function(test)
     {
-        var form = new Kwf.Auto.FormPanel({
-            controllerUrl   : '/link',
-            region          : 'center'
-        });
-
-        var contacts = new Kwf.Auto.GridPanel({
+        var linkdata = new Kwf.Auto.GridPanel({
             controllerUrl   : '/link-data',
-            region          : 'south',
+            region          : 'center',
             height          : 600,
             resizable       : true,
             split           : true,
@@ -25,9 +20,9 @@ var Links = Ext.extend(Ext.Panel,
             split           : true,
             collapsible     : true,
             title           : trl('Links'),
-            bindings: [form, {
+            bindings: [{
                 queryParam: 'link_id',
-                item: contacts
+                item: linkdata
             }]
         });
 
@@ -35,7 +30,7 @@ var Links = Ext.extend(Ext.Panel,
         this.items = [grid, {
             layout: 'border',
             region: 'center',
-            items: [form, contacts]
+            items: [linkdata]
         }];
         Links.superclass.initComponent.call(this);
     }
