@@ -1,0 +1,20 @@
+<?php
+class LinksController extends Kwf_Controller_Action_Auto_Grid
+{
+    protected $_modelName = 'Links';
+    protected $_defaultOrder = 'name';
+    protected $_paging = 20;
+    protected $_buttons = array('add', 'save');
+
+    public function indexAction()
+    {
+        $this->view->ext('Links');
+    }
+    
+    protected function _initColumns()
+    {
+        $this->_filters = array('text' => array('type' => 'TextField'));
+        $this->_columns->add(new Kwf_Grid_Column('name', trl('Title'), 300))
+        ->setEditor(new Kwf_Form_Field_TextField());
+    }
+}

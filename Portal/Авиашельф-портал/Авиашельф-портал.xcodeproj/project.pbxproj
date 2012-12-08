@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		0230FCB9167330AA007754C3 /* Links.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Links.js; sourceTree = "<group>"; };
+		0230FCBB167333F4007754C3 /* Links.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Links.php; sourceTree = "<group>"; };
+		0230FCBC16733475007754C3 /* LinkData.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LinkData.php; sourceTree = "<group>"; };
+		0230FCBD167334E1007754C3 /* LinksController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LinksController.php; sourceTree = "<group>"; };
+		0230FCBE1673354C007754C3 /* LinkController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LinkController.php; sourceTree = "<group>"; };
+		0230FCBF1673362B007754C3 /* LinkDataController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LinkDataController.php; sourceTree = "<group>"; };
+		0230FCC016733759007754C3 /* LinkDataEntryController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LinkDataEntryController.php; sourceTree = "<group>"; };
 		026F81B81661E26400139CDD /* .htaccess */ = {isa = PBXFileReference; lastKnownFileType = text; path = .htaccess; sourceTree = "<group>"; };
 		026F81BA1661E26400139CDD /* Acl.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Acl.php; sourceTree = "<group>"; };
 		026F81BB1661E26400139CDD /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
@@ -15031,6 +15038,10 @@
 		026F88B91661E26600139CDD /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0230FCC016733759007754C3 /* LinkDataEntryController.php */,
+				0230FCBF1673362B007754C3 /* LinkDataController.php */,
+				0230FCBE1673354C007754C3 /* LinkController.php */,
+				0230FCBD167334E1007754C3 /* LinksController.php */,
 				026F88BA1661E26600139CDD /* IndexController.php */,
 				026F88BB1661E26600139CDD /* MemberContactController.php */,
 				026F88BC1661E26600139CDD /* MemberContactsController.php */,
@@ -15047,6 +15058,7 @@
 		026F88C11661E26600139CDD /* js */ = {
 			isa = PBXGroup;
 			children = (
+				0230FCB9167330AA007754C3 /* Links.js */,
 				026F88C21661E26600139CDD /* Members.js */,
 				02D86AB5166206E40023ED1C /* Dictionaries.js */,
 			);
@@ -47064,6 +47076,8 @@
 		026FBF201661E26B00139CDD /* models */ = {
 			isa = PBXGroup;
 			children = (
+				0230FCBC16733475007754C3 /* LinkData.php */,
+				0230FCBB167333F4007754C3 /* Links.php */,
 				026FBF211661E26B00139CDD /* MemberContacts.php */,
 				026FBF221661E26B00139CDD /* MemberLanguages.php */,
 				026FBF231661E26B00139CDD /* Members.php */,
