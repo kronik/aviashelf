@@ -3,7 +3,7 @@ class MembersController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Members';
     protected $_defaultOrder = 'lastname';
-    protected $_paging = 20;
+    protected $_paging = 0;
     protected $_buttons = array('add');
 
     protected function _initColumns()

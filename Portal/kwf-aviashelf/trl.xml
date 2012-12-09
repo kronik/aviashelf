@@ -3991,6 +3991,7 @@
         <id>805</id>
         <ro>Localitate</ro>
         <sl>Kraj</sl>
+        <ru>Город</ru>
     </text>
     <text>
         <en>Country</en>
@@ -6731,6 +6732,7 @@
         <id>1323</id>
         <de>Code</de>
         <ro>Code</ro>
+        <ru>Код</ru>
     </text>
     <text>
         <en>Line Numbers</en>
@@ -9152,6 +9154,31 @@
         <en>Users management</en>
         <ru>Управление пользователями</ru>
         <id>1803</id>
+    </text>
+    <text>
+        <en>English name</en>
+        <ru>По английски</ru>
+        <id>1804</id>
+    </text>
+    <text>
+        <en>Country</en>
+        <ru>Страна</ru>
+        <id>1805</id>
+    </text>
+    <text>
+        <en>Countries</en>
+        <ru>Страны</ru>
+        <id>1806</id>
+    </text>
+    <text>
+        <en>Airport</en>
+        <ru>Аэропорт</ru>
+        <id>1807</id>
+    </text>
+    <text>
+        <en>Airports</en>
+        <ru>Аэропорты</ru>
+        <id>1808</id>
     </text>
 </trl>
 
