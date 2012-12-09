@@ -22,6 +22,13 @@
 		0230FCC61674807C007754C3 /* Airports.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Airports.js; sourceTree = "<group>"; };
 		0230FCC71674813A007754C3 /* AirportController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AirportController.php; sourceTree = "<group>"; };
 		0230FCC81674813A007754C3 /* AirportsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AirportsController.php; sourceTree = "<group>"; };
+		0230FCC91674CD27007754C3 /* CountryPool.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CountryPool.php; sourceTree = "<group>"; };
+		0230FCCB1674CE41007754C3 /* CountryPoolRow.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CountryPoolRow.php; sourceTree = "<group>"; };
+		0230FCCC1674CE81007754C3 /* Country_Form_Field_PoolSelect.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Country_Form_Field_PoolSelect.php; sourceTree = "<group>"; };
+		0230FCCD1674E191007754C3 /* Companies.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Companies.php; sourceTree = "<group>"; };
+		0230FCCF1674E202007754C3 /* Companies.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Companies.js; sourceTree = "<group>"; };
+		0230FCD01674E23E007754C3 /* CompaniesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CompaniesController.php; sourceTree = "<group>"; };
+		0230FCD11674E23F007754C3 /* CompanyController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CompanyController.php; sourceTree = "<group>"; };
 		026F81B81661E26400139CDD /* .htaccess */ = {isa = PBXFileReference; lastKnownFileType = text; path = .htaccess; sourceTree = "<group>"; };
 		026F81BA1661E26400139CDD /* Acl.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Acl.php; sourceTree = "<group>"; };
 		026F81BB1661E26400139CDD /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
@@ -15039,6 +15046,9 @@
 		026F88B91661E26600139CDD /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0230FCD01674E23E007754C3 /* CompaniesController.php */,
+				0230FCD11674E23F007754C3 /* CompanyController.php */,
+				0230FCCC1674CE81007754C3 /* Country_Form_Field_PoolSelect.php */,
 				0230FCC71674813A007754C3 /* AirportController.php */,
 				0230FCC81674813A007754C3 /* AirportsController.php */,
 				0230FCC416747555007754C3 /* CountryController.php */,
@@ -15059,6 +15069,7 @@
 		026F88C11661E26600139CDD /* js */ = {
 			isa = PBXGroup;
 			children = (
+				0230FCCF1674E202007754C3 /* Companies.js */,
 				0230FCC61674807C007754C3 /* Airports.js */,
 				0230FCC2167473DA007754C3 /* Countries.js */,
 				0230FCB9167330AA007754C3 /* Links.js */,
@@ -47078,6 +47089,8 @@
 		026FBF201661E26B00139CDD /* models */ = {
 			isa = PBXGroup;
 			children = (
+				0230FCCD1674E191007754C3 /* Companies.php */,
+				0230FCC91674CD27007754C3 /* CountryPool.php */,
 				0230FCC516748038007754C3 /* Airports.php */,
 				0230FCC11674738F007754C3 /* Countries.php */,
 				0230FCBC16733475007754C3 /* LinkData.php */,
@@ -47093,6 +47106,7 @@
 		026FBF241661E26B00139CDD /* Row */ = {
 			isa = PBXGroup;
 			children = (
+				0230FCCB1674CE41007754C3 /* CountryPoolRow.php */,
 				026FBF251661E26B00139CDD /* Member.php */,
 			);
 			path = Row;

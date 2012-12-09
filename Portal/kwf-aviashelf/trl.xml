@@ -4986,7 +4986,7 @@
         <de>Firma</de>
         <fr>Entreprise</fr>
         <es>Empresa</es>
-        <ru>Фирма</ru>
+        <ru>Компания</ru>
         <id>1004</id>
         <ro>Compania</ro>
         <sl>Podjetje</sl>
@@ -9179,6 +9179,21 @@
         <en>Airports</en>
         <ru>Аэропорты</ru>
         <id>1808</id>
+    </text>
+    <text>
+        <en>Full name</en>
+        <ru>Полное наименование</ru>
+        <id>1809</id>
+    </text>
+    <text>
+        <en>INN</en>
+        <ru>ИНН</ru>
+        <id>1810</id>
+    </text>
+    <text>
+        <en>Companies</en>
+        <ru>Компании</ru>
+        <id>1811</id>
     </text>
 </trl>
 

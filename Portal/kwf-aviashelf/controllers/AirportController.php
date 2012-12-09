@@ -15,5 +15,12 @@ class AirportController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(300);
         $this->_form->add(new Kwf_Form_Field_TextField('IKAO', trlKwf('Code')))
         ->setWidth(300);
+        
+        #$this->_form->add(new Country_Form_Field_PoolSelect('CountryId', trlKwf('Country')))
+        #->setPool('Country')
+        #->setListWidth(300)
+        #->setWidth(300)
+        #->setShowNoSelection(true)
+        #->setAllowBlank(true);
     }
 }
