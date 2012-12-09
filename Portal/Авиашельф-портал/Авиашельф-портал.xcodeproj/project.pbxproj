@@ -13147,13 +13147,6 @@
 		026FBF291661E26B00139CDD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		026FBF2A1661E26B00139CDD /* trl.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trl.xml; sourceTree = "<group>"; };
 		026FBF2B1661E26B00139CDD /* update */ = {isa = PBXFileReference; lastKnownFileType = text; path = update; sourceTree = "<group>"; };
-		026FBF2E1661E41900139CDD /* Dictionaries.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Dictionaries.php; sourceTree = "<group>"; };
-		02A076BE1669F860008036E9 /* DictionaryController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DictionaryController.php; sourceTree = "<group>"; };
-		02D86AB5166206E40023ED1C /* Dictionaries.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Dictionaries.js; sourceTree = "<group>"; };
-		02D86AB7166209AD0023ED1C /* Dictionary.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Dictionary.php; sourceTree = "<group>"; };
-		02D86AB816620C2D0023ED1C /* DictionariesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DictionariesController.php; sourceTree = "<group>"; };
-		02D86AB916620D970023ED1C /* DictionaryEntriesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DictionaryEntriesController.php; sourceTree = "<group>"; };
-		02D86ABA16620ED70023ED1C /* DictionaryEntryController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DictionaryEntryController.php; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -15047,10 +15040,6 @@
 				026F88BC1661E26600139CDD /* MemberContactsController.php */,
 				026F88BD1661E26600139CDD /* MemberController.php */,
 				026F88BE1661E26600139CDD /* MembersController.php */,
-				02D86AB816620C2D0023ED1C /* DictionariesController.php */,
-				02A076BE1669F860008036E9 /* DictionaryController.php */,
-				02D86AB916620D970023ED1C /* DictionaryEntriesController.php */,
-				02D86ABA16620ED70023ED1C /* DictionaryEntryController.php */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -15060,7 +15049,6 @@
 			children = (
 				0230FCB9167330AA007754C3 /* Links.js */,
 				026F88C21661E26600139CDD /* Members.js */,
-				02D86AB5166206E40023ED1C /* Dictionaries.js */,
 			);
 			path = js;
 			sourceTree = "<group>";
@@ -47081,8 +47069,6 @@
 				026FBF211661E26B00139CDD /* MemberContacts.php */,
 				026FBF221661E26B00139CDD /* MemberLanguages.php */,
 				026FBF231661E26B00139CDD /* Members.php */,
-				026FBF2E1661E41900139CDD /* Dictionaries.php */,
-				02D86AB7166209AD0023ED1C /* Dictionary.php */,
 				026FBF241661E26B00139CDD /* Row */,
 			);
 			path = models;
