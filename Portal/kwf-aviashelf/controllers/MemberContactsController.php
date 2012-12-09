@@ -13,9 +13,9 @@ class MemberContactsController extends Kwf_Controller_Action_Auto_Grid
 
     protected function _initColumns()
     {
-        $this->_columns->add(new Kwf_Grid_Column_Date('date', trl('Date')));
-        $this->_columns->add(new Kwf_Grid_Column('subject', trl('Subject')));
-        $this->_columns->add(new Kwf_Grid_Column('text', trl('Text')))
+        $this->_columns->add(new Kwf_Grid_Column_Date('date', trlKwf('Date')));
+        $this->_columns->add(new Kwf_Grid_Column('subject', trlKwf('Subject')));
+        $this->_columns->add(new Kwf_Grid_Column('text', trlKwf('Text')))
             ->setRenderer('nl2Br')
             ->setWidth(300);
     }

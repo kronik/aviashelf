@@ -3274,6 +3274,7 @@
         <id>683</id>
         <ro>activează</ro>
         <sl>Aktiviraj</sl>
+        <ru>Активировать</ru>
     </text>
     <text>
         <en>An account for the address '%value%' doesn't exist</en>
@@ -6262,6 +6263,7 @@
         <id>1254</id>
         <ro>Activ?</ro>
         <sl>Aktiven?</sl>
+        <ru>Активный?</ru>
     </text>
     <text>
         <en>Newsletter Subscriber settings</en>
@@ -6290,6 +6292,7 @@
         <id>1258</id>
         <ro>activ</ro>
         <sl>Aktiven</sl>
+        <ru>активный</ru>
     </text>
     <text>
         <en>Edit subscriber</en>

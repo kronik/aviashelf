@@ -6,9 +6,9 @@ class MemberContactController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
-        $this->_form->add(new Kwf_Form_Field_TextField('subject', trl('Subject')))
+        $this->_form->add(new Kwf_Form_Field_TextField('subject', trlKwf('Subject')))
             ->setWidth(300);
-        $this->_form->add(new Kwf_Form_Field_TextArea('text', trl('Text')))
+        $this->_form->add(new Kwf_Form_Field_TextArea('text', trlKwf('Text')))
             ->setWidth(300);
     }
 

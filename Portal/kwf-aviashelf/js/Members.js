@@ -14,7 +14,7 @@ var Members = Ext.extend(Ext.Panel,
             resizable       : true,
             split           : true,
             collapsible     : true,
-            title           : trl('Contacts')
+            title           : trlKwf('Contacts')
         });
 
         var grid = new Kwf.Auto.GridPanel({
@@ -24,7 +24,7 @@ var Members = Ext.extend(Ext.Panel,
             resizable       : true,
             split           : true,
             collapsible     : true,
-            title           : trl('Customers'),
+            title           : trlKwf('Customers'),
             bindings: [form, {
                 queryParam: 'member_id',
                 item: contacts
