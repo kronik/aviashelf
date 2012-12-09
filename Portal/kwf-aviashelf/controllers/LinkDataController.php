@@ -7,15 +7,16 @@ class LinkDataController extends Kwf_Controller_Action_Auto_Grid
     protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
         'controllerUrl' => '/link-dataentry',
-        'width' => 450,
-        'height' => 300
+        'width' => 600,
+        'height' => 200
     );
 
     protected function _initColumns()
     {
-        $this->_columns->add(new Kwf_Grid_Column('value', trl('Value')))
+        $this->_filters = array('text' => array('type' => 'TextField'));
+        $this->_columns->add(new Kwf_Grid_Column('value', trlKwf('Value')))
         ->setWidth(300);
-        $this->_columns->add(new Kwf_Grid_Column('desc', trl('Desc')))
+        $this->_columns->add(new Kwf_Grid_Column('desc', trlKwf('Desc')))
             ->setRenderer('nl2Br')
             ->setWidth(300);
     }

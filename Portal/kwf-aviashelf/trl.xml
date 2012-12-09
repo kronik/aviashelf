@@ -8514,6 +8514,7 @@
         <id>1655</id>
         <de>Filter</de>
         <ro>Filtru</ro>
+        <ru>Фильтр</ru>
     </text>
     <text>
         <en>Please choose a file</en>
@@ -9086,6 +9087,16 @@
         <en>Dictionaries</en>
         <ru>Справочники</ru>
         <id>1801</id>
+    </text>
+    <text>
+        <en>Dictionary</en>
+        <ru>Справочник</ru>
+        <id>1802</id>
+    </text>
+    <text>
+        <en>Users management</en>
+        <ru>Управление пользователями</ru>
+        <id>1803</id>
     </text>
 </trl>
 

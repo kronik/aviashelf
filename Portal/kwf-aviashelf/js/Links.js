@@ -8,8 +8,7 @@ var Links = Ext.extend(Ext.Panel,
             height          : 600,
             resizable       : true,
             split           : true,
-            collapsible     : true,
-            title           : trl('Link-data')
+            title           : trlKwf('Dictionary')
         });
 
         var grid = new Kwf.Auto.GridPanel({
@@ -19,7 +18,7 @@ var Links = Ext.extend(Ext.Panel,
             resizable       : true,
             split           : true,
             collapsible     : true,
-            title           : trl('Links'),
+            title           : trlKwf('Dictionaries'),
             bindings: [{
                 queryParam: 'link_id',
                 item: linkdata
