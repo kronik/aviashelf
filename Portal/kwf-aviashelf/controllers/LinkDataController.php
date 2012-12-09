@@ -16,7 +16,7 @@ class LinkDataController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('text' => array('type' => 'TextField'));
         $this->_columns->add(new Kwf_Grid_Column('value', trlKwf('Value')))
         ->setWidth(300);
-        $this->_columns->add(new Kwf_Grid_Column('desc', trlKwf('Desc')))
+        $this->_columns->add(new Kwf_Grid_Column('desc', trlKwf('Description')))
             ->setRenderer('nl2Br')
             ->setWidth(300);
     }

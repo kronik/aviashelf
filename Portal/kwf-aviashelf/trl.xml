@@ -593,7 +593,7 @@
         <ro>Scurtă descriere</ro>
         <mk>Краток опис</mk>
         <sl>Kratek opis</sl>
-        <ru>Короткое описание</ru>
+        <ru>Краткое описание</ru>
     </text>
     <text>
         <en>Signature</en>
@@ -1400,6 +1400,7 @@
         <id>300</id>
         <ro>Export Excel</ro>
         <sl>Izvozi v Excel</sl>
+        <ru>Экспорт в Excel</ru>
     </text>
     <text>
         <en>Do you really wish to remove this entry / these entries?</en>
@@ -2302,6 +2303,7 @@
         <uk>обрати</uk>
         <ro>lipsă selecţie</ro>
         <sl>Ni izbrano.</sl>
+        <ru>не выбрано</ru>
     </text>
     <text>
         <en>add new entry</en>
@@ -2780,6 +2782,7 @@
         <id>567</id>
         <ro>Activat</ro>
         <sl>Aktivirano</sl>
+        <ru>Активирован</ru>
     </text>
     <text>
         <en>Html</en>
@@ -3221,6 +3224,7 @@
         <id>676</id>
         <ro>General</ro>
         <sl>Splošno</sl>
+        <ru>Общие</ru>
     </text>
     <text>
         <en>Avatar</en>
@@ -4839,6 +4843,7 @@
         <id>981</id>
         <ro>Şterge utilizatorul</ro>
         <sl>Izbriši uporabnika</sl>
+        <ru>Удалить пользователя</ru>
     </text>
     <text>
         <de>Benutzer sperren / entsperren</de>
@@ -4846,6 +4851,7 @@
         <id>982</id>
         <ro>Blochează/deblochează utilizatorul</ro>
         <sl>Blokiraj/deblokiraj uporabnika</sl>
+        <ru>Заблокировать / Разблокировать пользователя</ru>
     </text>
     <text>
         <de>Benutzer sperren</de>
@@ -4902,6 +4908,7 @@
         <id>991</id>
         <ro>Blocat</ro>
         <sl>Blokiran</sl>
+        <ru>Заблокирован</ru>
     </text>
     <text>
         <de>Account ist gesperrt</de>
@@ -5117,11 +5124,6 @@
         <sl>%value%' že obstaja.</sl>
     </text>
     <text>
-        <id>1031</id>
-        <en>Programming</en>
-        <de>Programmierung</de>
-    </text>
-    <text>
         <en>Imprint</en>
         <de>Impressum</de>
         <id>1032</id>
@@ -5279,6 +5281,7 @@
         <id>1066</id>
         <ro>toate</ro>
         <sl>Vsi</sl>
+        <ru>все</ru>
     </text>
     <text>
         <en>Color hex values must be either 3 or 6 characters.</en>
@@ -5336,6 +5339,7 @@
         <id>1075</id>
         <ro>Afişează toate</ro>
         <sl>Prikaži vse</sl>
+        <ru>Показать все</ru>
     </text>
     <text>
         <en>User</en>
@@ -5343,18 +5347,21 @@
         <id>1076</id>
         <ro>Utilizator</ro>
         <sl>Uporabnik</sl>
+        <ru>Пользователь</ru>
     </text>
     <text>
         <en>Statistics</en>
         <id>1077</id>
         <de>Statistik</de>
         <ro>Statistică</ro>
+        <ru>Статистика</ru>
     </text>
     <text>
         <en>Logins</en>
         <id>1078</id>
         <de>Logins</de>
         <ro>Login-uri</ro>
+        <ru>Логины</ru>
     </text>
     <text>
         <en>Last login</en>
@@ -5367,6 +5374,7 @@
         <id>1080</id>
         <de>Superuser</de>
         <ro>Superuser</ro>
+        <ru>Суперпользователь</ru>
     </text>
     <text>
         <en>Too many wrong logins.</en>
@@ -5454,6 +5462,7 @@
         <id>1110</id>
         <de>Gesperrte Benutzer auch anzeigen</de>
         <ro>Afişează şi utilizatorii blocaţi</ro>
+        <ru>Показать заблокированных пользователей тоже</ru>
     </text>
     <text>
         <en>File Upload Cancelled.</en>
@@ -5529,6 +5538,7 @@
         <id>1123</id>
         <de>Gesperrte Benutzer anzeigen</de>
         <ro>Afişează utilizatorii blocaţi</ro>
+        <ru>Показать заблокированных</ru>
     </text>
     <text>
         <en>Dear Mr. {0} {1}</en>
@@ -5764,6 +5774,7 @@
         <id>1161</id>
         <ro>Şterge toate</ro>
         <sl>Izbriši vse</sl>
+        <ru>Удалить все</ru>
     </text>
     <text>
         <en>Are you sure?</en>
@@ -5771,6 +5782,7 @@
         <id>1162</id>
         <ro>Sunteţi sigur?</ro>
         <sl>Ali ste prepričani?</sl>
+        <ru>Вы уверены?</ru>
     </text>
     <text>
         <en>Do you really want to delete all receivers with status "queued"?.</en>
@@ -6852,6 +6864,7 @@
         <id>1345</id>
         <ro>E-mail-uri</ro>
         <sl>E-sporočila</sl>
+        <ru>Почтовые адреса</ru>
     </text>
     <text>
         <en>Don't send any E-Mail when saving.</en>
@@ -6866,6 +6879,7 @@
         <id>1347</id>
         <ro>Log</ro>
         <sl>Datoteka z dnevnikom</sl>
+        <ru>Лог</ru>
     </text>
     <text>
         <en>Comments</en>
@@ -6873,6 +6887,7 @@
         <id>1348</id>
         <ro>Comentarii</ro>
         <sl>Komentarji</sl>
+        <ru>Комментарии</ru>
     </text>
     <text>
         <en>Account created.</en>
@@ -7332,6 +7347,7 @@
         <id>1435</id>
         <ro>Toate</ro>
         <sl>Vse</sl>
+        <ru>Все</ru>
     </text>
     <text>
         <en>Can't delete translated pages.</en>
@@ -9077,6 +9093,40 @@
         <en>WARNING: untagged</en>
         <de>WARNUNG: ungetaggt</de>
         <id>1799</id>
+    </text>
+    <text>
+        <en>This field should only contain numbers</en>
+        <id>1780</id>
+    </text>
+    <text>
+        <en>Please check your details</en>
+        <de>Bitte überprüfen Sie Ihre Details</de>
+        <id>1781</id>
+    </text>
+    <text>
+        <en>Automatically sent e-mail</en>
+        <id>1782</id>
+    </text>
+    <text>
+        <en>E-Mail CC</en>
+        <id>1783</id>
+    </text>
+    <text>
+        <en>Original  Name</en>
+        <id>1784</id>
+    </text>
+    <text>
+        <en>Adopt</en>
+        <id>1785</id>
+    </text>
+    <text>
+        <en>Video</en>
+        <id>1786</id>
+    </text>
+    <text>
+        <en>+{0}% VAT</en>
+        <de>+{0}% MWSt</de>
+        <id>1787</id>
     </text>
     <text>
         <en>Customers</en>

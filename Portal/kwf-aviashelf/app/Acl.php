@@ -26,10 +26,9 @@ class Acl extends Kwf_Acl
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
         
         
-        $this->allow('guest', 'kwf_user_users');
-
-        $this->allow('guest', 'default_links');
-        $this->allow('guest', 'default_index');
-        $this->allow('guest', 'kwf_media_upload');
+        $this->allow('admin', 'kwf_user_users');
+        $this->allow('admin', 'default_links');
+        $this->allow('admin', 'default_index');
+        $this->allow('admin', 'kwf_media_upload');
     }
 }
