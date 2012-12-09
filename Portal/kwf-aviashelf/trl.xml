@@ -2076,6 +2076,7 @@
         <id>394</id>
         <ro>Aranjează crescător</ro>
         <sl>Razvrsti naraščajoče</sl>
+        <ru>Сортировать по возрастанию</ru>
     </text>
     <text>
         <en>Sort Descending</en>
@@ -2083,6 +2084,7 @@
         <id>395</id>
         <ro>Aranjează descrescător</ro>
         <sl>Razvrsti padajoče</sl>
+        <ru>Сортировать по убыванию</ru>
     </text>
     <text>
         <en>Lock Column</en>
