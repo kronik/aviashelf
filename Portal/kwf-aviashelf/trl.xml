@@ -4061,6 +4061,7 @@
         <id>818</id>
         <ro>Data de început</ro>
         <sl>Datum pričetka</sl>
+        <ru>Дата начала</ru>
     </text>
     <text>
         <en>End Date</en>
@@ -4068,6 +4069,7 @@
         <id>819</id>
         <ro>Data de final</ro>
         <sl>Datum zaključka</sl>
+        <ru>Дата окончания</ru>
     </text>
     <text>
         <en>Events.Show categories</en>
@@ -9195,5 +9197,24 @@
         <ru>Компании</ru>
         <id>1811</id>
     </text>
+    <text>
+        <en>Number</en>
+        <ru>Номер</ru>
+        <id>1812</id>
+    </text>
+    <text>
+        <en>Polis</en>
+        <ru>Полис</ru>
+        <id>1813</id>
+    </text>
+    <text>
+        <en>Polises</en>
+        <ru>Полисы</ru>
+        <id>1814</id>
+    </text>
+    <text>
+        <en>Ammount</en>
+        <ru>Сумма</ru>
+        <id>1815</id>
+    </text>
 </trl>
-

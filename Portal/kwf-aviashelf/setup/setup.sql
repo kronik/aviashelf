@@ -7437,3 +7437,112 @@ INSERT INTO `company` (`id`, `Branch`, `Subdiv`, `Name`, `NameEn`, `FullName`, `
 INSERT INTO `company` (`id`, `Branch`, `Subdiv`, `Name`, `NameEn`, `FullName`, `CountryId`, `INN`, `Address`, `Phone`, `Fax`, `EMail`, `Fixed`, `ZCode`, `Hidden`) VALUES (277, null, null, 'Южно-Сахалинский Государственный Университет', '', '', 134, null, null, null, null, null, 1, 9801, 0);
 INSERT INTO `company` (`id`, `Branch`, `Subdiv`, `Name`, `NameEn`, `FullName`, `CountryId`, `INN`, `Address`, `Phone`, `Fax`, `EMail`, `Fixed`, `ZCode`, `Hidden`) VALUES (278, null, null, 'ВЛЭК ДАЛЬАЭРОКОНТРОЛЬ', '', '', 134, null, null, null, null, null, 0, null, 0);
 
+CREATE TABLE IF NOT EXISTS `polis` (
+`id` int NOT NULL,
+`CompanyId` int,
+`Number` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+`Addendum` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+`StartDate` datetime,
+`EndDate` datetime,
+`Ammount` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+`twsId` int,
+`ZCode` int,
+`Comment` text(8000),
+`Hidden` char,
+PRIMARY KEY (`id`),
+INDEX `ZCode` (`ZCode` ASC)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (11, 13, '003  0849', '', '2005-01-03 00:00:00', (null), '100 000', null, null, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (12, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 173, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (13, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 339, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (14, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 500, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (15, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 747, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (16, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 914, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (17, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1038, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (18, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1096, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (19, 82, '1509серия003', '1', (null), (null), '100 000руб.', null, 1267, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (20, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1269, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (21, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1285, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (22, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1700, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (23, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1761, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (24, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1841, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (25, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 1938, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (26, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 2062, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (27, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 2121, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (28, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 2222, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (29, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 2400, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (30, 82, '1509серия003', '', (null), (null), '100 000руб', null, 2432, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (31, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 2586, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (32, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 2617, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (33, 82, '', '', null, null, '100 000руб.', null, 2621, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (34, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 2671, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (35, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 2835, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (36, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 2992, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (37, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3071, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (38, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 3087, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (39, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3185, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (40, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3196, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (41, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3208, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (42, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3383, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (43, 82, '1509серия003', '5', (null), (null), '100 000РУБ.', null, 3434, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (44, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3481, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (45, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3553, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (46, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 3633, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (47, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 3650, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (48, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 4066, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (49, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 4147, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (50, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 4217, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (51, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 4357, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (52, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 4358, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (53, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 4491, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (54, 82, '', '', null, null, '100 000руб', null, 5188, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (55, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 5270, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (56, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 5382, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (57, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 5394, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (58, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 5662, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (59, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 5707, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (60, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 5877, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (61, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6084, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (62, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6173, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (63, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6289, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (65, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 6624, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (66, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6652, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (67, 82, '', '', null, null, '100 000руб.', null, 6672, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (69, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6690, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (70, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6737, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (71, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6764, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (72, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6834, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (73, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 6865, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (74, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7036, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (75, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7051, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (76, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7355, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (77, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7386, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (78, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7396, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (79, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7626, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (80, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7667, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (81, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7682, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (82, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7777, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (83, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7807, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (84, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 7937, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (85, 82, '1281серия003', '', '2007-01-03 00:00:00', (null), '100 000руб.', null, 7965, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (86, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8032, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (87, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8053, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (88, 82, '1509серия003', '', (null), (null), '100 000руб', null, 8253, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (89, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8454, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (90, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8491, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (91, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8552, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (92, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8600, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (93, 82, '1509 серия 003', '1', (null), (null), '100 000руб.', null, 8675, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (94, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8724, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (95, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8789, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (96, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 8840, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (97, 82, '1509серия003', '1', (null), '2008-01-06 00:00:00', '100 000 руб', null, 8968, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (98, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9002, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (99, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9083, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (100, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9463, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (101, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9508, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (102, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9589, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (103, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9902, null, 0);
+INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (104, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9989, null, 0);
+

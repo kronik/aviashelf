@@ -18,7 +18,7 @@ class LinkDataController extends Kwf_Controller_Action_Auto_Grid
         ->setWidth(300);
         $this->_columns->add(new Kwf_Grid_Column('desc', trlKwf('Description')))
             ->setRenderer('nl2Br')
-            ->setWidth(300);
+            ->setWidth(700);
     }
 
     protected function _getWhere()
