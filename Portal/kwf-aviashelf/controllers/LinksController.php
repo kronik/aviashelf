@@ -7,8 +7,8 @@ class LinksController extends Kwf_Controller_Action_Auto_Grid
     protected $_buttons = array('add');
     protected $_editDialog = array(
                                    'controllerUrl' => '/link',
-                                   'width' => 500,
-                                   'height' => 100
+                                   'width' => 450,
+                                   'height' => 130
                                    );
     public function indexAction()
     {

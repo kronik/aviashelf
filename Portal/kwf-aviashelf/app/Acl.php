@@ -29,7 +29,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_company'), 'default_companies');
 
         $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
-                                                array('text'=>trlKwf('Users management'), 'icon'=>'user.png'),
+                                                array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'),
                                                 '/kwf/user/users'));
         $this->add(new Zend_Acl_Resource('kwf_user_user'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');

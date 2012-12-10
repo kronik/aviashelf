@@ -7,8 +7,8 @@ class CompaniesController extends Kwf_Controller_Action_Auto_Grid
     protected $_buttons = array('add');
     protected $_editDialog = array(
                                    'controllerUrl' => '/company',
-                                   'width' => 500,
-                                   'height' => 700
+                                   'width' => 450,
+                                   'height' => 350
                                    );
 
     public function indexAction()
