@@ -940,6 +940,7 @@
         <id>233</id>
         <ro>Doriţi să salvaţi modificările?</ro>
         <sl>Ali želite shraniti spremembe?</sl>
+        <ru>Сохранить изменения?</ru>
     </text>
     <text>
         <en>Copying...</en>
@@ -1735,6 +1736,7 @@
         <id>345</id>
         <ro>Prima pagină</ro>
         <sl>Prva stran</sl>
+        <ru>Первая страница</ru>
     </text>
     <text>
         <en>Previous Page</en>
@@ -1742,6 +1744,7 @@
         <id>346</id>
         <ro>Pagina anterioară</ro>
         <sl>Prejšnja stran</sl>
+        <ru>Предыдущая страница</ru>
     </text>
     <text>
         <en>Next Page</en>
@@ -1749,6 +1752,7 @@
         <id>347</id>
         <ro>Pagina următoare</ro>
         <sl>Naslednja stran</sl>
+        <ru>Следующая страница</ru>
     </text>
     <text>
         <en>Last Page</en>
@@ -1756,6 +1760,7 @@
         <id>348</id>
         <ro>Ultima pagină</ro>
         <sl>Zadnja stran</sl>
+        <ru>Последняя страница</ru>
     </text>
     <text>
         <en>Refresh</en>

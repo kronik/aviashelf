@@ -7,7 +7,9 @@ class LinkDataEntryController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $this->_form->add(new Kwf_Form_Field_TextField('value', trlKwf('Value')))
-        ->setWidth(450);
+        ->setWidth(450)
+        ->setAllowBlank(false);
+
         $this->_form->add(new Kwf_Form_Field_TextArea('desc', trlKwf('Description')))
             ->setWidth(450);
     }
