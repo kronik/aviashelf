@@ -16,6 +16,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_companies', array('text'=>trlKwf('Companies'), 'icon'=>'book.png'), '/companies'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_polises', array('text'=>trlKwf('Polises'), 'icon'=>'book.png'), '/polises'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_wstypes', array('text'=>trlKwf('WsTypes'), 'icon'=>'book.png'), '/wstypes'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airplanes', array('text'=>trlKwf('Airplanes'), 'icon'=>'book.png'), '/airplanes'), 'default_menuitem');
 
         $this->addResource(new Zend_Acl_Resource('default_members'), 'default_index');
         $this->addResource(new Zend_Acl_Resource('default_member'), 'default_members');
@@ -31,6 +32,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_company'), 'default_companies');
         $this->addResource(new Zend_Acl_Resource('default_polis'), 'default_polises');
         $this->addResource(new Zend_Acl_Resource('default_wstype'), 'default_wstypes');
+        $this->addResource(new Zend_Acl_Resource('default_airplane'), 'default_airplanes');
 
         $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
                                                 array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'),
@@ -43,6 +45,7 @@ class Acl extends Kwf_Acl
 
         $this->allow('admin', 'kwf_user_users');
         
+        $this->allow('admin', 'default_airplanes');
         $this->allow('admin', 'default_wstypes');
         $this->allow('admin', 'default_polises');
         $this->allow('admin', 'default_companies');

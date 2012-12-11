@@ -9243,5 +9243,55 @@
         <ru>Тип ВС</ru>
         <id>1820</id>
     </text>
+    <text>
+        <en>Airplanes</en>
+        <ru>Бортовые номера</ru>
+        <id>1821</id>
+    </text>
+    <text>
+        <en>Airplane</en>
+        <ru>Бортовой номер</ru>
+        <id>1822</id>
+    </text>
+    <text>
+        <en>Char Title</en>
+        <ru>Буквенный номер</ru>
+        <id>1823</id>
+    </text>
+    <text>
+        <en>Number Title</en>
+        <ru>Цифровой номер</ru>
+        <id>1824</id>
+    </text>
+    <text>
+        <en>Bort Title</en>
+        <ru>Бортовой номер</ru>
+        <id>1825</id>
+    </text>
+    <text>
+        <en>Weight</en>
+        <ru>Масса</ru>
+        <id>1826</id>
+    </text>
+    <text>
+        <en>Center Point</en>
+        <ru>Центровка</ru>
+        <id>1827</id>
+    </text>
+    <text>
+        <en>Seats Number</en>
+        <ru>Число кресел</ru>
+        <id>1828</id>
+    </text>
+    <text>
+        <en>Owner</en>
+        <ru>Владелец</ru>
+        <id>1829</id>
+    </text>
+    <text>
+        <en>Subcompany</en>
+        <ru>Подрядчик</ru>
+        <id>1830</id>
+    </text>
 </trl>
 

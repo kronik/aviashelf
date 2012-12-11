@@ -103,38 +103,38 @@ CREATE TABLE IF NOT EXISTS `member_languages` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `links` (
-`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-PRIMARY KEY (`id`),
-KEY `name` (`name`)
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `link_data` (
-`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-`link_id` int(11) unsigned NOT NULL,
-`name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-`value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-`desc` varchar(1024) COLLATE utf8_unicode_ci NOT NULL,
-PRIMARY KEY (`id`),
-KEY `link_id` (`link_id`)
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `link_id` int(11) unsigned NOT NULL,
+    `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+    `desc` varchar(1024) COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `link_id` (`link_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 INSERT INTO `links` (`id`, `name`) VALUES
-(13, 'Виды полета'),
-(14, 'Визы'),
-(17, 'Должности'),
-(9, 'Категории организаций'),
-(10, 'Маршруты'),
-(6, 'Метео типы'),
-(5, 'Оценки'),
-(16, 'Подразделения'),
-(8, 'Позиции на борту'),
-(11, 'Регионы'),
-(15, 'Виды ВС'),
-(7, 'Типы налета'),
-(4, 'Типы полетов'),
-(12, 'Цели');
+    (13, 'Виды полета'),
+    (14, 'Визы'),
+    (17, 'Должности'),
+    (9, 'Категории организаций'),
+    (10, 'Маршруты'),
+    (6, 'Метео типы'),
+    (5, 'Оценки'),
+    (16, 'Подразделения'),
+    (8, 'Позиции на борту'),
+    (11, 'Регионы'),
+    (15, 'Виды ВС'),
+    (7, 'Типы налета'),
+    (4, 'Типы полетов'),
+    (12, 'Цели');
 
 -- --------------------------------------------------------
 
@@ -7873,3 +7873,36 @@ INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA
 INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (292, 206, 'Ан-140Т', 'AN-140T', 0, 3, '', 'A140', 1, null, 212, 1);
 INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (293, 213, 'Ми-8Т', null, 1, 1, '', '', 1, null, 429, 0);
 INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (294, 212, 'Ми-8МТВ-1', null, 1, 1, '', '', 1, null, 744, 1);
+
+CREATE TABLE IF NOT EXISTS `planers` (
+    `id` int NOT NULL,
+    `twsId` int,
+    `State` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+    `CountryId` int,
+    `Number` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+    `NBort` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+    `Mass` int,
+    `Center` float,
+    `LotsNumber` int,
+    `OwnerId` int,
+    `Fixed` char,
+    `ZCode` int,
+    `LinkId` int,
+    `Hidden` char,
+    PRIMARY KEY (`id`),
+    INDEX `LinkId` (`LinkId` ASC),
+    INDEX `twsId` (`twsId` ASC),
+    INDEX `ZCode` (`ZCode` ASC)
+)  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (8, 97, 'RA', 134, '25738', 'RA-25738', 7407, 4.36, 18, 86, 0, 6087, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (9, 97, 'RA', 134, '25739', 'RA-25739', 7451, -19.9, 18, 86, 0, 34044, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (10, 97, 'RA', 134, '25185', 'RA-25185', 7305, 21.7, 18, 139, 0, 9908, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (11, 105, 'RA', 134, '24683', 'RA-24683', 7184, 122.5, 22, 139, 0, 44325, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (12, 105, 'RA', 134, '24208', 'RA-24208', 7440, 17.8, 22, 139, 0, 23116, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (13, 97, 'RA', 134, '25488', 'RA-25488', 7237, 61, 18, 139, 0, 76096, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (14, 97, 'RA', 134, '25420', 'RA-25420', 7440, 17.8, 18, 139, 0, 15045, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (15, 97, 'RA', 134, '22984', 'RA-22984', null, null, 20, null, 0, null, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (16, 97, 'RA', 134, '22985', 'RA-22985', null, null, 20, 75, 0, null, null, 0);
+INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (17, 97, 'RA', 134, '25561', 'RA-25561', null, null, 20, 139, 0, null, null, 0);
+
