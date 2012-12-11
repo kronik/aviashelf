@@ -4422,6 +4422,7 @@
         <id>900</id>
         <ro>Tip</ro>
         <sl>Tip</sl>
+        <ru>Тип</ru>
     </text>
     <text>
         <en>Contact person</en>
@@ -9217,4 +9218,30 @@
         <ru>Сумма</ru>
         <id>1815</id>
     </text>
+    <text>
+        <en>IKAO</en>
+        <ru>IKAO</ru>
+        <id>1816</id>
+    </text>
+    <text>
+        <en>IATA</en>
+        <ru>IATA</ru>
+        <id>1817</id>
+    </text>
+    <text>
+        <en>Class</en>
+        <ru>Класс</ru>
+        <id>1818</id>
+    </text>
+    <text>
+        <en>WsTypes</en>
+        <ru>Типы ВС</ru>
+        <id>1819</id>
+    </text>
+    <text>
+        <en>WsType</en>
+        <ru>Тип ВС</ru>
+        <id>1820</id>
+    </text>
 </trl>
+

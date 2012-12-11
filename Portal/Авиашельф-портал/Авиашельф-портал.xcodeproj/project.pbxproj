@@ -30,6 +30,11 @@
 		0230FD0416762590007754C3 /* Polises.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Polises.js; sourceTree = "<group>"; };
 		0230FD05167625E4007754C3 /* PolisController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PolisController.php; sourceTree = "<group>"; };
 		0230FD06167625E4007754C3 /* PolisesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PolisesController.php; sourceTree = "<group>"; };
+		0230FD071676AB05007754C3 /* WsCategories.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsCategories.php; sourceTree = "<group>"; };
+		0230FD081676AB06007754C3 /* WsTypes.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsTypes.php; sourceTree = "<group>"; };
+		0230FD091676C190007754C3 /* WsTypes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WsTypes.js; sourceTree = "<group>"; };
+		0230FD0A1676C20B007754C3 /* WsTypeController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsTypeController.php; sourceTree = "<group>"; };
+		0230FD0B1676C20C007754C3 /* WsTypesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsTypesController.php; sourceTree = "<group>"; };
 		026F81B81661E26400139CDD /* .htaccess */ = {isa = PBXFileReference; lastKnownFileType = text; path = .htaccess; sourceTree = "<group>"; };
 		026F81BA1661E26400139CDD /* Acl.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Acl.php; sourceTree = "<group>"; };
 		026F81BB1661E26400139CDD /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
@@ -15047,6 +15052,8 @@
 		026F88B91661E26600139CDD /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0230FD0A1676C20B007754C3 /* WsTypeController.php */,
+				0230FD0B1676C20C007754C3 /* WsTypesController.php */,
 				0230FD05167625E4007754C3 /* PolisController.php */,
 				0230FD06167625E4007754C3 /* PolisesController.php */,
 				0230FCD01674E23E007754C3 /* CompaniesController.php */,
@@ -15071,6 +15078,7 @@
 		026F88C11661E26600139CDD /* js */ = {
 			isa = PBXGroup;
 			children = (
+				0230FD091676C190007754C3 /* WsTypes.js */,
 				0230FD0416762590007754C3 /* Polises.js */,
 				0230FCCF1674E202007754C3 /* Companies.js */,
 				0230FCC61674807C007754C3 /* Airports.js */,
@@ -47092,6 +47100,8 @@
 		026FBF201661E26B00139CDD /* models */ = {
 			isa = PBXGroup;
 			children = (
+				0230FD071676AB05007754C3 /* WsCategories.php */,
+				0230FD081676AB06007754C3 /* WsTypes.php */,
 				0230FD021676253F007754C3 /* Polises.php */,
 				0230FCCD1674E191007754C3 /* Companies.php */,
 				0230FCC516748038007754C3 /* Airports.php */,

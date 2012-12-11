@@ -131,7 +131,7 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (16, 'Подразделения'),
 (8, 'Позиции на борту'),
 (11, 'Регионы'),
-(15, 'Типы ВС'),
+(15, 'Виды ВС'),
 (7, 'Типы налета'),
 (4, 'Типы полетов'),
 (12, 'Цели');
@@ -255,8 +255,8 @@ INSERT INTO `link_data` (`id`, `link_id`, `name`, `value`, `desc`) VALUES
 (115, 14, 'Визы', 'Одноразовая', 'Одноразовая'),
 (116, 14, 'Визы', 'Многоразовая', 'Многоразовая'),
 (117, 14, 'Визы', 'По списку', 'По списку'),
-(118, 15, 'Типы ВС', 'Самолет', 'Самолет'),
-(119, 15, 'Типы ВС', 'Вертолет', 'Вертолет'),
+(118, 15, 'Виды ВС', 'Самолет', 'Самолет'),
+(119, 15, 'Виды ВС', 'Вертолет', 'Вертолет'),
 (120, 16, 'Подразделения', 'ИАС г. Южно-Сахалинска', 'ИАС г. Южно-Сахалинска'),
 (121, 16, 'Подразделения', 'ЛC', 'ЛC'),
 (122, 16, 'Подразделения', 'ШИШКИН', 'ШИШКИН'),
@@ -7546,3 +7546,330 @@ INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndD
 INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (103, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9902, null, 0);
 INSERT INTO `polis` (`id`, `CompanyId`, `Number`, `Addendum`, `StartDate`, `EndDate`, `Ammount`, `twsId`, `ZCode`, `Comment`, `Hidden`) VALUES (104, 82, '1509серия003', '', (null), (null), '100 000руб.', null, 9989, null, 0);
 
+
+CREATE TABLE IF NOT EXISTS `wsCategories` (
+    `id` int NOT NULL,
+    `Name` varchar(20) COLLATE utf8_unicode_ci,
+    `Fixed` char,
+    `Hidden` char,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `wsCategories` (`id`, `Name`, `Fixed`, `Hidden`) VALUES (0, 'Самолет', 1, 0);
+INSERT INTO `wsCategories` (`id`, `Name`, `Fixed`, `Hidden`) VALUES (1, 'Вертолет', 1, 0);
+
+CREATE TABLE IF NOT EXISTS `wsTypes` (
+    `id` int NOT NULL,
+    `twsId` int,
+    `Name` varchar(15) COLLATE utf8_unicode_ci,
+    `NameEn` varchar(15),
+    `TypeId` int,
+    `Class` int,
+    `IATA` varchar(3) NOT NULL,
+    `IKAO` varchar(4) NOT NULL,
+    `Fixed` char,
+    `ZCode` int,
+    `ZMCode` int,
+    `Hidden` char,
+    PRIMARY KEY (`id`),
+    INDEX `ID2` (`id` ASC),
+    INDEX `twsId` (`twsId` ASC),
+    INDEX `ZCode` (`ZCode` ASC),
+    INDEX `ZCode1` (`ZMCode` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (1, null, 'Ил-96', 'IL-96', 0, 1, 'IL9', 'IL96', 1, 1, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (2, null, 'Ил-86', 'IL-86', 0, 1, 'ILM', 'IL86', 1, 2, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (3, null, 'Ил-103', 'IL-103', 0, 4, '', 'I103', 1, 3, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (4, null, 'Ил-14', 'IL-14', 0, 3, '', 'IL14', 1, 4, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (5, null, 'Ил-18', 'IL-18', 0, 2, 'IL8', 'IL18', 1, 5, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (6, null, 'Ил-62', 'IL-62', 0, 1, 'IL6', 'IL62', 1, 6, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (7, null, 'Ил-76', 'IL-76', 0, 1, 'IL7', 'IL76', 1, 7, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (8, null, 'Ка-25', 'KA-25', 1, 2, '', 'KA25', 1, 8, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (9, null, 'Ка-26', 'KA-26', 1, 3, '', 'KA26', 1, 9, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (10, null, 'Ка-32', 'KA-32', 1, 1, '', 'KA27', 1, 10, null, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (11, null, 'Л-410', 'L-410', 0, 4, 'L4T', 'L410', 1, 11, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (12, null, 'Ми-10', 'MI-10', 1, 1, '', 'MI10', 1, 12, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (13, null, 'Ми-14', 'MI-14', 1, 1, '', 'MI14', 1, 13, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (14, null, 'Ми-17', 'MI-17', 1, 1, 'MIH', 'MI8', 1, 14, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (15, null, 'Ми-2', 'MI-2', 1, 3, '', 'MI2', 1, 15, null, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (16, null, 'Ми-26', 'MI-26', 1, 1, '', 'MI26', 1, 16, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (17, null, 'Ми-34', 'MI-34', 1, 4, '', 'MI43', 1, 17, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (18, null, 'Ми-4', 'MI-4', 1, 2, '', 'MI4', 1, 18, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (19, null, 'Ми-6', 'MI-6', 1, 1, '', 'MI6', 1, 19, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (20, null, 'Ми-8', 'MI-8', 1, 1, 'MIH', 'MI8', 1, 20, null, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (21, null, 'Ту-104', 'TU-104', 0, 1, '', '', 1, 21, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (22, null, 'Ту-114', 'TU-114', 0, 1, '', '', 1, 22, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (23, null, 'Ту-124', 'TU-124', 0, 2, '', '', 1, 23, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (24, null, 'Ту-134', 'TU-134', 0, 2, 'TU3', 'T134', 1, 24, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (25, null, 'Ту-154', 'TU-154', 0, 1, 'TU5', 'T154', 1, 25, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (26, null, 'Ту-204', 'TU-204', 0, 1, 'T20', 'T204', 1, 26, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (27, null, 'Як-18', 'YAK-18', 0, 4, '', 'YK18', 1, 27, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (28, null, 'Як-40', 'YAK-40', 0, 3, 'YK4', 'YK40', 1, 28, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (29, null, 'Як-42', 'YAK-42', 0, 2, 'YK2', 'YK42', 1, 29, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (30, null, 'Ан-12', 'AN-12', 0, 2, 'ANF', 'AN12', 1, 30, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (31, null, 'Ан-124', 'AN-124', 0, 1, 'A4F', 'A124', 1, 31, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (32, null, 'Ан-14', 'AN-14', 0, 4, '', '', 1, 32, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (33, null, 'Ан-2', 'AN-2', 0, 4, '', 'AN2', 1, 33, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (34, null, 'Ан-22', 'AN-22', 0, 1, '', 'AN22', 1, 34, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (35, null, 'Ан-24', 'AN-24', 0, 3, 'AN4', 'AN24', 1, 35, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (36, null, 'Ан-26', 'AN-26', 0, 3, 'AN6', 'AN26', 1, 36, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (37, null, 'Ан-28', 'AN-28', 0, 4, '', 'AN28', 1, 37, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (38, null, 'Ан-30', 'AN-30', 0, 3, 'AN6', 'AN30', 1, 38, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (39, null, 'Ан-32', 'AN-32', 0, 3, 'AN6', 'AN32', 1, 39, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (40, null, 'Ан-38', 'AN-38', 0, 4, '', 'AN38', 1, 40, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (41, null, 'Ан-72', 'AN-72', 0, 2, 'AN7', 'AN72', 1, 41, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (42, null, 'Ан-74', 'AN-74', 0, 2, 'AN7', 'AN72', 1, 42, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (43, null, 'Ан-8', 'AN-8', 0, 2, '', 'AN8', 1, 43, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (44, null, 'A-310', 'A-310', 0, 1, '310', 'A310', 1, 44, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (45, null, 'AS-350', 'AS-350', 1, 3, 'NDE', 'AS50', 1, 45, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (46, null, 'B-737', 'B-737', 0, 2, '', '', 1, 46, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (47, null, 'B-757', 'B-757', 0, 1, '752', 'B757', 1, 47, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (48, null, 'B-767', 'B-767', 0, 1, '762', 'B767', 1, 48, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (49, null, 'B-777', 'B-777', 0, 1, '772', 'B777', 1, 49, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (50, null, 'BAe-125', 'BAe-125', 0, 3, 'H25', 'H25A', 1, 50, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (51, null, 'DC-10', 'DC-10', 0, 1, 'D10', 'DC10', 1, 51, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (52, null, 'FALCON-20', 'FALCON-20', 0, 3, 'DF2', 'FA20', 1, 52, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (53, null, 'FALCON-900', 'FALCON-900', 0, 3, 'DF3', 'F900', 1, 53, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (54, 5, 'Ил-18В', 'IL-18B', 0, 2, 'IL8', 'IL18', 1, null, 1, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (55, 5, 'Ил-18Д', 'IL-18D', 0, 2, 'IL8', 'IL18', 1, null, 2, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (56, 5, 'Ил-18Е', 'IL-18E', 0, 2, 'IL8', 'IL18', 1, null, 3, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (57, 6, 'Ил-62', 'IL-62', 0, 1, 'IL6', 'IL62', 1, null, 4, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (58, 6, 'Ил-62М', 'IL-62M', 0, 1, 'IL6', 'IL62', 1, null, 5, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (59, 3, 'Ил-103', 'IL-103', 0, 4, '', 'I103', 1, null, 6, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (60, 4, 'Ил-14', 'IL-14', 0, 3, '', 'IL14', 1, null, 7, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (61, 4, 'Ил-14М', 'IL-14M', 0, 3, '', 'IL14', 1, null, 8, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (62, 5, 'Ил-18', 'IL-18', 0, 2, 'IL8', 'IL18', 1, null, 9, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (63, 7, 'Ил-76', 'IL-76', 0, 1, 'IL7', 'IL76', 1, null, 10, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (64, 7, 'Ил-76М', 'IL-76M', 0, 1, 'IL7', 'IL76', 1, null, 11, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (65, 7, 'Ил-76МД', 'IL-76MD', 0, 1, 'IL7', 'IL76', 1, null, 12, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (66, 7, 'Ил-76Т', 'IL-76T', 0, 1, 'IL7', 'IL76', 1, null, 13, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (67, 7, 'Ил-76ТД', 'IL-76TD', 0, 1, 'IL7', 'IL76', 1, null, 14, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (68, 2, 'Ил-86', 'IL-86', 0, 1, 'ILM', 'IL86', 1, null, 15, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (69, 1, 'Ил-96-300', 'IL-96-300', 0, 1, 'IL9', 'IL96', 1, null, 16, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (70, 1, 'Ил-96-300ПУ', 'IL-96-300PU', 0, 1, 'IL9', 'IL96', 1, null, 17, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (71, 8, 'Ка-25', 'KA-25', 1, 2, '', 'KA25', 1, null, 18, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (72, 9, 'Ка-26', 'KA-26', 1, 3, '', 'KA26', 1, null, 19, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (73, 10, 'Ка-32', 'KA-32', 1, 1, '', 'KA27', 1, null, 20, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (74, 10, 'Ка-32А', 'KA-32A', 1, 1, '', 'KA27', 1, null, 21, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (75, 10, 'Ка-32С', 'KA-32S', 1, 1, '', 'KA27', 1, null, 22, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (76, 10, 'Ка-32Т', 'KA-32T', 1, 1, '', 'KA27', 1, null, 23, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (77, 11, 'Л-410А', 'L-410A', 0, 4, 'L4T', 'L410', 1, null, 24, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (78, 11, 'Л-410АС', 'L-410AS', 0, 4, 'L4T', 'L410', 1, null, 25, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (79, 11, 'Л-410М', 'L-410M', 0, 4, 'L4T', 'L410', 1, null, 26, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (80, 11, 'Л-410УВП', 'L-410UVP', 0, 4, 'L4T', 'L410', 1, null, 27, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (81, 11, 'Л-410УВП-Э', 'L-410UVP-E', 0, 4, 'L4T', 'L410', 1, null, 28, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (82, 12, 'Ми-10К', 'MI-10K', 1, 1, '', 'MI10', 1, null, 29, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (83, 13, 'Ми-14ПС', 'MI-14PS', 1, 1, '', 'MI14', 1, null, 30, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (84, 14, 'Ми-17', 'MI-17', 1, 1, 'MIH', 'MI8', 1, null, 31, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (85, 15, 'Ми-2', 'MI-2', 1, 3, '', 'MI2', 1, null, 32, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (86, 16, 'Ми-26', 'MI-26', 1, 1, '', 'MI26', 1, null, 33, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (87, 16, 'Ми-26Т', 'MI-26T', 1, 1, '', 'MI26', 1, null, 34, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (88, 17, 'Ми-34С', 'MI-34S', 1, 4, '', 'MI43', 1, null, 35, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (89, 18, 'Ми-4', 'MI-4', 1, 2, '', 'MI4', 1, null, 36, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (90, 18, 'Ми-4А', 'MI-4A', 1, 2, '', 'MI4', 1, null, 37, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (91, 19, 'Ми-6', 'MI-6', 1, 1, '', 'MI6', 1, null, 38, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (92, 19, 'Ми-6А', 'MI-6A', 1, 1, '', 'MI6', 1, null, 39, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (93, 20, 'Ми-8', 'MI-8', 1, 1, 'MIH', 'MI8', 1, null, 40, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (94, 20, 'Ми-8АМТ', 'MI-8AMT', 1, 1, 'MIH', 'MI8', 1, null, 41, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (95, 20, 'Ми-8МТ', 'MI-8MT', 1, 1, 'MIH', 'MI8', 1, null, 42, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (96, 20, 'Ми-8МТВ', 'MI-8MTV', 1, 1, 'MIH', 'MI8', 1, null, 43, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (97, 20, 'Ми-8МТВ-1', 'MI-8MTV-1', 1, 1, 'MIH', 'MI8', 1, null, 44, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (98, 20, 'Ми-8МТВ-2', 'MI-8MTV-2', 1, 1, 'MIH', 'MI8', 1, null, 45, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (99, 20, 'Ми-8П', 'MI-8P', 1, 1, 'MIH', 'MI8', 1, null, 46, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (100, 20, 'Ми-8ПС', 'MI-8PS', 1, 1, 'MIH', 'MI8', 1, null, 47, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (101, 20, 'Ми-8ПС-11', 'MI-8PS-11', 1, 1, 'MIH', 'MI8', 1, null, 48, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (102, 20, 'Ми-8ПС-18', 'MI-8PS-18', 1, 1, 'MIH', 'MI8', 1, null, 49, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (103, 20, 'Ми-8ПС-7', 'MI-8PS-7', 1, 1, 'MIH', 'MI8', 1, null, 50, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (104, 20, 'Ми-8ПС-9', 'MI-8PS-9', 1, 1, 'MIH', 'MI8', 1, null, 51, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (105, 20, 'Ми-8Т', 'MI-8T', 1, 1, 'MIH', 'MI8', 1, null, 52, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (106, 21, 'Ту-104А', 'TU-104A', 0, 1, '', '', 1, null, 53, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (107, 21, 'Ту-104Б', 'TU-104B', 0, 1, '', '', 1, null, 54, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (108, 22, 'Ту-114', 'TU-114', 0, 1, '', '', 1, null, 55, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (109, 23, 'Ту-124', 'TU-124', 0, 2, '', '', 1, null, 56, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (110, 24, 'Ту-134', 'TU-134', 0, 2, 'TU3', 'T134', 1, null, 57, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (111, 24, 'Ту-134А', 'TU-134A', 0, 2, 'TU3', 'T134', 1, null, 58, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (112, 24, 'Ту-134А3', 'TU-134A3', 0, 2, 'TU3', 'T134', 1, null, 59, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (113, 24, 'Ту-134Б', 'TU-134B', 0, 2, 'TU3', 'T134', 1, null, 60, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (114, 24, 'Ту-134ИК', 'TU-134IK', 0, 2, 'TU3', 'T134', 1, null, 61, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (115, 24, 'Ту-134СХ', 'TU-134SX', 0, 2, 'TU3', 'T134', 1, null, 62, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (116, 25, 'Ту-154', 'TU-154', 0, 1, 'TU5', 'T154', 1, null, 63, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (117, 25, 'Ту-154А', 'TU-154A', 0, 1, 'TU5', 'T154', 1, null, 64, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (118, 25, 'Ту-154Б', 'TU-154B', 0, 1, 'TU5', 'T154', 1, null, 65, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (119, 25, 'Ту-154Б-1', 'TU-154B-1', 0, 1, 'TU5', 'T154', 1, null, 66, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (120, 26, 'Ту-204', 'TU-204', 0, 1, 'T20', 'T204', 1, null, 67, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (121, 26, 'Ту-204-100', 'TU-204-100', 0, 1, 'T20', 'T204', 1, null, 68, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (122, 27, 'Як-18Т', 'YK-18T', 0, 4, '', 'YK18', 1, null, 69, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (123, 28, 'Як-40', 'YK-40', 0, 3, 'YK4', 'YK40', 1, null, 70, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (124, 28, 'Як-40АТ', 'YK-40AT', 0, 3, 'YK4', 'YK40', 1, null, 71, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (125, 28, 'Як-40Д', 'YK-40D', 0, 3, 'YK4', 'YK40', 1, null, 72, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (126, 28, 'Як-40К', 'YK-40K', 0, 3, 'YK4', 'YK40', 1, null, 73, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (127, 29, 'Як-42', 'YK-42', 0, 2, 'YK2', 'YK42', 1, null, 74, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (128, 29, 'Як-42Д', 'YK-42D', 0, 2, 'YK2', 'YK42', 1, null, 75, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (129, 29, 'Як-42МЛ', 'YK-42ML', 0, 2, 'YK2', 'YK42', 1, null, 76, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (130, 30, 'Ан-12', 'AN-12', 0, 2, 'ANF', 'AN12', 1, null, 77, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (131, 30, 'Ан-12А', 'AN-12A', 0, 2, 'ANF', 'AN12', 1, null, 78, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (132, 31, 'Ан-124', 'AN-124', 0, 1, 'A4F', 'A124', 1, null, 79, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (133, 31, 'Ан-124-100', 'AN-124-100', 0, 1, 'A4F', 'A124', 1, null, 80, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (134, 30, 'Ан-12АП', 'AN-12AP', 0, 2, 'ANF', 'AN12', 1, null, 81, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (135, 30, 'Ан-12Б', 'AN-12B', 0, 2, 'ANF', 'AN12', 1, null, 82, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (136, 30, 'Ан-12БК', 'AN-12BK', 0, 2, 'ANF', 'AN12', 1, null, 83, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (137, 30, 'Ан-12БП', 'AN-12BP', 0, 2, 'ANF', 'AN12', 1, null, 84, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (138, 30, 'Ан-12П', 'AN-12P', 0, 2, 'ANF', 'AN12', 1, null, 85, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (139, 30, 'Ан-12ТА', 'AN-12TA', 0, 2, 'ANF', 'AN12', 1, null, 86, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (140, 30, 'Ан-12ТБ', 'AN-12TB', 0, 2, 'ANF', 'AN12', 1, null, 87, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (141, 30, 'Ан-12ТБК', 'AN-12TBK', 0, 2, 'ANF', 'AN12', 1, null, 88, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (142, 30, 'Ан-12ТБП', 'AN-12TBP', 0, 2, 'ANF', 'AN12', 1, null, 89, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (143, 32, 'Ан-14', 'AN-14', 0, 4, '', '', 1, null, 90, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (144, 33, 'Ан-2', 'AN-2', 0, 4, '', 'AN2', 1, null, 91, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (145, 33, 'Ан-2В', 'AN-2V', 0, 4, '', 'AN2', 1, null, 92, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (146, 33, 'Ан-2М', 'AN-2M', 0, 4, '', 'AN2', 1, null, 93, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (147, 33, 'Ан-2Т', 'AN-2T', 0, 4, '', 'AN2', 1, null, 94, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (148, 33, 'Ан-2ТП', 'AN-2TP', 0, 4, '', 'AN2', 1, null, 95, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (149, 34, 'Ан-22', 'AN-22', 0, 1, '', 'AN22', 1, null, 96, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (150, 35, 'Ан-24', 'AN-24', 0, 3, 'AN4', 'AN24', 1, null, 97, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (151, 35, 'Ан-24АЛК', 'AN-24ALK', 0, 3, 'AN4', 'AN24', 1, null, 98, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (152, 35, 'Ан-24Б', 'AN-24B', 0, 3, 'AN4', 'AN24', 1, null, 99, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (153, 35, 'Ан-24ЛР', 'AN-24LR', 0, 3, 'AN4', 'AN24', 1, null, 100, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (154, 35, 'Ан-24РВ', 'AN-24RV', 0, 3, 'AN4', 'AN24', 1, null, 101, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (155, 35, 'Ан-24РТ', 'AN-24RT', 0, 3, 'AN4', 'AN24', 1, null, 102, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (156, 35, 'Ан-24Т', 'AN-24T', 0, 3, 'AN4', 'AN24', 1, null, 103, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (157, 35, 'Ан-24ТБК', 'AN-24TBK', 0, 3, 'AN4', 'AN24', 1, null, 104, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (158, 36, 'Ан-26', 'AN-26', 0, 3, 'AN6', 'AN26', 1, null, 105, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (159, 36, 'Ан-26АЛК', 'AN-26ALK', 0, 3, 'AN6', 'AN26', 1, null, 106, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (160, 36, 'Ан-26Б', 'AN-26B', 0, 3, 'AN6', 'AN26', 1, null, 107, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (161, 36, 'Ан-26БРЛ', 'AN-26BRL', 0, 3, 'AN6', 'AN26', 1, null, 108, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (162, 37, 'Ан-28', 'AN-28', 0, 4, '', 'AN28', 1, null, 109, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (163, 38, 'Ан-30', 'AN-30', 0, 3, 'AN6', 'AN30', 1, null, 110, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (164, 38, 'Ан-30Р', 'AN-30R', 0, 3, 'AN6', 'AN30', 1, null, 111, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (165, 39, 'Ан-32', 'AN-32', 0, 3, 'AN6', 'AN32', 1, null, 112, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (166, 39, 'Ан-32А', 'AN-32A', 0, 3, 'AN6', 'AN32', 1, null, 113, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (167, 39, 'Ан-32Б', 'AN-32B', 0, 3, 'AN6', 'AN32', 1, null, 114, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (168, 40, 'Ан-38-100', 'AN-38-100', 0, 4, '', 'AN38', 1, null, 115, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (169, 41, 'Ан-72', 'AN-72', 0, 2, 'AN7', 'AN72', 1, null, 116, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (170, 41, 'Ан-72-100Д', 'AN-72-100D', 0, 2, 'AN7', 'AN72', 1, null, 117, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (171, 42, 'Ан-74', 'AN-74', 0, 2, 'AN7', 'AN72', 1, null, 118, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (172, 42, 'Ан-74-200', 'AN-74-200', 0, 2, 'AN7', 'AN72', 1, null, 119, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (173, 42, 'Ан-74Д', 'AN-74D', 0, 2, 'AN7', 'AN72', 1, null, 120, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (174, 42, 'Ан-74Т-100', 'AN-74T-100', 0, 2, 'AN7', 'AN72', 1, null, 121, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (175, 43, 'Ан-8', 'AN-8', 0, 2, '', 'AN8', 1, null, 122, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (176, 44, 'A-310-304', 'A-310-304', 0, 1, '310', 'A310', 1, null, 123, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (177, 44, 'A-310-308', 'A-310-308', 0, 1, '310', 'A310', 1, null, 124, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (178, 44, 'A-310-324', 'A-310-324', 0, 1, '310', 'A310', 1, null, 125, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (179, 44, 'A-310-325', 'A-310-325', 0, 1, '310', 'A310', 1, null, 126, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (180, 45, 'AS-350BA', 'AS-350BA', 1, 3, 'NDE', 'AS50', 1, null, 127, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (181, 46, 'B-737-200', 'B-737-200', 0, 2, '73S', 'B732', 1, null, 128, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (182, 46, 'B-737-400', 'B-737-400', 0, 2, '734', 'B734', 1, null, 129, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (183, 46, 'B-737-700', 'B-737-700', 0, 2, '73G', 'B737', 1, null, 130, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (184, 47, 'B-757-200', 'B-757-200', 0, 1, '752', 'B752', 1, null, 131, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (185, 48, 'B-767-300', 'B-767-300', 0, 1, '763', 'B763', 1, null, 132, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (186, 49, 'B-777-200', 'B-777-200', 0, 1, '772', 'B772', 1, null, 133, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (187, 50, 'BAe-125-400', 'BAe-125-400', 0, 3, 'H25', 'H25A', 1, null, 134, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (188, 50, 'BAe-125-700', 'BAe-125-700', 0, 3, 'H25', 'H25B', 1, null, 135, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (189, 50, 'BAe-125-800', 'BAe-125-800', 0, 3, 'H25', 'H25B', 1, null, 136, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (190, 51, 'DC-10-30', 'DC-10-30', 0, 1, 'D10', 'DC10', 1, null, 137, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (191, 51, 'DC-10-30F', 'DC-10-30F', 0, 1, 'D10', 'DC10', 1, null, 138, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (192, 52, 'FALCON-20', 'FALCON-20', 0, 3, 'DF2', 'FA20', 1, null, 139, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (193, 53, 'FALCON-900', 'FALCON-900', 0, 3, 'DF3', 'F900', 1, null, 140, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (194, 25, 'Ту-154М', 'TU-154M', 0, 1, 'TU5', 'T154', 1, null, 141, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (195, 25, 'Ту-154Б-2', 'TU-154B-2', 0, 1, 'TU5', 'T154', 1, null, 142, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (196, 53, 'FALCON-900B', 'FALCON-900B', 0, 3, 'DF3', 'F900', 1, null, 143, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (197, 33, 'Ан-2ТР', 'AN-2TR', 0, 4, '', 'AN2', 1, null, 514, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (198, null, 'A-319', 'A-319', 0, 1, '319', 'A319', 1, 54, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (199, null, 'A-320', 'A-320', 0, 1, '320', 'A320', 1, 55, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (200, null, 'A-321', 'A-321', 0, 1, '321', 'A321', 1, 59, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (201, null, 'AS-355', 'AS-355', 1, 3, '', '', 1, 56, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (202, null, 'BK-117', 'BK-117', 1, 4, '', '', 1, 61, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (203, null, 'Bo-105', 'Bo-105', 1, 4, '', '', 1, 62, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (204, null, 'DHC-8', 'DHC-8', 0, 3, '', 'DH8A', 1, 57, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (205, null, 'Gulfstream IV', 'Gulfstream IV', 0, 4, '', '', 1, 58, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (206, null, 'Ан-140', 'AN-140', 0, 3, '', 'A140', 1, 70, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (207, null, 'Ан-3', 'AN-3', 0, 4, '', 'AN3', 1, 60, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (208, null, 'Бе-103', 'BE-103', 0, 4, '', 'B103', 1, 68, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (209, null, 'Бе-200', 'BE-200', 0, 2, '', 'BER2', 1, 69, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (210, null, 'Ил-114', 'IL-114', 0, 3, 'IL1', 'I114', 1, 63, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (211, null, 'Ми-8МТВ(АМТ)', 'MI-8MTV(AMT)', 1, 1, 'MIH', 'MI8', 1, 67, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (212, null, 'Ми-8МТВ-1', null, 1, 1, '', '', 1, 735, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (213, null, 'Ми-8Т', null, 1, 1, '', '', 1, 418, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (214, null, 'Ту-214', 'TU-214', 0, 1, 'T21', 'T214', 1, 64, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (215, null, 'Як-12', 'YAK-12', 0, 4, '', 'YK12', 1, 65, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (216, null, 'Як-52', 'YAK-52', 0, 4, '', 'YK52', 1, 66, null, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (217, 10, 'Ка-32АО', 'KA-32AO', 1, 1, '', 'KA27', 1, null, 186, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (218, 20, 'Ми-8ТП', 'MI-8TP', 1, 1, 'MIH', 'MI8', 1, null, 207, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (219, 26, 'Ту-204С', 'TU-204S', 0, 1, 'T20', 'T204', 1, null, 187, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (220, 26, 'Ту-204-100С', 'TU-204-100S', 0, 1, 'T20', 'T204', 1, null, 188, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (221, 26, 'Ту-204-120', 'TU-204-120', 0, 1, 'T20', 'T204', 1, null, 189, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (222, 26, 'Ту-204-120С', 'TU-204-120S', 0, 1, 'T20', 'T204', 1, null, 190, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (223, 28, 'Як-40П', 'YAK-40P', 0, 3, 'YK4', 'YK40', 1, null, 196, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (224, 29, 'Як-42М', 'YAK-42M', 0, 2, 'Y42', 'YK42', 1, null, 197, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (225, 33, 'Ан-2ТР', 'AN-2TR', 0, 4, '', 'AN2', 1, null, 144, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (226, 33, 'Ан-2С/Х', 'AN-2SH', 0, 4, '', 'AN2', 1, null, 165, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (227, 33, 'Ан-2ПК', 'AN-2PK', 0, 4, '', 'AN2', 1, null, 166, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (228, 33, 'Ан-2П', 'AN-2P', 0, 4, '', 'AN2', 1, null, 169, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (229, 36, 'Ан-26-100', 'AN-26-100', 0, 3, 'AN6', 'AN26', 1, null, 167, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (230, 36, 'Ан-26Б-100', 'AN-26B-100', 0, 3, 'AN6', 'AN26', 1, null, 168, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (231, 36, 'Ан-26П', 'Ан-26П', 0, 3, 'AN6', 'AN26', 1, null, 170, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (232, 38, 'Ан-30Д', 'AN-30D', 0, 3, 'AN6', 'AN30', 1, null, 173, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (233, 42, 'Ан-74ТК-100', 'AN-74TK-100', 0, 2, 'AN7', 'AN72', 1, null, 174, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (234, 42, 'Ан-74ТК-100С', 'AN-74TK-100S', 0, 2, 'AN7', 'AN72', 1, null, 175, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (235, 44, 'A-310-300', 'A-310-300', 0, 1, '310', 'A310', 1, null, 145, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (236, 46, 'B-737-236', 'B-737-236', 0, 2, '73S', 'B73A', 1, null, 151, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (237, 46, 'B-737-2C9', 'B-737-2C9', 0, 2, '73S', 'B73A', 1, null, 152, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (238, 46, 'B-737-300', 'B-737-300', 0, 2, '', 'B733', 1, null, 153, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (239, 46, 'B-737-329', 'B-737-329', 0, 2, '', '', 1, null, 154, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (240, 46, 'B-737-4MO', 'B-737-4MO', 0, 2, '', '', 1, null, 155, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (241, 46, 'B-737-7K9', 'B-737-7K9', 0, 2, '73G', 'B73C', 1, null, 156, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (242, 46, 'B-737-247', 'B-737-247', 0, 2, '', '', 1, null, 176, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (243, 46, 'B-737-500', 'B-737-500', 0, 2, '', 'B735', 1, null, 213, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (244, 46, 'B-737-600', 'B-737-600', 0, 2, '', 'B736', 1, null, 214, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (245, 46, 'B-737-800', 'B-737-800', 0, 2, '', 'B738', 1, null, 215, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (246, 46, 'B-737-900', 'B-737-900', 0, 2, '', 'B739', 1, null, 216, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (247, 47, 'B-757-300', 'B-757-300', 0, 1, '', 'B753', 1, null, 217, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (248, 48, 'B-767-200', 'B-767-200', 0, 1, '762', 'B762', 1, null, 157, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (249, 48, 'B-767-36N', 'B-767-36N', 0, 1, '763', 'B767', 1, null, 158, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (250, 48, 'B-767-400', 'B-767-400', 0, 1, '', 'B764', 1, null, 218, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (251, 49, 'B-777-300', 'B-777-300', 0, 1, '', 'B773', 1, null, 219, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (252, 50, 'BAe-125-700B', 'BAe-125-700B', 0, 3, 'H25', 'H25B', 1, null, 184, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (253, 50, 'BAe-125-1000', 'BAe-125-1000', 0, 3, 'H25', '', 1, null, 185, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (254, 51, 'DC-10-40F', 'DC-10-40F', 0, 1, 'D10', 'DC10', 1, null, 159, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (255, 52, 'FALCON-20D', 'FALCON-20D', 0, 3, '', '', 1, null, 161, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (256, 198, 'A-319', 'A-319', 0, 1, '319', 'A319', 1, null, 146, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (257, 198, 'A-319-100', 'A-319-100', 0, 1, '319', 'A319', 1, null, 147, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (258, 199, 'A-320', 'A-320', 0, 1, '320', 'A320', 1, null, 148, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (259, 199, 'A-320-200', 'A-320-200', 0, 1, '322', 'A322', 1, null, 149, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (260, 199, 'A-320-100', 'A-320-100', 0, 1, '321', 'A321', 1, null, 163, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (261, 201, 'AS-355N', 'AS-355N', 1, 3, '', '', 1, null, 150, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (262, 204, 'DHC-8-102', 'DHC-8-102', 0, 3, '', 'DH8A', 1, null, 160, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (263, 205, 'Gulfstream IV-S', 'Gulfstream IV-S', 0, 4, '', '', 1, null, 162, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (264, 200, 'A-321', 'A-321', 0, 1, '321', 'A321', 1, null, 164, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (265, 207, 'Ан-3', 'AN-3', 0, 4, '', 'AN3', 1, null, 171, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (266, 207, 'Ан-3Т', 'AN-3T', 0, 4, '', 'AN3', 1, null, 172, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (267, 202, 'BK-117A', 'BK-117A', 1, 4, '', '', 1, null, 177, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (268, 202, 'BK-117B', 'BK-117B', 1, 4, '', '', 1, null, 178, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (269, 202, 'BK-117C', 'BK-117C', 1, 4, '', '', 1, null, 179, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (270, 203, 'Bo-105', 'Bo-105', 1, 4, '', '', 1, null, 180, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (271, 210, 'Ил-114', 'IL-114', 0, 3, 'IL1', 'I114', 1, null, 181, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (272, 210, 'Ил-114-100', 'IL-114-100', 0, 3, 'IL1', 'I114', 1, null, 182, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (273, 210, 'Ил-114Т', 'IL-114T', 0, 3, 'IL1', 'I114', 1, null, 183, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (274, 214, 'Ту-214', 'TU-214', 0, 1, 'T21', 'T214', 1, null, 191, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (275, 214, 'Ту-214С', 'TU-214S', 0, 1, 'T21', 'T214', 1, null, 192, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (276, 214, 'Ту-214С3', 'TU-214S3', 0, 1, 'T21', 'T214', 1, null, 193, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (277, 215, 'Як-12', 'YAK-12', 0, 4, '', 'YK12', 1, null, 194, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (278, 215, 'Як-12М', 'YAK-12M', 0, 4, '', 'YK12', 1, null, 195, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (279, 216, 'Як-52', 'YAK-52', 0, 4, '', 'YK52', 1, null, 198, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (280, 216, 'Як-52М', 'YAK-52M', 0, 4, '', 'YK52', 1, null, 199, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (281, 211, 'Ми-8АМТ', 'MI-8AMT', 1, 1, 'MIH', 'MI8', 1, null, 200, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (282, 211, 'Ми-8МТ', 'MI-8MT', 1, 1, 'MIH', 'MI8', 1, null, 201, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (283, 211, 'Ми-8МТВ', 'MI-8MTV', 1, 1, 'MIH', 'MI8', 1, null, 202, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (284, 211, 'Ми-8МТВ-1', 'MI-8MTV-1', 1, 1, 'MIH', 'MI8', 1, null, 203, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (285, 211, 'Ми-8МТВ-2', 'MI-8MTV-2', 1, 1, 'MIH', 'MI8', 1, null, 204, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (286, 211, 'Ми-171', 'MI-171', 1, 1, 'MIH', 'MI8', 1, null, 205, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (287, 211, 'Ми-172', 'MI-172', 1, 1, 'MIH', 'MI8', 1, null, 206, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (288, 208, 'Бе-103', 'BE-103', 0, 4, '', 'B103', 1, null, 208, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (289, 209, 'Бе-200', 'BE-200', 0, 2, '', 'BER2', 1, null, 209, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (290, 206, 'Ан-140', 'AN-140', 0, 3, '', 'A140', 1, null, 210, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (291, 206, 'Ан-140-100', 'AN-140-100', 0, 3, '', 'A140', 1, null, 211, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (292, 206, 'Ан-140Т', 'AN-140T', 0, 3, '', 'A140', 1, null, 212, 1);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (293, 213, 'Ми-8Т', null, 1, 1, '', '', 1, null, 429, 0);
+INSERT INTO `wsTypes` (`id`, `twsId`, `Name`, `NameEn`, `TypeId`, `Class`, `IATA`, `IKAO`, `Fixed`, `ZCode`, `ZMCode`, `Hidden`) VALUES (294, 212, 'Ми-8МТВ-1', null, 1, 1, '', '', 1, null, 744, 1);
