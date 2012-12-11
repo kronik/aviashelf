@@ -3,7 +3,7 @@ class WsTypesController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'WsTypes';
     protected $_defaultOrder = 'Name';
-    protected $_paging = 30;
+    protected $_paging = 0;
     protected $_buttons = array('add');
     
     public function indexAction()

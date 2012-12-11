@@ -25,13 +25,13 @@ class AirplaneController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         $this->_form->add(new Kwf_Form_Field_TextField('NBort', trlKwf('Bort Title')))
         ->setWidth(600);
-        $this->_form->add(new Kwf_Form_Field_TextField('Mass', trlKwf('Weight')))
+        $this->_form->add(new Kwf_Form_Field_NumberField('Mass', trlKwf('Weight')))
         ->setWidth(600)
         ->setAllowBlank(false);
         $this->_form->add(new Kwf_Form_Field_TextField('Center', trlKwf('Center Point')))
         ->setWidth(600)
         ->setAllowBlank(false);
-        $this->_form->add(new Kwf_Form_Field_TextField('LotsNumber', trlKwf('Seats Number')))
+        $this->_form->add(new Kwf_Form_Field_NumberField('LotsNumber', trlKwf('Seats Number')))
         ->setWidth(600)
         ->setAllowBlank(false);
         

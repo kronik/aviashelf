@@ -20,7 +20,7 @@ class PolisesController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
 
-        $this->_columns->add(new Kwf_Grid_Column('Number', trlKwf('Number'), 200));
+        $this->_columns->add(new Kwf_Grid_Column('Number', trlKwf('Number'), 195));
         $this->_columns->add(new Kwf_Grid_Column_Date('StartDate', trlKwf('Start Date'), 100));
         $this->_columns->add(new Kwf_Grid_Column_Date('EndDate', trlKwf('End Date'), 100));
     }
