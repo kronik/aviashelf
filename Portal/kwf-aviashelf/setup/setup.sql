@@ -102,6 +102,96 @@ CREATE TABLE IF NOT EXISTS `member_languages` (
   KEY `language_id` (`language_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `speciality` (
+	`id` int NOT NULL,
+	`name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+	`Flight` char,
+	`Pilot` char,
+	`KWS` char,
+	`Navigator` char,
+	`Steward` char,
+	`Ground` char,
+	`SortOrder` int,
+	`Fixed` char,
+	`Hidden` char,
+	PRIMARY KEY (`id`),
+	INDEX `id` (`id` ASC),
+	INDEX `SortOrder` (`SortOrder` ASC)
+);
+
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (1, 'КВС', 1, 1, 1, 0, 0, 0, 1, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (2, 'Пилот', 1, 1, 0, 0, 0, 0, 2, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (3, 'Штурман', 1, 0, 0, 1, 0, 0, 3, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (4, 'Бортинженер', 1, 0, 0, 0, 0, 0, 4, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (5, 'Бортмеханик', 1, 0, 0, 0, 0, 0, 5, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (6, 'Бортрадист', 1, 0, 0, 0, 0, 0, 6, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (7, 'Бортоператор', 1, 0, 0, 0, 0, 0, 7, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (8, 'Бортпроводник', 1, 0, 0, 0, 1, 0, 8, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (9, 'Техник', 0, 0, 0, 0, 0, 1, 10, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (10, 'Авиаинженер', 0, 0, 0, 0, 0, 1, 9, 1, 0);
+
+CREATE TABLE IF NOT EXISTS `employee` (
+  `id` int(8) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `middlename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `firstnameEn` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `lastnameEn` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `visible` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `birthDate` date DEFAULT NULL,
+  `birthPlace` varchar(255) DEFAULT NULL,
+  `sex` enum('male','female') NOT NULL DEFAULT 'male',
+  `picture_id` int(11) DEFAULT NULL,
+  `passportNumber` varchar(20) DEFAULT NULL,
+  `passportSeria` varchar(255) DEFAULT NULL,
+  `passportDate` date DEFAULT NULL,
+  `passportCompanyId` int(11) unsigned DEFAULT NULL,
+  `intPassportNumber` varchar(20) DEFAULT NULL,
+  `intPassportSeria` varchar(255) DEFAULT NULL,
+  `intPassportStartDate` date DEFAULT NULL,
+  `intPassportEndDate` date DEFAULT NULL,
+  `intPassportCompanyId` int(11) unsigned DEFAULT NULL,
+  `privateAddress` varchar(512) DEFAULT NULL,
+  `privatePhone` varchar(255) DEFAULT NULL,
+  `INN` varchar(100) DEFAULT NULL,
+  `pensionInsurance` varchar(100) DEFAULT NULL,
+  `comment` varchar(1000) DEFAULT NULL,
+  `currentCompanyId` int(11) unsigned DEFAULT NULL,
+  `subCompanyId` int(11) unsigned DEFAULT NULL,
+  `companyRegNumber` varchar(20) DEFAULT NULL,
+  `orderNumber` varchar(30) DEFAULT NULL,
+  `orderDate` date DEFAULT NULL,
+  `isAllowed` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `classNumber` int(8) unsigned DEFAULT NULL,
+  `classDocNumber` varchar(20) DEFAULT NULL,
+  `classDocDate` date DEFAULT NULL,
+  `classCompanyId` int(11) unsigned DEFAULT NULL,
+  `totalTime` int(11) unsigned DEFAULT NULL,
+  `totalTimeDate` date DEFAULT NULL,
+  `specId` int(8) unsigned DEFAULT NULL,
+  `positionId` int(8) unsigned DEFAULT NULL,
+  `isLeader` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `failsDocNumber` varchar(20) DEFAULT NULL,
+  `specTypeId` int(8) unsigned DEFAULT NULL,
+  `specDocNumber` varchar(20) DEFAULT NULL,
+  `specDocStartDate` date DEFAULT NULL,
+  `specDocEndDate` date DEFAULT NULL,
+  `specDocCompanyId` int(11) unsigned DEFAULT NULL,
+  `specComment` varchar(1000) DEFAULT NULL,
+  `trainDocNumber` varchar(20) DEFAULT NULL,
+  `trainDocEndDate` date DEFAULT NULL,
+  `trainDocCompanyId` int(11) unsigned DEFAULT NULL,
+  `degreeDocNumber` varchar(20) DEFAULT NULL,
+  `degreeDocEndDate` date DEFAULT NULL,
+  `degreeDocCompanyId` int(11) unsigned DEFAULT NULL,
+  `enTrainDocNumber` varchar(20) DEFAULT NULL,
+  `enTrainDocEndDate` date DEFAULT NULL,
+  `enTrainDocCompanyId` int(11) unsigned DEFAULT NULL,
+
+  PRIMARY KEY (`id`),
+  KEY `picture_id` (`picture_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `links` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,

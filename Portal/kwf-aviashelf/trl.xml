@@ -2536,6 +2536,7 @@
         <id>501</id>
         <ro>Poziţie</ro>
         <sl>Položaj</sl>
+        <ru>Позиция</ru>
     </text>
     <text>
         <en>Default</en>
@@ -4013,7 +4014,7 @@
         <de>Telefon</de>
         <fr>Téléphone</fr>
         <es>Teléfono</es>
-        <ru>телефон</ru>
+        <ru>Телефон</ru>
         <id>807</id>
         <ro>Telefon</ro>
         <sl>Telefon</sl>
@@ -9297,6 +9298,231 @@
         <en>Subcompany</en>
         <ru>Подрядчик</ru>
         <id>1830</id>
+    </text>
+    <text>
+        <en>Active</en>
+        <ru>Активный</ru>
+        <id>1831</id>
+    </text>
+    <text>
+        <en>Allowed</en>
+        <ru>Допуск</ru>
+        <id>1832</id>
+    </text>
+    <text>
+        <en>Middlename</en>
+        <ru>Отчество</ru>
+        <id>1833</id>
+    </text>
+    <text>
+        <en>Photo</en>
+        <ru>Фото</ru>
+        <id>1834</id>
+    </text>
+    <text>
+        <en>Firstname En</en>
+        <ru>Имя (по-английски)</ru>
+        <id>1835</id>
+    </text>
+    <text>
+        <en>Lastname En</en>
+        <ru>Фамилия (по-английски)</ru>
+        <id>1836</id>
+    </text>
+    <text>
+        <en>Sex</en>
+        <ru>Пол</ru>
+        <id>1837</id>
+    </text>
+    <text>
+        <en>Birthdate</en>
+        <ru>Дата рождения</ru>
+        <id>1838</id>
+    </text>
+    <text>
+        <en>Birthplace</en>
+        <ru>Место рождения</ru>
+        <id>1839</id>
+    </text>
+    <text>
+        <en>Address</en>
+        <ru>Адрес</ru>
+        <id>1840</id>
+    </text>
+    <text>
+        <en>Pension Insurance</en>
+        <ru>Пенсионное страхование</ru>
+        <id>1841</id>
+    </text>
+    <text>
+        <en>General Info</en>
+        <ru>Общая информация</ru>
+        <id>1842</id>
+    </text>
+    <text>
+        <en>Personal data</en>
+        <ru>Личные данные</ru>
+        <id>1843</id>
+    </text>
+    <text>
+        <en>Passport data</en>
+        <ru>Паспортные данные</ru>
+        <id>1844</id>
+    </text>
+    <text>
+        <en>Passport Seria</en>
+        <ru>Серия</ru>
+        <id>1845</id>
+    </text>
+    <text>
+        <en>Passport Number</en>
+        <ru>Номер</ru>
+        <id>1846</id>
+    </text>
+    <text>
+        <en>Passport Date</en>
+        <ru>Дата выдачи</ru>
+        <id>1847</id>
+    </text>
+    <text>
+        <en>Passport Issued By</en>
+        <ru>Кем выдан</ru>
+        <id>1848</id>
+    </text>
+    <text>
+        <en>International Passport Seria</en>
+        <ru>Cерия</ru>
+        <id>1849</id>
+    </text>
+    <text>
+        <en>International Passport Number</en>
+        <ru>Номер</ru>
+        <id>1850</id>
+    </text>
+    <text>
+        <en>Doc Start Date</en>
+        <ru>Дата выдачи</ru>
+        <id>1851</id>
+    </text>
+    <text>
+        <en>Doc End Date</en>
+        <ru>Годен до</ru>
+        <id>1852</id>
+    </text>
+    <text>
+        <en>International Passport Issued By</en>
+        <ru>Кем выдан</ru>
+        <id>1853</id>
+    </text>
+    <text>
+        <en>Specialization</en>
+        <ru>Специальность</ru>
+        <id>1854</id>
+    </text>
+    <text>
+        <en>Current company</en>
+        <ru>Место работы</ru>
+        <id>1855</id>
+    </text>
+    <text>
+        <en>Company Number</en>
+        <ru>Табельный номер</ru>
+        <id>1856</id>
+    </text>
+    <text>
+        <en>Order Number</en>
+        <ru>Номер приказа</ru>
+        <id>1857</id>
+    </text>
+    <text>
+        <en>Order Date</en>
+        <ru>Дата приказа</ru>
+        <id>1858</id>
+    </text>
+    <text>
+        <en>Class Doc Number</en>
+        <ru>Номер протокола</ru>
+        <id>1859</id>
+    </text>
+    <text>
+        <en>Class Doc Date</en>
+        <ru>Дата присвоения</ru>
+        <id>1860</id>
+    </text>
+    <text>
+        <en>Class company</en>
+        <ru>Кем присвоен</ru>
+        <id>1861</id>
+    </text>
+    <text>
+        <en>Total Time</en>
+        <ru>Суммарный налет</ru>
+        <id>1862</id>
+    </text>
+    <text>
+        <en>Total Time Date</en>
+        <ru>По состоянию на</ru>
+        <id>1863</id>
+    </text>
+    <text>
+        <en>Speciality</en>
+        <ru>Специальность</ru>
+        <id>1864</id>
+    </text>
+    <text>
+        <en>Spec Position</en>
+        <ru>Должность</ru>
+        <id>1865</id>
+    </text>
+    <text>
+        <en>Leader</en>
+        <ru>Руководитель</ru>
+        <id>1866</id>
+    </text>
+    <text>
+        <en>Fails Doc Number</en>
+        <ru>Талон нарушений</ru>
+        <id>1867</id>
+    </text>
+    <text>
+        <en>SpecType</en>
+        <ru>Тип св-ва специалиста</ru>
+        <id>1868</id>
+    </text>
+    <text>
+        <en>Spec Doc Number</en>
+        <ru>Номер св-ва специалиста</ru>
+        <id>1869</id>
+    </text>
+    <text>
+        <en>Spec Doc company</en>
+        <ru>Кем выдано</ru>
+        <id>1870</id>
+    </text>
+    <text>
+        <en>Employee</en>
+        <ru>Сотрудник</ru>
+        <id>1871</id>
+    </text>
+    <text>
+        <en>Employees</en>
+        <ru>Сотрудники</ru>
+        <id>1872</id>
+    </text>
+    <text>
+        <en>Local passport</en>
+        <ru>Локальный паспорт</ru>
+        <id>1873</id>
+    </text>
+    <text>
+        <en>International passport</en>
+        <ru>Заграничный паспорт</ru>
+        <id>1874</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
     </text>
 </trl>
 

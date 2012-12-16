@@ -13172,6 +13172,12 @@
 		026FBF291661E26B00139CDD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		026FBF2A1661E26B00139CDD /* trl.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trl.xml; sourceTree = "<group>"; };
 		026FBF2B1661E26B00139CDD /* update */ = {isa = PBXFileReference; lastKnownFileType = text; path = update; sourceTree = "<group>"; };
+		02BDD859167D932F007AC083 /* Employee.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Employee.php; sourceTree = "<group>"; };
+		02BDD85B167D9384007AC083 /* Employees.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Employees.php; sourceTree = "<group>"; };
+		02BDD85C167D93CE007AC083 /* Employees.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Employees.js; sourceTree = "<group>"; };
+		02BDD85D167D9598007AC083 /* EmployeeController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EmployeeController.php; sourceTree = "<group>"; };
+		02BDD85E167D9598007AC083 /* EmployeesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EmployeesController.php; sourceTree = "<group>"; };
+		02BDD85F167DBD03007AC083 /* Specialities.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Specialities.php; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -15056,6 +15062,8 @@
 		026F88B91661E26600139CDD /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				02BDD85D167D9598007AC083 /* EmployeeController.php */,
+				02BDD85E167D9598007AC083 /* EmployeesController.php */,
 				0230FD121676D06A007754C3 /* AirplaneController.php */,
 				0230FD131676D06B007754C3 /* AirplanesController.php */,
 				0230FD0A1676C20B007754C3 /* WsTypeController.php */,
@@ -15084,6 +15092,7 @@
 		026F88C11661E26600139CDD /* js */ = {
 			isa = PBXGroup;
 			children = (
+				02BDD85C167D93CE007AC083 /* Employees.js */,
 				0230FD111676D005007754C3 /* Airplanes.js */,
 				0230FD091676C190007754C3 /* WsTypes.js */,
 				0230FD0416762590007754C3 /* Polises.js */,
@@ -47107,6 +47116,8 @@
 		026FBF201661E26B00139CDD /* models */ = {
 			isa = PBXGroup;
 			children = (
+				02BDD85F167DBD03007AC083 /* Specialities.php */,
+				02BDD85B167D9384007AC083 /* Employees.php */,
 				0230FD101676CFBE007754C3 /* Airplanes.php */,
 				0230FD071676AB05007754C3 /* WsCategories.php */,
 				0230FD081676AB06007754C3 /* WsTypes.php */,
@@ -47127,6 +47138,7 @@
 		026FBF241661E26B00139CDD /* Row */ = {
 			isa = PBXGroup;
 			children = (
+				02BDD859167D932F007AC083 /* Employee.php */,
 				026FBF251661E26B00139CDD /* Member.php */,
 			);
 			path = Row;
