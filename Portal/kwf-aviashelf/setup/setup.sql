@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `speciality` (
 	PRIMARY KEY (`id`),
 	INDEX `id` (`id` ASC),
 	INDEX `SortOrder` (`SortOrder` ASC)
-);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (1, 'КВС', 1, 1, 1, 0, 0, 0, 1, 1, 0);
 INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (2, 'Пилот', 1, 1, 0, 0, 0, 0, 2, 1, 0);
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
 
   PRIMARY KEY (`id`),
   KEY `picture_id` (`picture_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+)  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `links` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
