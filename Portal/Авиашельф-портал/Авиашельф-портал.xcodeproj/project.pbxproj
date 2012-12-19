@@ -31,10 +31,10 @@
 		0230FD05167625E4007754C3 /* PolisController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PolisController.php; sourceTree = "<group>"; };
 		0230FD06167625E4007754C3 /* PolisesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PolisesController.php; sourceTree = "<group>"; };
 		0230FD071676AB05007754C3 /* WsCategories.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsCategories.php; sourceTree = "<group>"; };
-		0230FD081676AB06007754C3 /* WsTypes.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsTypes.php; sourceTree = "<group>"; };
-		0230FD091676C190007754C3 /* WsTypes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = WsTypes.js; sourceTree = "<group>"; };
-		0230FD0A1676C20B007754C3 /* WsTypeController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsTypeController.php; sourceTree = "<group>"; };
-		0230FD0B1676C20C007754C3 /* WsTypesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WsTypesController.php; sourceTree = "<group>"; };
+		0230FD081676AB06007754C3 /* Wstypes.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Wstypes.php; sourceTree = "<group>"; };
+		0230FD091676C190007754C3 /* Wstypes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Wstypes.js; sourceTree = "<group>"; };
+		0230FD0A1676C20B007754C3 /* WstypeController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WstypeController.php; sourceTree = "<group>"; };
+		0230FD0B1676C20C007754C3 /* WstypesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = WstypesController.php; sourceTree = "<group>"; };
 		0230FD101676CFBE007754C3 /* Airplanes.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Airplanes.php; sourceTree = "<group>"; };
 		0230FD111676D005007754C3 /* Airplanes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Airplanes.js; sourceTree = "<group>"; };
 		0230FD121676D06A007754C3 /* AirplaneController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AirplaneController.php; sourceTree = "<group>"; };
@@ -13171,7 +13171,6 @@
 		026FBF271661E26B00139CDD /* setup.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = setup.sql; sourceTree = "<group>"; };
 		026FBF291661E26B00139CDD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		026FBF2A1661E26B00139CDD /* trl.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trl.xml; sourceTree = "<group>"; };
-		026FBF2B1661E26B00139CDD /* update */ = {isa = PBXFileReference; lastKnownFileType = text; path = update; sourceTree = "<group>"; };
 		02BDD859167D932F007AC083 /* Employee.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Employee.php; sourceTree = "<group>"; };
 		02BDD85B167D9384007AC083 /* Employees.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Employees.php; sourceTree = "<group>"; };
 		02BDD85C167D93CE007AC083 /* Employees.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Employees.js; sourceTree = "<group>"; };
@@ -13209,7 +13208,6 @@
 				026FBF261661E26B00139CDD /* setup */,
 				026FBF281661E26B00139CDD /* temp */,
 				026FBF2A1661E26B00139CDD /* trl.xml */,
-				026FBF2B1661E26B00139CDD /* update */,
 				026FBF2C1661E26B00139CDD /* uploads */,
 			);
 			name = "kwf-aviashelf";
@@ -15066,8 +15064,8 @@
 				02BDD85E167D9598007AC083 /* EmployeesController.php */,
 				0230FD121676D06A007754C3 /* AirplaneController.php */,
 				0230FD131676D06B007754C3 /* AirplanesController.php */,
-				0230FD0A1676C20B007754C3 /* WsTypeController.php */,
-				0230FD0B1676C20C007754C3 /* WsTypesController.php */,
+				0230FD0A1676C20B007754C3 /* WstypeController.php */,
+				0230FD0B1676C20C007754C3 /* WstypesController.php */,
 				0230FD05167625E4007754C3 /* PolisController.php */,
 				0230FD06167625E4007754C3 /* PolisesController.php */,
 				0230FCD01674E23E007754C3 /* CompaniesController.php */,
@@ -15094,7 +15092,7 @@
 			children = (
 				02BDD85C167D93CE007AC083 /* Employees.js */,
 				0230FD111676D005007754C3 /* Airplanes.js */,
-				0230FD091676C190007754C3 /* WsTypes.js */,
+				0230FD091676C190007754C3 /* Wstypes.js */,
 				0230FD0416762590007754C3 /* Polises.js */,
 				0230FCCF1674E202007754C3 /* Companies.js */,
 				0230FCC61674807C007754C3 /* Airports.js */,
@@ -47120,7 +47118,7 @@
 				02BDD85B167D9384007AC083 /* Employees.php */,
 				0230FD101676CFBE007754C3 /* Airplanes.php */,
 				0230FD071676AB05007754C3 /* WsCategories.php */,
-				0230FD081676AB06007754C3 /* WsTypes.php */,
+				0230FD081676AB06007754C3 /* Wstypes.php */,
 				0230FD021676253F007754C3 /* Polises.php */,
 				0230FCCD1674E191007754C3 /* Companies.php */,
 				0230FCC516748038007754C3 /* Airports.php */,

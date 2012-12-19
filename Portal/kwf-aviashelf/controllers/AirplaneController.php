@@ -8,7 +8,7 @@ class AirplaneController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
-        $typeModel = Kwf_Model_Abstract::getInstance('WsTypes');
+        $typeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $typeSelect = $typeModel->select()->whereEquals('Hidden', '0');
         
         $this->_form->add(new Kwf_Form_Field_Select('twsId', trlKwf('WsType')))

@@ -1,4 +1,4 @@
-var WsTypes = Ext.extend(Ext.Panel,
+var Wstypes = Ext.extend(Ext.Panel,
 {
        initComponent : function(test)
        {
@@ -27,6 +27,6 @@ var WsTypes = Ext.extend(Ext.Panel,
                      region: 'center',
                      items: [form]
                      }];
-       WsTypes.superclass.initComponent.call(this);
+       Wstypes.superclass.initComponent.call(this);
     }
 });

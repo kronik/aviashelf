@@ -1,7 +1,7 @@
 <?php
-class WsTypeController extends Kwf_Controller_Action_Auto_Form
+class WstypeController extends Kwf_Controller_Action_Auto_Form
 {
-    protected $_modelName = 'WsTypes';
+    protected $_modelName = 'Wstypes';
     protected $_permissions = array('save', 'add');
     protected $_buttons = array('save');
     protected $_paging = 0;

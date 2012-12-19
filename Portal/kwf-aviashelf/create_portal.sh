@@ -29,6 +29,14 @@ echo "database.web.host = localhost" >> config.local.ini
 echo "database.web.username = root" >> config.local.ini
 echo "database.web.password = root" >> config.local.ini
 echo "database.web.dbname = aviashelf-portal" >> config.local.ini
- 
+
+mkdir cache/assets
+mkdir cache/config
+mkdir cache/events
+mkdir cache/model
+mkdir cache/simple
+mkdir cache/table
+
+
 #setup: create initial database structure
 #php bootstrap.php setup

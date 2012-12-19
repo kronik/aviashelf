@@ -1,3 +1,5 @@
+SET NAMES utf8;
+
 INSERT INTO `kwf_pools` (`id`, `pool`, `pos`, `value`, `visible`) VALUES
 (1, 'Languages', 1, 'English', 1),
 (2, 'Languages', 2, 'German', 1),
@@ -559,9 +561,8 @@ CREATE TABLE IF NOT EXISTS `airports` (
     `ZCode` int,
     `Hidden` char,
     PRIMARY KEY (`id`),
-    KEY `CountryId` (`CountryId`)
-    INDEX `Name` (`Name` ASC),
-    INDEX `Z_Code` (`ZCode` ASC)
+    KEY `CountryId` (`CountryId`),
+    INDEX `Name` (`Name` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `airports` (`id`, `Name`, `NameEn`, `CountryId`, `City`, `CityEn`, `KOD`, `IKAO`, `IATA`, `ISN_AERODR`, `Fixed`, `ZCode`, `Hidden`) VALUES (1, '10-й Участок', '10th Field', 134, '10-й Участок', '', '', 'XHHS', '', 6414, 1, 6465, 0);
