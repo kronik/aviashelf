@@ -40,7 +40,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         
         $fs->fields->add(new Kwf_Form_Field_Select('sex', trlKwf('Sex')))
             ->setValues(array('male' => trlKwf('Male'), 'female' => trlKwf('Female')))
-            ->setWidth(80)
+            ->setWidth(90)
             ->setAllowBlank(false);
         $fs->fields->add(new Kwf_Form_Field_DateField('birthDate', trlKwf('Birthdate')));
         $fs->fields->add(new Kwf_Form_Field_TextField('birthPlace', trlKwf('Birthplace')))
