@@ -1,12 +1,12 @@
 <?php
-class LinkDataController extends Kwf_Controller_Action_Auto_Grid
+class LinkdataController extends Kwf_Controller_Action_Auto_Grid
 {
-    protected $_modelName = 'LinkData';
+    protected $_modelName = 'Linkdata';
     protected $_defaultOrder = 'id';
     protected $_paging = 0;
     protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
-        'controllerUrl' => '/link-dataentry',
+        'controllerUrl' => '/linkdataentry',
         'width' => 600,
         'height' => 200
     );

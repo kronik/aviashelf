@@ -124,7 +124,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $linkModel = Kwf_Model_Abstract::getInstance('LinkData');
+        $linkModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $linkSelect = $linkModel->select()->whereEquals('name', 'Подразделения');
         
         $fs->fields->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Subcompany')))
@@ -175,7 +175,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $subSpecModel = Kwf_Model_Abstract::getInstance('LinkData');
+        $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $subSpecSelect = $subSpecModel->select()->whereEquals('name', 'Должности');
         
         $fs->fields->add(new Kwf_Form_Field_Select('positionId', trlKwf('Spec Position')))

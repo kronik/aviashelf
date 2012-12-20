@@ -3,7 +3,7 @@ var Links = Ext.extend(Ext.Panel,
     initComponent : function(test)
     {
         var linkdata = new Kwf.Auto.GridPanel({
-            controllerUrl   : '/link-data',
+            controllerUrl   : '/linkdata',
             region          : 'center',
             height          : 600,
             resizable       : true,

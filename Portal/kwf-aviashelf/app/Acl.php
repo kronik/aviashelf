@@ -18,16 +18,10 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_wstypes', array('text'=>trlKwf('WsTypes'), 'icon'=>'book.png'), '/wstypes'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airplanes', array('text'=>trlKwf('Airplanes'), 'icon'=>'book.png'), '/airplanes'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwf('Employees'), 'icon'=>'user.png'), '/employees'), 'default_menuitem');
-
-
-        $this->addResource(new Zend_Acl_Resource('default_members'), 'default_index');
-        $this->addResource(new Zend_Acl_Resource('default_member'), 'default_members');
-        $this->addResource(new Zend_Acl_Resource('default_member-contacts'), 'default_members');
-        $this->addResource(new Zend_Acl_Resource('default_member-contact'), 'default_member-contacts');
                 
         $this->addResource(new Zend_Acl_Resource('default_link'), 'default_links');
-        $this->addResource(new Zend_Acl_Resource('default_link-data'), 'default_links');
-        $this->addResource(new Zend_Acl_Resource('default_link-dataentry'), 'default_link-data');
+        $this->addResource(new Zend_Acl_Resource('default_linkdata'), 'default_links');
+        $this->addResource(new Zend_Acl_Resource('default_linkdataentry'), 'default_linkdata');
         
         $this->addResource(new Zend_Acl_Resource('default_country'), 'default_countries');
         $this->addResource(new Zend_Acl_Resource('default_airport'), 'default_airports');

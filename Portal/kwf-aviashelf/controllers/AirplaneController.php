@@ -53,7 +53,7 @@ class AirplaneController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(600)
         ->setAllowBlank(false);
         
-        $linkModel = Kwf_Model_Abstract::getInstance('LinkData');
+        $linkModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $linkSelect = $linkModel->select()->whereEquals('name', 'Подразделения');
         
         $this->_form->add(new Kwf_Form_Field_Select('LinkId', trlKwf('Subcompany')))

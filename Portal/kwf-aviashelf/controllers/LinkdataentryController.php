@@ -1,8 +1,8 @@
 <?php
-class LinkDataEntryController extends Kwf_Controller_Action_Auto_Form
+class LinkdataentryController extends Kwf_Controller_Action_Auto_Form
 {
     protected $_permissions = array('save', 'add');
-    protected $_modelName = 'LinkData';
+    protected $_modelName = 'Linkdata';
 
     protected function _initFields()
     {
