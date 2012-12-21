@@ -9521,6 +9521,56 @@
         <id>1874</id>
     </text>
     <text>
+        <en>Education</en>
+        <ru>Образование</ru>
+        <id>1875</id>
+    </text>
+    <text>
+        <en>Train Doc Number</en>
+        <ru>Первичная подготовка (номер документа)</ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en>Degree Doc Number</en>
+        <ru>Высшее образование (номер документа)</ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en>En Train Doc Number</en>
+        <ru>Связь на английском языке (номер документа)</ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
         <en></en>
         <ru></ru>
         <id>18</id>

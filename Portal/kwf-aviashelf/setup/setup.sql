@@ -224,6 +224,7 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (11, 'Регионы'),
 (7, 'Типы налета'),
 (4, 'Типы полетов'),
+(18, 'Типы документов'),
 (12, 'Цели');
 
 -- --------------------------------------------------------
@@ -345,7 +346,6 @@ INSERT INTO `link_data` (`id`, `link_id`, `name`, `value`, `desc`) VALUES
 (114, 13, 'Виды полета', 'F', 'авиаработы'),
 (115, 14, 'Визы', 'Одноразовая', 'Одноразовая'),
 (116, 14, 'Визы', 'Многоразовая', 'Многоразовая'),
-(117, 14, 'Визы', 'По списку', 'По списку'),
 (118, 15, 'Виды ВС', 'Самолет', 'Самолет'),
 (119, 15, 'Виды ВС', 'Вертолет', 'Вертолет'),
 (120, 16, 'Подразделения', 'ИАС г. Южно-Сахалинска', 'ИАС г. Южно-Сахалинска'),
@@ -543,7 +543,16 @@ INSERT INTO `link_data` (`id`, `link_id`, `name`, `value`, `desc`) VALUES
 (312, 17, 'Должности', 'Главный пилот', 'Главный пилот'),
 (313, 17, 'Должности', 'КВС-спец. по ПЛС', 'КВС-вед.спец. по ПЛС'),
 (314, 17, 'Должности', 'Пилот-инстр-ГСпоОКЛД', 'Пилот-инструктор - гл. спец. по ОКЛД'),
-(315, 17, 'Должности', 'Бортмеханик-инстр', 'Бортмеханик-инстр');
+(315, 17, 'Должности', 'Бортмеханик-инстр', 'Бортмеханик-инстр'),
+(316, 18, 'Типы документов', 'Паспорт', 'Паспорт РФ'),
+(317, 18, 'Типы документов', 'Загран паспорт', 'Заграничный паспорт'),
+(318, 18, 'Типы документов', 'Полис', 'Медицинский полис'),
+(319, 18, 'Типы документов', 'Первичная подготовка', 'Первичная подготовка'),
+(320, 18, 'Типы документов', 'Диплом', 'Высшее образование'),
+(321, 18, 'Типы документов', 'Связь на англ. языке', 'Связь на английском языке'),
+(322, 18, 'Типы документов', 'КРС по ОЛР', 'КРС по ОЛР'),
+(323, 18, 'Типы документов', 'Охрана труда', 'Охрана труда'),
+(324, 18, 'Типы документов', 'Расследование АП', 'Расследование АП');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL,
@@ -564,7 +573,7 @@ CREATE TABLE IF NOT EXISTS `airports` (
     INDEX `Name` (`Name` ASC)
     )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-    CREATE TABLE IF NOT EXISTS `countries` (
+CREATE TABLE IF NOT EXISTS `countries` (
     `id` int NOT NULL,
     `Name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     `NameEn` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -683,3 +692,18 @@ INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `
 INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (15, 97, 'RA', 134, '22984', 'RA-22984', null, null, 20, null, 0, null, null, 0);
 INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (16, 97, 'RA', 134, '22985', 'RA-22985', null, null, 20, 75, 0, null, null, 0);
 INSERT INTO `planers` (`id`, `twsId`, `State`, `CountryId`, `Number`, `NBort`, `Mass`, `Center`, `LotsNumber`, `OwnerId`, `Fixed`, `ZCode`, `LinkId`, `Hidden`) VALUES (17, 97, 'RA', 134, '25561', 'RA-25561', null, null, 20, 139, 0, null, null, 0);
+
+CREATE TABLE IF NOT EXISTS `documents` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `typeId` int NOT NULL,
+    `ownerId` int NOT NULL,
+    `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `startDate` datetime,
+    `endDate` datetime,
+    `companyId` int NOT NULL,
+    `value` varchar(300) COLLATE utf8_unicode_ci,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    KEY `typeId` (`typeId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

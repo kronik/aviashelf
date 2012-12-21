@@ -16,7 +16,11 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
 
         $fs = new Kwf_Form_Container_FieldSet(trlKwf('Personal data'));
 
-        $fs->fields->add(new Kwf_Form_Field_File('Picture', trlKwf('Photo')));
+        
+        $fs->fields->add(new Kwf_Form_Field_ImageViewer('Picture', trlKwf('Photo')));
+
+        $fs->fields->add(new Kwf_Form_Field_File('Picture', trlKwf('Photo')))
+        ->setAllowOnlyImages(true);
 
         $fs->fields->add(new Kwf_Form_Field_TextField('id', trlKwf('Code')))
         ->setWidth(400);
@@ -188,6 +192,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $fs->fields->add(new Kwf_Form_Field_TextField('failsDocNumber', trlKwf('Fails Doc Number')))
         ->setWidth(400);
         
+        
         // TODO: Replace with select dropdown
         $fs->fields->add(new Kwf_Form_Field_TextField('specTypeId', trlKwf('SpecType')))
         ->setWidth(400);
@@ -209,6 +214,42 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400);
         
         $tab->fields->add($fs);
+        
+        $fs = new Kwf_Form_Container_FieldSet(trlKwf('Education'));
+  
+        $fs->fields->add(new Kwf_Form_Field_TextField('trainDocNumber', trlKwf('Train Doc Number')))
+        ->setWidth(400);
+        
+        $fs->fields->add(new Kwf_Form_Field_DateField('trainDocEndDate', trlKwf('Doc End Date')));
+        
+        $fs->fields->add(new Kwf_Form_Field_Select('trainDocCompanyId', trlKwf('Spec Doc company')))
+        ->setValues($companyModel)
+        ->setSelect($companySelect)
+        ->setWidth(400)
+        ->setAllowBlank(false);
+        
+        $fs->fields->add(new Kwf_Form_Field_TextField('degreeDocNumber', trlKwf('Degree Doc Number')))
+        ->setWidth(400);
+        
+        $fs->fields->add(new Kwf_Form_Field_DateField('degreeDocEndDate', trlKwf('Doc End Date')));
+        
+        $fs->fields->add(new Kwf_Form_Field_Select('degreeDocCompanyId', trlKwf('Spec Doc company')))
+        ->setValues($companyModel)
+        ->setSelect($companySelect)
+        ->setWidth(400)
+        ->setAllowBlank(false);
+        
+        $fs->fields->add(new Kwf_Form_Field_TextField('enTrainDocNumber', trlKwf('En Train Doc Number')))
+        ->setWidth(400);
+        
+        $fs->fields->add(new Kwf_Form_Field_DateField('enTrainDocEndDate', trlKwf('Doc End Date')));
+        
+        $fs->fields->add(new Kwf_Form_Field_Select('enTrainDocCompanyId', trlKwf('Spec Doc company')))
+        ->setValues($companyModel)
+        ->setSelect($companySelect)
+        ->setWidth(400)
+        ->setAllowBlank(false);
 
+        $tab->fields->add($fs);
     }
 }
