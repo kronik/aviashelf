@@ -110,9 +110,9 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $fs->fields->add(new Kwf_Form_Field_NumberField('totalTime', trlKwf('Total Time')))
+        $fs->fields->add(new Kwf_Form_Field_TextField('totalTime', trlKwf('Total Time')))
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
         
         $fs->fields->add(new Kwf_Form_Field_DateField('totalTimeDate', trlKwf('Total Time Date')));
         

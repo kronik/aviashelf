@@ -15,95 +15,6 @@ INSERT INTO `kwf_pools` (`id`, `pool`, `pos`, `value`, `visible`) VALUES
 INSERT INTO `kwf_users` (`id`, `role`, `language`, `email`, `password`, `password_salt`, `gender`, `title`, `firstname`, `lastname`, `created`, `deleted`, `locked`, `logins`, `last_login`) VALUES
 (9, 'admin', 'en', 'demo@koala-framework.org', 'b2c5ae6bb7bec6021e3224f316d8a0c0', '684e86989d', 'male', '', 'Koala', 'Framework', '2011-10-25 10:06:07', 0, 0, 2, '2011-10-25 10:50:59');
 
-CREATE TABLE IF NOT EXISTS `members` (
-    `id` int(8) unsigned NOT NULL AUTO_INCREMENT,
-    `title` varchar(255) DEFAULT NULL,
-    `firstname` varchar(255) NOT NULL DEFAULT '',
-    `lastname` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `visible` tinyint(3) unsigned NOT NULL DEFAULT '1',
-    `birth_date` date DEFAULT NULL,
-    `birth_place` varchar(255) DEFAULT NULL,
-    `sex` enum('male','female') NOT NULL DEFAULT 'male',
-    `external` tinyint(3) unsigned NOT NULL,
-    `spouse_firstname` varchar(255) DEFAULT NULL,
-    `spouse_title` varchar(255) DEFAULT NULL,
-    `spouse_lastname` varchar(255) DEFAULT NULL,
-    `spouse_birth_date` date DEFAULT NULL,
-    `spouse_job` varchar(255) DEFAULT NULL,
-    `spouse_email` varchar(255) DEFAULT NULL,
-    `branch_id` smallint(5) unsigned DEFAULT NULL,
-    `subbranch` varchar(255) DEFAULT NULL,
-    `branch_note` varchar(255) NOT NULL,
-    `business_title` varchar(170) NOT NULL,
-    `club_role` varchar(255) DEFAULT NULL,
-    `company` varchar(255) DEFAULT NULL,
-    `company_address` varchar(255) DEFAULT NULL,
-    `company_country` varchar(5) DEFAULT NULL,
-    `company_postcode` varchar(255) DEFAULT NULL,
-    `company_city` varchar(50) DEFAULT NULL,
-    `company_telephone_country` varchar(5) DEFAULT NULL,
-    `company_telephone_pre` varchar(10) DEFAULT NULL,
-    `company_telephone` varchar(255) DEFAULT NULL,
-    `company_mobile_country` varchar(5) DEFAULT NULL,
-    `company_mobile_pre` varchar(10) DEFAULT NULL,
-    `company_mobile` varchar(255) DEFAULT NULL,
-    `company_fax_country` varchar(5) DEFAULT NULL,
-    `company_fax_pre` varchar(10) DEFAULT NULL,
-    `company_fax` varchar(255) DEFAULT NULL,
-    `company_email` varchar(255) DEFAULT NULL,
-    `company_url` varchar(255) DEFAULT NULL,
-    `private_address` varchar(50) DEFAULT NULL,
-    `private_country` varchar(5) DEFAULT NULL,
-    `private_postcode` varchar(255) DEFAULT NULL,
-    `private_city` varchar(255) DEFAULT NULL,
-    `private_telephone_country` varchar(5) DEFAULT NULL,
-    `private_telephone_pre` varchar(10) DEFAULT NULL,
-    `private_telephone` varchar(255) DEFAULT NULL,
-    `private_mobile_country` varchar(5) DEFAULT NULL,
-    `private_mobile_pre` varchar(10) DEFAULT NULL,
-    `private_mobile` varchar(255) DEFAULT NULL,
-    `private_fax_country` varchar(5) DEFAULT NULL,
-    `private_fax_pre` varchar(10) DEFAULT NULL,
-    `private_fax` varchar(255) DEFAULT NULL,
-    `private_email` varchar(255) DEFAULT NULL,
-    `private_url` varchar(255) DEFAULT NULL,
-    `miscellaneous` text,
-    `picture_id` int(11) DEFAULT NULL,
-    `position` varchar(100) NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `external` (`external`),
-    KEY `branch_id` (`branch_id`),
-    KEY `visible` (`visible`),
-    KEY `picture_id` (`picture_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
-INSERT INTO `members` (`id`, `title`, `firstname`, `lastname`, `visible`, `birth_date`, `birth_place`, `sex`, `external`, `spouse_firstname`, `spouse_title`, `spouse_lastname`, `spouse_birth_date`, `spouse_job`, `spouse_email`, `branch_id`, `subbranch`, `branch_note`, `business_title`, `club_role`, `company`, `company_address`, `company_country`, `company_postcode`, `company_city`, `company_telephone_country`, `company_telephone_pre`, `company_telephone`, `company_mobile_country`, `company_mobile_pre`, `company_mobile`, `company_fax_country`, `company_fax_pre`, `company_fax`, `company_email`, `company_url`, `private_address`, `private_country`, `private_postcode`, `private_city`, `private_telephone_country`, `private_telephone_pre`, `private_telephone`, `private_mobile_country`, `private_mobile_pre`, `private_mobile`, `private_fax_country`, `private_fax_pre`, `private_fax`, `private_email`, `private_url`, `miscellaneous`, `picture_id`, `position`) VALUES
-(1, '', 'John', 'Doe', 0, NULL, '', 'male', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', NULL, 'asdf', 'asdf', NULL, '0815', 'asdfsadf', NULL, '', '', NULL, '', '', NULL, '', '', 'asdf@asdf.com', 'http://xxx.com', '', NULL, '', '', NULL, '', '', NULL, '', '', NULL, '', '', '', '', NULL, 15596, ''),
-(2, '', 'Lorem', 'Ipsum', 0, NULL, '', 'male', 0, NULL, NULL, NULL, NULL, NULL, NULL, 35, '', '', '', NULL, '', '', 'AG', '', '', NULL, '', '', NULL, '', '', NULL, '', '', '', '', '', NULL, '', '', NULL, '', '', NULL, '', '', NULL, '', '', '', '', NULL, NULL, ''),
-(3, '', 'Jane', 'Miller', 1, NULL, NULL, 'female', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(4, '', 'Dolor', 'Sit', 1, NULL, NULL, 'female', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '');
-
-CREATE TABLE IF NOT EXISTS `member_contacts` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `member_id` int(11) unsigned NOT NULL,
-    `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `text` text NOT NULL,
-    `subject` text NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `member_id` (`member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
-
-
-CREATE TABLE IF NOT EXISTS `member_languages` (
-    `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-    `pos` tinyint(3) unsigned NOT NULL,
-    `language_id` int(5) unsigned DEFAULT NULL,
-    `member_id` int(8) unsigned NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `member_id` (`member_id`),
-    KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `speciality` (
     `id` int NOT NULL,
     `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
@@ -158,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `classDocNumber` varchar(20) DEFAULT NULL,
     `classDocDate` date DEFAULT NULL,
     `classCompanyId` int(11) unsigned DEFAULT NULL,
-    `totalTime` int(11) unsigned DEFAULT NULL,
+    `totalTime` time DEFAULT '00:00',
     `totalTimeDate` date DEFAULT NULL,
     `specId` int(8) unsigned DEFAULT NULL,
     `positionId` int(8) unsigned DEFAULT NULL,
@@ -612,8 +523,8 @@ CREATE TABLE IF NOT EXISTS `polis` (
     `CompanyId` int,
     `Number` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
     `Addendum` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-    `StartDate` datetime,
-    `EndDate` datetime,
+    `StartDate` date,
+    `EndDate` datet,
     `Ammount` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
     `twsId` int,
     `ZCode` int,
@@ -694,8 +605,8 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `typeName` varchar(100) COLLATE utf8_unicode_ci,
     `ownerId` int NOT NULL,
     `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-    `startDate` datetime,
-    `endDate` datetime,
+    `startDate` date,
+    `endDate` date,
     `companyId` int NOT NULL,
     `gradeId` int DEFAULT '0',
     `gradeName` varchar(20) COLLATE utf8_unicode_ci,
@@ -706,4 +617,20 @@ CREATE TABLE IF NOT EXISTS `documents` (
     PRIMARY KEY (`id`),
     KEY `typeId` (`typeId`),
     KEY `picture_id` (`picture_id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `flightResults` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `flightId` int DEFAULT '0',
+    `typeId` int NOT NULL,
+    `typeName` varchar(100) COLLATE utf8_unicode_ci,
+    `planeId` int DEFAULT '0',
+    `planeName` varchar(20) COLLATE utf8_unicode_ci,
+    `ownerId` int NOT NULL,
+    `flightDate` date,
+    `flightTime` time,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    KEY `typeId` (`typeId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

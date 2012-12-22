@@ -43,6 +43,9 @@
 		023FB66616845EB300595523 /* Documents.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Documents.php; sourceTree = "<group>"; };
 		023FB6681684651200595523 /* DocumentController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DocumentController.php; sourceTree = "<group>"; };
 		023FB6691684651200595523 /* DocumentsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DocumentsController.php; sourceTree = "<group>"; };
+		025B6B9916859C6100FB1849 /* Flightresults.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Flightresults.php; sourceTree = "<group>"; };
+		025B6B9A16859DFA00FB1849 /* FlightresultController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightresultController.php; sourceTree = "<group>"; };
+		025B6B9B16859DFA00FB1849 /* FlightresultsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightresultsController.php; sourceTree = "<group>"; };
 		026F81B81661E26400139CDD /* .htaccess */ = {isa = PBXFileReference; lastKnownFileType = text; path = .htaccess; sourceTree = "<group>"; };
 		026F81BA1661E26400139CDD /* Acl.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Acl.php; sourceTree = "<group>"; };
 		026F81BB1661E26400139CDD /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
@@ -15070,6 +15073,8 @@
 		026F88B91661E26600139CDD /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				025B6B9A16859DFA00FB1849 /* FlightresultController.php */,
+				025B6B9B16859DFA00FB1849 /* FlightresultsController.php */,
 				023FB6681684651200595523 /* DocumentController.php */,
 				023FB6691684651200595523 /* DocumentsController.php */,
 				02BDD85D167D9598007AC083 /* EmployeeController.php */,
@@ -47126,6 +47131,7 @@
 		026FBF201661E26B00139CDD /* models */ = {
 			isa = PBXGroup;
 			children = (
+				025B6B9916859C6100FB1849 /* Flightresults.php */,
 				023FB66616845EB300595523 /* Documents.php */,
 				02BDD85F167DBD03007AC083 /* Specialities.php */,
 				02BDD85B167D9384007AC083 /* Employees.php */,
