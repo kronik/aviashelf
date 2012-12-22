@@ -55,3 +55,33 @@ var Employees = Ext.extend(Ext.Panel,
         Employees.superclass.initComponent.call(this);
     }
 });
+
+Ext.util.Format.checkDate = function(val)
+{
+    var endDate = val.toISOString().slice(0, 10);
+    var today = new Date();
+    today.setDate(today.getDate() - 7);
+    
+    if (val > today)
+    {
+        return '<span style="color:green;">' + endDate + '</span>';
+    }
+    else
+    {
+        return '<span style="color:red;">' + endDate + '</span>';
+    }
+    return val;
+};
+
+Ext.util.Format.checkGrade = function(val)
+{    
+    if (val == 'зачет' || val == 'пять' || val == 'четыре' || val == 'допущен')
+    {
+        return '<span style="color:green;">' + val + '</span>';
+    }
+    else
+    {
+        return '<span style="color:red;">' + val + '</span>';
+    }
+    return val;
+};

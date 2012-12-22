@@ -31,8 +31,8 @@ class DocumentsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number')));
         $this->_columns->add(new Kwf_Grid_Column_Date('startDate', trlKwf('Doc Start Date')));
-        $this->_columns->add(new Kwf_Grid_Column_Date('endDate', trlKwf('Doc End Date')));
-        $this->_columns->add(new Kwf_Grid_Column('gradeName', trlKwf('Note')))->setWidth(300);
+        $this->_columns->add(new Kwf_Grid_Column_Date('endDate', trlKwf('Doc End Date')))->setRenderer('checkDate');
+        $this->_columns->add(new Kwf_Grid_Column('gradeName', trlKwf('Note')))->setWidth(300)->setRenderer('checkGrade');
         
         #$select = new Kwf_Form_Field_Select();
         #$select->setValues($companyModel);
