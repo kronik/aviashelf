@@ -30,6 +30,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_wstype'), 'default_wstypes');
         $this->addResource(new Zend_Acl_Resource('default_airplane'), 'default_airplanes');
         $this->addResource(new Zend_Acl_Resource('default_employee'), 'default_employees');
+        $this->addResource(new Zend_Acl_Resource('default_documents'), 'default_employees');
+        $this->addResource(new Zend_Acl_Resource('default_document'), 'default_documents');
 
         $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
                                                 array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'),
