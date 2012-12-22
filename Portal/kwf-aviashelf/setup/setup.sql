@@ -697,6 +697,8 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `startDate` datetime,
     `endDate` datetime,
     `companyId` int NOT NULL,
+    `gradeId` int DEFAULT '0',
+    `gradeName` varchar(20) COLLATE utf8_unicode_ci,
     `value` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     `picture_id` int(11) DEFAULT NULL,

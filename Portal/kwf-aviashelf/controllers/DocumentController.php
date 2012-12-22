@@ -12,6 +12,9 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         
         $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы документов');
+        
+        $docGradeModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $docGradeSelect = $docGradeModel->select()->whereEquals('name', 'Оценки');
 
         $this->_form->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
             ->setWidth(400);
@@ -31,6 +34,12 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
+        $this->_form->add(new Kwf_Form_Field_Select('gradeId', trlKwf('Grade')))
+        ->setValues($docGradeModel)
+        ->setSelect($docGradeSelect)
+        ->setWidth(400)
+        ->setAllowBlank(false);
+        
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);
@@ -43,22 +52,30 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
     {
         $m = Kwf_Model_Abstract::getInstance('Linkdata');
         
-        $s = $m->select() //returns a Kwf_Model_Select object use new Kwf_Model_Select() alternatively
-        ->whereEquals('id', $row->typeId);
+        $s = $m->select()->whereEquals('id', $row->typeId);
         $prow = $m->getRow($s);
         
         $row->ownerId = $this->_getParam('ownerId');
         $row->typeName = $prow->value;
+        
+        $s = $m->select()->whereEquals('id', $row->gradeId);
+        $prow = $m->getRow($s);
+        
+        $row->gradeName = $prow->value;
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
         $m = Kwf_Model_Abstract::getInstance('Linkdata');
         
-        $s = $m->select() //returns a Kwf_Model_Select object use new Kwf_Model_Select() alternatively
-        ->whereEquals('id', $row->typeId);
+        $s = $m->select()->whereEquals('id', $row->typeId);
         $prow = $m->getRow($s);
         
         $row->typeName = $prow->value;
+        
+        $s = $m->select()->whereEquals('id', $row->gradeId);
+        $prow = $m->getRow($s);
+        
+        $row->gradeName = $prow->value;
     }
 }
