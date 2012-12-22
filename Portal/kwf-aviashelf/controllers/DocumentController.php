@@ -38,7 +38,7 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         ->setValues($docGradeModel)
         ->setSelect($docGradeSelect)
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
         
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
@@ -58,10 +58,12 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         $row->ownerId = $this->_getParam('ownerId');
         $row->typeName = $prow->value;
         
-        $s = $m->select()->whereEquals('id', $row->gradeId);
-        $prow = $m->getRow($s);
-        
-        $row->gradeName = $prow->value;
+        if ($row->gradeId != NULL)
+        {
+            $s = $m->select()->whereEquals('id', $row->gradeId);
+            $prow = $m->getRow($s);
+            $row->gradeName = $prow->value;
+        }
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
@@ -73,9 +75,11 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         
         $row->typeName = $prow->value;
         
-        $s = $m->select()->whereEquals('id', $row->gradeId);
-        $prow = $m->getRow($s);
-        
-        $row->gradeName = $prow->value;
+        if ($row->gradeId != NULL)
+        {
+            $s = $m->select()->whereEquals('id', $row->gradeId);
+            $prow = $m->getRow($s);
+            $row->gradeName = $prow->value;
+        }
     }
 }

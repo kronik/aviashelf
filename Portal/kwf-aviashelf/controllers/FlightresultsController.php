@@ -2,8 +2,8 @@
 class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Flightresults';
-    protected $_defaultOrder = 'id';
-    protected $_paging = 0;
+    protected $_defaultOrder = array('field' => 'flightDate', 'direction' => 'DESC');
+    protected $_paging = 10;
     protected $_buttons = array('add', 'save');
     protected $_editDialog = array(
         'controllerUrl' => '/flightresult',

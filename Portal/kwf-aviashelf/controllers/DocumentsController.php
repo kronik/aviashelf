@@ -2,7 +2,7 @@
 class DocumentsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Documents';
-    protected $_defaultOrder = 'id';
+    protected $_defaultOrder = array('field' => 'endDate', 'direction' => 'ASC');
     protected $_paging = 0;
     protected $_buttons = array('add', 'delete', 'save');
     protected $_editDialog = array(

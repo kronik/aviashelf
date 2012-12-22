@@ -634,3 +634,21 @@ CREATE TABLE IF NOT EXISTS `flightResults` (
     PRIMARY KEY (`id`),
     KEY `typeId` (`typeId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+delimiter $$
+CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`
+FOR EACH ROW 
+BEGIN
+    UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = NEW.ownerId;
+END
+$$
+delimiter ;
+
+delimiter $$
+CREATE TRIGGER `updateFlightTimeOnUpdate` BEFORE UPDATE ON `flightResults`
+FOR EACH ROW 
+BEGIN
+    UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+END
+$$
+delimiter ;
