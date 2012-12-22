@@ -27,7 +27,7 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $this->_form->add(new Kwf_Form_Field_DateField('flightDate', trlKwf('Date')));
-        $this->_form->add(new Kwf_Form_Field_TextField('flightTime', trlKwf('Time')));
+        $this->_form->add(new Kwf_Form_Field_TextField('flightTime', trlKwf('Time')))->setWidth(73);
         
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
@@ -52,7 +52,7 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
-    {
+    {        
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Wstypes');
 

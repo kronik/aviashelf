@@ -10,7 +10,7 @@ var Countries = Ext.extend(Ext.Panel,
        var grid = new Kwf.Auto.GridPanel({
                                          controllerUrl   : '/countries',
                                          region          : 'west',
-                                         width           : 700,
+                                         width           : 450,
                                          resizable       : true,
                                          split           : true,
                                          collapsible     : true,

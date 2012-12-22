@@ -20,7 +20,7 @@ var Members = Ext.extend(Ext.Panel,
         var grid = new Kwf.Auto.GridPanel({
             controllerUrl   : '/members',
             region          : 'west',
-            width           : 400,
+            width           : 450,
             resizable       : true,
             split           : true,
             collapsible     : true,

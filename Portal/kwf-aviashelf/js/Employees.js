@@ -31,7 +31,7 @@ var Employees = Ext.extend(Ext.Panel,
         var grid = new Kwf.Auto.GridPanel({
             controllerUrl   : '/employees',
             region          : 'west',
-            width           : 700,
+            width           : 450,
             resizable       : true,
             split           : true,
             collapsible     : true,
