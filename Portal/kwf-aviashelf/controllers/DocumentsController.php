@@ -13,6 +13,8 @@ class DocumentsController extends Kwf_Controller_Action_Auto_Grid
 
     protected function _initColumns()
     {
+        $this->_filters = array('text' => array('type' => 'TextField'));
+
         #$companyModel = Kwf_Model_Abstract::getInstance('Companies');
         #$companySelect = $companyModel->select()->whereEquals('Hidden', '0');
         

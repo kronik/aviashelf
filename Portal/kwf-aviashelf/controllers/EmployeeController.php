@@ -60,6 +60,9 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         
         $fs->fields->add(new Kwf_Form_Field_Checkbox('visible', trlKwf('Active')));
     
+        $tab = $tabs->add();
+        $tab->setTitle(trlKwf('Specialization'));
+        
         $fs = new Kwf_Form_Container_FieldSet(trlKwf('Specialization'));
         
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');

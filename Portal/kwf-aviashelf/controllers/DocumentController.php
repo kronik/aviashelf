@@ -3,7 +3,6 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
 {
     protected $_modelName = 'Documents';
     protected $_permissions = array('save', 'add');
-    #protected $_buttons = array('save');
     protected $_paging = 0;
 
     protected function _initFields()

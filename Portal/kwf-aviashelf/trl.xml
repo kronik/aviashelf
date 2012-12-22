@@ -1410,6 +1410,7 @@
         <id>301</id>
         <ro>Sunteţi sigur că doriţi să ştergeţi această postare (aceste postări)?</ro>
         <sl>Ali ste prepričani, da želite izbrisati vnos(e)?</sl>
+        <ru>Вы действительно хотите удалить эту запись / записи?</ru>
     </text>
     <text>
         <en>Add</en>
@@ -4895,6 +4896,7 @@
         <id>986</id>
         <ro>Sunteţi sigur că doriţi să ştergeţi acest utilizator?</ro>
         <sl>Ali ste prepričani, da želite izbrisati tega uporabnika?</sl>
+        <ru>Вы действительно хотите удалить этого пользователя?</ru>
     </text>
     <text>
         <de>Bild vergrößern</de>
