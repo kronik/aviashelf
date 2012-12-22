@@ -1833,7 +1833,6 @@
 		026F88BC1661E26600139CDD /* MemberContactsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MemberContactsController.php; sourceTree = "<group>"; };
 		026F88BD1661E26600139CDD /* MemberController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MemberController.php; sourceTree = "<group>"; };
 		026F88BE1661E26600139CDD /* MembersController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MembersController.php; sourceTree = "<group>"; };
-		026F88BF1661E26600139CDD /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		026F88C01661E26600139CDD /* dependencies.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = dependencies.ini; sourceTree = "<group>"; };
 		026F88C21661E26600139CDD /* Members.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Members.js; sourceTree = "<group>"; };
 		026F88C41661E26600139CDD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -13184,6 +13183,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		025B6B9816857F6700FB1849 /* configs */ = {
+			isa = PBXGroup;
+			children = (
+				026FBF2A1661E26B00139CDD /* trl.xml */,
+				026F81B81661E26400139CDD /* .htaccess */,
+				026F81BB1661E26400139CDD /* bootstrap.php */,
+				026F88B71661E26600139CDD /* config.ini */,
+				026F88B81661E26600139CDD /* config.local.ini */,
+				026F88C01661E26600139CDD /* dependencies.ini */,
+				026FA2671661E26800139CDD /* kwf_lib_config.ini */,
+			);
+			name = configs;
+			sourceTree = "<group>";
+		};
 		026F44391661CC4500139CDD = {
 			isa = PBXGroup;
 			children = (
@@ -13194,24 +13207,17 @@
 		026F81B71661E26400139CDD /* kwf-aviashelf */ = {
 			isa = PBXGroup;
 			children = (
-				026F81B81661E26400139CDD /* .htaccess */,
 				026F81B91661E26400139CDD /* app */,
-				026F81BB1661E26400139CDD /* bootstrap.php */,
-				026F81BC1661E26400139CDD /* cache */,
-				026F88B71661E26600139CDD /* config.ini */,
-				026F88B81661E26600139CDD /* config.local.ini */,
 				026F88B91661E26600139CDD /* controllers */,
-				026F88BF1661E26600139CDD /* COPYING */,
-				026F88C01661E26600139CDD /* dependencies.ini */,
 				026F88C11661E26600139CDD /* js */,
-				026F88C31661E26600139CDD /* kwf-lib */,
-				026FA2671661E26800139CDD /* kwf_lib_config.ini */,
-				026FA2681661E26800139CDD /* library */,
-				026FBF151661E26B00139CDD /* log */,
 				026FBF201661E26B00139CDD /* models */,
 				026FBF261661E26B00139CDD /* setup */,
+				025B6B9816857F6700FB1849 /* configs */,
+				026F88C31661E26600139CDD /* kwf-lib */,
+				026FA2681661E26800139CDD /* library */,
+				026FBF151661E26B00139CDD /* log */,
 				026FBF281661E26B00139CDD /* temp */,
-				026FBF2A1661E26B00139CDD /* trl.xml */,
+				026F81BC1661E26400139CDD /* cache */,
 				026FBF2C1661E26B00139CDD /* uploads */,
 			);
 			name = "kwf-aviashelf";

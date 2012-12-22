@@ -10,7 +10,7 @@ var Airplanes = Ext.extend(Ext.Panel,
        var grid = new Kwf.Auto.GridPanel({
                                          controllerUrl   : '/airplanes',
                                          region          : 'west',
-                                         width           : 400,
+                                         width           : 700,
                                          resizable       : true,
                                          split           : true,
                                          collapsible     : true,

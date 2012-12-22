@@ -14,7 +14,7 @@ var Links = Ext.extend(Ext.Panel,
         var grid = new Kwf.Auto.GridPanel({
             controllerUrl   : '/links',
             region          : 'west',
-            width           : 400,
+            width           : 700,
             resizable       : true,
             split           : true,
             collapsible     : true,
