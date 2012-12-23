@@ -4,26 +4,18 @@ var Employees = Ext.extend(Ext.Panel,
     {
         var form = new Kwf.Auto.FormPanel({
             controllerUrl   : '/employee',
-            region          : 'north',
-            height          : 400,
-            resizable       : true,
-            split           : true,
             collapsible     : true,
-            title           : trlKwf('Employee')
+            title           : trlKwf('General Info')
         });
                            
         var documents = new Kwf.Auto.GridPanel({
              controllerUrl   : '/documents',
-             region          : 'center',
+             collapsible     : true,
              title           : trlKwf('Documents')
         });
         
         var flightresults = new Kwf.Auto.GridPanel({
               controllerUrl   : '/flightresults',
-              region          : 'south',
-              height          : 200,
-              resizable       : true,
-              split           : true,
               collapsible     : true,
               title           : trlKwf('Flight results')
         });
@@ -45,12 +37,20 @@ var Employees = Ext.extend(Ext.Panel,
                 item: flightresults
             }]
         });
+                           
+        var tabs = new Ext.TabPanel({
+               border    : false,
+               activeTab : 0,
+               region    : 'center',
+               tabPosition:'top',
+               items:[form, documents, flightresults]
+        });
 
         this.layout = 'border';
         this.items = [grid, {
             layout: 'border',
             region: 'center',
-            items: [form, documents, flightresults]
+            items: [tabs]
         }];
         Employees.superclass.initComponent.call(this);
     }
