@@ -34,11 +34,23 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_Select('gradeId', trlKwf('Grade')))
-        ->setValues($docGradeModel)
-        ->setSelect($docGradeSelect)
-        ->setWidth(400)
-        ->setAllowBlank(true);
+        $fs = new Kwf_Form_Container_FieldSet(trlKwf('Grade'));
+        $fs->setCheckboxToggle(true);
+        $fs->setCheckboxName('gradeVisible');        
+        #$fs->setCollapsed(true);
+        #$fs->setCollapsible(true);
+        #$fs->setAutoHeight(true);
+
+        $gradeSelect = new Kwf_Form_Field_Select('gradeId', trlKwf('Grade'));
+        $gradeSelect->setValues($docGradeModel);
+        $gradeSelect->setSelect($docGradeSelect);
+        $gradeSelect->setWidth(360);
+        $gradeSelect->setAllowBlank(true);
+        
+        $fs->fields->add($gradeSelect);
+        $this->_form->add($fs);
+
+        #$this->_form->add($gradeSelect);
         
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)

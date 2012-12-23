@@ -2129,6 +2129,7 @@
         <id>400</id>
         <ro>Grupează după acest câmp</ro>
         <sl>Združi s tem poljem</sl>
+        <ru>Сгруппировать по этому полю</ru>
     </text>
     <text>
         <en>Show in Groups</en>
@@ -2136,6 +2137,7 @@
         <id>401</id>
         <ro>Afişează pe grupuri</ro>
         <sl>Prikaži združeno</sl>
+        <ru>Показывать в Группах</ru>
     </text>
     <text>
         <en>Value</en>

@@ -608,6 +608,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `startDate` date,
     `endDate` date,
     `companyId` int NOT NULL,
+    `gradeVisible` BOOL DEFAULT '1',
     `gradeId` int DEFAULT '0',
     `gradeName` varchar(20) COLLATE utf8_unicode_ci,
     `value` varchar(300) COLLATE utf8_unicode_ci,

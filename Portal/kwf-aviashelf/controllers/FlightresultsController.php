@@ -9,7 +9,7 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/flightresult',
         'width' => 550,
-        'height' => 280
+        'height' => 350
     );
 
     protected function _initColumns()
@@ -20,7 +20,7 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('WsType')))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column_Date('flightDate', trlKwf('Date')));
         $this->_columns->add(new Kwf_Grid_Column('flightTime', trlKwf('Time')))
-        ->setSummaryType('totalTime');
+        ->setProperty('summaryType', 'totalTime');
     }
 
     protected function _getWhere()
