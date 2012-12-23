@@ -18,8 +18,6 @@ var Employees = Ext.extend(Ext.Panel,
              title           : trlKwf('Documents')
         });
         
-        var summary = new Ext.grid.GroupSummary();
-
         var flightresults = new Kwf.Auto.GridPanel({
               controllerUrl   : '/flightresults',
               region          : 'south',
