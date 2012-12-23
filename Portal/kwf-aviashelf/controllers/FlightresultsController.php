@@ -9,7 +9,7 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/flightresult',
         'width' => 550,
-        'height' => 350
+        'height' => 280
     );
 
     protected function _initColumns()

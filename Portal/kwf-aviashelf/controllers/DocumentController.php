@@ -15,9 +15,6 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         
         $docGradeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $docGradeSelect = $docGradeModel->select()->whereEquals('name', 'Оценки');
-
-        $this->_form->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
-            ->setWidth(400);
         
         $this->_form->add(new Kwf_Form_Field_Select('typeId', trlKwf('Type')))
         ->setValues($docTypeModel)
@@ -25,8 +22,15 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_DateField('startDate', trlKwf('Doc Start Date')));
-        $this->_form->add(new Kwf_Form_Field_DateField('endDate', trlKwf('Doc End Date')));
+        $this->_form->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
+        ->setWidth(400)
+        ->setAllowBlank(false);
+        
+        $this->_form->add(new Kwf_Form_Field_DateField('startDate', trlKwf('Doc Start Date')))
+        ->setAllowBlank(false);
+        
+        $this->_form->add(new Kwf_Form_Field_DateField('endDate', trlKwf('Doc End Date')))
+        ->setAllowBlank(false);
 
         $this->_form->add(new Kwf_Form_Field_Select('companyId', trlKwf('Spec Doc company')))
         ->setValues($companyModel)
