@@ -9591,5 +9591,10 @@
         <ru>Задача</ru>
         <id>1887</id>
     </text>
+    <text>
+        <en>Done</en>
+        <ru>Выполнено</ru>
+        <id>1888</id>
+    </text>
 </trl>
 

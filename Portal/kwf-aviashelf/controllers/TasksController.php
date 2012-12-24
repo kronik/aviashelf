@@ -2,7 +2,7 @@
 class TasksController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Tasks';
-    protected $_defaultOrder = 'id';
+    protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 30;
     protected $_buttons = array('add');
 
@@ -23,6 +23,8 @@ class TasksController extends Kwf_Controller_Action_Auto_Grid
         $users = Kwf_Registry::get('userModel');
         
         $ret = parent::_getWhere();
+        
+        $ret['status = ?'] = 0;
         $ret['userId = ?'] = $users->getAuthedUserId();
         return $ret;
     }

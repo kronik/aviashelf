@@ -18,6 +18,8 @@ class TaskController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_TextArea('description', trlKwf('Description')))
         ->setHeight(70)
         ->setWidth(400);
+        
+        $this->_form->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
