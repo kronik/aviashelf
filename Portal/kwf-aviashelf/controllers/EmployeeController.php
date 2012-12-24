@@ -87,23 +87,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_DateField('orderDate', trlKwf('Order Date')));
         
         $tab->fields->add(new Kwf_Form_Field_Checkbox('isAllowed', trlKwf('Allowed')));
-        
-        $tab->fields->add(new Kwf_Form_Field_NumberField('classNumber', trlKwf('Class')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
-        $tab->fields->add(new Kwf_Form_Field_TextField('classDocNumber', trlKwf('Class Doc Number')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
-        $tab->fields->add(new Kwf_Form_Field_DateField('classDocDate', trlKwf('Class Doc Date')));
-        
-        $tab->fields->add(new Kwf_Form_Field_Select('classCompanyId', trlKwf('Class company')))
-        ->setValues($companyModel)
-        ->setSelect($companySelect)
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
+
         $tab->fields->add(new Kwf_Form_Field_TextField('totalTime', trlKwf('Total Time')))
         ->setWidth(400)
         ->setAllowBlank(true);
