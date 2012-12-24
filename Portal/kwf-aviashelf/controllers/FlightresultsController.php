@@ -9,18 +9,19 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/flightresult',
         'width' => 550,
-        'height' => 280
+        'height' => 310
     );
 
     protected function _initColumns()
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(150);
-        $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('WsType')))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(100);
+        $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column_Date('flightDate', trlKwf('Date')));
-        $this->_columns->add(new Kwf_Grid_Column('flightTime', trlKwf('Time')))
-        ->setProperty('summaryType', 'totalTime');
+        $this->_columns->add(new Kwf_Grid_Column('flightTime', trlKwf('Time')))->setProperty('summaryType', 'totalTime');
+        $this->_columns->add(new Kwf_Grid_Column_Checkbox('showInTotal', trlKwf('Show in total')))->setWidth(80);
+        $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(500);
     }
 
     protected function _getWhere()

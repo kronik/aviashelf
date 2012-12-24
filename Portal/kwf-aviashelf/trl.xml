@@ -1092,6 +1092,7 @@
         <id>255</id>
         <ro>Datorită unei actualizări, aplicaţia trebuie reîncărcată.</ro>
         <sl>Zaradi nadgradnje je treba aplikacijo ponovno naložiti.</sl>
+        <ru>Приложение было обновлено. Пожалуйста, перезагрузите страницу.</ru>
     </text>
     <text>
         <en>A connection problem occured.</en>
@@ -8762,6 +8763,7 @@
         <de>Ignorieren</de>
         <ro>Ignoră</ro>
         <sl>Prezri</sl>
+        <ru>Игнорировать</ru>
     </text>
     <text>
         <en>'%value%' must be less or equal than '%max%'</en>
@@ -9595,6 +9597,11 @@
         <en>Done</en>
         <ru>Выполнено</ru>
         <id>1888</id>
+    </text>
+    <text>
+        <en>Show in total</en>
+        <ru>В итогах</ru>
+        <id>1889</id>
     </text>
 </trl>
 

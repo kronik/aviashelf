@@ -639,6 +639,7 @@ CREATE TABLE IF NOT EXISTS `flightResults` (
     `ownerId` int NOT NULL,
     `flightDate` date,
     `flightTime` time,
+    `showInTotal` BOOL DEFAULT '1',
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
@@ -649,7 +650,7 @@ delimiter $$
 CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`
 FOR EACH ROW 
 BEGIN
-    UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = NEW.ownerId;
+    UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = NEW.ownerId AND NEW.showInTotal = 1;
 END
 $$
 delimiter ;
@@ -658,7 +659,17 @@ delimiter $$
 CREATE TRIGGER `updateFlightTimeOnUpdate` BEFORE UPDATE ON `flightResults`
 FOR EACH ROW 
 BEGIN
-    UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+    IF NEW.showInTotal = 1 THEN
+        IF OLD.NEW.showInTotal = 1 THEN
+            UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+        ELSE
+            UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+        END IF;
+    ELSE
+        IF OLD.NEW.showInTotal = 1 THEN
+            UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+        END IF;
+    END IF;
 END
 $$
 delimiter ;
