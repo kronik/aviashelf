@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `picture_id` int(11) DEFAULT NULL,
     `privateAddress` varchar(512) DEFAULT NULL,
     `privatePhone` varchar(255) DEFAULT NULL,
+    `registerAddress` varchar(512) DEFAULT NULL,
     `INN` varchar(100) DEFAULT NULL,
     `comment` varchar(1000) DEFAULT NULL,
     `currentCompanyId` int(11) unsigned DEFAULT NULL,

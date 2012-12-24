@@ -10,7 +10,7 @@ var Wstypes = Ext.extend(Ext.Panel,
        var grid = new Kwf.Auto.GridPanel({
                                          controllerUrl   : '/wstypes',
                                          region          : 'west',
-                                         width           : 450,
+                                         width           : 300,
                                          resizable       : true,
                                          split           : true,
                                          collapsible     : true,

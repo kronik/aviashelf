@@ -15,10 +15,9 @@ class EmployeesController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column('lastname', trlKwf('Lastname'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('firstname', trlKwf('Firstname'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('middlename', trlKwf('Middlename'), 100));
-        $this->_columns->add(new Kwf_Grid_Column_Checkbox('isAllowed', trlKwf('Allowed'), 50));
-        $this->_columns->add(new Kwf_Grid_Column_Checkbox('visible', trlKwf('Active'), 60));
+        $this->_columns->add(new Kwf_Grid_Column('lastname', trlKwf('Lastname'), 80));
+        $this->_columns->add(new Kwf_Grid_Column('firstname', trlKwf('Firstname'), 80));
+        $this->_columns->add(new Kwf_Grid_Column('middlename', trlKwf('Middlename'), 80));
+        $this->_columns->add(new Kwf_Grid_Column_Checkbox('isAllowed', trlKwf('Allowed'), 60));
     }
 }

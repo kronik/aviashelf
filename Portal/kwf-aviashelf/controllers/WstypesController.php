@@ -16,7 +16,7 @@ class WstypesController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('text' => array('type' => 'TextField'));
         $this->_columns->add(new Kwf_Grid_Column('Name', trlKwf('Title'), 100));
         $this->_columns->add(new Kwf_Grid_Column('NameEn', trlKwf('English name'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('IKAO', trlKwf('IKAO'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('IATA', trlKwf('IATA'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('IKAO', trlKwf('IKAO'), 50));
+        $this->_columns->add(new Kwf_Grid_Column('IATA', trlKwf('IATA'), 50));
     }
 }

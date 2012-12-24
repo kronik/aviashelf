@@ -9293,7 +9293,7 @@
     </text>
     <text>
         <en>Seats Number</en>
-        <ru>Число кресел</ru>
+        <ru>Кресел</ru>
         <id>1828</id>
     </text>
     <text>
@@ -9577,9 +9577,9 @@
         <id>1884</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>18</id>
+        <en>Reg Address</en>
+        <ru>Регистрация</ru>
+        <id>1885</id>
     </text>
 </trl>
 
