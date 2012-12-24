@@ -15,6 +15,18 @@ INSERT INTO `kwf_pools` (`id`, `pool`, `pos`, `value`, `visible`) VALUES
 INSERT INTO `kwf_users` (`id`, `role`, `language`, `email`, `password`, `password_salt`, `gender`, `title`, `firstname`, `lastname`, `created`, `deleted`, `locked`, `logins`, `last_login`) VALUES
 (9, 'admin', 'en', 'demo@koala-framework.org', 'b2c5ae6bb7bec6021e3224f316d8a0c0', '684e86989d', 'male', '', 'Koala', 'Framework', '2011-10-25 10:06:07', 0, 0, 2, '2011-10-25 10:50:59');
 
+CREATE TABLE IF NOT EXISTS `tasks` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `userId` int NOT NULL,
+    `title` varchar(300) COLLATE utf8_unicode_ci,
+    `description` varchar(1000) COLLATE utf8_unicode_ci,
+    `startDate` date,
+    `endDate` date,
+    `status` int NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
+    KEY `userId` (`userId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `speciality` (
     `id` int NOT NULL,
     `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci,

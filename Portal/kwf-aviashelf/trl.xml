@@ -9581,5 +9581,15 @@
         <ru>Регистрация</ru>
         <id>1885</id>
     </text>
+    <text>
+        <en>Tasks</en>
+        <ru>Задачи</ru>
+        <id>1886</id>
+    </text>
+    <text>
+        <en>Task</en>
+        <ru>Задача</ru>
+        <id>1887</id>
+    </text>
 </trl>
 
