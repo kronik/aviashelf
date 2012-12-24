@@ -103,17 +103,24 @@ Ext.grid.GroupSummary.Calculations['totalTime'] = function(v, record, field)
 
 Ext.util.Format.checkDate = function(val)
 {
-    var endDate = val.toISOString().slice(0, 10);
+    var month = val.getUTCMonth() + 1;
+    var monthStr = month < 10 ? '0' + month : month;
+    var day = val.getUTCDate() + 1;
+    var dayStr = day < 10 ? '0' + day : day;
+    var year = val.getUTCFullYear();
+    
+    var newdate = year + "-" + monthStr + "-" + dayStr;
+    
     var today = new Date();
     today.setDate(today.getDate() - 7);
     
     if (val > today)
     {
-        return '<span style="color:green;">' + endDate + '</span>';
+        return '<span style="color:green;">' + newdate + '</span>';
     }
     else
     {
-        return '<span style="color:red;">' + endDate + '</span>';
+        return '<span style="color:red;">' + newdate + '</span>';
     }
     return val;
 };
