@@ -58,7 +58,8 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
     
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Specialization'));
-        
+        $tab->setLabelAlign('top');
+
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
         $companySelect = $companyModel->select()->whereEquals('Hidden', '0');
         

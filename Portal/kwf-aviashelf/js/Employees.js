@@ -4,7 +4,7 @@ var Employees = Ext.extend(Ext.Panel,
     {
         var form = new Kwf.Auto.FormPanel({
             controllerUrl   : '/employee',
-            collapsible     : true,
+            collapsible     : true,                                          
             title           : trlKwf('General Info')
         });
                            
