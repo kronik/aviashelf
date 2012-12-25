@@ -2662,6 +2662,7 @@
         <ro>Setări</ro>
         <sl>Nastavitve </sl>
         <uk>Налаштування</uk>
+        <ru>Настройки</ru>
     </text>
     <text>
         <en>Link Image</en>
@@ -9602,6 +9603,126 @@
         <en>Show in total</en>
         <ru>В итогах</ru>
         <id>1889</id>
+    </text>
+    <text>
+        <en>Bort</en>
+        <ru>Борт</ru>
+        <id>1890</id>
+    </text>
+    <text>
+        <en>Flight</en>
+        <ru>Полет</ru>
+        <id>1891</id>
+    </text>
+    <text>
+        <en>Flights</en>
+        <ru>Полеты</ru>
+        <id>1892</id>
+    </text>
+    <text>
+        <en>Start Time</en>
+        <ru>Время вылета</ru>
+        <id>1893</id>
+    </text>
+    <text>
+        <en>Flight work time</en>
+        <ru>Рабочее время</ru>
+        <id>1894</id>
+    </text>
+    <text>
+        <en>Flight Time</en>
+        <ru>Полетное время</ru>
+        <id>1895</id>
+    </text>
+    <text>
+        <en>Flight count</en>
+        <ru>Количество полетов</ru>
+        <id>1896</id>
+    </text>
+    <text>
+        <en>Route</en>
+        <ru>Маршрут</ru>
+        <id>1897</id>
+    </text>
+    <text>
+        <en>Objective</en>
+        <ru>Цель</ru>
+        <id>1898</id>
+    </text>
+    <text>
+        <en>Flight Result Comment</en>
+        <ru>Результаты послеполетного разбора</ru>
+        <id>1899</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>18</id>
     </text>
 </trl>
 

@@ -9,6 +9,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwf('Dictionaries'), 'icon'=>'book.png')));
 
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/tasks'));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flights', array('text'=>trlKwf('Flights'), 'icon'=>'calendar.png'), '/flights'));
 
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Customers'), 'icon'=>'user.png'), '/'));
 
@@ -21,6 +22,10 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwf('Employees'), 'icon'=>'user.png'), '/employees'), 'default_menuitem');
         #$this->addResource(new Kwf_Acl_Resource_MenuUrl('default_polises', array('text'=>trlKwf('Polises'), 'icon'=>'book.png'), '/polises'), 'default_menuitem');
         #$this->addResource(new Zend_Acl_Resource('default_polis'), 'default_polises');
+        
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_settingsmenuitem', array('text'=>trlKwf('Settings'), 'icon'=>'cog.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('kwf_user_users', array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'), '//kwf/user/users'), 'default_settingsmenuitem');
+
 
         $this->addResource(new Zend_Acl_Resource('default_link'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdata'), 'default_links');
@@ -36,16 +41,23 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightresults'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_flightresult'), 'default_flightresults');
         $this->addResource(new Zend_Acl_Resource('default_task'), 'default_tasks');
+        $this->addResource(new Zend_Acl_Resource('default_flight'), 'default_flights');
+        $this->addResource(new Zend_Acl_Resource('default_flightfullresults'), 'default_flights');
+        $this->addResource(new Zend_Acl_Resource('default_flightfullresult'), 'default_flightfullresults');
 
-        $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
-                                                array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'),
-                                                '/kwf/user/users'));
+        #        $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
+        #                                        array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'),
+        #                                        '/kwf/user/users'));
+        
         $this->add(new Zend_Acl_Resource('kwf_user_user'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
         
         $this->allow('admin', 'default_menuitem');
+        $this->allow('admin', 'default_settingsmenuitem');
+
         $this->allow('admin', 'kwf_user_users');
+        $this->allow('admin', 'default_flights');
         $this->allow('admin', 'default_tasks');
         $this->allow('admin', 'default_employees');
         $this->allow('admin', 'default_airplanes');

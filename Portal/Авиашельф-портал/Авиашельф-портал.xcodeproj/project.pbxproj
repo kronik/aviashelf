@@ -13181,6 +13181,14 @@
 		02A85380168851FD0081B13B /* Tasks.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Tasks.js; sourceTree = "<group>"; };
 		02A85381168852790081B13B /* TaskController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TaskController.php; sourceTree = "<group>"; };
 		02A85382168852790081B13B /* TasksController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TasksController.php; sourceTree = "<group>"; };
+		02A853831688A82A0081B13B /* Flights.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Flights.php; sourceTree = "<group>"; };
+		02A853841688A8790081B13B /* Flight.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Flight.php; sourceTree = "<group>"; };
+		02A853851688A9600081B13B /* Flights.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Flights.js; sourceTree = "<group>"; };
+		02A853861688AAB90081B13B /* FlightController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightController.php; sourceTree = "<group>"; };
+		02A853871688AAB90081B13B /* FlightsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightsController.php; sourceTree = "<group>"; };
+		02A853881688AE980081B13B /* Airplane.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Airplane.php; sourceTree = "<group>"; };
+		02A85389168933460081B13B /* FlightfullresultController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightfullresultController.php; sourceTree = "<group>"; };
+		02A8538A168933480081B13B /* FlightfullresultsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightfullresultsController.php; sourceTree = "<group>"; };
 		02BDD859167D932F007AC083 /* Employee.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Employee.php; sourceTree = "<group>"; };
 		02BDD85B167D9384007AC083 /* Employees.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Employees.php; sourceTree = "<group>"; };
 		02BDD85C167D93CE007AC083 /* Employees.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Employees.js; sourceTree = "<group>"; };
@@ -15077,30 +15085,14 @@
 		026F88B91661E26600139CDD /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				02A8538C168935970081B13B /* Dictionaries */,
+				02A8538B1689357C0081B13B /* Flight */,
 				02A85381168852790081B13B /* TaskController.php */,
 				02A85382168852790081B13B /* TasksController.php */,
-				025B6B9A16859DFA00FB1849 /* FlightresultController.php */,
-				025B6B9B16859DFA00FB1849 /* FlightresultsController.php */,
 				023FB6681684651200595523 /* DocumentController.php */,
 				023FB6691684651200595523 /* DocumentsController.php */,
 				02BDD85D167D9598007AC083 /* EmployeeController.php */,
 				02BDD85E167D9598007AC083 /* EmployeesController.php */,
-				0230FD121676D06A007754C3 /* AirplaneController.php */,
-				0230FD131676D06B007754C3 /* AirplanesController.php */,
-				0230FD0A1676C20B007754C3 /* WstypeController.php */,
-				0230FD0B1676C20C007754C3 /* WstypesController.php */,
-				0230FD05167625E4007754C3 /* PolisController.php */,
-				0230FD06167625E4007754C3 /* PolisesController.php */,
-				0230FCD01674E23E007754C3 /* CompaniesController.php */,
-				0230FCD11674E23F007754C3 /* CompanyController.php */,
-				0230FCC71674813A007754C3 /* AirportController.php */,
-				0230FCC81674813A007754C3 /* AirportsController.php */,
-				0230FCC416747555007754C3 /* CountryController.php */,
-				0230FCC3167474E7007754C3 /* CountriesController.php */,
-				0230FCC016733759007754C3 /* LinkdataentryController.php */,
-				0230FCBF1673362B007754C3 /* LinkdataController.php */,
-				0230FCBE1673354C007754C3 /* LinkController.php */,
-				0230FCBD167334E1007754C3 /* LinksController.php */,
 				026F88BA1661E26600139CDD /* IndexController.php */,
 				026F88BB1661E26600139CDD /* MemberContactController.php */,
 				026F88BC1661E26600139CDD /* MemberContactsController.php */,
@@ -15113,6 +15105,7 @@
 		026F88C11661E26600139CDD /* js */ = {
 			isa = PBXGroup;
 			children = (
+				02A853851688A9600081B13B /* Flights.js */,
 				02A85380168851FD0081B13B /* Tasks.js */,
 				02BDD85C167D93CE007AC083 /* Employees.js */,
 				0230FD111676D005007754C3 /* Airplanes.js */,
@@ -37714,8 +37707,8 @@
 				026FAC061661E26900139CDD /* chart_curve_go.png */,
 				026FAC071661E26900139CDD /* chart_curve_link.png */,
 				026FAC081661E26900139CDD /* chart_line.png */,
-				026FAC091661E26900139CDD /* chart_line_add.png */,
 				026FAC0A1661E26900139CDD /* chart_line_delete.png */,
+				026FAC091661E26900139CDD /* chart_line_add.png */,
 				026FAC0B1661E26900139CDD /* chart_line_edit.png */,
 				026FAC0C1661E26900139CDD /* chart_line_error.png */,
 				026FAC0D1661E26900139CDD /* chart_line_link.png */,
@@ -47138,6 +47131,7 @@
 		026FBF201661E26B00139CDD /* models */ = {
 			isa = PBXGroup;
 			children = (
+				02A853831688A82A0081B13B /* Flights.php */,
 				02A8537E168851AF0081B13B /* Tasks.php */,
 				025B6B9916859C6100FB1849 /* Flightresults.php */,
 				023FB66616845EB300595523 /* Documents.php */,
@@ -47163,6 +47157,8 @@
 		026FBF241661E26B00139CDD /* Row */ = {
 			isa = PBXGroup;
 			children = (
+				02A853881688AE980081B13B /* Airplane.php */,
+				02A853841688A8790081B13B /* Flight.php */,
 				02BDD859167D932F007AC083 /* Employee.php */,
 				026FBF251661E26B00139CDD /* Member.php */,
 			);
@@ -47191,6 +47187,42 @@
 			children = (
 			);
 			path = uploads;
+			sourceTree = "<group>";
+		};
+		02A8538B1689357C0081B13B /* Flight */ = {
+			isa = PBXGroup;
+			children = (
+				02A85389168933460081B13B /* FlightfullresultController.php */,
+				02A8538A168933480081B13B /* FlightfullresultsController.php */,
+				02A853861688AAB90081B13B /* FlightController.php */,
+				02A853871688AAB90081B13B /* FlightsController.php */,
+				025B6B9A16859DFA00FB1849 /* FlightresultController.php */,
+				025B6B9B16859DFA00FB1849 /* FlightresultsController.php */,
+			);
+			name = Flight;
+			sourceTree = "<group>";
+		};
+		02A8538C168935970081B13B /* Dictionaries */ = {
+			isa = PBXGroup;
+			children = (
+				0230FD121676D06A007754C3 /* AirplaneController.php */,
+				0230FD131676D06B007754C3 /* AirplanesController.php */,
+				0230FD0A1676C20B007754C3 /* WstypeController.php */,
+				0230FD0B1676C20C007754C3 /* WstypesController.php */,
+				0230FD05167625E4007754C3 /* PolisController.php */,
+				0230FD06167625E4007754C3 /* PolisesController.php */,
+				0230FCD01674E23E007754C3 /* CompaniesController.php */,
+				0230FCD11674E23F007754C3 /* CompanyController.php */,
+				0230FCC71674813A007754C3 /* AirportController.php */,
+				0230FCC81674813A007754C3 /* AirportsController.php */,
+				0230FCC416747555007754C3 /* CountryController.php */,
+				0230FCC3167474E7007754C3 /* CountriesController.php */,
+				0230FCC016733759007754C3 /* LinkdataentryController.php */,
+				0230FCBF1673362B007754C3 /* LinkdataController.php */,
+				0230FCBE1673354C007754C3 /* LinkController.php */,
+				0230FCBD167334E1007754C3 /* LinksController.php */,
+			);
+			name = Dictionaries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

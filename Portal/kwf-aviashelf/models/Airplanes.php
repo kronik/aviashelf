@@ -2,5 +2,5 @@
 class Airplanes extends Kwf_Model_Db
 {
     protected $_table = 'planers';
-    protected $_toStringField = 'Number';
+    protected $_rowClass = 'Row_Airplane';
 }
