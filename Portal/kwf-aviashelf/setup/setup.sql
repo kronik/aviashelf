@@ -637,6 +637,7 @@ CREATE TABLE IF NOT EXISTS `flightResults` (
     `planeId` int DEFAULT '0',
     `planeName` varchar(20) COLLATE utf8_unicode_ci,
     `ownerId` int NOT NULL,
+    `ownerName` varchar(300) COLLATE utf8_unicode_ci,
     `flightDate` date,
     `flightTime` time,
     `showInTotal` BOOL DEFAULT '1',
@@ -665,8 +666,24 @@ CREATE TABLE IF NOT EXISTS `flightTasks` (
     `routeId` int NOT NULL,
     `routeName` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
     `results` varchar(1000) COLLATE utf8_unicode_ci,
+    `status` BOOL NOT NULL DEFAULT '0',
     `hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `flightGroups` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `flightId` int DEFAULT '0',
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `leader` BOOL NOT NULL DEFAULT '0',
+    `positionId` int NOT NULL,
+    `positionName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    KEY `flightId` (`flightId`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

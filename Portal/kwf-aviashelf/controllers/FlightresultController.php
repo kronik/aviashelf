@@ -40,15 +40,21 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Wstypes');
+        $m3 = Kwf_Model_Abstract::getInstance('Employees');
 
-        $s = $m1->select()->whereEquals('id', $row->typeId);
-        $prow = $m1->getRow($s);
+        $s = $m3->select()->whereEquals('id', $this->_getParam('ownerId'));
+        $prow = $m3->getRow($s);
         
         $row->ownerId = $this->_getParam('ownerId');
+        $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
+        
+        $s = $m1->select()->whereEquals('id', $row->typeId);
+        $prow = $m1->getRow($s);
         $row->typeName = $prow->value;
 
         $s = $m2->select()->whereEquals('id', $row->planeId);
         $prow = $m2->getRow($s);
+        
         
         $row->planeName = $prow->Name;
     }

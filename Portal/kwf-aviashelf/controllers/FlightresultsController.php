@@ -28,6 +28,7 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
     {
         $ret = parent::_getWhere();
         $ret['ownerId = ?'] = $this->_getParam('ownerId');
+
         return $ret;
     }
 }

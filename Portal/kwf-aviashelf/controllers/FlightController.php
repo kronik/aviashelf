@@ -65,6 +65,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_TextArea('results', trlKwf('Flight Result Comment')))
         ->setHeight(100)
         ->setWidth(400);
+        
+        $tab->fields->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

@@ -13,6 +13,12 @@ var Flights = Ext.extend(Ext.Panel,
               collapsible     : true,
               title           : trlKwf('Flight results')
         });
+                         
+        var flightgroups = new Kwf.Auto.GridPanel({
+            controllerUrl   : '/flightgroups',
+            collapsible     : true,
+            title           : trlKwf('Flight groups')
+        });
         
         var grid = new Kwf.Auto.GridPanel({
             controllerUrl   : '/flights',
