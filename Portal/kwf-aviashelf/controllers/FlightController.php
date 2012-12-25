@@ -28,11 +28,11 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400);
         
         $tab->fields->add(new Kwf_Form_Field_DateField('flightStartDate', trlKwf('Start Date')));
-        $tab->fields->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(10);
+        $tab->fields->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
 
         $tab->fields->add(new Kwf_Form_Field_DateField('flightEndDate', trlKwf('End Date')));
-        $tab->fields->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Flight Time')))->setIncrement(10);
-        $tab->fields->add(new Kwf_Form_Field_TimeField('flightWorkTime', trlKwf('Flight work time')))->setIncrement(10);
+        $tab->fields->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Flight Time')))->setIncrement(5);
+        $tab->fields->add(new Kwf_Form_Field_TimeField('flightWorkTime', trlKwf('Flight work time')))->setIncrement(5);
 
         $tab->fields->add(new Kwf_Form_Field_NumberField('flightCount', trlKwf('Flight count')))
         ->setWidth(400);

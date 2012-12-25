@@ -692,7 +692,7 @@ CREATE TABLE IF NOT EXISTS `flightGroups` (
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 delimiter $$
-CREATE TRIGGER IF NOT EXISTS `updateFlightTime` BEFORE INSERT ON `flightResults`
+CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`
 FOR EACH ROW 
 BEGIN
     UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = NEW.ownerId AND NEW.showInTotal = 1;
@@ -701,17 +701,17 @@ $$
 delimiter ;
 
 delimiter $$
-CREATE TRIGGER IF NOT EXISTS `updateFlightTimeOnUpdate` BEFORE UPDATE ON `flightResults`
+CREATE TRIGGER `updateFlightTimeOnUpdate` BEFORE UPDATE ON `flightResults`
 FOR EACH ROW 
 BEGIN
     IF NEW.showInTotal = 1 THEN
-        IF OLD.NEW.showInTotal = 1 THEN
+        IF OLD.showInTotal = 1 THEN
             UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
         ELSE
             UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
         END IF;
     ELSE
-        IF OLD.NEW.showInTotal = 1 THEN
+        IF OLD.showInTotal = 1 THEN
             UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
         END IF;
     END IF;
