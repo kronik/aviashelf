@@ -119,9 +119,12 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_TextField('failsDocNumber', trlKwf('Fails Doc Number')))
         ->setWidth(400);
         
+        $specDocModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $specDocSelect = $specDocModel->select()->whereEquals('name', 'Свидетельства специалиста');
         
-        // TODO: Replace with select dropdown
-        $tab->fields->add(new Kwf_Form_Field_TextField('specTypeId', trlKwf('SpecType')))
+        $tab->fields->add(new Kwf_Form_Field_Select('specTypeId', trlKwf('SpecType')))
+        ->setValues($specDocModel)
+        ->setSelect($specDocSelect)
         ->setWidth(400);
     }
 }

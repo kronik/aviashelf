@@ -9,6 +9,8 @@
 /* Begin PBXFileReference section */
 		020510B5168211DB00B2290F /* big_data.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = big_data.sql; sourceTree = "<group>"; };
 		022A2A1F16894F7500286523 /* Flightgroups.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Flightgroups.php; sourceTree = "<group>"; };
+		022A2A211689BCC900286523 /* FlightgroupController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightgroupController.php; sourceTree = "<group>"; };
+		022A2A221689BCC900286523 /* FlightgroupsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightgroupsController.php; sourceTree = "<group>"; };
 		0230FCB9167330AA007754C3 /* Links.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Links.js; sourceTree = "<group>"; };
 		0230FCBB167333F4007754C3 /* Links.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Links.php; sourceTree = "<group>"; };
 		0230FCBC16733475007754C3 /* Linkdata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Linkdata.php; sourceTree = "<group>"; };
@@ -47194,6 +47196,8 @@
 		02A8538B1689357C0081B13B /* Flight */ = {
 			isa = PBXGroup;
 			children = (
+				022A2A211689BCC900286523 /* FlightgroupController.php */,
+				022A2A221689BCC900286523 /* FlightgroupsController.php */,
 				02A85389168933460081B13B /* FlightfullresultController.php */,
 				02A8538A168933480081B13B /* FlightfullresultsController.php */,
 				02A853861688AAB90081B13B /* FlightController.php */,

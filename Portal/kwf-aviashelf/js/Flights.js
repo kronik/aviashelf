@@ -35,6 +35,10 @@ var Flights = Ext.extend(Ext.Panel,
             {
                 queryParam: 'flightId',
                 item: flightresults
+            },
+            {
+                queryParam: 'flightId',
+                item: flightgroups
             }]
         });
                            
@@ -43,7 +47,7 @@ var Flights = Ext.extend(Ext.Panel,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',
-               items:[form, flightresults]
+               items:[form, flightgroups, flightresults]
         });
 
         this.layout = 'border';
