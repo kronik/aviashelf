@@ -46,7 +46,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $s = $m2->select()->whereEquals('id', $row->employeeId);
         $prow = $m2->getRow($s);
         
-        $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
+        $row->employeeName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
@@ -61,6 +61,6 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $s = $m2->select()->whereEquals('id', $row->employeeId);
         $prow = $m2->getRow($s);
         
-        $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
+        $row->employeeName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
     }
 }

@@ -15,8 +15,8 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column('positionName', trlKwf('Position')))->setWidth(100);
-        $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(100);
+        $this->_columns->add(new Kwf_Grid_Column('positionName', trlKwf('Position')))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(300);
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('leader', trlKwf('KWS')))->setWidth(80);
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(500);
     }
