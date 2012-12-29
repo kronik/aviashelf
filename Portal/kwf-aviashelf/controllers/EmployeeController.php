@@ -14,9 +14,10 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Personal data'));
 
-        $tab->fields->add(new Kwf_Form_Field_ImageViewer('Picture', trlKwf('Photo')));
+        $tab->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Photo'), 'Picture'));
 
-        $tab->fields->add(new Kwf_Form_Field_File('Picture', trlKwf('Photo')))
+        $tab->fields->add(new Kwf_Form_Field_File('Picture', trlKwf('File')))
+        ->setShowPreview(false)
         ->setAllowOnlyImages(true);
         
         $tab->fields->add(new Kwf_Form_Field_TextField('firstname', trlKwf('Firstname')))

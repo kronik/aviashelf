@@ -7,6 +7,13 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
+        $tabs = $this->_form->add(new Kwf_Form_Container_Tabs());
+        $tabs->setActiveTab(0);
+        
+        // **** General Info
+        $tab = $tabs->add();
+        $tab->setTitle(trlKwf('General Info'));
+                
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
         $companySelect = $companyModel->select()->whereEquals('Hidden', '0');
         
@@ -16,23 +23,23 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         $docGradeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $docGradeSelect = $docGradeModel->select()->whereEquals('name', 'Оценки');
         
-        $this->_form->add(new Kwf_Form_Field_Select('typeId', trlKwf('Type')))
+        $tab->fields->add(new Kwf_Form_Field_Select('typeId', trlKwf('Type')))
         ->setValues($docTypeModel)
         ->setSelect($docTypeSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
+        $tab->fields->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_DateField('startDate', trlKwf('Doc Start Date')))
+        $tab->fields->add(new Kwf_Form_Field_DateField('startDate', trlKwf('Doc Start Date')))
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_DateField('endDate', trlKwf('Doc End Date')))
+        $tab->fields->add(new Kwf_Form_Field_DateField('endDate', trlKwf('Doc End Date')))
         ->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_Select('companyId', trlKwf('Spec Doc company')))
+        $tab->fields->add(new Kwf_Form_Field_Select('companyId', trlKwf('Spec Doc company')))
         ->setValues($companyModel)
         ->setSelect($companySelect)
         ->setWidth(400)
@@ -52,16 +59,22 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         $gradeSelect->setAllowBlank(true);
         
         $fs->fields->add($gradeSelect);
-        $this->_form->add($fs);
+        $tab->fields->add($fs);
 
         #$this->_form->add($gradeSelect);
         
-        $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
+        $tab->fields->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_File('Picture', trlKwf('Photo')))
+        $tab = $tabs->add();
+        $tab->setTitle(trlKwf('File'));
+        
+        $tab->fields->add(new Kwf_Form_Field_File('Picture', trlKwf('File')))
+        ->setShowPreview(false)
         ->setAllowOnlyImages(true);
+        
+        $tab->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

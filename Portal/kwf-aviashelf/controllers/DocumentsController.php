@@ -8,7 +8,7 @@ class DocumentsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/document',
         'width' => 550,
-        'height' => 430
+        'height' => 400
     );
 
     protected function _initColumns()
