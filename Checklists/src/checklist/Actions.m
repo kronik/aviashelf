@@ -13,6 +13,8 @@
 @interface Actions()
 
 @property (nonatomic, strong) NSMutableArray *actions;
+@property (nonatomic, strong) NSMutableArray *actionSounds;
+
 @property (nonatomic) BOOL *actionMarkers;
 
 @end
@@ -22,6 +24,7 @@
 @synthesize header = _header;
 @synthesize actions = _actions;
 @synthesize actionMarkers = _actionMarkers;
+@synthesize actionSounds = _actionSounds;
 
 -(NSMutableArray*)actions
 {
@@ -30,6 +33,15 @@
         _actions = [[NSMutableArray alloc] init];
     }
     return _actions;
+}
+
+-(NSMutableArray*)actionSounds
+{
+    if (_actionSounds == nil)
+    {
+        _actionSounds = [[NSMutableArray alloc] init];
+    }
+    return _actionSounds;
 }
 
 -(BOOL*)actionMarkers
@@ -48,10 +60,19 @@
     [self.actions addObject:action];
 }
 
+-(void)addActionSound: (NSString*)actionSound
+{
+    [self.actionSounds addObject:actionSound];
+}
+
 -(NSString*)actionAtIndex: (int)idx
 {
-    return [self.actions objectAtIndex:idx];
+    return self.actions [idx];
+}
 
+-(NSString*)actionSoundAtIndex: (int)idx
+{
+    return self.actionSounds [idx];
 }
 
 -(int)count
@@ -106,8 +127,10 @@
     if (self = [super init]) 
     {
         _header = [aDecoder decodeObjectForKey:@"header"];
-        _actions = [aDecoder decodeObjectForKey:@"actions"];        
-    }            
+        _actions = [aDecoder decodeObjectForKey:@"actions"];
+        _actionSounds = [aDecoder decodeObjectForKey:@"actionSounds"];
+
+    }
     return self;
 }
 
@@ -115,6 +138,7 @@
 {    
     [aCoder encodeObject:_header forKey:@"header"];
     [aCoder encodeObject:_actions forKey:@"actions"];
+    [aCoder encodeObject:_actionSounds forKey:@"actionSounds"];
 }
 
 @end

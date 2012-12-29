@@ -16,6 +16,7 @@
 @property (nonatomic, strong) AVAudioPlayer *clickPlayer;
 @property (nonatomic, strong) AVAudioPlayer *tapPlayer;
 @property (nonatomic, strong) AVAudioPlayer *completePlayer;
+@property (nonatomic, strong) AVAudioPlayer *generalPlayer;
 
 @property (strong, nonatomic) NSString *relinkUserId;
 
@@ -24,5 +25,7 @@
 + (void)saveStatistic: (NSString*) title score: (int) score totalScore: (int)totalScore;
 + (NSArray*)getStatistic;
 + (void)resetStatistic;
++ (void)playSound: (NSString*) soundFile;
++ (void)stopPlaySound;
 
 @end

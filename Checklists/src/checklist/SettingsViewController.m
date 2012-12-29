@@ -24,6 +24,11 @@
 
 #define USE_VOICE_SETTING @"USE_VOICE_SETTING"
 
++(BOOL)isVoiceOn
+{
+    return [SettingsViewController getUseVoice];
+}
+
 +(BOOL)getUseVoice
 {
     NSString *useVoice = nil;

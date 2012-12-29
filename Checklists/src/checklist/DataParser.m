@@ -112,7 +112,16 @@
     
     if ([elementName isEqualToString:@"action"])
     {
-        [self.currentActions addAction: [attributeDict valueForKey:@"txt"]];
+        [self.currentActions addAction: attributeDict [@"txt"]];
+        
+        NSString *sound = attributeDict [@"snd"];
+        
+        if (sound == nil)
+        {
+            sound = @"";
+        }
+        
+        [self.currentActions addActionSound: sound];
     }
 }
 

@@ -10,6 +10,7 @@
 #import "Preconditions.h"
 #import "BlockAlertView.h"
 #import "AppDelegate.h"
+#import "SettingsViewController.h"
 
 #define WAIT_SEC_BEFORE_QUIT 5
 #define FONT_SIZE 30
@@ -45,7 +46,6 @@
 -(void)setSituation:(Situation *)situation
 {
     _situation = situation;
-    //self.title = situation.title;
     
     NSLog(@"Title: %@", situation.title);
     
@@ -55,6 +55,12 @@
     {
         self.totalScore += actions.count;
     }
+    
+    self.currentRow = 0;
+    
+    [self resetActions: nil];
+    
+    [self performSelector:@selector(playActionSound:) withObject:[self.situation.actions[0] actionSoundAtIndex: 0] afterDelay: 0.2];
 }
 
 -(void)onGoToMainScreen: (NSTimer *)timer
@@ -179,9 +185,14 @@
 	}
 	else
     {
-        [AppDelegate saveStatistic:self.situation.title score:self.currentRow totalScore:self.totalScore];
+        if (self.currentRow != 0)
+        {
+            [AppDelegate saveStatistic:self.situation.title score:self.currentRow totalScore:self.totalScore];
+        }
 
         [self resetActions: self];
+        
+        [self performSelector:@selector(playActionSound:) withObject:[self.situation.actions[0] actionSoundAtIndex: 0] afterDelay: 0.2];
 	}
     
     self.alert = nil;
@@ -287,6 +298,14 @@
     [[[AppDelegate appDelegate] clickPlayer] play];
 }
 
+-(void)playActionSound: (NSString*)actionSound
+{
+    if ([SettingsViewController isVoiceOn])
+    {
+        [AppDelegate playSound: actionSound];
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -347,24 +366,41 @@
     NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:nextRow inSection:nextSection];    
 
     Actions *actions = [self.situation.actions objectAtIndex:indexPath.section];
-    [actions setActionAtIdxDone:indexPath.row];
+    BOOL isDone = [actions isActionAtIdxDone:indexPath.row];
+
+    if (isDone == NO)
+    {
+        self.currentRow++;
+        [actions setActionAtIdxDone:indexPath.row];
+    }
     
     cell.imageView.image = [UIImage imageNamed:@"checkbox_checked.png"];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     cell.textLabel.textColor = [UIColor darkGrayColor];
     cell.backgroundColor = UIColorFromRGB(0xB4CC83);
     
-    self.currentRow++;
 
     if (isLastCellSelected)
     {
         [AppDelegate saveStatistic:self.situation.title score:self.currentRow totalScore:self.totalScore];
         
         [[[AppDelegate appDelegate] completePlayer] play];
+        
+        self.currentRow = 0;
     }
     else 
     {
         [[[AppDelegate appDelegate] clickPlayer] play];
+        
+        if (newIndexPath.section < self.situation.actions.count)
+        {
+            actions = [self.situation.actions objectAtIndex:newIndexPath.section];
+            
+            if (newIndexPath.row < actions.count)
+            {
+                [self performSelector:@selector(playActionSound:) withObject:[actions actionSoundAtIndex: newIndexPath.row] afterDelay: 0.2];
+            }
+        }
     }
         
     /*
@@ -374,6 +410,7 @@
     NSAttributedString* strikedText = [NSAttributedString initWithString:cell.textLabel.text attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger: NSStrikethroughStyleAttributeName, nil]]];
     cell.textLabel.text = strikedText;
     */
+    
     [self.tableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
@@ -403,6 +440,8 @@
         [self.alert dismissWithClickedButtonIndex:0 animated:YES];
     }
     self.alert = nil;
+    
+    [AppDelegate stopPlaySound];
 }
 
 - (void)viewDidUnload

@@ -14,6 +14,10 @@
 
 -(void)addAction: (NSString*)action;
 -(NSString*)actionAtIndex: (int)idx;
+
+-(void)addActionSound: (NSString*)actionSound;
+-(NSString*)actionSoundAtIndex: (int)idx;
+
 -(int)count;
 
 -(BOOL)isActionAtIdxDone: (int)idx;

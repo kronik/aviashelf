@@ -24,6 +24,34 @@
 	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
++ (void)playSound: (NSString*) soundFile
+{
+    if (soundFile == nil || [soundFile isEqualToString:@""])
+    {
+        return;
+    }
+
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:soundFile ofType:@"mp3"];
+    NSError *error;
+    
+    [AppDelegate stopPlaySound];
+
+    [AppDelegate appDelegate].generalPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:soundPath] error:&error];
+
+    [AppDelegate appDelegate].generalPlayer.numberOfLoops = 0;
+    [AppDelegate appDelegate].generalPlayer.volume = 1.0f;
+    
+    [[AppDelegate appDelegate].generalPlayer play];
+}
+
++ (void)stopPlaySound
+{
+    if ([AppDelegate appDelegate].generalPlayer != nil)
+    {
+        [[AppDelegate appDelegate].generalPlayer stop];
+    }
+}
+
 -(AVAudioPlayer*)clickPlayer
 {
     if (_clickPlayer != nil)

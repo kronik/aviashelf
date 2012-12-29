@@ -21,4 +21,6 @@
 
 -(void)onResetPressed:(id)sender;
 
++(BOOL)isVoiceOn;
+
 @end
