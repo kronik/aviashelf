@@ -36,7 +36,7 @@ mkdir cache/events
 mkdir cache/model
 mkdir cache/simple
 mkdir cache/table
-
+mkdir cache/media
 
 #setup: create initial database structure
 #php bootstrap.php setup
