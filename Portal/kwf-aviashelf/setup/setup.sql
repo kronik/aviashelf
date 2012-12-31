@@ -691,6 +691,85 @@ CREATE TABLE IF NOT EXISTS `flightGroups` (
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `trainings` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+    `typeId` int NOT NULL DEFAULT '0',
+    `body` varchar(65000) COLLATE utf8_unicode_ci,
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `trainingGroups` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `trainingId` int NOT NULL,
+    `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `startDate` date NOT NULL,
+    `endDate` date NOT NULL,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `trainingId` (`trainingId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `trainingResults` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `trainingId` int NOT NULL,
+    `trainingName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `trainingGroupId` int NOT NULL,
+    `trainingGroupName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `gradeId` int DEFAULT '0',
+    `gradeName` varchar(20) COLLATE utf8_unicode_ci,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `trainingId` (`trainingId`),
+    KEY `trainingGroupId` (`trainingGroupId`),
+    KEY `gradeId` (`gradeId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `trainingQuestions` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `trainingId` int NOT NULL,
+    `trainingName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `question` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `trainingId` (`trainingId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `trainingAnswers` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `questionId` int NOT NULL,
+    `answer` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
+    `isCorrect` BOOL DEFAULT '0',
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `questionId` (`questionId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `trainingContents` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `questionId` int NOT NULL,
+    `answer` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
+    `isCorrect` BOOL DEFAULT '0',
+    `isSelected` BOOL DEFAULT '0',
+    `Hidden` char DEFAULT '0',
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `questionId` (`questionId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 delimiter $$
 CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`
 FOR EACH ROW 

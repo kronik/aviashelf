@@ -13199,6 +13199,10 @@
 		02BDD85D167D9598007AC083 /* EmployeeController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EmployeeController.php; sourceTree = "<group>"; };
 		02BDD85E167D9598007AC083 /* EmployeesController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EmployeesController.php; sourceTree = "<group>"; };
 		02BDD85F167DBD03007AC083 /* Specialities.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Specialities.php; sourceTree = "<group>"; };
+		02C0F1D3169176A6008491B1 /* Trainings.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Trainings.php; sourceTree = "<group>"; };
+		02C0F1D516917708008491B1 /* Trainings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Trainings.js; sourceTree = "<group>"; };
+		02C0F1D71691778A008491B1 /* TrainingController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TrainingController.php; sourceTree = "<group>"; };
+		02C0F1D81691778A008491B1 /* TrainingsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TrainingsController.php; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -15091,6 +15095,7 @@
 			children = (
 				02A8538C168935970081B13B /* Dictionaries */,
 				02A8538B1689357C0081B13B /* Flight */,
+				02C0F1D61691776E008491B1 /* Trainings */,
 				023FB6681684651200595523 /* DocumentController.php */,
 				023FB6691684651200595523 /* DocumentsController.php */,
 				02BDD85D167D9598007AC083 /* EmployeeController.php */,
@@ -15119,6 +15124,7 @@
 				026F88C21661E26600139CDD /* Members.js */,
 				0230FD0416762590007754C3 /* Polises.js */,
 				02A85380168851FD0081B13B /* Tasks.js */,
+				02C0F1D516917708008491B1 /* Trainings.js */,
 				0230FD091676C190007754C3 /* Wstypes.js */,
 			);
 			path = js;
@@ -47151,11 +47157,12 @@
 				026FBF221661E26B00139CDD /* MemberLanguages.php */,
 				026FBF231661E26B00139CDD /* Members.php */,
 				0230FD021676253F007754C3 /* Polises.php */,
-				026FBF241661E26B00139CDD /* Row */,
 				02BDD85F167DBD03007AC083 /* Specialities.php */,
+				02C0F1D3169176A6008491B1 /* Trainings.php */,
 				02A8537E168851AF0081B13B /* Tasks.php */,
 				0230FD071676AB05007754C3 /* WsCategories.php */,
 				0230FD081676AB06007754C3 /* Wstypes.php */,
+				026FBF241661E26B00139CDD /* Row */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -47231,6 +47238,15 @@
 				0230FD0B1676C20C007754C3 /* WstypesController.php */,
 			);
 			name = Dictionaries;
+			sourceTree = "<group>";
+		};
+		02C0F1D61691776E008491B1 /* Trainings */ = {
+			isa = PBXGroup;
+			children = (
+				02C0F1D71691778A008491B1 /* TrainingController.php */,
+				02C0F1D81691778A008491B1 /* TrainingsController.php */,
+			);
+			name = Trainings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
