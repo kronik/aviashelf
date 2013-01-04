@@ -691,6 +691,26 @@ CREATE TABLE IF NOT EXISTS `flightGroups` (
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `checks` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `checkType` enum('doc','flight','training') NOT NULL DEFAULT 'doc',
+    `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `typeId` int NOT NULL,
+    `typeName` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    `subTypeId` int DEFAULT '0',
+    `subtypeName` varchar(30) COLLATE utf8_unicode_ci,
+    `field` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    `sign` char(2) DEFAULT '=' NOT NULL,
+    `value` varchar(300) COLLATE utf8_unicode_ci,
+    `daysInPeriod` int DEFAULT '1',
+    `ownerId` int DEFAULT '0',
+    `ownerName` varchar(300) COLLATE utf8_unicode_ci,
+    `description` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `typeId` (`typeId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `trainings` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -741,10 +761,12 @@ CREATE TABLE IF NOT EXISTS `trainingQuestions` (
     `trainingId` int NOT NULL,
     `trainingName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `question` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
+    `picture_id` int(11) DEFAULT NULL,
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
-    KEY `trainingId` (`trainingId`)
+    KEY `trainingId` (`trainingId`),
+    KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `trainingAnswers` (

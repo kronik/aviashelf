@@ -8035,6 +8035,7 @@
         <id>1619</id>
         <de>Benutzermenü anzeigen</de>
         <ro>Afişează meniu utilizator</ro>
+        <ru>Показать Меню Пользователя</ru>
     </text>
     <text>
         <en>More about this Topic</en>
@@ -8183,6 +8184,7 @@
         <id>1620</id>
         <de>Information</de>
         <ro>Info</ro>
+        <ru>Информация</ru>
     </text>
     <text>
         <en>Shop.Product: Voucher</en>
@@ -9680,29 +9682,29 @@
         <id>1904</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Checks</en>
+        <ru>Проверки</ru>
+        <id>1905</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Check</en>
+        <ru>Проверка</ru>
+        <id>1906</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Field</en>
+        <ru>Поле</ru>
+        <id>1907</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Sign</en>
+        <ru>Знак</ru>
+        <id>1908</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Days in period</en>
+        <ru>Дней в периоде</ru>
+        <id>1909</id>
     </text>
     <text>
         <en></en>
