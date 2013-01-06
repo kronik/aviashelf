@@ -92,7 +92,6 @@
 		029825BC153C607A00C3F3D8 /* ПРАПИ-98.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B5153C607A00C3F3D8 /* ПРАПИ-98.pdf */; };
 		029825BD153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B6153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf */; };
 		029825BE153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B7153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf */; };
-		029825BF153C607A00C3F3D8 /* РПП.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B8153C607A00C3F3D8 /* РПП.pdf */; };
 		029825C0153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B9153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf */; };
 		02B0A343168B42FB00C0CC88 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02B0A23B168B42FB00C0CC88 /* 1.mp3 */; };
 		02B0A344168B42FB00C0CC88 /* 10.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02B0A23C168B42FB00C0CC88 /* 10.mp3 */; };
@@ -523,7 +522,6 @@
 		029825B5153C607A00C3F3D8 /* ПРАПИ-98.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ПРАПИ-98.pdf"; sourceTree = "<group>"; };
 		029825B6153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "РЛЭ Ми-8 2011.04.01.pdf"; sourceTree = "<group>"; };
 		029825B7153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "РЛЭ Ми-8МТВ #1 2011.04.01.pdf"; sourceTree = "<group>"; };
-		029825B8153C607A00C3F3D8 /* РПП.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "РПП.pdf"; sourceTree = "<group>"; };
 		029825B9153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ФАП ИВП в 11.03.2010.pdf"; sourceTree = "<group>"; };
 		02B0A23B168B42FB00C0CC88 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
 		02B0A23C168B42FB00C0CC88 /* 10.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 10.mp3; sourceTree = "<group>"; };
@@ -1361,7 +1359,6 @@
 				029825B5153C607A00C3F3D8 /* ПРАПИ-98.pdf */,
 				029825B6153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf */,
 				029825B7153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf */,
-				029825B8153C607A00C3F3D8 /* РПП.pdf */,
 				029825B9153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf */,
 				32673953152C1EBB0084CFB8 /* СЛОЖНЫЕ СИТУАЦИИ РПП.xml */,
 				0288BEA215B6719C00F96F0F /* АВАРИЙНЫЕ СИТУАЦИИ РЛЭ.xml */,
@@ -1552,7 +1549,6 @@
 				029825BC153C607A00C3F3D8 /* ПРАПИ-98.pdf in Resources */,
 				029825BD153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf in Resources */,
 				029825BE153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf in Resources */,
-				029825BF153C607A00C3F3D8 /* РПП.pdf in Resources */,
 				029825C0153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf in Resources */,
 				3243FC14153CFE2900D1FDA4 /* bell.aif in Resources */,
 				3243FC17153D024500D1FDA4 /* complete.wav in Resources */,
@@ -2000,8 +1996,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = safechecklists;
-				PROVISIONING_PROFILE = "AC155A99-4F22-4A31-99F0-FF26FBD3B114";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AC155A99-4F22-4A31-99F0-FF26FBD3B114";
+				PROVISIONING_PROFILE = "68BFD1F8-DB35-4D40-817E-9B1201B12057";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "68BFD1F8-DB35-4D40-817E-9B1201B12057";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
