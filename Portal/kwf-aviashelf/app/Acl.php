@@ -8,13 +8,17 @@ class Acl extends Kwf_Acl
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwf('Dictionaries'), 'icon'=>'book.png')));
 
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Customers'), 'icon'=>'user.png'), '/'));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/tasks'));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flights', array('text'=>trlKwf('Flights'), 'icon'=>'calendar.png'), '/flights'));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainings', array('text'=>trlKwf('Trainings'), 'icon'=>'database.png'), '/trainings'));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checks', array('text'=>trlKwf('Checks'), 'icon'=>'calculator.png'), '/checks'));
-
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Customers'), 'icon'=>'user.png'), '/'));
-
+        
+        
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_checksmenuitem', array('text'=>trlKwf('Checks'), 'icon'=>'calculator.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>trlKwf('Documents checks'), 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksflights', array('text'=>trlKwf('Flights checks'), 'icon'=>'calculator.png'), '/checksflights'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkstrainings', array('text'=>trlKwf('Trainings checks'), 'icon'=>'calculator.png'), '/checkstrainings'), 'default_checksmenuitem');
+        
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwf('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwf('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airports', array('text'=>trlKwf('Airports'), 'icon'=>'book.png'), '/airports'), 'default_menuitem');
@@ -50,7 +54,10 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightgroups'), 'default_flights');
         $this->addResource(new Zend_Acl_Resource('default_flightgroup'), 'default_flightgroups');
         $this->addResource(new Zend_Acl_Resource('default_training'), 'default_trainings');
-        $this->addResource(new Zend_Acl_Resource('default_check'), 'default_checks');
+
+        $this->addResource(new Zend_Acl_Resource('default_checkdoc'), 'default_checksdocs');
+        $this->addResource(new Zend_Acl_Resource('default_checkflight'), 'default_checksflights');
+        $this->addResource(new Zend_Acl_Resource('default_checktraining'), 'default_checkstrainings');
 
 
         #        $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
@@ -63,10 +70,13 @@ class Acl extends Kwf_Acl
         
         $this->allow('admin', 'default_menuitem');
         $this->allow('admin', 'default_settingsmenuitem');
+        $this->allow('admin', 'default_checksmenuitem');
 
         $this->allow('admin', 'kwf_user_users');
 
-        $this->allow('admin', 'default_checks');
+        $this->allow('admin', 'default_checksdocs');
+        $this->allow('admin', 'default_checksflights');
+        $this->allow('admin', 'default_checkstrainings');
         $this->allow('admin', 'default_trainings');
         $this->allow('admin', 'default_flights');
         $this->allow('admin', 'default_tasks');

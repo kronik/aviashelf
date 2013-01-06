@@ -51,9 +51,17 @@
 		025B6B9B16859DFA00FB1849 /* FlightresultsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlightresultsController.php; sourceTree = "<group>"; };
 		0267EE5C168FC948005F327C /* Image.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Image.php; sourceTree = "<group>"; };
 		026C2D251697136F00DC9D4F /* Checks.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Checks.php; sourceTree = "<group>"; };
-		026C2D27169713C900DC9D4F /* Checks.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Checks.js; sourceTree = "<group>"; };
+		026C2D27169713C900DC9D4F /* Checksdocs.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Checksdocs.js; sourceTree = "<group>"; };
 		026C2D281697145800DC9D4F /* CheckController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CheckController.php; sourceTree = "<group>"; };
-		026C2D291697145800DC9D4F /* ChecksController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ChecksController.php; sourceTree = "<group>"; };
+		026C2D291697145800DC9D4F /* ChecksdocsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ChecksdocsController.php; sourceTree = "<group>"; };
+		026C2D2B169901B800DC9D4F /* CheckdocController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CheckdocController.php; sourceTree = "<group>"; };
+		026C2D2C169901B800DC9D4F /* CheckflightController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CheckflightController.php; sourceTree = "<group>"; };
+		026C2D2D169901B800DC9D4F /* ChecktrainingController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ChecktrainingController.php; sourceTree = "<group>"; };
+		026C2D2E169933B600DC9D4F /* Checksflights.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Checksflights.js; sourceTree = "<group>"; };
+		026C2D2F169933B600DC9D4F /* Checkstrainings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Checkstrainings.js; sourceTree = "<group>"; };
+		026C2D301699355900DC9D4F /* ChecksflightsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ChecksflightsController.php; sourceTree = "<group>"; };
+		026C2D311699355900DC9D4F /* CheckstrainingsController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CheckstrainingsController.php; sourceTree = "<group>"; };
+		026C2D321699357D00DC9D4F /* ChecksController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ChecksController.php; sourceTree = "<group>"; };
 		026F81B81661E26400139CDD /* .htaccess */ = {isa = PBXFileReference; lastKnownFileType = text; path = .htaccess; sourceTree = "<group>"; };
 		026F81BA1661E26400139CDD /* Acl.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Acl.php; sourceTree = "<group>"; };
 		026F81BB1661E26400139CDD /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
@@ -13224,6 +13232,21 @@
 			name = configs;
 			sourceTree = "<group>";
 		};
+		026C2D2A1699013600DC9D4F /* Checks */ = {
+			isa = PBXGroup;
+			children = (
+				026C2D281697145800DC9D4F /* CheckController.php */,
+				026C2D321699357D00DC9D4F /* ChecksController.php */,
+				026C2D2B169901B800DC9D4F /* CheckdocController.php */,
+				026C2D291697145800DC9D4F /* ChecksdocsController.php */,
+				026C2D2C169901B800DC9D4F /* CheckflightController.php */,
+				026C2D301699355900DC9D4F /* ChecksflightsController.php */,
+				026C2D2D169901B800DC9D4F /* ChecktrainingController.php */,
+				026C2D311699355900DC9D4F /* CheckstrainingsController.php */,
+			);
+			name = Checks;
+			sourceTree = "<group>";
+		};
 		026F44391661CC4500139CDD = {
 			isa = PBXGroup;
 			children = (
@@ -15097,11 +15120,10 @@
 		026F88B91661E26600139CDD /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				026C2D2A1699013600DC9D4F /* Checks */,
 				02A8538C168935970081B13B /* Dictionaries */,
 				02A8538B1689357C0081B13B /* Flight */,
 				02C0F1D61691776E008491B1 /* Trainings */,
-				026C2D281697145800DC9D4F /* CheckController.php */,
-				026C2D291697145800DC9D4F /* ChecksController.php */,
 				023FB6681684651200595523 /* DocumentController.php */,
 				023FB6691684651200595523 /* DocumentsController.php */,
 				02BDD85D167D9598007AC083 /* EmployeeController.php */,
@@ -15120,7 +15142,9 @@
 		026F88C11661E26600139CDD /* js */ = {
 			isa = PBXGroup;
 			children = (
-				026C2D27169713C900DC9D4F /* Checks.js */,
+				026C2D2E169933B600DC9D4F /* Checksflights.js */,
+				026C2D2F169933B600DC9D4F /* Checkstrainings.js */,
+				026C2D27169713C900DC9D4F /* Checksdocs.js */,
 				0230FD111676D005007754C3 /* Airplanes.js */,
 				0230FCC61674807C007754C3 /* Airports.js */,
 				0230FCCF1674E202007754C3 /* Companies.js */,
@@ -15142,6 +15166,7 @@
 			children = (
 				026F88C41661E26600139CDD /* .gitignore */,
 				026F88C51661E26600139CDD /* .htaccess */,
+				026FA2431661E26800139CDD /* trl.xml */,
 				026F88C61661E26600139CDD /* bootstrap.php */,
 				026F88C71661E26600139CDD /* config.ini */,
 				026F88C81661E26600139CDD /* COPYING */,
@@ -15158,7 +15183,6 @@
 				026F97851661E26700139CDD /* Kwf_js */,
 				026F988F1661E26800139CDD /* setup */,
 				026F98941661E26800139CDD /* tests */,
-				026FA2431661E26800139CDD /* trl.xml */,
 				026FA2441661E26800139CDD /* views */,
 				026FA2621661E26800139CDD /* Vpc */,
 			);

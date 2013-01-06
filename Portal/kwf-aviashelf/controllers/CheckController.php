@@ -5,65 +5,81 @@ class CheckController extends Kwf_Controller_Action_Auto_Form
     protected $_permissions = array('save', 'add', 'delete');
     protected $_paging = 0;
     protected $_buttons = array('save');
+    
+    protected function updateDbViews()
+    {
+        $db = Zend_Registry::get('db');
+        $docCheckSql = 'CREATE VIEW `documentChecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
+        $flightCheckSql = 'CREATE VIEW `flightChecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
+        $trainingCheckSql = 'CREATE VIEW `trainingChecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
 
-    protected function _initFields()
-    {                
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('visible', '1');
+        $cheksModel = Kwf_Model_Abstract::getInstance('Checks');
+        $cheksSelect = $cheksModel->select();
         
-        $flightsModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $flightsSelect = $flightsModel->select()->whereEquals('name', 'Типы налета');
+        $rows = $cheksModel->getRows($cheksSelect);
         
-        $flightTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $flightTypeSelect = $flightTypeModel->select()->whereEquals('name', 'Типы полетов');
+        foreach ($rows as $row)
+        {
+            if ($row->checkType == 'doc')
+            {
+                if ($row->field == 'startDate')
+                {
+                    if ($row->value == NULL || $row->value == 0)
+                    {
+                        $docCheckSql = $docCheckSql . 'AND (' . $row->field . ' < CURDATE()) ';
+                    }
+                    else
+                    {
+                        $docCheckSql = $docCheckSql . 'AND (DATE_ADD(' . $row->field . ', INTERVAL ' . $row->value . ' DAY) > CURDATE()) ';
+                    }
+                }
+                else if ($row->field == 'endDate')
+                {
+                    if ($row->value == NULL || $row->value == 0)
+                    {
+                        $docCheckSql = $docCheckSql . 'AND (' . $row->field . ' > CURDATE()) ';
+                    }
+                    else
+                    {
+                        $docCheckSql = $docCheckSql . 'AND (DATE_ADD(' . $row->field . ', INTERVAL ' . $row->value . ' DAY) < CURDATE()) ';
+                    }
+                }
+            }
+            else if ($row->checkType == 'flight')
+            {
+                
+            }
+            else if ($row->checkType == 'training')
+            {
+                
+            }
+        }
         
-        $this->_form->add(new Kwf_Form_Field_Select('checkType', trlKwf('Type')))
-        ->setValues(array('doc' => trlKwf('Document'), 'flight' => trlKwf('Flight'), 'training' => trlKwf('Training')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
-        $this->_form->add(new Kwf_Form_Field_TextField('title', trlKwf('Title')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
-        $this->_form->add(new Kwf_Form_Field_Select('typeId', trlKwf('Flight')))
-        ->setValues($flightsModel)
-        ->setSelect($flightsSelect)
-        ->setWidth(400);
-        
-        $this->_form->add(new Kwf_Form_Field_Select('subTypeId', trlKwf('Flight')))
-        ->setValues($flightTypeModel)
-        ->setSelect($flightTypeSelect)
-        ->setWidth(400);
-        
-        $this->_form->add(new Kwf_Form_Field_Select('field', trlKwf('Field')))
-        ->setValues(array('startDate' => trlKwf('Start Date'), 'endDate' => trlKwf('End Date'), 'gradeName' => trlKwf('Grade')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
-        $this->_form->add(new Kwf_Form_Field_Select('sign', trlKwf('Sign')))
-        ->setValues(array('<' => trlKwf('<'), '<=' => trlKwf('<='), '=' => trlKwf('='), '>' => trlKwf('>'), '>=' => trlKwf('>=')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
-        $this->_form->add(new Kwf_Form_Field_TextField('value', trlKwf('Value')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
-        $this->_form->add(new Kwf_Form_Field_NumberField('daysInPeriod', trlKwf('Days in period')))
-        ->setWidth(400);
+        p($docCheckSql);
 
-        $this->_form->add(new Kwf_Form_Field_Select('ownerId', trlKwf('Employee')))
-        ->setValues($employeesModel)
-        ->setSelect($employeesSelect)
-        ->setWidth(400);
+        #$db->query('DROP VIEW IF EXISTS `documentChecks`;');
+        #$db->query('DROP VIEW IF EXISTS `flightChecks`;');
+        #$db->query('DROP VIEW IF EXISTS `trainingChecks`;');
+        
+        #$db->query($docCheckSql);
+        #$db->query($flightCheckSql);
+        #$db->query($trainingCheckSql);
     }
 
-    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
+    protected function _afterInsert(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateDbViews();
+    }
+    
+    protected function _afterSave(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateDbViews();
+    }
+    
+    protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
-        $m2 = Kwf_Model_Abstract::getInstance('Employees');
-
+        
         if ($row->typeId != NULL)
         {
             $s = $m1->select()->whereEquals('id', $row->typeId);
@@ -78,38 +94,23 @@ class CheckController extends Kwf_Controller_Action_Auto_Form
             $row->subtypeName = $prow->value;
         }
         
-        if ($row->ownerId != NULL)
-        {
-            $s = $m2->select()->whereEquals('id', $row->ownerId);
-            $prow = $m2->getRow($s);
-            $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
-        }
+        return $row;
+    }
+    
+    protected function _getWhere()
+    {
+        $ret = parent::_getWhere();
+        $ret['id = ?'] = $this->_getParam('id');
+        return $ret;
+    }
+    
+    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
+    {
+        $row = $this->updateReferences($row);
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
-        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
-        $m2 = Kwf_Model_Abstract::getInstance('Employees');
-        
-        if ($row->typeId != NULL)
-        {
-            $s = $m1->select()->whereEquals('id', $row->typeId);
-            $prow = $m1->getRow($s);
-            $row->typeName = $prow->value;
-        }
-        
-        if ($row->subTypeId != NULL)
-        {
-            $s = $m1->select()->whereEquals('id', $row->subTypeId);
-            $prow = $m1->getRow($s);
-            $row->subtypeName = $prow->value;
-        }
-        
-        if ($row->ownerId != NULL)
-        {
-            $s = $m2->select()->whereEquals('id', $row->ownerId);
-            $prow = $m2->getRow($s);
-            $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
-        }
+        $row = $this->updateReferences($row);
     }
 }

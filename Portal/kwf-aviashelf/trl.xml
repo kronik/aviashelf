@@ -7336,6 +7336,7 @@
         <id>1426</id>
         <ro>Document</ro>
         <sl>Dokument</sl>
+        <ru>Документ</ru>
     </text>
     <text>
         <en>Enquiries</en>
@@ -9557,8 +9558,8 @@
         <id>1879</id>
     </text>
     <text>
-        <en>Document</en>
-        <ru>Документ</ru>
+        <en>Document type</en>
+        <ru>Тип документа</ru>
         <id>1880</id>
     </text>
     <text>
@@ -9705,6 +9706,71 @@
         <en>Days in period</en>
         <ru>Дней в периоде</ru>
         <id>1909</id>
+    </text>
+    <text>
+        <en>less</en>
+        <ru>меньше</ru>
+        <id>1910</id>
+    </text>
+    <text>
+        <en>equal</en>
+        <ru>равно</ru>
+        <id>1911</id>
+    </text>
+    <text>
+        <en>greater</en>
+        <ru>больше</ru>
+        <id>1912</id>
+    </text>
+    <text>
+        <en>Days before</en>
+        <ru>Дней до</ru>
+        <id>1913</id>
+    </text>
+    <text>
+        <en>Documents checks</en>
+        <ru>Проверки документов</ru>
+        <id>1914</id>
+    </text>
+    <text>
+        <en>Flights checks</en>
+        <ru>Проверки налета</ru>
+        <id>1915</id>
+    </text>
+    <text>
+        <en>Trainings checks</en>
+        <ru>Проверки курсов</ru>
+        <id>1916</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
     </text>
     <text>
         <en></en>

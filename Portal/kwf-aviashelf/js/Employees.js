@@ -39,7 +39,7 @@ var Employees = Ext.extend(Ext.Panel,
         });
                            
         var tabs = new Ext.TabPanel({
-               border    : false,
+               border    : true,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',

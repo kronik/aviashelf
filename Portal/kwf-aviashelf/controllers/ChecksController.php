@@ -10,12 +10,7 @@ class ChecksController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column('checkType', trlKwf('Type')))->setWidth(100);
-        $this->_columns->add(new Kwf_Grid_Column('title', trlKwf('Title')))->setWidth(200);
-    }
-    
-    public function indexAction()
-    {
-        $this->view->ext('Checks');
+        $this->_columns->add(new Kwf_Grid_Column('title', trlKwf('Title')))->setWidth(100);
+        $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(200);
     }
 }
