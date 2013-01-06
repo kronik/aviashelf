@@ -23,7 +23,7 @@ class ChecktrainingController extends CheckController
         ->setSelect($flightTypeSelect)
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_Select('field', trlKwf('Field')))
+        $this->_form->add(new Kwf_Form_Field_Select('field', trlKwf('Check')))
         ->setValues(array('startDate' => trlKwf('Doc Start Date'), 'endDate' => trlKwf('Doc Start Date')))
         ->setAllowBlank(false)
         ->setWidth(400);

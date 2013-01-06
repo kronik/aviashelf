@@ -9,9 +9,9 @@ class CheckController extends Kwf_Controller_Action_Auto_Form
     protected function updateDbViews()
     {
         $db = Zend_Registry::get('db');
-        $docCheckSql = 'CREATE VIEW `documentChecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
-        $flightCheckSql = 'CREATE VIEW `flightChecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
-        $trainingCheckSql = 'CREATE VIEW `trainingChecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
+        $docCheckSql = 'CREATE VIEW `documentсhecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
+        $flightCheckSql = 'CREATE VIEW `flightсhecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
+        $trainingCheckSql = 'CREATE VIEW `trainingсhecks` AS SELECT * FROM `documents` WHERE (Hidden = 0) ';
 
         $cheksModel = Kwf_Model_Abstract::getInstance('Checks');
         $cheksSelect = $cheksModel->select();
@@ -22,6 +22,8 @@ class CheckController extends Kwf_Controller_Action_Auto_Form
         {
             if ($row->checkType == 'doc')
             {
+                $docCheckSql = $docCheckSql . 'AND (typeId = ' . $row->typeId . ') ';
+                
                 if ($row->field == 'startDate')
                 {
                     if ($row->value == NULL || $row->value == 0)
@@ -47,21 +49,24 @@ class CheckController extends Kwf_Controller_Action_Auto_Form
             }
             else if ($row->checkType == 'flight')
             {
-                
+                if ($row->field == 'startDate')
+                {
+                }
             }
             else if ($row->checkType == 'training')
             {
-                
             }
         }
         
-        p($docCheckSql);
-
-        #$db->query('DROP VIEW IF EXISTS `documentChecks`;');
-        #$db->query('DROP VIEW IF EXISTS `flightChecks`;');
-        #$db->query('DROP VIEW IF EXISTS `trainingChecks`;');
+        $docCheckSql = $docCheckSql . ';';
         
-        #$db->query($docCheckSql);
+        #p($docCheckSql);
+
+        $db->query('DROP VIEW IF EXISTS `documentсhecks`;');
+        #$db->query('DROP VIEW IF EXISTS `flightсhecks`;');
+        #$db->query('DROP VIEW IF EXISTS `trainingсhecks`;');
+        
+        $db->query($docCheckSql);
         #$db->query($flightCheckSql);
         #$db->query($trainingCheckSql);
     }

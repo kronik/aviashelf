@@ -18,6 +18,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>trlKwf('Documents checks'), 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksflights', array('text'=>trlKwf('Flights checks'), 'icon'=>'calculator.png'), '/checksflights'), 'default_checksmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkstrainings', array('text'=>trlKwf('Trainings checks'), 'icon'=>'calculator.png'), '/checkstrainings'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkresults', array('text'=>trlKwf('Check results'), 'icon'=>'database.png'), '/checkresults'), 'default_checksmenuitem');
         
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwf('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwf('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
@@ -58,6 +59,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_checkdoc'), 'default_checksdocs');
         $this->addResource(new Zend_Acl_Resource('default_checkflight'), 'default_checksflights');
         $this->addResource(new Zend_Acl_Resource('default_checktraining'), 'default_checkstrainings');
+        $this->addResource(new Zend_Acl_Resource('default_checkresult'), 'default_checkresults');
 
 
         #        $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
@@ -74,6 +76,7 @@ class Acl extends Kwf_Acl
 
         $this->allow('admin', 'kwf_user_users');
 
+        $this->allow('admin', 'default_checkresults');
         $this->allow('admin', 'default_checksdocs');
         $this->allow('admin', 'default_checksflights');
         $this->allow('admin', 'default_checkstrainings');

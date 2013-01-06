@@ -23,7 +23,7 @@ class CheckflightController extends CheckController
         ->setSelect($flightTypeSelect)
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_Select('field', trlKwf('Field')))
+        $this->_form->add(new Kwf_Form_Field_Select('field', trlKwf('Check')))
         ->setValues(array('flights' => trlKwf('Flights'), 'goes' => trlKwf('Goes'), 'updowns' => trlKwf('Updowns')))
         ->setAllowBlank(false)
         ->setWidth(400);

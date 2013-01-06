@@ -708,6 +708,22 @@ CREATE TABLE IF NOT EXISTS `checks` (
     KEY `typeId` (`typeId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `checkResults` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `checkDate` date NOT NULL,
+    `checkTS` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `checkType` enum('doc','flight','training') NOT NULL,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `typeId` int NOT NULL,
+    `typeName` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    `description` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `typeId` (`typeId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `trainings` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
