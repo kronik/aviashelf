@@ -73,12 +73,12 @@ class CheckController extends Kwf_Controller_Action_Auto_Form
 
     protected function _afterInsert(Kwf_Model_Row_Interface $row)
     {
-        $this->updateDbViews();
+        #$this->updateDbViews();
     }
     
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
-        $this->updateDbViews();
+        #$this->updateDbViews();
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)

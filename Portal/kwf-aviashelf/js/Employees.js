@@ -1,13 +1,7 @@
 var Employees = Ext.extend(Ext.Panel,
 {
     initComponent : function(test)
-    {
-        var form = new Kwf.Auto.FormPanel({
-            controllerUrl   : '/employee',
-            collapsible     : true,                                          
-            title           : trlKwf('General Info')
-        });
-                           
+    {                           
         var documents = new Kwf.Auto.GridPanel({
              controllerUrl   : '/documents',
              collapsible     : true,
@@ -28,7 +22,7 @@ var Employees = Ext.extend(Ext.Panel,
             split           : true,
             collapsible     : true,
             title           : trlKwf('Employees'),
-            bindings: [form, {
+            bindings: [{
                 queryParam: 'ownerId',
                 item: documents
             },
@@ -43,7 +37,7 @@ var Employees = Ext.extend(Ext.Panel,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',
-               items:[form, documents, flightresults]
+               items:[documents, flightresults]
         });
 
         this.layout = 'border';

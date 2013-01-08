@@ -4,7 +4,7 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'Flightgroups';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 10;
-    protected $_buttons = array('add', 'save');
+    protected $_buttons = array('add');
     protected $_editDialog = array(
         'controllerUrl' => '/flightgroup',
         'width' => 550,

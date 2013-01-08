@@ -1,13 +1,14 @@
 <?php
 class EmployeeController extends Kwf_Controller_Action_Auto_Form
 {
-    protected $_buttons = array('save');
+    #protected $_buttons = array('save');
     protected $_permissions = array('save', 'add');
     protected $_modelName = 'Employees';
 
     protected function _initFields()
     {
         $tabs = $this->_form->add(new Kwf_Form_Container_Tabs());
+        $tabs->setBorder(true);
         $tabs->setActiveTab(0);
 
         // **** General Info

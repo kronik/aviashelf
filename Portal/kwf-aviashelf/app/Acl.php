@@ -8,8 +8,8 @@ class Acl extends Kwf_Acl
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwf('Dictionaries'), 'icon'=>'book.png')));
 
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Customers'), 'icon'=>'user.png'), '/'));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/tasks'));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Customers'), 'icon'=>'user.png'), '/'));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flights', array('text'=>trlKwf('Flights'), 'icon'=>'calendar.png'), '/flights'));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainings', array('text'=>trlKwf('Trainings'), 'icon'=>'database.png'), '/trainings'));
         

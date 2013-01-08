@@ -5,6 +5,11 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 30;
     protected $_buttons = array('add');
+    protected $_editDialog = array(
+                                   'controllerUrl' => '/flight',
+                                   'width' => 550,
+                                   'height' => 530
+                                   );
 
     public function indexAction()
     {

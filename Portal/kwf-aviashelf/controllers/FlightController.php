@@ -1,46 +1,39 @@
 <?php
 class FlightController extends Kwf_Controller_Action_Auto_Form
 {
-    protected $_buttons = array('save');
+    #protected $_buttons = array('save');
     protected $_permissions = array('save', 'add');
     protected $_modelName = 'Flights';
+    #protected $title = trlKwf('Flight');
 
     protected function _initFields()
-    {
-        $tabs = $this->_form->add(new Kwf_Form_Container_Tabs());
-        $tabs->setActiveTab(0);
-
-        // **** General Info
-        $tab = $tabs->add();
-        $tab->setTitle(trlKwf('Flight'));
-        $tab->setLabelAlign('top');
-        
-        $tab->fields->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
+    {        
+        $this->_form->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
             ->setAllowBlank(false)
             ->setWidth(400);
         
         $linkModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $linkSelect = $linkModel->select()->whereEquals('name', 'Подразделения');
         
-        $tab->fields->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Subcompany')))
+        $this->_form->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Subcompany')))
         ->setValues($linkModel)
         ->setSelect($linkSelect)
         ->setWidth(400);
         
-        $tab->fields->add(new Kwf_Form_Field_DateField('flightStartDate', trlKwf('Start Date')));
-        $tab->fields->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
+        $this->_form->add(new Kwf_Form_Field_DateField('flightStartDate', trlKwf('Start Date')));
+        $this->_form->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
 
-        $tab->fields->add(new Kwf_Form_Field_DateField('flightEndDate', trlKwf('End Date')));
-        $tab->fields->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Flight Time')))->setIncrement(5);
-        $tab->fields->add(new Kwf_Form_Field_TimeField('flightWorkTime', trlKwf('Flight work time')))->setIncrement(5);
+        $this->_form->add(new Kwf_Form_Field_DateField('flightEndDate', trlKwf('End Date')));
+        $this->_form->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Flight Time')))->setIncrement(5);
+        $this->_form->add(new Kwf_Form_Field_TimeField('flightWorkTime', trlKwf('Flight work time')))->setIncrement(5);
 
-        $tab->fields->add(new Kwf_Form_Field_NumberField('flightCount', trlKwf('Flight count')))
+        $this->_form->add(new Kwf_Form_Field_NumberField('flightCount', trlKwf('Flight count')))
         ->setWidth(400);
 
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $airplanesSelect = $airplanesModel->select()->whereEquals('Hidden', '0');
         
-        $tab->fields->add(new Kwf_Form_Field_Select('planeId', trlKwf('Airplane')))
+        $this->_form->add(new Kwf_Form_Field_Select('planeId', trlKwf('Airplane')))
         ->setValues($airplanesModel)
         ->setSelect($airplanesSelect)
         ->setWidth(400)
@@ -49,7 +42,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $objModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $objSelect = $objModel->select()->whereEquals('name', 'Цели');
         
-        $tab->fields->add(new Kwf_Form_Field_Select('objectiveId', trlKwf('Objective')))
+        $this->_form->add(new Kwf_Form_Field_Select('objectiveId', trlKwf('Objective')))
         ->setValues($objModel)
         ->setSelect($objSelect)
         ->setWidth(400);
@@ -57,16 +50,16 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $routeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $routeSelect = $routeModel->select()->whereEquals('name', 'Маршруты');
         
-        $tab->fields->add(new Kwf_Form_Field_Select('routeId', trlKwf('Route')))
+        $this->_form->add(new Kwf_Form_Field_Select('routeId', trlKwf('Route')))
         ->setValues($routeModel)
         ->setSelect($routeSelect)
         ->setWidth(400);
         
-        $tab->fields->add(new Kwf_Form_Field_TextArea('results', trlKwf('Flight Result Comment')))
+        $this->_form->add(new Kwf_Form_Field_TextArea('results', trlKwf('Flight Result Comment')))
         ->setHeight(100)
         ->setWidth(400);
         
-        $tab->fields->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
+        $this->_form->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

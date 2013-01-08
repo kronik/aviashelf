@@ -2,12 +2,6 @@ var Flights = Ext.extend(Ext.Panel,
 {
     initComponent : function(test)
     {
-        var form = new Kwf.Auto.FormPanel({
-            controllerUrl   : '/flight',
-            collapsible     : true,                                          
-            title           : trlKwf('General Info')
-        });
-
         var flightresults = new Kwf.Auto.GridPanel({
               controllerUrl   : '/flightfullresults',
               collapsible     : true,
@@ -28,10 +22,7 @@ var Flights = Ext.extend(Ext.Panel,
             split           : true,
             collapsible     : true,
             title           : trlKwf('Flights'),
-            bindings: [{
-                queryParam: 'id',
-                item: form
-            },
+            bindings: [
             {
                 queryParam: 'flightId',
                 item: flightresults
@@ -47,7 +38,7 @@ var Flights = Ext.extend(Ext.Panel,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',
-               items:[form, flightgroups, flightresults]
+               items:[flightgroups, flightresults]
         });
 
         this.layout = 'border';
