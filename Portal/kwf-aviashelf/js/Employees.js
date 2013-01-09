@@ -67,7 +67,7 @@ function toDate(dStr,format)
 }
 
 // define a custom summary function
-Ext.grid.GroupSummary.Calculations['totalTime'] = function(v, record, field)
+Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, field)
 {
     if (v == 0)
     {
@@ -95,7 +95,7 @@ Ext.grid.GroupSummary.Calculations['totalTime'] = function(v, record, field)
     return hours + ':' + minutes + ':00';
 }
 
-Ext.util.Format.checkDate = function(val)
+Ext.util.Format.docCheckDate = function(val)
 {
     var month = val.getUTCMonth() + 1;
     var monthStr = month < 10 ? '0' + month : month;
@@ -105,10 +105,12 @@ Ext.util.Format.checkDate = function(val)
     
     var newdate = year + "-" + monthStr + "-" + dayStr;
     
+    var dateToCheck = new Date();
     var today = new Date();
-    today.setDate(today.getDate() - 7);
     
-    if (val > today)
+    dateToCheck.setDate(dateToCheck.getDate() - 7);
+        
+    if ((val > today) && (val > dateToCheck))
     {
         return '<span style="color:green;">' + newdate + '</span>';
     }

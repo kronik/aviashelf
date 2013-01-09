@@ -31,7 +31,7 @@ var Tasks = Ext.extend(Ext.Panel,
     }
 });
 
-Ext.util.Format.checkDate = function(val)
+Ext.util.Format.taskCheckDate = function(val)
 {
     var month = val.getUTCMonth() + 1;
     var monthStr = month < 10 ? '0' + month : month;
@@ -41,10 +41,12 @@ Ext.util.Format.checkDate = function(val)
     
     var newdate = year + "-" + monthStr + "-" + dayStr;
 
+    var dateToCheck = new Date();
     var today = new Date();
-    today.setDate(today.getDate() - 3);
     
-    if (val > today)
+    dateToCheck.setDate(dateToCheck.getDate() - 3);
+    
+    if ((val > today) && (val > dateToCheck))
     {
         return '<span style="color:green;">' + newdate + '</span>';
     }

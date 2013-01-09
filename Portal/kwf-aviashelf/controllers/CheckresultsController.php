@@ -56,6 +56,10 @@ class CheckresultsController extends Kwf_Controller_Action_Auto_Grid
         $documentsModel = Kwf_Model_Abstract::getInstance('Documents');
         $documentsSelect = $documentsModel->select();
         
+        # Clear previous checks:
+        $checkResultsModel = Kwf_Model_Abstract::getInstance('Checkresults');
+        $checkResultsModel->deleteRows($checkResultsModel->select()->whereEquals('checkDate', date('Y-m-d')));
+        
         foreach ($employees as $employee)
         {
             foreach ($checksrows as $row)
