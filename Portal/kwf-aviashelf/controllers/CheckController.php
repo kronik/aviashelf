@@ -92,7 +92,7 @@ class CheckController extends Kwf_Controller_Action_Auto_Form
             $row->typeName = $prow->value;
         }
         
-        if ($row->subTypeId != NULL)
+        if (($row->subTypeId != NULL) && ($row->subTypeId != 0))
         {
             $s = $m1->select()->whereEquals('id', $row->subTypeId);
             $prow = $m1->getRow($s);

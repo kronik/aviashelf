@@ -15,6 +15,8 @@ class CheckresultsController extends Kwf_Controller_Action_Auto_Grid
 
     protected function _initColumns()
     {
+        $this->updateChecksResults();
+
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $this->_columns->add(new Kwf_Grid_Column_Date('checkDate', trlKwf('Date')))->setWidth(100);
@@ -43,7 +45,7 @@ class CheckresultsController extends Kwf_Controller_Action_Auto_Grid
     }
     
     protected function updateChecksResults()
-    {
+    {        
         $cheksModel = Kwf_Model_Abstract::getInstance('Checks');
         $cheksSelect = $cheksModel->select();
         
@@ -96,7 +98,9 @@ class CheckresultsController extends Kwf_Controller_Action_Auto_Grid
                     
                     if (count($documents) == 0)
                     {
-                        $this->insertNewRow('doc', $employee->id, $employee->lastname . ' ' . $employee->firstname . ' ' . $employee->middlename, $row->title, $row->typeId, $row->typeName, 'Проверка: ' . $row->title . ' - Отсутствует или просрочен документ: ' . $row->typeName);
+                        $this->insertNewRow('doc', $employee->id, $employee->lastname . ' ' . $employee->firstname . ' ' . $employee->middlename,
+                                            $row->title, $row->typeId, $row->typeName,
+                                            'Проверка: ' . $row->title . ' - Отсутствует или просрочен документ: ' . $row->typeName);
                     }
                 }
                 else if ($row->checkType == 'flight')

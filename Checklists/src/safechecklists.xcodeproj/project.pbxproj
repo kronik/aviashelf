@@ -11,6 +11,8 @@
 		021215C715B69CD200E6FB08 /* СЛОЖНЫЕ СИТУАЦИИ РПП.xml in Resources */ = {isa = PBXBuildFile; fileRef = 32673953152C1EBB0084CFB8 /* СЛОЖНЫЕ СИТУАЦИИ РПП.xml */; };
 		021215C815B69CD200E6FB08 /* СЛОЖНЫЕ СИТУАЦИИ РЛЭ.xml in Resources */ = {isa = PBXBuildFile; fileRef = 326413AF152D70E8006F3456 /* СЛОЖНЫЕ СИТУАЦИИ РЛЭ.xml */; };
 		021215CB15B6A57300E6FB08 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021215CA15B6A57300E6FB08 /* SettingsViewController.m */; };
+		0222599A169D239100A3E647 /* РЛЭ Ми-8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 02225998169D239100A3E647 /* РЛЭ Ми-8.pdf */; };
+		0222599B169D239100A3E647 /* РЛЭ Ми-8МТВ.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 02225999169D239100A3E647 /* РЛЭ Ми-8МТВ.pdf */; };
 		0232255915370B360078A9B0 /* ipad-BG.png in Resources */ = {isa = PBXBuildFile; fileRef = 0232255715370B360078A9B0 /* ipad-BG.png */; };
 		0232255A15370B360078A9B0 /* ipad-BG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0232255815370B360078A9B0 /* ipad-BG@2x.png */; };
 		023225611537170A0078A9B0 /* ipad-menubar-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 023225601537170A0078A9B0 /* ipad-menubar-right@2x.png */; };
@@ -90,8 +92,6 @@
 		029825BA153C607A00C3F3D8 /* Воздушный кодекс РФ.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B3153C607A00C3F3D8 /* Воздушный кодекс РФ.pdf */; };
 		029825BB153C607A00C3F3D8 /* НМО.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B4153C607A00C3F3D8 /* НМО.pdf */; };
 		029825BC153C607A00C3F3D8 /* ПРАПИ-98.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B5153C607A00C3F3D8 /* ПРАПИ-98.pdf */; };
-		029825BD153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B6153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf */; };
-		029825BE153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B7153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf */; };
 		029825C0153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 029825B9153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf */; };
 		02B0A343168B42FB00C0CC88 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02B0A23B168B42FB00C0CC88 /* 1.mp3 */; };
 		02B0A344168B42FB00C0CC88 /* 10.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02B0A23C168B42FB00C0CC88 /* 10.mp3 */; };
@@ -410,6 +410,8 @@
 /* Begin PBXFileReference section */
 		021215C915B6A57300E6FB08 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		021215CA15B6A57300E6FB08 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		02225998169D239100A3E647 /* РЛЭ Ми-8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "РЛЭ Ми-8.pdf"; sourceTree = "<group>"; };
+		02225999169D239100A3E647 /* РЛЭ Ми-8МТВ.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "РЛЭ Ми-8МТВ.pdf"; sourceTree = "<group>"; };
 		0232255715370B360078A9B0 /* ipad-BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-BG.png"; sourceTree = "<group>"; };
 		0232255815370B360078A9B0 /* ipad-BG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-BG@2x.png"; sourceTree = "<group>"; };
 		023225601537170A0078A9B0 /* ipad-menubar-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-menubar-right@2x.png"; sourceTree = "<group>"; };
@@ -520,8 +522,6 @@
 		029825B3153C607A00C3F3D8 /* Воздушный кодекс РФ.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Воздушный кодекс РФ.pdf"; sourceTree = "<group>"; };
 		029825B4153C607A00C3F3D8 /* НМО.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "НМО.pdf"; sourceTree = "<group>"; };
 		029825B5153C607A00C3F3D8 /* ПРАПИ-98.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ПРАПИ-98.pdf"; sourceTree = "<group>"; };
-		029825B6153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "РЛЭ Ми-8 2011.04.01.pdf"; sourceTree = "<group>"; };
-		029825B7153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "РЛЭ Ми-8МТВ #1 2011.04.01.pdf"; sourceTree = "<group>"; };
 		029825B9153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ФАП ИВП в 11.03.2010.pdf"; sourceTree = "<group>"; };
 		02B0A23B168B42FB00C0CC88 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
 		02B0A23C168B42FB00C0CC88 /* 10.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 10.mp3; sourceTree = "<group>"; };
@@ -1354,11 +1354,11 @@
 		324AFAFF152D85B700B5BB70 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				02225998169D239100A3E647 /* РЛЭ Ми-8.pdf */,
+				02225999169D239100A3E647 /* РЛЭ Ми-8МТВ.pdf */,
 				029825B3153C607A00C3F3D8 /* Воздушный кодекс РФ.pdf */,
 				029825B4153C607A00C3F3D8 /* НМО.pdf */,
 				029825B5153C607A00C3F3D8 /* ПРАПИ-98.pdf */,
-				029825B6153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf */,
-				029825B7153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf */,
 				029825B9153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf */,
 				32673953152C1EBB0084CFB8 /* СЛОЖНЫЕ СИТУАЦИИ РПП.xml */,
 				0288BEA215B6719C00F96F0F /* АВАРИЙНЫЕ СИТУАЦИИ РЛЭ.xml */,
@@ -1547,8 +1547,6 @@
 				029825BA153C607A00C3F3D8 /* Воздушный кодекс РФ.pdf in Resources */,
 				029825BB153C607A00C3F3D8 /* НМО.pdf in Resources */,
 				029825BC153C607A00C3F3D8 /* ПРАПИ-98.pdf in Resources */,
-				029825BD153C607A00C3F3D8 /* РЛЭ Ми-8 2011.04.01.pdf in Resources */,
-				029825BE153C607A00C3F3D8 /* РЛЭ Ми-8МТВ #1 2011.04.01.pdf in Resources */,
 				029825C0153C607A00C3F3D8 /* ФАП ИВП в 11.03.2010.pdf in Resources */,
 				3243FC14153CFE2900D1FDA4 /* bell.aif in Resources */,
 				3243FC17153D024500D1FDA4 /* complete.wav in Resources */,
@@ -1831,6 +1829,8 @@
 				02B0A448168B42FB00C0CC88 /* 97.mp3 in Resources */,
 				02B0A449168B42FB00C0CC88 /* 98.mp3 in Resources */,
 				02B0A44A168B42FB00C0CC88 /* 99.mp3 in Resources */,
+				0222599A169D239100A3E647 /* РЛЭ Ми-8.pdf in Resources */,
+				0222599B169D239100A3E647 /* РЛЭ Ми-8МТВ.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
