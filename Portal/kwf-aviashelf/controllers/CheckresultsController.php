@@ -7,12 +7,14 @@ class CheckresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_paging = 0;
     protected $_buttons = array('xls');
 
+    /*
     protected $_editDialog = array(
         'controllerUrl' => '/checkresult',
         'width' => 550,
-        'height' => 400
+        'height' => 300
     );
-
+    */
+    
     protected function _initColumns()
     {
         $this->updateChecksResults();
