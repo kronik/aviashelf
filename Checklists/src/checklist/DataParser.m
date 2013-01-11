@@ -38,14 +38,19 @@
 }
 
 -(void)parseFile: (NSString*)dataFile
-{
+{    
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.xml", dataFile]];
 
     if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
     {
-        [[[UIAlertView alloc] initWithTitle:@"Ошибка!" message:[NSString stringWithFormat: @"Отсутствует файл: <%@>", dataFile] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-        return;
+        path = [[NSBundle mainBundle] pathForResource:dataFile ofType:@"xml"];
+        
+        if( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO)
+        {
+            [[[UIAlertView alloc] initWithTitle:@"Ошибка!" message:[NSString stringWithFormat: @"Отсутствует файл: <%@>", dataFile] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            return;
+        }
     }
     
     NSData *data = [NSData dataWithContentsOfFile: path];

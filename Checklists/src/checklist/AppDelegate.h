@@ -22,6 +22,8 @@
 
 + (AppDelegate *)appDelegate;
 
+//+ (BOOL)setDisableSyncForURL: (NSString *)filePath;
+
 + (void)saveStatistic: (NSString*) title score: (int) score totalScore: (int)totalScore;
 + (NSArray*)getStatistic;
 + (void)resetStatistic;

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Tdm-ki-Gc2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C3006" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Tdm-ki-Gc2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Main View Controller - Аварийные карты-->
         <scene sceneID="4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
                 <viewController id="2" customClass="MainViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -37,7 +35,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="pDQ-g0-beB">
-                                <rect key="frame" x="197" y="664" width="375" height="114"/>
+                                <rect key="frame" x="197" y="721" width="375" height="107"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
                                 <size key="titleShadowOffset" width="2" height="2"/>
@@ -88,7 +86,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="65I-wC-Hq6">
-                                <rect key="frame" x="197" y="823" width="375" height="69"/>
+                                <rect key="frame" x="197" y="866" width="375" height="69"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
                                 <size key="titleShadowOffset" width="2" height="2"/>
@@ -124,13 +122,13 @@
                         <segue destination="1L7-rh-3Yg" kind="push" identifier="ShowSituations" id="XyC-ob-jSH"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1018" y="-88"/>
         </scene>
         <!--Documents View Controller - Список документов-->
         <scene sceneID="lDJ-Zs-Sun">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8nW-zC-QAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="2a3-oW-Ngl" customClass="DocumentsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rnr-vu-226">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -152,6 +150,7 @@
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8nW-zC-QAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="JCu-ke-Iar">
                     <connections>
                         <action selector="onGetBack:" destination="2a3-oW-Ngl" id="SHM-fK-lVS"/>
@@ -164,7 +163,6 @@
         <!--Statistic View Controller - Статистика по борту-->
         <scene sceneID="TXK-UK-9YR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1FO-Tb-f96" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="CWT-SF-7a4" customClass="StatisticViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5UL-yq-cSY">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -180,13 +178,13 @@
                         <outlet property="view" destination="5UL-yq-cSY" id="bP7-bo-mbd"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1FO-Tb-f96" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1977" y="1257"/>
         </scene>
         <!--Settings View Controller - Настройки-->
         <scene sceneID="EYF-iN-qkz">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oou-8p-KiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="O68-xl-z5v" customClass="SettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rpx-k3-JUh">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -273,13 +271,13 @@
                         <outlet property="useVoiceSwitch" destination="UbS-TB-wkT" id="3wG-ub-8rb"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oou-8p-KiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2010" y="-1253"/>
         </scene>
         <!--Situation View Controller - Ситуации-->
         <scene sceneID="f2a-OU-cCC">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DAe-Tf-bsT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="1L7-rh-3Yg" customClass="SituationViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="z3l-BG-gp5">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -299,6 +297,7 @@
                         <segue destination="9rQ-Db-fWG" kind="push" identifier="ShowActions" id="pNn-kC-smF"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DAe-Tf-bsT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="pIO-xn-blj">
                     <connections>
                         <action selector="onGetBack:" destination="1L7-rh-3Yg" id="iKq-xs-zyK"/>
@@ -311,7 +310,6 @@
         <!--Precond View Controller - Признаки-->
         <scene sceneID="kww-rE-ali">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PNP-Fn-01H" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="nPR-K9-sNd" customClass="PrecondViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="dhb-xC-Hyz">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -335,6 +333,7 @@
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PNP-Fn-01H" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="sat-im-k3I">
                     <connections>
                         <outlet property="delegate" destination="nPR-K9-sNd" id="z03-PU-gYp"/>
@@ -353,7 +352,6 @@
         <!--Check List View Controller-->
         <scene sceneID="cOM-8e-exf">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qn1-f9-aRG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="9rQ-Db-fWG" customClass="CheckListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="f8D-f2-t6Q">
                         <rect key="frame" x="0.0" y="64" width="768" height="916"/>
@@ -401,6 +399,7 @@
                         <outlet property="titleButton" destination="laa-qM-rks" id="7PP-FA-jpY"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qn1-f9-aRG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="Lg8-hg-F6c">
                     <connections>
                         <action selector="onGetBack:" destination="9rQ-Db-fWG" id="lv7-9j-IbD"/>
@@ -413,7 +412,6 @@
         <!--Navigation Controller-->
         <scene sceneID="FzV-m6-vug">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iPi-4f-WYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="Tdm-ki-Gc2" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="smQ-d7-e04">
@@ -425,6 +423,7 @@
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="tcd-on-rAo"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iPi-4f-WYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="43" y="-88"/>
         </scene>
@@ -440,6 +439,7 @@
                 <relationship kind="action" name="onGetBack:"/>
                 <relationship kind="action" name="onResetActions:"/>
                 <relationship kind="action" name="onShowDetails:"/>
+                <relationship kind="action" name="showAlert:"/>
                 <relationship kind="outlet" name="resetButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="titleButton" candidateClass="UIButton"/>
             </relationships>

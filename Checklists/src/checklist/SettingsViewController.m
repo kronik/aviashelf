@@ -78,12 +78,6 @@
     }
 }
 
-- (void)setDisableSyncForURL: (NSURL*)url
-{
-    u_int8_t b = 1;
-    setxattr([[url path] fileSystemRepresentation], "com.apple.MobileBackup", &b, 1, 0, 0);
-}
-
 - (void)cleanDocumentsFolder
 {
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -108,42 +102,22 @@
     }
 }
 
-- (void)copyToDocumentsBundleFilesWithExt: (NSString*) ext
+- (void)deleteDownloadedContent: (NSString*) ext
 {
-    NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:ext inDirectory:nil];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    for (NSString *sourcePath in pdfs)
+    if (paths.count > 0)
     {
         NSError *error = nil;
-        NSArray *tokens = [sourcePath componentsSeparatedByString:@"/"];
-        NSString *docName = [tokens objectAtIndex:tokens.count-1];
+        NSFileManager *fileManager = NSFileManager.defaultManager;
         
-        NSString *folderPath = [documentsDirectory stringByAppendingPathComponent:docName];
-        
-        if( [[NSFileManager defaultManager] fileExistsAtPath: folderPath] == YES)
+        // For each file in the directory, create full path and delete the file
+        for (NSString *file in [fileManager contentsOfDirectoryAtPath:paths[0] error:&error])
         {
-            [[NSFileManager defaultManager] removeItemAtPath:folderPath error:nil];
+            NSString *filePath = [paths[0] stringByAppendingPathComponent:file];
+            [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
         }
-        
-        if([[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:folderPath error:&error])
-        {
-            [self setDisableSyncForURL:[NSURL URLWithString:folderPath]];
-            
-            const char *tmp = [docName fileSystemRepresentation];
-            
-            docName = [NSString stringWithCString:tmp encoding:NSUTF8StringEncoding];
-
-            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:docName];
-            [[NSUserDefaults standardUserDefaults] synchronize];            
-        }
-        else 
-        {
-            NSLog(@"Error description-%@ \n", [error localizedDescription]);
-            NSLog(@"Error reason-%@", [error localizedFailureReason]);
-        }
-    }
+    }    
 }
 
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -165,8 +139,8 @@
             
             [self cleanDocumentsFolder];
             
-            [self copyToDocumentsBundleFilesWithExt: @"xml"];
-            [self copyToDocumentsBundleFilesWithExt: @"pdf"];
+            [self deleteDownloadedContent: @"xml"];
+            [self deleteDownloadedContent: @"pdf"];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 

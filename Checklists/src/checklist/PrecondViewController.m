@@ -158,9 +158,7 @@
     {
         CELL_CONTENT_WIDTH = cgSize.height;
     }
-    
-    NSLog(@"width = %f", CELL_CONTENT_WIDTH);
-    
+        
     NSString *title = [[self.situation.preconditions objectAtIndex:indexPath.section] preconditionAtIndex:indexPath.row];
     
     CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);

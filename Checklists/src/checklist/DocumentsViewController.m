@@ -15,6 +15,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 #define DB_APP_FOLDER @"/Аварийные карты/"
+#define FILE_DATES_KEY @"FILE_DATES_KEY"
 
 @interface DocumentsViewController ()
 
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *dataFiles;
 @property (strong, nonatomic) Reachability* hostReach;
 @property (strong, nonatomic) NSMutableDictionary *fileDates;
+@property (strong, nonatomic) NSMutableDictionary *filePaths;
 
 - (IBAction)loadDocumentsList;
 
@@ -39,6 +41,7 @@
 @synthesize dataFiles = _dataFiles;
 @synthesize hostReach = _hostReach;
 @synthesize fileDates = _fileDates;
+@synthesize filePaths = _filePaths;
 
 -(NSString*)getDateForDocument: (NSString*)docName
 {
@@ -89,22 +92,17 @@
 {
     if (_fileDates == nil)
     {
-        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *folderPath = [documentsDirectory stringByAppendingPathComponent:@"filedates.bin"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _fileDates = [defaults objectForKey: FILE_DATES_KEY];
         
-        if( [[NSFileManager defaultManager] fileExistsAtPath: folderPath] )
+        if (_fileDates != nil)
         {
-            _fileDates = [NSMutableDictionary dictionaryWithContentsOfFile:folderPath];
+            _fileDates = [_fileDates mutableCopy];
         }
-        else 
+        else
         {
             _fileDates = [[NSMutableDictionary alloc] init];
-            [_fileDates writeToFile:folderPath atomically:YES];
-            
-            u_int8_t b = 1;
-            setxattr([[[NSURL URLWithString:folderPath] path] fileSystemRepresentation], "com.apple.MobileBackup", &b, 1, 0, 0);
         }
-        
     }
     return _fileDates;
 }
@@ -146,15 +144,50 @@
     return _restClient;
 }
 
+- (NSMutableDictionary *)filePaths
+{
+    if (_filePaths == nil)
+    {
+        _filePaths = [[NSMutableDictionary alloc] init];
+    }
+    return _filePaths;
+}
+
 -(IBAction)onGetBack:(id)sender
 {
     [[[AppDelegate appDelegate] tapPlayer] play];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)loadBundleFilesWithExt: (NSString*)ext
+{
+    NSArray *bundleFiles = [[NSBundle mainBundle] pathsForResourcesOfType:ext inDirectory:nil];
+        
+    for (NSString *sourcePath in bundleFiles)
+    {
+        NSArray *tokens = [sourcePath componentsSeparatedByString:@"/"];
+        NSString *fileName = tokens [tokens.count-1];
+        
+        self.filePaths [fileName] = sourcePath;
+        
+        if ([ext isEqualToString:@"pdf"])
+        {
+            [self.documents addObject: sourcePath];
+        }
+        else if ([ext isEqualToString:@"xml"])
+        {
+            [self.dataFiles addObject: sourcePath];
+        }
+    }
+}
+
 - (IBAction)loadDocumentsList;
 {
+    [self loadBundleFilesWithExt: @"pdf"];
+    [self loadBundleFilesWithExt: @"xml"];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+
     if ([paths count] > 0)
     {
         NSError *error = nil;  
@@ -177,6 +210,8 @@
             {
                 [self.dataFiles addObject:filePath];
             }
+            
+            self.filePaths [file] = filePath;
         }
     }
     
@@ -196,6 +231,7 @@
     {
         [self.documents removeAllObjects];
         [self.dataFiles removeAllObjects];
+        [self.filePaths removeAllObjects];
         
         [self loadDocumentsList];
     }
@@ -638,8 +674,7 @@
         {
             NSString *newDate = [formatter stringFromDate:child.lastModifiedDate];
             
-            u_int8_t b = 1;
-            setxattr([[[NSURL URLWithString:destPath] path] fileSystemRepresentation], "com.apple.MobileBackup", &b, 1, 0, 0);
+            self.filePaths [child.filename] = destPath;
 
             [self setDateForDocument:child.filename docDate:newDate];
 
@@ -652,6 +687,7 @@
             
             [self.documents removeAllObjects];
             [self.dataFiles removeAllObjects];
+            [self.filePaths removeAllObjects];
             
             [self loadDocumentsList];
             

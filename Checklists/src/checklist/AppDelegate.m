@@ -19,6 +19,9 @@
 
 @synthesize window = _window;
 
+#define STATISTIC_RECORD_KEY @"STATISTIC_RECORD_KEY"
+#define STATISTIC_RECORDS_LIMIT 100
+
 + (AppDelegate *)appDelegate 
 {
 	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -115,22 +118,31 @@
 {
     dispatch_queue_t processQueue = dispatch_queue_create("saveLog", NULL);
     dispatch_async(processQueue, ^{
-
-        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-
-        NSString *fileName = @"statistic.txt";
         
-        NSString *statisticFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSMutableArray *statisticLog = [defaults objectForKey: STATISTIC_RECORD_KEY];
         
-        NSURL *fileUrl = [NSURL URLWithString:statisticFilePath];
-        
-        if( [[NSFileManager defaultManager] fileExistsAtPath: statisticFilePath] == NO)
+        if (statisticLog != nil)
         {
-            [[NSFileManager defaultManager] createFileAtPath:statisticFilePath contents:nil attributes:nil];
-            
-            u_int8_t b = 1;
-            setxattr([[fileUrl path] fileSystemRepresentation], "com.apple.MobileBackup", &b, 1, 0, 0);
+            statisticLog = [statisticLog mutableCopy];
         }
+        else
+        {
+            statisticLog = [[NSMutableArray alloc] init];
+        }
+
+//        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//
+//        NSString *fileName = @"statistic.txt";
+//        
+//        NSString *statisticFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+//        
+//        if( [[NSFileManager defaultManager] fileExistsAtPath: statisticFilePath] == NO)
+//        {
+//            [[NSFileManager defaultManager] createFileAtPath:statisticFilePath contents:nil attributes:nil];
+//            
+//            [AppDelegate setDisableSyncForURL: statisticFilePath];
+//        }
 
         NSDate *now = [[NSDate alloc] init];
         NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
@@ -138,11 +150,22 @@
         NSString *date = [timeFormat stringFromDate:now];
         
         NSString *newStatRecord = [NSString stringWithFormat:STATISTIC_RECORD_FORMAT, date, score, totalScore, title];
+        
+        [statisticLog addObject: newStatRecord];
+        
+        
+        if (statisticLog.count > STATISTIC_RECORDS_LIMIT)
+        {
+            [statisticLog removeObjectAtIndex: 0];
+        }
+        
+        [defaults setObject:statisticLog forKey:STATISTIC_RECORD_KEY];
+        [defaults synchronize];
 
-        NSFileHandle *fileHandler = [NSFileHandle fileHandleForUpdatingAtPath:statisticFilePath];
-        [fileHandler seekToEndOfFile];
-        [fileHandler writeData:[newStatRecord dataUsingEncoding:NSUTF8StringEncoding]];
-        [fileHandler closeFile];
+//        NSFileHandle *fileHandler = [NSFileHandle fileHandleForUpdatingAtPath:statisticFilePath];
+//        [fileHandler seekToEndOfFile];
+//        [fileHandler writeData:[newStatRecord dataUsingEncoding:NSUTF8StringEncoding]];
+//        [fileHandler closeFile];
         
     });
     
@@ -153,74 +176,103 @@
 {
     //[AppDelegate createSampleStatisticDataOfSize:1 ofType:type];
     
-    NSArray *statistic = [[NSArray alloc] init];
-    
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSArray *statistic = [[NSArray alloc] init];
+//    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//
+//    NSString *fileName = @"statistic.txt";
+//    
+//    NSString *statisticFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
 
-    NSString *fileName = @"statistic.txt";
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *statisticLog = [defaults objectForKey: STATISTIC_RECORD_KEY];
     
-    NSString *statisticFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
-    
-    if( [[NSFileManager defaultManager] fileExistsAtPath: statisticFilePath] == YES)
+    if (statisticLog == nil)
     {
-        statistic = [[NSString stringWithContentsOfFile:statisticFilePath encoding:NSUTF8StringEncoding error:nil] 
-                     componentsSeparatedByString:@"\n"];
+        statisticLog = @[];
     }
     
-    return statistic;
+    return statisticLog;
 }
 
 + (void)resetStatistic
 {
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSString *fileName = @"statistic.txt";
+    [defaults removeObjectForKey:STATISTIC_RECORD_KEY];
+    [defaults synchronize];
     
-    NSString *statisticFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
-    
-    if( [[NSFileManager defaultManager] fileExistsAtPath: statisticFilePath] == YES)
-    {
-        [[NSFileManager defaultManager] removeItemAtPath:statisticFilePath error:nil];
-    }
+//    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    
+//    NSString *fileName = @"statistic.txt";
+//    
+//    NSString *statisticFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+//    
+//    if( [[NSFileManager defaultManager] fileExistsAtPath: statisticFilePath] == YES)
+//    {
+//        [[NSFileManager defaultManager] removeItemAtPath:statisticFilePath error:nil];
+//    }
 }
 
-- (void)setDisableSyncForURL: (NSURL*)url
-{
-    u_int8_t b = 1;
-    setxattr([[url path] fileSystemRepresentation], "com.apple.MobileBackup", &b, 1, 0, 0);
-}
+//+ (BOOL)setDisableSyncForURL: (NSString *)filePath
+//{
+//    NSURL *url = [[NSURL alloc] initFileURLWithPath:filePath];
+//    if (NSURLIsExcludedFromBackupKey)
+//    {
+//        assert([[NSFileManager defaultManager] fileExistsAtPath: [url path]]);
+//        
+//        NSError *error = nil;
+//        BOOL success = [url setResourceValue: [NSNumber numberWithBool: YES]
+//                                      forKey: NSURLIsExcludedFromBackupKey error: &error];
+//        if(!success)
+//        {
+//            NSLog(@"Error excluding %@ from backup %@", [url lastPathComponent], error);
+//        }
+//        
+//        return success;
+//    }
+//    else
+//    {
+//        assert([[NSFileManager defaultManager] fileExistsAtPath: [url path]]);
+//        const char* filePath = [[url path] fileSystemRepresentation];
+//        const char* attrName = "com.apple.MobileBackup";
+//        u_int8_t attrValue = 1;
+//        
+//        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+//        return result == 0;
+//    }
+//}
 
-- (void)copyToDocumentsBundleFilesWithExt: (NSString*) ext
-{
-    NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:ext inDirectory:nil];
-    
-    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    for (NSString *sourcePath in pdfs)
-    {
-        NSError *error = nil;
-        NSArray *tokens = [sourcePath componentsSeparatedByString:@"/"];
-        
-        NSString *folderPath = [documentsDirectory stringByAppendingPathComponent:[tokens objectAtIndex:tokens.count-1]];
-        
-        if( [[NSFileManager defaultManager] fileExistsAtPath: sourcePath] )
-        {
-        }
-        
-        if( [[NSFileManager defaultManager] fileExistsAtPath: folderPath] == NO)
-        {
-            if([[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:folderPath error:&error])
-            {
-                [self setDisableSyncForURL:[NSURL URLWithString:folderPath]];
-            }
-            else 
-            {
-                NSLog(@"Error description-%@ \n", [error localizedDescription]);
-                NSLog(@"Error reason-%@", [error localizedFailureReason]);
-            }
-        }
-    }
-}
+//- (void)copyToDocumentsBundleFilesWithExt: (NSString*) ext
+//{
+//    NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:ext inDirectory:nil];
+//    
+//    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    
+//    for (NSString *sourcePath in pdfs)
+//    {
+//        NSError *error = nil;
+//        NSArray *tokens = [sourcePath componentsSeparatedByString:@"/"];
+//        
+//        NSString *folderPath = [documentsDirectory stringByAppendingPathComponent:[tokens objectAtIndex:tokens.count-1]];
+//        
+//        if( [[NSFileManager defaultManager] fileExistsAtPath: sourcePath] )
+//        {
+//        }
+//        
+//        if( [[NSFileManager defaultManager] fileExistsAtPath: folderPath] == NO)
+//        {
+//            if([[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:folderPath error:&error])
+//            {
+//                [AppDelegate setDisableSyncForURL:folderPath];
+//            }
+//            else 
+//            {
+//                NSLog(@"Error description-%@ \n", [error localizedDescription]);
+//                NSLog(@"Error reason-%@", [error localizedFailureReason]);
+//            }
+//        }
+//    }
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -308,9 +360,8 @@
             NSLog(@"Failed to set category on AVAudioSession");
         }
 
-        [self copyToDocumentsBundleFilesWithExt: @"xml"];
-
-        [self copyToDocumentsBundleFilesWithExt: @"pdf"];
+//        [self copyToDocumentsBundleFilesWithExt: @"xml"];
+//        [self copyToDocumentsBundleFilesWithExt: @"pdf"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
         });

@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSString *docFileName;
 @property (nonatomic) int currentRow;
 @property (nonatomic) int totalScore;
+@property (nonatomic, strong) NSMutableDictionary *files;
 
 - (void)onGoToMainScreen: (NSTimer *)timer;
 - (void)resetActions:(id)sender;
@@ -42,12 +43,11 @@
 @synthesize currentRow = _currentRow;
 @synthesize totalScore = _totalScore;
 @synthesize resetButton = _resetButton;
+@synthesize files = _files;
 
 -(void)setSituation:(Situation *)situation
 {
     _situation = situation;
-    
-    NSLog(@"Title: %@", situation.title);
     
     [((UITableView*)self.view) reloadData];
     
@@ -514,13 +514,26 @@
     self.docFileName = nil;
 }
 
-- (void)resolveDocumentByLink: (NSString*) link
+- (void)loadBundleDocuments: (NSString*)ext
+{
+    NSArray *bundleFiles = [[NSBundle mainBundle] pathsForResourcesOfType:ext inDirectory:nil];
+    
+    for (NSString *sourcePath in bundleFiles)
+    {
+        NSArray *tokens = [sourcePath componentsSeparatedByString:@"/"];
+        NSString *fileName = tokens [tokens.count-1];
+        
+        _files [fileName] = sourcePath;
+    }
+}
+
+- (void)loadUserDocuments: (NSString*)ext
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
     if ([paths count] > 0)
     {
-        NSError *error = nil;  
+        NSError *error = nil;
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
         // Print out the path to verify we are in the right place
@@ -528,33 +541,60 @@
         
         // For each file in the directory, create full path and delete the file
         for (NSString *file in [fileManager contentsOfDirectoryAtPath:directory error:&error])
-        {    
+        {
             NSString *filePath = [directory stringByAppendingPathComponent:file];
             
-            if ([file rangeOfString:@".pdf"].location != NSNotFound)
+            if ([file rangeOfString:ext].location != NSNotFound)
             {
-                if (([link rangeOfString:@"РПП"].location != NSNotFound) &&
-                    ([file rangeOfString:@"РПП"].location != NSNotFound))
-                {
-                    self.docFileName = filePath;
-                    
-                    break;
-                }
-                else if (([link rangeOfString:@"МТВ"].location != NSNotFound) && 
-                         ([link rangeOfString:@"РЛЭ"].location != NSNotFound) &&
-                         ([file rangeOfString:@"МТВ"].location != NSNotFound) && 
-                         ([file rangeOfString:@"РЛЭ"].location != NSNotFound))
-                         {
-                             self.docFileName = filePath;
-                             break;
-                         }
-                else if (([link rangeOfString:@"РЛЭ"].location != NSNotFound) &&
-                        ([file rangeOfString:@"РЛЭ"].location != NSNotFound))
-                {
-                    self.docFileName = filePath;
-                    break;
-                }
+                _files [file] = filePath;
             }
+        }
+    }
+}
+
+- (void)reloadDocuments
+{
+    [self loadBundleDocuments:@"pdf"];
+    [self loadUserDocuments:@"pdf"];
+}
+
+- (NSMutableDictionary *)files
+{
+    if (_files == nil)
+    {
+        _files = [[NSMutableDictionary alloc] init];
+        
+        [self reloadDocuments];
+    }
+    return _files;
+}
+
+- (void)resolveDocumentByLink: (NSString*) link
+{
+    for (NSString *file in self.files.keyEnumerator)
+    {
+        if (([link rangeOfString:@"РПП"].location != NSNotFound) &&
+            ([file rangeOfString:@"РПП"].location != NSNotFound))
+        {
+            self.docFileName = self.files[file];
+            
+            break;
+        }
+        else if (([link rangeOfString:@"МТВ"].location != NSNotFound) &&
+                 ([link rangeOfString:@"РЛЭ"].location != NSNotFound) &&
+                 ([file rangeOfString:@"МТВ"].location != NSNotFound) &&
+                 ([file rangeOfString:@"РЛЭ"].location != NSNotFound))
+        {
+            self.docFileName = self.files[file];
+            break;
+        }
+        else if (([link rangeOfString:@"РЛЭ"].location != NSNotFound) &&
+                 ([link rangeOfString:@"МТВ"].location == NSNotFound) &&
+                 ([file rangeOfString:@"МТВ"].location == NSNotFound) &&
+                 ([file rangeOfString:@"РЛЭ"].location != NSNotFound))
+        {
+            self.docFileName = self.files[file];
+            break;
         }
     }
 }

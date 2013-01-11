@@ -1961,6 +1961,8 @@
 		3248A16B152AA5F8004C0350 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dmitry Klimkin";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dmitry Klimkin";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1973,6 +1975,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = safechecklists;
+				PROVISIONING_PROFILE = "62C3197D-1DBE-4339-94BC-749E2E110739";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "62C3197D-1DBE-4339-94BC-749E2E110739";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
