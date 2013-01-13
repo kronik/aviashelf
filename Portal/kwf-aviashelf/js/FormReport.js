@@ -11,10 +11,9 @@ Kwf.Auto.FormReportPanel = Ext.extend(Kwf.Auto.FormPanel,
     });
     Kwf.Auto.FormReportPanel.superclass.initComponent.call(this);
 
-                                      onReport : function()
-                                      {
-                                      
-                                      }
+    onReport : function()
+    {
+    }
 });
 
 Ext.reg('kwf.FormReportPanel', Kwf.Auto.FormReportPanel);
