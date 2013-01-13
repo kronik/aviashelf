@@ -654,24 +654,24 @@ CREATE TABLE IF NOT EXISTS `flightResults` (
 
 CREATE TABLE IF NOT EXISTS `flightTasks` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `planId` int NOT NULL,
     `number` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     `subCompanyId` int NOT NULL,
     `subCompanyName` varchar(100) COLLATE utf8_unicode_ci,
     `flightStartDate` date NOT NULL,
     `flightStartTime` time,
-    `flightEndDate` date,
-    `flightTime` time,
-    `flightWorkTime` time,
-    `flightCount` int,
     `planeId` int NOT NULL,
     `planeName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     `objectiveId` int NOT NULL,
     `objectiveName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     `routeId` int NOT NULL,
     `routeName` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-    `results` varchar(1000) COLLATE utf8_unicode_ci,
-    `status` BOOL NOT NULL DEFAULT '0',
-    `hidden` char DEFAULT '0',
+    `comments` varchar(1000) COLLATE utf8_unicode_ci,
+    `firstPilotName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `secondPilotName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `technicName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `checkPilotName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `resquerName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -803,6 +803,17 @@ CREATE TABLE IF NOT EXISTS `trainingContents` (
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
     KEY `questionId` (`questionId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `flightPlans` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `planDate` date NOT NULL,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `employeeId` (`employeeId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 delimiter $$

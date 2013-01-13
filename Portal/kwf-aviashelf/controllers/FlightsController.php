@@ -8,7 +8,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
                                    'controllerUrl' => '/flight',
                                    'width' => 550,
-                                   'height' => 530
+                                   'height' => 340
                                    );
 
     public function indexAction()
@@ -20,9 +20,16 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number'), 65));
-        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Subcompany'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 60));
-        $this->_columns->add(new Kwf_Grid_Column_Date('flightStartDate', trlKwf('Date'), 80));
+        $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Subcompany'), 200));
+        $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 100));
+        #$this->_columns->add(new Kwf_Grid_Column_Date('flightStartDate', trlKwf('Date'), 80));
+    }
+    
+    protected function _getWhere()
+    {
+        $ret = parent::_getWhere();
+        $ret['planId = ?'] = $this->_getParam('planId');
+        return $ret;
     }
 }

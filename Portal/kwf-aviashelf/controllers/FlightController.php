@@ -20,15 +20,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($linkSelect)
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_DateField('flightStartDate', trlKwf('Start Date')));
+        #$this->_form->add(new Kwf_Form_Field_DateField('flightStartDate', trlKwf('Start Date')));
         $this->_form->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
-
-        $this->_form->add(new Kwf_Form_Field_DateField('flightEndDate', trlKwf('End Date')));
-        $this->_form->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Flight Time')))->setIncrement(5);
-        $this->_form->add(new Kwf_Form_Field_TimeField('flightWorkTime', trlKwf('Flight work time')))->setIncrement(5);
-
-        $this->_form->add(new Kwf_Form_Field_NumberField('flightCount', trlKwf('Flight count')))
-        ->setWidth(400);
 
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $airplanesSelect = $airplanesModel->select()->whereEquals('Hidden', '0');
@@ -55,56 +48,48 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($routeSelect)
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_TextArea('results', trlKwf('Flight Result Comment')))
-        ->setHeight(100)
+        $this->_form->add(new Kwf_Form_Field_TextArea('comments', trlKwf('Comment')))
+        ->setHeight(70)
         ->setWidth(400);
+    }
+    
+    protected function updateReferences(Kwf_Model_Row_Interface $row)
+    {
+        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
+        $m2 = Kwf_Model_Abstract::getInstance('Airplanes');
         
-        $this->_form->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
+        $s = $m1->select()->whereEquals('id', $row->subCompanyId);
+        $prow = $m1->getRow($s);
+        $row->subCompanyName = $prow->value;
+        
+        $s = $m1->select()->whereEquals('id', $row->objectiveId);
+        $prow = $m1->getRow($s);
+        $row->objectiveName = $prow->value;
+        
+        $s = $m1->select()->whereEquals('id', $row->routeId);
+        $prow = $m1->getRow($s);
+        $row->routeName = $prow->value;
+        
+        $s = $m2->select()->whereEquals('id', $row->planeId);
+        $prow = $m2->getRow($s);
+        
+        $row->planeName = $prow->NBort;
+        $row->planId = $this->_getParam('planId');
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
-        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
-        $m2 = Kwf_Model_Abstract::getInstance('Airplanes');
+        $this->updateReferences($row);
         
-        $s = $m1->select()->whereEquals('id', $row->subCompanyId);
-        $prow = $m1->getRow($s);
-        $row->subCompanyName = $prow->value;
+        $flightPlansModel = Kwf_Model_Abstract::getInstance('Flightplans');
+        $flightPlansSelect = $flightPlansModel->select()->whereEquals('id', $this->_getParam('planId'));
+        $prow = $flightPlansModel->getRow($flightPlansSelect);
         
-        $s = $m1->select()->whereEquals('id', $row->objectiveId);
-        $prow = $m1->getRow($s);
-        $row->objectiveName = $prow->value;
-        
-        $s = $m1->select()->whereEquals('id', $row->routeId);
-        $prow = $m1->getRow($s);
-        $row->routeName = $prow->value;
-        
-        $s = $m2->select()->whereEquals('id', $row->planeId);
-        $prow = $m2->getRow($s);
-        
-        $row->planeName = $prow->NBort;
+        $row->flightStartDate = $prow->planDate;
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
-        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
-        $m2 = Kwf_Model_Abstract::getInstance('Airplanes');
-        
-        $s = $m1->select()->whereEquals('id', $row->subCompanyId);
-        $prow = $m1->getRow($s);
-        $row->subCompanyName = $prow->value;
-        
-        $s = $m1->select()->whereEquals('id', $row->objectiveId);
-        $prow = $m1->getRow($s);
-        $row->objectiveName = $prow->value;
-        
-        $s = $m1->select()->whereEquals('id', $row->routeId);
-        $prow = $m1->getRow($s);
-        $row->routeName = $prow->value;
-        
-        $s = $m2->select()->whereEquals('id', $row->planeId);
-        $prow = $m2->getRow($s);
-        
-        $row->planeName = $prow->NBort;
+        $this->updateReferences($row);
     }
 }
