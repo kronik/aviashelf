@@ -46,7 +46,7 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         $prow = $m3->getRow($s);
         
         $row->ownerId = $this->_getParam('ownerId');
-        $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
+        $row->ownerName = $prow;
         
         $s = $m1->select()->whereEquals('id', $row->typeId);
         $prow = $m1->getRow($s);

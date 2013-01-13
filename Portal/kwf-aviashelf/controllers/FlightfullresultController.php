@@ -56,7 +56,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $s = $m2->select()->whereEquals('id', $row->ownerId);
         $prow = $m2->getRow($s);
         
-        $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
+        $row->ownerName = (string)$prow;
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
@@ -79,6 +79,6 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $s = $m2->select()->whereEquals('id', $row->ownerId);
         $prow = $m2->getRow($s);
         
-        $row->ownerName = $prow->lastname . ' ' . $prow->firstname . ' ' . $prow->middlename;
+        $row->ownerName = (string)$prow;
     }
 }

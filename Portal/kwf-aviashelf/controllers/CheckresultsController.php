@@ -100,7 +100,7 @@ class CheckresultsController extends Kwf_Controller_Action_Auto_Grid
                     
                     if (count($documents) == 0)
                     {
-                        $this->insertNewRow('doc', $employee->id, $employee->lastname . ' ' . $employee->firstname . ' ' . $employee->middlename,
+                        $this->insertNewRow('doc', $employee->id, (string)$employee,
                                             $row->title, $row->typeId, $row->typeName,
                                             'Проверка: ' . $row->title . ' - Отсутствует или просрочен документ: ' . $row->typeName);
                     }

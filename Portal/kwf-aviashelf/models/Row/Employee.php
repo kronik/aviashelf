@@ -7,6 +7,6 @@ class Row_Employee extends Kwf_Model_Db_Row
 
     public function __toString()
     {
-        return $this->lastname . ' ' . $this->firstname . ' ' . $this->middlename;
+        return $this->lastname . ' ' . substr($this->firstname, 0, 2) . '. ' . substr($this->middlename, 0, 2) . '.';
     }
 }
