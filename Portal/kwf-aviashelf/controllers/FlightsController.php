@@ -9,7 +9,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
                                    'controllerUrl' => '/flight',
                                    'width' => 550,
-                                   'height' => 340
+                                   'height' => 360
                                    );
 
     public function indexAction()

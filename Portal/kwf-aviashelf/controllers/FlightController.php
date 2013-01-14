@@ -2,9 +2,10 @@
 class FlightController extends Kwf_Controller_Action_Auto_Form
 {
     #protected $_buttons = array('save');
-    protected $_permissions = array('save', 'add');
+    protected $_permissions = array('save', 'add', 'xls');
     protected $_modelName = 'Flights';
     #protected $title = trlKwf('Flight');
+    protected $_buttons = array ('xls');
 
     protected function _initFields()
     {        
@@ -91,5 +92,16 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
         $this->updateReferences($row);
+    }
+    
+    protected function _fillTheXlsFile($xls, $firstSheet)
+    {
+        $xls->getProperties()->setCreator("Vivid Planet Software GmbH");
+        $xls->getProperties()->setLastModifiedBy("Vivid Planet Software GmbH");
+        $xls->getProperties()->setTitle("KWF Excel Export");
+        $xls->getProperties()->setSubject("KWF Excel Export");
+        $xls->getProperties()->setDescription("KWF Excel Export");
+        $xls->getProperties()->setKeywords("KWF Excel Export");
+        $xls->getProperties()->setCategory("KWF Excel Export");
     }
 }

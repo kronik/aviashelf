@@ -47,7 +47,10 @@ class CheckresultsController extends Kwf_Controller_Action_Auto_Grid
     }
     
     protected function updateChecksResults()
-    {        
+    {
+        ini_set('memory_limit', "768M");
+        set_time_limit(600);
+        
         $cheksModel = Kwf_Model_Abstract::getInstance('Checks');
         $cheksSelect = $cheksModel->select();
         
