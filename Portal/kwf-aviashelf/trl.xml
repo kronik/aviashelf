@@ -339,7 +339,7 @@
         <mk>Комент</mk>
         <sl>Komentar</sl>
         <es>Comentario</es>
-        <ru>Коментарий</ru>
+        <ru>Примечание</ru>
     </text>
     <text>
         <en>Size</en>
@@ -6673,6 +6673,7 @@
         <id>1309</id>
         <ro>Client</ro>
         <sl>Stranka</sl>
+        <ru>Клиент</ru>
     </text>
     <text>
         <en>Transfer Form</en>
@@ -9761,6 +9762,56 @@
         <en>Responsible</en>
         <ru>Ответственный</ru>
         <id>1920</id>
+    </text>
+    <text>
+        <en>Number #</en>
+        <ru>Рейс #</ru>
+        <id>1921</id>
+    </text>
+    <text>
+        <en>WS Number</en>
+        <ru>ВС #</ru>
+        <id>1922</id>
+    </text>
+    <text>
+        <en>Instructor</en>
+        <ru>Проверяющий (КВС-инструктор)</ru>
+        <id>1923</id>
+    </text>
+    <text>
+        <en>Second pilot</en>
+        <ru>Второй пилот</ru>
+        <id>1924</id>
+    </text>
+    <text>
+        <en>Technic</en>
+        <ru>Бортмеханик</ru>
+        <id>1925</id>
+    </text>
+    <text>
+        <en>Resquer</en>
+        <ru>Спасатель</ru>
+        <id>1926</id>
+    </text>
+    <text>
+        <en>Task number</en>
+        <ru>Заявка #</ru>
+        <id>1927</id>
+    </text>
+    <text>
+        <en>Daily flights plan</en>
+        <ru>СУТОЧНЫЙ ПЛАН ПОЛЕТОВ</ru>
+        <id>1928</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
     </text>
     <text>
         <en></en>
