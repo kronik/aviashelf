@@ -75,25 +75,27 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $xls->getProperties()->setKeywords("");
         $xls->getProperties()->setCategory("");
         
-        $firstSheet->mergeCells('A1:R1');
-        $firstSheet->mergeCells('A3:R3');
-        $firstSheet->mergeCells('A5:R5');
+        $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+
+        $firstSheet->mergeCells('A1:O1');
+        $firstSheet->mergeCells('A3:O3');
+        $firstSheet->mergeCells('A5:O5');
 
         $firstSheet->setCellValue('B2', trlKwf('Date') . ': ' . date('d-m-Y'));
-        #$firstSheet->setCellValue('C2', date('d-m-Y'));
-        $firstSheet->setCellValue('O2', trlKwf('Responsible') . ': ');
-        $firstSheet->setCellValue('Q2', (string)$employeeRow);
+        $firstSheet->setCellValue('N2', trlKwf('Responsible') . ': ');
+        $firstSheet->setCellValue('N2', (string)$employeeRow);
         
-        $firstSheet->mergeCells('B2:N2');
-        $firstSheet->mergeCells('Q2:R2');
-        $firstSheet->mergeCells('O2:P2');
+        $firstSheet->mergeCells('B2:K2');
+        $firstSheet->mergeCells('N2:O2');
+        $firstSheet->mergeCells('L2:M2');
         
         $firstSheet->setCellValue('A4', trlKwf('Daily flights plan'));
         $firstSheet->getStyle('A4')->getFont()->setSize(16);
         $firstSheet->getStyle('A4')->getFont()->setBold(true);
         $firstSheet->getStyle('A4')->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
         
-        $firstSheet->mergeCells('A4:R4');
+        $firstSheet->mergeCells('A4:O4');
 
         $firstSheet->getStyle('A4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS);
         
@@ -109,36 +111,48 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         
         $firstSheet->getColumnDimension('A')->setWidth('7pt');
         $firstSheet->getColumnDimension('B')->setWidth('20pt');
-        
+        $firstSheet->getColumnDimension('E')->setWidth('20pt');
+        $firstSheet->getColumnDimension('I')->setWidth('20pt');
+
         $firstSheet->setCellValue('A6', trlKwf('Number #'));
         $firstSheet->setCellValue('B6', trlKwf('Customer'));
         $firstSheet->setCellValue('C6', trlKwf('Time'));
         $firstSheet->setCellValue('D6', trlKwf('WS Number'));
         $firstSheet->setCellValue('E6', trlKwf('Route'));
-        $firstSheet->setCellValue('K6', trlKwf('KWS'));
-        $firstSheet->setCellValue('L6', trlKwf('Instructor (check)'));
-        $firstSheet->setCellValue('M6', trlKwf('Second pilot'));
-        $firstSheet->setCellValue('N6', trlKwf('Technic'));
-        $firstSheet->setCellValue('O6', trlKwf('Resquer'));
-        $firstSheet->setCellValue('P6', trlKwf('Objective'));
-        $firstSheet->setCellValue('Q6', trlKwf('Task number'));
-        $firstSheet->setCellValue('R6', trlKwf('Comment'));
+        $firstSheet->setCellValue('H6', trlKwf('KWS'));
+        $firstSheet->setCellValue('I6', trlKwf('Instructor (check)'));
+        $firstSheet->setCellValue('J6', trlKwf('Second pilot'));
+        $firstSheet->setCellValue('K6', trlKwf('Technic'));
+        $firstSheet->setCellValue('L6', trlKwf('Resquer'));
+        $firstSheet->setCellValue('M6', trlKwf('Objective'));
+        $firstSheet->setCellValue('N6', trlKwf('Task number'));
+        $firstSheet->setCellValue('O6', trlKwf('Comment'));
+        
+        $firstSheet->getStyle('I6')->getAlignment()->setWrapText(true);
         
         $firstSheet->getStyle('A6')->getFont()->setBold(true);
         $firstSheet->getStyle('B6')->getFont()->setBold(true);
         $firstSheet->getStyle('C6')->getFont()->setBold(true);
         $firstSheet->getStyle('D6')->getFont()->setBold(true);
         $firstSheet->getStyle('E6')->getFont()->setBold(true);
+        $firstSheet->getStyle('H6')->getFont()->setBold(true);
+        $firstSheet->getStyle('I6')->getFont()->setBold(true);
+        $firstSheet->getStyle('J6')->getFont()->setBold(true);
         $firstSheet->getStyle('K6')->getFont()->setBold(true);
         $firstSheet->getStyle('L6')->getFont()->setBold(true);
         $firstSheet->getStyle('M6')->getFont()->setBold(true);
         $firstSheet->getStyle('N6')->getFont()->setBold(true);
         $firstSheet->getStyle('O6')->getFont()->setBold(true);
-        $firstSheet->getStyle('P6')->getFont()->setBold(true);
-        $firstSheet->getStyle('Q6')->getFont()->setBold(true);
-        $firstSheet->getStyle('R6')->getFont()->setBold(true);
-                
-        $firstSheet->mergeCells('E6:J6');
+        
+        $firstSheet->getColumnDimension('H')->setAutoSize(true);
+        $firstSheet->getColumnDimension('J')->setAutoSize(true);
+        $firstSheet->getColumnDimension('K')->setAutoSize(true);
+        $firstSheet->getColumnDimension('L')->setAutoSize(true);
+        $firstSheet->getColumnDimension('M')->setAutoSize(true);
+        $firstSheet->getColumnDimension('N')->setAutoSize(true);
+        $firstSheet->getColumnDimension('O')->setAutoSize(true);
+
+        $firstSheet->mergeCells('E6:G6');
 
         $rowNumber = 7;
         
@@ -148,7 +162,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             {
                 if ($rowNumber != 7)
                 {
-                    $firstSheet->mergeCells('A' . $rowNumber . ':R' . $rowNumber);
+                    $firstSheet->mergeCells('A' . $rowNumber . ':O' . $rowNumber);
                     $rowNumber += 1;
                 }
                 $flightSequenceNumber = 0;
@@ -165,21 +179,21 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $firstSheet->setCellValue('C' . $rowNumber, $flightStartTime);
             $firstSheet->setCellValue('D' . $rowNumber, $flight->planeName);
             $firstSheet->setCellValue('E' . $rowNumber, $flight->routeName);
-            $firstSheet->setCellValue('K' . $rowNumber, $flight->firstPilotName);
-            $firstSheet->setCellValue('L' . $rowNumber, $flight->checkPilotName);
-            $firstSheet->setCellValue('M' . $rowNumber, $flight->secondPilotName);
-            $firstSheet->setCellValue('N' . $rowNumber, $flight->technicName);
-            $firstSheet->setCellValue('O' . $rowNumber, $flight->resquerName);
-            $firstSheet->setCellValue('P' . $rowNumber, $flight->objectiveName);
-            $firstSheet->setCellValue('Q' . $rowNumber, $flight->number);
-            $firstSheet->setCellValue('R' . $rowNumber, $flight->comments);
+            $firstSheet->setCellValue('H' . $rowNumber, $flight->firstPilotName);
+            $firstSheet->setCellValue('I' . $rowNumber, $flight->checkPilotName);
+            $firstSheet->setCellValue('J' . $rowNumber, $flight->secondPilotName);
+            $firstSheet->setCellValue('K' . $rowNumber, $flight->technicName);
+            $firstSheet->setCellValue('L' . $rowNumber, $flight->resquerName);
+            $firstSheet->setCellValue('M' . $rowNumber, $flight->objectiveName);
+            $firstSheet->setCellValue('N' . $rowNumber, $flight->number);
+            $firstSheet->setCellValue('O' . $rowNumber, $flight->comments);
             
             $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS);
             $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS);
 
-            $firstSheet->mergeCells('E' . $rowNumber . ':J' . $rowNumber);
+            $firstSheet->mergeCells('E' . $rowNumber . ':G' . $rowNumber);
 
             $rowNumber += 1;
-        }
+        }        
     }
 }
