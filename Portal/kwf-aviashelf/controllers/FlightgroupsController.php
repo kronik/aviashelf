@@ -4,11 +4,11 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'Flightgroups';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 10;
-    protected $_buttons = array('add');
+    protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
         'controllerUrl' => '/flightgroup',
         'width' => 550,
-        'height' => 260
+        'height' => 230
     );
 
     protected function _initColumns()
@@ -17,7 +17,6 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid
         
         $this->_columns->add(new Kwf_Grid_Column('positionName', trlKwf('Position')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(200);
-        $this->_columns->add(new Kwf_Grid_Column_Checkbox('leader', trlKwf('KWS')))->setWidth(80);
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(300);
     }
 

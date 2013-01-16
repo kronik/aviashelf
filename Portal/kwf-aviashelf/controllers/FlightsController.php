@@ -2,10 +2,10 @@
 class FlightsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Flights';
-    protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
+    protected $_defaultOrder = array('field' => 'flightStartTime', 'direction' => 'ASC');
     #protected $_paging = 30;
     protected $_grouping = array('groupField' => 'subCompanyName');
-    protected $_buttons = array('add');
+    protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
                                    'controllerUrl' => '/flight',
                                    'width' => 550,
@@ -21,10 +21,13 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Subcompany'), 200));
-        $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 100));
-        #$this->_columns->add(new Kwf_Grid_Column_Date('flightStartDate', trlKwf('Date'), 80));
+        $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number'), 70));
+        $this->_columns->add(new Kwf_Grid_Column('flightStartTime', trlKwf('Time'), 50))->setRenderer('flightTimeCorrect');
+        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Subcompany'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 70));
+        $this->_columns->add(new Kwf_Grid_Column('firstPilotName', trlKwf('KWS'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('secondPilotName', trlKwf('Second pilot'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('technicName', trlKwf('Technic'), 100));
     }
     
     protected function _getWhere()

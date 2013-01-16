@@ -13,15 +13,14 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
             ->setAllowBlank(false)
             ->setWidth(400);
         
-        $linkModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $linkSelect = $linkModel->select()->whereEquals('name', 'Подразделения');
+        $companyModel = Kwf_Model_Abstract::getInstance('Companies');
+        $companySelect = $companyModel->select()->whereEquals('Hidden', '0')->order('Name');
         
-        $this->_form->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Subcompany')))
-        ->setValues($linkModel)
-        ->setSelect($linkSelect)
+        $this->_form->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Customer')))
+        ->setValues($companyModel)
+        ->setSelect($companySelect)
         ->setWidth(400);
         
-        #$this->_form->add(new Kwf_Form_Field_DateField('flightStartDate', trlKwf('Start Date')));
         $this->_form->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
 
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
@@ -56,12 +55,14 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
+        $companyModel = Kwf_Model_Abstract::getInstance('Companies');
+        $companySelect = $companyModel->select()->whereEquals('id', $row->subCompanyId);
+        
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Airplanes');
         
-        $s = $m1->select()->whereEquals('id', $row->subCompanyId);
-        $prow = $m1->getRow($s);
-        $row->subCompanyName = $prow->value;
+        $prow = $companyModel->getRow($companySelect);
+        $row->subCompanyName = $prow->Name;
         
         $s = $m1->select()->whereEquals('id', $row->objectiveId);
         $prow = $m1->getRow($s);

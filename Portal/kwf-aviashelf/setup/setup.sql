@@ -472,7 +472,9 @@ INSERT INTO `link_data` (`id`, `link_id`, `name`, `value`, `desc`) VALUES
 (348, 19, 'Свидетельства специалиста', 'Свидетельство бортмеханика', 'Свидетельство бортмеханика'),
 (350, 8, 'Позиции на борту', 'Второй пилот', 'Второй пилот'),
 (352, 8, 'Позиции на борту', 'Бортмеханик', 'Бортмеханик'),
-(353, 8, 'Позиции на борту', 'Спасатель', 'Спасатель');
+(353, 8, 'Позиции на борту', 'Спасатель', 'Спасатель'),
+(354, 8, 'Позиции на борту', 'По специальности', 'По специальности'),
+(355, 10, 'Маршруты', 'Обеспечение ПСО/АСР', 'Обеспечение ПСО/АСР');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL,
@@ -682,7 +684,6 @@ CREATE TABLE IF NOT EXISTS `flightGroups` (
     `flightId` int DEFAULT '0',
     `employeeId` int NOT NULL,
     `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
-    `leader` BOOL NOT NULL DEFAULT '0',
     `positionId` int NOT NULL,
     `positionName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,

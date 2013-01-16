@@ -116,7 +116,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->setCellValue('D6', trlKwf('WS Number'));
         $firstSheet->setCellValue('E6', trlKwf('Route'));
         $firstSheet->setCellValue('K6', trlKwf('KWS'));
-        $firstSheet->setCellValue('L6', trlKwf('Instructor'));
+        $firstSheet->setCellValue('L6', trlKwf('Instructor (check)'));
         $firstSheet->setCellValue('M6', trlKwf('Second pilot'));
         $firstSheet->setCellValue('N6', trlKwf('Technic'));
         $firstSheet->setCellValue('O6', trlKwf('Resquer'));

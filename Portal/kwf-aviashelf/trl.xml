@@ -9774,7 +9774,7 @@
         <id>1922</id>
     </text>
     <text>
-        <en>Instructor</en>
+        <en>Instructor (check)</en>
         <ru>Проверяющий (КВС-инструктор)</ru>
         <id>1923</id>
     </text>
@@ -9804,14 +9804,19 @@
         <id>1928</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Instructor</en>
+        <ru>Инструктор</ru>
+        <id>1929</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>By speciality</en>
+        <ru>По специальности</ru>
+        <id>1930</id>
+    </text>
+    <text>
+        <en>Checker</en>
+        <ru>Проверяющий</ru>
+        <id>1931</id>
     </text>
     <text>
         <en></en>

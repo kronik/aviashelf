@@ -65,3 +65,12 @@ var Flightplans = Ext.extend(Ext.Panel,
         Flightplans.superclass.initComponent.call(this);
     }
 });
+
+
+Ext.util.Format.flightTimeCorrect = function(val)
+{
+    var time = val.split(':');
+    
+    return time[0] + ':' + time[1];
+};
+
