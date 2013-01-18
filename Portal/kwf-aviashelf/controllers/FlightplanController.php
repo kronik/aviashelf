@@ -81,8 +81,11 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->mergeCells('A1:O1');
         $firstSheet->mergeCells('A3:O3');
         $firstSheet->mergeCells('A5:O5');
-
-        $firstSheet->setCellValue('B2', trlKwf('Date') . ': ' . date('d-m-Y'));
+        
+        $planDate = new DateTime ($row->planDate);
+        
+        $firstSheet->setCellValue('B2', trlKwf('Date') . ': ' . $planDate->format('d-m-Y'));
+        
         $firstSheet->setCellValue('N2', trlKwf('Responsible') . ': ');
         $firstSheet->setCellValue('N2', (string)$employeeRow);
         
