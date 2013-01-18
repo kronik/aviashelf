@@ -8,7 +8,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('visible', '1')->order('firstname');
+        $employeesSelect = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
         
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('name', 'Позиции на борту')->order('value');
