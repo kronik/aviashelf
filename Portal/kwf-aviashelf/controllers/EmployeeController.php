@@ -131,4 +131,9 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($specDocSelect)
         ->setWidth(400);
     }
+    
+    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
+    {
+        $row->visible = 1;
+    }
 }
