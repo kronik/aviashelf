@@ -61,7 +61,7 @@ class FlighttrackController extends Kwf_Controller_Action_Auto_Form
         ->setShowNoSelection(true)
         ->setAllowBlank(true);
                 
-        $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
+        $this->_form->add(new Kwf_Form_Field_TextArea('comments', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);        
     }
