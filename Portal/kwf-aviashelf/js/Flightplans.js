@@ -29,6 +29,12 @@ var Flightplans = Ext.extend(Ext.Panel,
                          }
                      ]
         });
+                             
+        var flighttracks = new Kwf.Auto.GridPanel({
+              controllerUrl   : '/flighttracks',
+              region          : 'center',
+              title           : trlKwf('Responsibles')
+        });
 
         var grid = new Kwf.Auto.GridPanel({
             controllerUrl   : '/flightplans',
@@ -40,6 +46,10 @@ var Flightplans = Ext.extend(Ext.Panel,
             bindings: [{
                         queryParam: 'planId',
                         item: flighttasks
+                      },
+                      {
+                        queryParam: 'planId',
+                        item: flighttracks
                       }],
             title           : trlKwf('Flight plans')
         });
@@ -55,12 +65,21 @@ var Flightplans = Ext.extend(Ext.Panel,
              collapsible : true,
              items:[flightgroups, flightresults]
         });
+                             
+        var tabs = new Ext.TabPanel({
+           border    : true,
+           activeTab : 0,
+           region    : 'center',
+           tabPosition:'top',
+           split       : true,
+           items:[flighttasks, flighttracks]
+        });
 
         this.layout = 'border';
         this.items = [grid, {
             layout: 'border',
             region: 'center',
-            items: [flighttasks, flighttabs]
+            items: [tabs, flighttabs]
         }];
         Flightplans.superclass.initComponent.call(this);
     }

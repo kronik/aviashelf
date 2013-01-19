@@ -60,6 +60,29 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         }
     }
     
+    protected function extractLandPoints($rawRoute, $points, $keys)
+    {
+        $route = explode("-", $rawRoute);
+        #$points = array();
+        #$keys = array();
+        
+        $landPoint = '';
+        
+        foreach ($route as $point)
+        {
+            $point = trim($point, " ");
+            $key = strtoupper($point);
+            
+            if (in_array($key, $keys) == false)
+            {
+                array_push($points, $point);
+                array_push($keys, $key);
+            }
+        }
+        
+        return;
+    }
+    
     protected function _fillTheXlsFile($xls, $firstSheet)
     {
         $row = $this->_form->getRow();
@@ -196,6 +219,25 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $firstSheet->mergeCells('E' . $rowNumber . ':G' . $rowNumber);
 
             $rowNumber += 1;
-        }        
+        }
+        
+        $firstSheet->mergeCells('A' . $rowNumber ':O' . $rowNumber);
+        $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->setCellValue('A' . $rowNumber, 'Прокрутку ВС дежурящего по ПСО/АСР по ЭНЛ производить до первого вылета (1 раз в 2 дня).');
+
+        $rowNumber += 1;
+        
+        $firstSheet->mergeCells('A' . $rowNumber ':O' . $rowNumber);
+        $rowNumber += 1;
+
+        
+        $firstSheet->mergeCells('A' . $rowNumber ':O' . $rowNumber);
+        $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
+
+        $firstSheet->setCellValue('A' . $rowNumber, 'Дополнительная информация');
+        
+        $rowNumber += 1;
+
     }
 }

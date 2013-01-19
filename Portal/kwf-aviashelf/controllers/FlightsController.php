@@ -3,7 +3,6 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Flights';
     protected $_defaultOrder = array('field' => 'flightStartTime', 'direction' => 'ASC');
-    #protected $_paging = 30;
     protected $_grouping = array('groupField' => 'subCompanyName');
     protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
@@ -28,6 +27,9 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('firstPilotName', trlKwf('KWS'), 100));
         $this->_columns->add(new Kwf_Grid_Column('secondPilotName', trlKwf('Second pilot'), 100));
         $this->_columns->add(new Kwf_Grid_Column('technicName', trlKwf('Technic'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('resquerName', trlKwf('Resquer'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('checkPilotName', trlKwf('Instructor (check)'), 200));
+        $this->_columns->add(new Kwf_Grid_Column('comments', trlKwf('Comments')))->setWidth(500);
     }
     
     protected function _getWhere()

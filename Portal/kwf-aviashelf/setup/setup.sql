@@ -687,6 +687,27 @@ CREATE TABLE IF NOT EXISTS `flightTasks` (
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `flightTracks` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `planId` int NOT NULL,
+    `airport` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `comments` varchar(1000) COLLATE utf8_unicode_ci,
+    `employee1Id` int NOT NULL,
+    `employee1Name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employee2Id` int NOT NULL,
+    `employee2Name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employee3Id` int NOT NULL,
+    `employee3Name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employee4Id` int NOT NULL,
+    `employee4Name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employee5Id` int NOT NULL,
+    `employee5Name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employee6Id` int NOT NULL,
+    `employee6Name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `flightGroups` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `flightId` int DEFAULT '0',

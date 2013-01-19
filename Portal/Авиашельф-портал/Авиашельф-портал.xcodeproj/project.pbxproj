@@ -8335,6 +8335,9 @@
 		026FBF271661E26B00139CDD /* setup.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = setup.sql; sourceTree = "<group>"; };
 		026FBF291661E26B00139CDD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		026FBF2A1661E26B00139CDD /* trl.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trl.xml; sourceTree = "<group>"; };
+		028B60E916AADB42009C9E1F /* Flighttracks.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Flighttracks.php; sourceTree = "<group>"; };
+		028B60EB16AADE1F009C9E1F /* FlighttrackController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlighttrackController.php; sourceTree = "<group>"; };
+		028B60EC16AADE1F009C9E1F /* FlighttracksController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FlighttracksController.php; sourceTree = "<group>"; };
 		029CB57716A7EB0600586A9E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		029CB57816A7EB0600586A9E /* .htaccess */ = {isa = PBXFileReference; lastKnownFileType = text; path = .htaccess; sourceTree = "<group>"; };
 		029CB57916A7EB0600586A9E /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
@@ -28784,6 +28787,7 @@
 				022A2A1F16894F7500286523 /* Flightgroups.php */,
 				02FD20DA16A26A3300EAF654 /* Flightplans.php */,
 				025B6B9916859C6100FB1849 /* Flightresults.php */,
+				028B60E916AADB42009C9E1F /* Flighttracks.php */,
 				02A853831688A82A0081B13B /* Flights.php */,
 				0230FCBC16733475007754C3 /* Linkdata.php */,
 				0230FCBB167333F4007754C3 /* Links.php */,
@@ -47547,6 +47551,8 @@
 		02A8538B1689357C0081B13B /* Flight */ = {
 			isa = PBXGroup;
 			children = (
+				028B60EB16AADE1F009C9E1F /* FlighttrackController.php */,
+				028B60EC16AADE1F009C9E1F /* FlighttracksController.php */,
 				02FD20DE16A26BE700EAF654 /* FlightplanController.php */,
 				02FD20DF16A26BE700EAF654 /* FlightplansController.php */,
 				02A853861688AAB90081B13B /* FlightController.php */,
