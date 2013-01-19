@@ -17,7 +17,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Customer')))
         ->setValues($companyModel)
         ->setSelect($companySelect)
-        ->setWidth(400);
+        ->setWidth(400)
+        ->setAllowBlank(false);
         
         $this->_form->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
 
@@ -44,7 +45,17 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_Select('routeId', trlKwf('Route')))
         ->setValues($routeModel)
         ->setSelect($routeSelect)
-        ->setWidth(400);
+        ->setWidth(400)
+        ->setAllowBlank(false);
+        
+        $groupModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $groupSelect = $groupModel->select()->whereEquals('name', 'Тип экипажа');
+        
+        $this->_form->add(new Kwf_Form_Field_Select('groupId', trlKwf('Group type')))
+        ->setValues($groupModel)
+        ->setSelect($groupSelect)
+        ->setWidth(400)
+        ->setAllowBlank(false);
         
         $this->_form->add(new Kwf_Form_Field_TextArea('comments', trlKwf('Comment')))
         ->setHeight(70)
@@ -75,6 +86,75 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         $row->planeName = $prow->NBort;
         $row->planId = $this->_getParam('planId');
+    }
+    
+    protected function isContain($what, $where)
+    {
+        return stripos($where, $what) !== false;
+    }
+    
+    protected function insertNewRow($positionId, $positionName)
+    {
+        $row = $this->_form->getRow();
+
+        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+        
+        $newRow = $flightGroupsModel->createRow();
+        
+        $newRow->positionId = $positionId;
+        $newRow->positionName = $positionName;
+        $newRow->employeeId = 0;
+        $newRow->employeeName = '';
+        $newRow->flightId = $row->id;
+        
+        $newRow->save();
+    }
+    
+    protected function _afterInsert(Kwf_Model_Row_Interface $row)
+    {
+        $row = $this->_form->getRow();
+
+        $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'КВС'"));
+        $kwsRow = $typeModel->getRow($typeSelect);
+
+        $this->insertNewRow($kwsRow->id, $kwsRow->value);
+
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Второй пилот'"));
+        $secondRow = $typeModel->getRow($typeSelect);
+        
+        $this->insertNewRow($secondRow->id, $secondRow->value);
+        
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Бортмеханик'"));
+        $techRow = $typeModel->getRow($typeSelect);
+        
+        $this->insertNewRow($techRow->id, $techRow->value);
+        
+        $groupModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $groupSelect = $groupModel->select()->whereEquals('id', $row->groupId);
+        $groupRow = $groupModel->getRow($groupSelect);
+
+        if ($this->isContain('спасатель', $groupRow->value))
+        {
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Спасатель'"));
+            $posRow = $typeModel->getRow($typeSelect);
+            
+            $this->insertNewRow($posRow->id, $posRow->value);
+        }
+        else if ($this->isContain('проверяющий', $groupRow->value))
+        {
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Проверяющий'"));
+            $posRow = $typeModel->getRow($typeSelect);
+            
+            $this->insertNewRow($posRow->id, $posRow->value);
+        }
+        else if ($this->isContain('тренируемы', $groupRow->value))
+        {
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value like 'Тренируемы%'"));
+            $posRow = $typeModel->getRow($typeSelect);
+            
+            $this->insertNewRow($posRow->id, $posRow->value);
+        }
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
