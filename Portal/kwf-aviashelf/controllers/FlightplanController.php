@@ -16,7 +16,8 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         ->setValues($employeesModel)
         ->setSelect($employeesSelect)
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setShowNoSelection(true)
+        ->setAllowBlank(true);
         
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
@@ -24,14 +25,15 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
-    {
-        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
-        
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('id', $row->employeeId);
-        
-        $prow = $employeesModel->getRow($employeesSelect);
-        $row->employeeName = (string)$prow;
+    {        
+        if ($row->employeeId != NULL)
+        {
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('id', $row->employeeId);
+            
+            $prow = $employeesModel->getRow($employeesSelect);
+            $row->employeeName = (string)$prow;
+        }
         
         return $row;
     }
@@ -108,9 +110,6 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $flights = $flightsModel->getRows($flightsSelect);
         $flightSequenceNumber = 1;
         $lastSubcompanyId = 0;
-        
-        //$firstSheet->getColumnDimension('A')->setAutoSize(true);
-        //$firstSheet->getColumnDimension('B')->setAutoSize(true);
         
         $firstSheet->getColumnDimension('A')->setWidth('7pt');
         $firstSheet->getColumnDimension('B')->setWidth('20pt');

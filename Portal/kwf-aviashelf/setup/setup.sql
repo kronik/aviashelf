@@ -810,8 +810,8 @@ CREATE TABLE IF NOT EXISTS `trainingContents` (
 CREATE TABLE IF NOT EXISTS `flightPlans` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `planDate` date NOT NULL,
-    `employeeId` int NOT NULL,
-    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employeeId` int,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
