@@ -102,6 +102,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         
         $xls->getDefaultStyle()->getFont()->setSize(7);
         
+        $firstSheet->getPageSetup()->setFitToPage(true);
         $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
