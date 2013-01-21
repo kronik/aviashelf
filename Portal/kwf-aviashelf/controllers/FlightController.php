@@ -296,7 +296,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->getStyle($tableHeaderColumnt . '1')->getFont()->setBold(true);
         $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-        $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setTextRotation(90);
+        $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setTextRotation(-90);
 
         $firstSheet->getStyle('A14:' . $tableColumnt . '26')->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->mergeCells('A14:' . $tableColumnt . '26');
@@ -309,7 +309,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->getStyle($tableHeaderColumnt . '14')->getFont()->setBold(true);
         $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-        $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setTextRotation(90);
+        $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setTextRotation(-90);
 
         $firstSheet->getStyle('A27:' . $tableColumnt . '39')->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->mergeCells('A27:B39');
@@ -322,7 +322,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setWrapText(true);
         $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-        $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setTextRotation(90);
+        $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setTextRotation(-90);
 
         
         for ($i = 2; $i <= $totalLeftColumns-1; $i++)
@@ -338,6 +338,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $rowNumber += 1;
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         
+        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setSize(10);
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('Дальневосточное межрегиональное территориальное управление'));
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -346,6 +347,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         
+        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setSize(10);
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('воздушного транспорта ФАВТ'));
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -458,6 +460,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
 
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
         $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        
+        $kwsId = 0;
 
         foreach ($flightMembers as $flightMember)
         {
@@ -472,6 +476,11 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
             if ($position == 'По специальности')
             {
                 $position = $subSpecRow->value;
+            }
+            
+            if ($position == 'КВС')
+            {
+                $kwsId = $flightMember->employeeId;
             }
 
             $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, $position);
@@ -552,6 +561,27 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'ЭКИПАЖ ДОПУЩЕН ПО МЕТЕОМИНИМУМУ');
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $rowNumber += 1;
+
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+        $rowNumber += 1;
+
+        $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
+        $accessesSelect = $accessesModel->select()->whereEquals('employeeId', $kwsId);
         
+        $accesses = $accessesModel->getRows($accessesSelect);
+        
+        foreach ($accesses as $access)
+        {
+            $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+            $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, $access->accessName);
+            $rowNumber += 1;
+        }
+        
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+        $rowNumber += 1;
+
+        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . 1 . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . 39)->applyFromArray($styleThinBlackBorderOutline);
+
     }
 }

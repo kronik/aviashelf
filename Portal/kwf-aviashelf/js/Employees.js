@@ -5,6 +5,7 @@ var Employees = Ext.extend(Ext.Panel,
         var documents = new Kwf.Auto.GridPanel({
              controllerUrl   : '/documents',
              collapsible     : true,
+             stripeRows      : true,
              title           : trlKwf('Documents')
         });
                            

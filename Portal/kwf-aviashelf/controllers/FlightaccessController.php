@@ -28,7 +28,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_Select('accessId', 'Метеоминимум'))
+        $this->_form->add(new Kwf_Form_Field_Select('accessId', trlKwf('Метеоминимум')))
         ->setValues($typeModel)
         ->setSelect($typeSelect)
         ->setWidth(400)
