@@ -122,6 +122,7 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (18, 'Типы документов'),
 (19, 'Свидетельства специалиста'),
 (20, 'Тип экипажа'),
+(21, 'Метеоминимумы'),
 (12, 'Цели');
 
 
@@ -481,7 +482,11 @@ INSERT INTO `link_data` (`id`, `link_id`, `name`, `value`, `desc`) VALUES
 (358, 20, 'Тип экипажа', 'Стандарт + проверяющий ', 'Командир вертолета\nПроверяющий \nВторой пилот \nБортмеханик'),
 (359, 20, 'Тип экипажа', 'Стандарт + проверяющий + спасатель', 'Командир вертолета\nПроверяющий \nВторой пилот \nБортмеханик\nСпасатель '),
 (360, 20, 'Тип экипажа', 'Стандарт + тренируемые', 'Командир вертолета\nТренируемые \nВторой пилот \nБортмеханик'),
-(361, 20, 'Тип экипажа', 'Ввод вручную', 'Ввод вручную\n');
+(361, 20, 'Тип экипажа', 'Ввод вручную', 'Ввод вручную\n'),
+(362, 8, 'Позиции на борту', 'Тренируемый', 'Тренируемый'),
+(363, 21, 'Метеоминимумы', 'ПВП (день) 150 х 2000 х 25м/с', 'ПВП (день) 150 х 2000 х 25м/с'),
+(364, 21, 'Метеоминимумы', 'ПВП (ночь) 450 х 4000 х 25м/с', 'ПВП (ночь) 450 х 4000 х 25м/с'),
+(365, 21, 'Метеоминимумы', 'ППП 80 x 1000 x 25 м/с', 'ППП 80 x 1000 x 25 м/с');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL,
@@ -719,6 +724,22 @@ CREATE TABLE IF NOT EXISTS `flightGroups` (
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
     KEY `flightId` (`flightId`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `flightAccesses` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `docId` int NOT NULL,
+    `docName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `accessId` int NOT NULL,
+    `accessName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `wsTypeId` int NOT NULL,
+    `wsTypeName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    KEY `docId` (`docId`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

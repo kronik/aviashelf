@@ -126,10 +126,6 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->setCellValue('K2', trlKwf('Responsible') . ': ');
         $firstSheet->setCellValue('M2', (string)$employeeRow);
         
-        #$firstSheet->mergeCells('B2:K2');
-        #$firstSheet->mergeCells('N2:M2');
-        #$firstSheet->mergeCells('L2:M2');
-        
         $firstSheet->setCellValue('A4', trlKwf('Daily flights plan'));
         $firstSheet->getStyle('A4')->getFont()->setSize(12);
         $firstSheet->getStyle('A4')->getFont()->setBold(true);
@@ -216,16 +212,6 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->getStyle('M6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         
         $firstSheet->getColumnDimension('B')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('E')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('G')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('H')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('I')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('J')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('K')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('L')->setAutoSize(true);
-        #$firstSheet->getColumnDimension('M')->setAutoSize(true);
-
-        #$firstSheet->mergeCells('E6:G6');
 
         $rowNumber = 7;
         

@@ -49,6 +49,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_employee'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_documents'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_document'), 'default_documents');
+        $this->addResource(new Zend_Acl_Resource('default_flightaccesses'), 'default_employees');
+        $this->addResource(new Zend_Acl_Resource('default_flightaccess'), 'default_flightaccesses');
         $this->addResource(new Zend_Acl_Resource('default_flightresults'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_flightresult'), 'default_flightresults');
         $this->addResource(new Zend_Acl_Resource('default_task'), 'default_tasks');

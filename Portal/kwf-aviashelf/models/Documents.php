@@ -2,7 +2,7 @@
 class Documents extends Kwf_Model_Db
 {
     protected $_table = 'documents';
-    protected $_toStringField = 'number';
+    protected $_rowClass = 'Row_Document';
     protected $_referenceMap = array(
         'Company' => array(
             'column'           => 'companyId',

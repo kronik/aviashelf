@@ -405,7 +405,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber, $flightSequenceNumber . ' / ' . $row->flightStartDate);
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber)->getFont()->setBold(true);
         
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber, $row->number);
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber, 'ЮШ ' . $row->number);
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber)->getFont()->setBold(true);
 
         $rowNumber += 1;
@@ -424,7 +424,6 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'Командиру вертолёта:');
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber, $planeType->Name);
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber, $row->planeName);
-        #$firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 3) . $rowNumber);
 
         $rowNumber += 1;
