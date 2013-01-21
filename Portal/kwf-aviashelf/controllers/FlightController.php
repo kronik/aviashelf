@@ -566,11 +566,10 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
 
-        $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select()->whereEquals('employeeId', $kwsId);
-        
+        $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');        
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id));
         $accesses = $accessesModel->getRows($accessesSelect);
-        
+                
         foreach ($accesses as $access)
         {
             $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
