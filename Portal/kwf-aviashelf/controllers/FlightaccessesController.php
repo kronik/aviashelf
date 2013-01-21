@@ -4,6 +4,7 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'Flightaccesses';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
     protected $_buttons = array('add', 'delete');
+    protected $_grouping = array('groupField' => 'wsTypeName');
     protected $_editDialog = array(
         'controllerUrl' => '/flightaccess',
         'width' => 550,
