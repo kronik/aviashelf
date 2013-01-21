@@ -7,7 +7,7 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/flightaccess',
         'width' => 550,
-        'height' => 250
+        'height' => 260
     );
 
     protected function _initColumns()
