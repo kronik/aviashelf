@@ -2300,7 +2300,7 @@
         <id>447</id>
         <ro>d.m.Y</ro>
         <sl>d.m.Y</sl>
-        <ru>d-m-Y<ru>
+        <ru>d-m-Y</ru>
     </text>
     <text>
         <en>Y-m-d H:i</en>
@@ -2308,7 +2308,7 @@
         <id>448</id>
         <ro>d.m.Y H:i</ro>
         <sl>d.m.Y H:i</sl>
-        <ru>d-m-Y H:i<ru>
+        <ru>d-m-Y H:i</ru>
     </text>
     <text>
         <en>no selection</en>
