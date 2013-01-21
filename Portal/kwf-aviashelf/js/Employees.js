@@ -113,7 +113,7 @@ Ext.util.Format.docCheckDate = function(val)
     var dayStr = day < 10 ? '0' + day : day;
     var year = val.getUTCFullYear();
     
-    var newdate = year + "-" + monthStr + "-" + dayStr;
+    var newdate = dayStr + "-" + monthStr + "-" + year;
     
     var dateToCheck = new Date();
     var today = new Date();
