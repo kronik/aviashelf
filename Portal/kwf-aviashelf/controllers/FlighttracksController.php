@@ -14,6 +14,7 @@ class FlighttracksController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
+        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('airport', trlKwf('Airport')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('employee1Name', 'Дежурный КВС'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('employee2Name', 'Руководитель ПБ (СЭИК)'))->setWidth(150);

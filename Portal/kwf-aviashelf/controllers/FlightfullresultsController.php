@@ -16,6 +16,7 @@ class FlightfullresultsController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
+        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('ownerName', trlKwf('Employee')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('flightTime', trlKwf('Time')))->setProperty('summaryType', 'totalTime')->setWidth(60);

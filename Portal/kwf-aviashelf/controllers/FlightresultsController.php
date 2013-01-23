@@ -16,6 +16,7 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
+        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column_Date('flightDate', trlKwf('Date')));

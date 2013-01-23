@@ -28,6 +28,7 @@ class DocumentsController extends Kwf_Controller_Action_Auto_Grid
         #->setWidth(400)
         #->setAllowBlank(false);
         
+        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number')));
         $this->_columns->add(new Kwf_Grid_Column_Date('startDate', trlKwf('Doc Start Date')));
