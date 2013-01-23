@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C3006" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Tdm-ki-Gc2">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
@@ -439,7 +438,6 @@
                 <relationship kind="action" name="onGetBack:"/>
                 <relationship kind="action" name="onResetActions:"/>
                 <relationship kind="action" name="onShowDetails:"/>
-                <relationship kind="action" name="showAlert:"/>
                 <relationship kind="outlet" name="resetButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="titleButton" candidateClass="UIButton"/>
             </relationships>

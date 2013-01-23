@@ -93,11 +93,23 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     self.title = @"Аварийные карты";
+    
+    [self updateUI];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     self.title = @"Назад";
+}
+
+- (void)updateUI
+{
+    NSString *dataFile = @"СЛОЖНЫЕ СИТУАЦИИ РПП";
+    
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.xml", dataFile]];
+    
+    self.yellowButton.hidden = ( [[NSFileManager defaultManager] fileExistsAtPath: path] == NO) ? YES : NO;
 }
 
 - (void)viewDidLoad
@@ -118,7 +130,7 @@
             [UIColor whiteColor], UITextAttributeTextColor, nil];
     */
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	// Do any additional setup after loading the view, typically from a nib.    
 }
 
 - (void)dataParserDidFinish:(DataParser *)dataParser situations:(NSArray*)situations;

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		021215C515B69CBE00E6FB08 /* АВАРИЙНЫЕ СИТУАЦИИ РЛЭ.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0288BEA215B6719C00F96F0F /* АВАРИЙНЫЕ СИТУАЦИИ РЛЭ.xml */; };
-		021215C715B69CD200E6FB08 /* СЛОЖНЫЕ СИТУАЦИИ РПП.xml in Resources */ = {isa = PBXBuildFile; fileRef = 32673953152C1EBB0084CFB8 /* СЛОЖНЫЕ СИТУАЦИИ РПП.xml */; };
 		021215C815B69CD200E6FB08 /* СЛОЖНЫЕ СИТУАЦИИ РЛЭ.xml in Resources */ = {isa = PBXBuildFile; fileRef = 326413AF152D70E8006F3456 /* СЛОЖНЫЕ СИТУАЦИИ РЛЭ.xml */; };
 		021215CB15B6A57300E6FB08 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021215CA15B6A57300E6FB08 /* SettingsViewController.m */; };
 		0222599A169D239100A3E647 /* РЛЭ Ми-8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 02225998169D239100A3E647 /* РЛЭ Ми-8.pdf */; };
@@ -1486,7 +1485,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				021215C715B69CD200E6FB08 /* СЛОЖНЫЕ СИТУАЦИИ РПП.xml in Resources */,
 				021215C815B69CD200E6FB08 /* СЛОЖНЫЕ СИТУАЦИИ РЛЭ.xml in Resources */,
 				021215C515B69CBE00E6FB08 /* АВАРИЙНЫЕ СИТУАЦИИ РЛЭ.xml in Resources */,
 				3248A158152AA5F8004C0350 /* InfoPlist.strings in Resources */,
