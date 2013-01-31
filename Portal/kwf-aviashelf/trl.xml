@@ -9836,14 +9836,19 @@
         <id>1934</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Request #</en>
+        <ru>Номер заявки</ru>
+        <id>1935</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Onboard positions</en>
+        <ru>Позиции на борту</ru>
+        <id>1936</id>
+    </text>
+    <text>
+        <en>Onboard position</en>
+        <ru>Позиция на борту</ru>
+        <id>1937</id>
     </text>
     <text>
         <en></en>

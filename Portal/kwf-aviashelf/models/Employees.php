@@ -9,4 +9,8 @@ class Employees extends Kwf_Model_Db
             'refModelClass'     => 'Kwf_Uploads_Model'
         )
     );
+    
+    protected $_dependentModels = array(
+        'EmployeeFlightRoles' => 'EmployeeFlightRoles'
+    );
 }

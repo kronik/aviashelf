@@ -89,6 +89,16 @@ CREATE TABLE IF NOT EXISTS `employee` (
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `employeeFlightRoles` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `pos` tinyint(3) unsigned NOT NULL,
+  `groupId` int(5) unsigned DEFAULT NULL,
+  `employeeId` int(8) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `employeeId` (`employeeId`),
+  KEY `groupId` (`groupId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `links` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
