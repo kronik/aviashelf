@@ -312,7 +312,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
             $firstSheet->mergeCells('C' . $rowNumber . ':D' . $rowNumber);
 
-            $firstSheet->setCellValue('A' . $rowNumber, $flighttrack->airport);
+            $firstSheet->setCellValue('A' . $rowNumber, $flighttrack->airportName);
             $firstSheet->setCellValue('C' . $rowNumber, $flighttrack->employee1Name);
             $firstSheet->setCellValue('E' . $rowNumber, $flighttrack->employee2Name);
             $firstSheet->setCellValue('F' . $rowNumber, $flighttrack->employee3Name);

@@ -26,6 +26,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwf('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwf('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airports', array('text'=>trlKwf('Airports'), 'icon'=>'book.png'), '/airports'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_landpoints', array('text'=>trlKwf('Landpoints'), 'icon'=>'book.png'), '/landpoints'), 'default_menuitem');
+
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_companies', array('text'=>trlKwf('Companies'), 'icon'=>'book.png'), '/companies'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_wstypes', array('text'=>trlKwf('WsTypes'), 'icon'=>'book.png'), '/wstypes'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airplanes', array('text'=>trlKwf('Airplanes'), 'icon'=>'book.png'), '/airplanes'), 'default_menuitem');
@@ -43,6 +45,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_linkdataentry'), 'default_linkdata');
         $this->addResource(new Zend_Acl_Resource('default_country'), 'default_countries');
         $this->addResource(new Zend_Acl_Resource('default_airport'), 'default_airports');
+        $this->addResource(new Zend_Acl_Resource('default_landpoint'), 'default_landpoints');
         $this->addResource(new Zend_Acl_Resource('default_company'), 'default_companies');
         $this->addResource(new Zend_Acl_Resource('default_wstype'), 'default_wstypes');
         $this->addResource(new Zend_Acl_Resource('default_airplane'), 'default_airplanes');
@@ -63,6 +66,9 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightfullresult'), 'default_flightfullresults');
         $this->addResource(new Zend_Acl_Resource('default_flightgroups'), 'default_flights');
         $this->addResource(new Zend_Acl_Resource('default_flightgroup'), 'default_flightgroups');
+        $this->addResource(new Zend_Acl_Resource('default_flightgroupsfilter'), 'default_flightgroup');
+        $this->addResource(new Zend_Acl_Resource('default_staffgroups'), 'default_flights');
+        $this->addResource(new Zend_Acl_Resource('default_staffgroup'), 'default_staffgroups');
         $this->addResource(new Zend_Acl_Resource('default_training'), 'default_trainings');
 
         $this->addResource(new Zend_Acl_Resource('default_checkdoc'), 'default_checksdocs');
@@ -85,6 +91,7 @@ class Acl extends Kwf_Acl
 
         $this->allow('admin', 'kwf_user_users');
 
+        $this->allow('admin', 'default_flightgroupsfilter');
         $this->allow('admin', 'default_flightplans');
         $this->allow('admin', 'default_checkresults');
         $this->allow('admin', 'default_checksdocs');
@@ -98,6 +105,7 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'default_wstypes');
         $this->allow('admin', 'default_companies');
         $this->allow('admin', 'default_airports');
+        $this->allow('admin', 'default_landpoints');
         $this->allow('admin', 'default_countries');
         $this->allow('admin', 'default_links');
         $this->allow('admin', 'default_index');

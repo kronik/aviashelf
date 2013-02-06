@@ -1156,6 +1156,7 @@
         <id>264</id>
         <ro>Latitudine</ro>
         <sl>Geografska širina</sl>
+        <ru>Широта</ru>
     </text>
     <text>
         <en>Longitude</en>
@@ -1163,6 +1164,7 @@
         <id>265</id>
         <ro>Longitudine</ro>
         <sl>Geografska dolžina</sl>
+        <ru>Долгота</ru>
     </text>
     <text>
         <en>Insert new image or edit selected image.</en>
@@ -9849,6 +9851,51 @@
         <en>Onboard position</en>
         <ru>Позиция на борту</ru>
         <id>1937</id>
+    </text>
+    <text>
+        <en>Landpoint</en>
+        <ru>Точка взлета-посадки</ru>
+        <id>1938</id>
+    </text>
+    <text>
+        <en>Landpoints</en>
+        <ru>Точки взлета-посадки</ru>
+        <id>1939</id>
+    </text>
+    <text>
+        <en>Staff groups</en>
+        <ru>Остальной персонал</ru>
+        <id>1940</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
+    </text>
+    <text>
+        <en></en>
+        <ru></ru>
+        <id>19</id>
     </text>
     <text>
         <en></en>

@@ -8,7 +8,7 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/flightgroup',
         'width' => 550,
-        'height' => 230
+        'height' => 260
     );
 
     protected function _initColumns()
@@ -25,6 +25,7 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid
     {
         $ret = parent::_getWhere();
         $ret['flightId = ?'] = $this->_getParam('flightId');
+        $ret['mainCrew = ?'] = TRUE;
         return $ret;
     }
 }

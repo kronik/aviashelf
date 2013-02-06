@@ -9,4 +9,8 @@ class Flights extends Kwf_Model_Db
                                                       'refModelClass'     => 'Wstypes',
                                                       )
                                      );
+    
+    protected $_dependentModels = array(
+                                        'FlightLandpoints' => 'FlightLandpoints'
+                                        );
 }

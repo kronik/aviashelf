@@ -6,26 +6,34 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
     protected $_buttons = array ('xls');
 
     protected function _initFields()
-    {        
-        $this->_form->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
+    {
+        $tabs = $this->_form->add(new Kwf_Form_Container_Tabs());
+        $tabs->setBorder(true);
+        $tabs->setActiveTab(0);
+        
+        // **** General Info
+        $tab = $tabs->add();
+        $tab->setTitle(trlKwf('General Info'));
+
+        $tab->fields->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
             ->setAllowBlank(false)
             ->setWidth(400);
         
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
         $companySelect = $companyModel->select()->whereEquals('Hidden', '0')->order('Name');
         
-        $this->_form->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Customer')))
+        $tab->fields->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Customer')))
         ->setValues($companyModel)
         ->setSelect($companySelect)
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
+        $tab->fields->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
 
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $airplanesSelect = $airplanesModel->select()->whereEquals('Hidden', '0');
         
-        $this->_form->add(new Kwf_Form_Field_Select('planeId', trlKwf('Airplane')))
+        $tab->fields->add(new Kwf_Form_Field_Select('planeId', trlKwf('Airplane')))
         ->setValues($airplanesModel)
         ->setSelect($airplanesSelect)
         ->setWidth(400)
@@ -34,32 +42,37 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $objModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $objSelect = $objModel->select()->whereEquals('name', 'Цели');
         
-        $this->_form->add(new Kwf_Form_Field_Select('objectiveId', trlKwf('Objective')))
+        $tab->fields->add(new Kwf_Form_Field_Select('objectiveId', trlKwf('Objective')))
         ->setValues($objModel)
         ->setSelect($objSelect)
         ->setWidth(400);
-        
-        $routeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $routeSelect = $routeModel->select()->whereEquals('name', 'Маршруты');
-        
-        $this->_form->add(new Kwf_Form_Field_Select('routeId', trlKwf('Route')))
-        ->setValues($routeModel)
-        ->setSelect($routeSelect)
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
+
         $groupModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $groupSelect = $groupModel->select()->whereEquals('name', 'Тип экипажа');
         
-        $this->_form->add(new Kwf_Form_Field_Select('groupId', trlKwf('Group type')))
+        $tab->fields->add(new Kwf_Form_Field_Select('groupId', trlKwf('Group type')))
         ->setValues($groupModel)
         ->setSelect($groupSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_TextArea('comments', trlKwf('Comment')))
+        $tab->fields->add(new Kwf_Form_Field_TextArea('comments', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);
+        
+        $tab = $tabs->add();
+        $tab->setTitle(trlKwf('Landpoints'));
+        
+        $landpointsModel = Kwf_Model_Abstract::getInstance('Landpoints');
+        $landpointsSelect = $landpointsModel->select()->order('description');
+        
+        $multifields = new Kwf_Form_Field_MultiFields('FlightLandpoints');
+        $multifields->setMinEntries(0);
+        $multifields->fields->add(new Kwf_Form_Field_Select('landpointId', trlKwf('Landpoint')))
+        ->setValues($landpointsModel)
+        ->setSelect($landpointsSelect)
+        ->setAllowBlank(false);
+        $tab->fields->add($multifields);
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
@@ -77,9 +90,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $prow = $m1->getRow($s);
         $row->objectiveName = $prow->value;
         
-        $s = $m1->select()->whereEquals('id', $row->routeId);
-        $prow = $m1->getRow($s);
-        $row->routeName = $prow->value;
+        $row->routeId = 0;
+        $row->routeName = '';
         
         $s = $m2->select()->whereEquals('id', $row->planeId);
         $prow = $m2->getRow($s);
@@ -108,6 +120,25 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $newRow->flightId = $row->id;
         
         $newRow->save();
+    }
+    
+    protected function _afterSave(Kwf_Model_Row_Interface $row)
+    {
+        $flightLandpointSelect = new Kwf_Model_Select();
+        $flightLandpointSelect->whereEquals('flightId', $row->id)->order('pos');
+
+        $landpointsModel = Kwf_Model_Abstract::getInstance('Landpoints');
+        $landpointsSelect = $landpointsModel->select()->where(new Kwf_Model_Select_Expr_Child_Contains('FlightLandpoints', $flightLandpointSelect));
+        
+        $landpoints = $landpointsModel->getRows($landpointsSelect);
+        $row->routeName = '';
+        
+        foreach ($landpoints as $landpoint)
+        {
+            $row->routeName . $landpoint->name . '. ';
+        }
+        
+        $row->save();
     }
     
     protected function _afterInsert(Kwf_Model_Row_Interface $row)
@@ -197,7 +228,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
     
     protected function extractLandPoints($rawRoute)
     {
-        $route = explode("-", $rawRoute);
+        $route = explode(". ", $rawRoute);
         $points = array();
         $keys = array();
 
@@ -217,7 +248,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         foreach ($points as $point)
         {
-            $landPoint = $landPoint . ' ' . $point;
+            $landPoint = $landPoint . '. ' . $point;
         }
         
         return $landPoint;

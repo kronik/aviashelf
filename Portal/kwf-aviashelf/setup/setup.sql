@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
 )  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `employeeFlightRoles` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pos` tinyint(3) unsigned NOT NULL,
   `groupId` int(5) unsigned DEFAULT NULL,
   `employeeId` int(8) unsigned NOT NULL,
@@ -705,7 +705,8 @@ CREATE TABLE IF NOT EXISTS `flightTasks` (
 CREATE TABLE IF NOT EXISTS `flightTracks` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `planId` int,
-    `airport` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `airportId` int NOT NULL,
+    `airportName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `comments` varchar(1000) COLLATE utf8_unicode_ci,
     `employee1Id` int,
     `employee1Name` varchar(300) COLLATE utf8_unicode_ci,
@@ -730,12 +731,23 @@ CREATE TABLE IF NOT EXISTS `flightGroups` (
     `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `positionId` int NOT NULL,
     `positionName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+    `mainCrew` BOOL DEFAULT '0',
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
     KEY `flightId` (`flightId`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `flightLandpoints` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `pos` tinyint(3) unsigned NOT NULL,
+    `landpointId` int(8) unsigned DEFAULT NULL,
+    `flightId` int(8) unsigned NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `landpointId` (`landpointId`),
+    KEY `flightId` (`flightId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `flightAccesses` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -876,6 +888,21 @@ CREATE TABLE IF NOT EXISTS `flightPlans` (
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
     KEY `employeeId` (`employeeId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `landPoints` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `description` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `responsibleId` int,
+    `responsibleName` varchar(300) COLLATE utf8_unicode_ci,
+    `address` varchar(300) COLLATE utf8_unicode_ci,
+    `phone` varchar(300) COLLATE utf8_unicode_ci,
+    `latitude` float,
+    `longitude` float,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 delimiter $$
