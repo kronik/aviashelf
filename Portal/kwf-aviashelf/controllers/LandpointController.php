@@ -21,8 +21,7 @@ class LandpointController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_Select('responsibleId', trlKwf('Responsible')))
         ->setValues($employeesModel)
         ->setSelect($employeesSelect)
-        ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setWidth(400);
    
         $this->_form->add(new Kwf_Form_Field_TextField('phone', trlKwf('Phone')))
         ->setWidth(400);
