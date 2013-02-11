@@ -4415,6 +4415,7 @@
         <id>888</id>
         <ro>Status</ro>
         <sl>Status</sl>
+        <ru>Состояние</ru>
     </text>
     <text>
         <en>Fax</en>
@@ -9868,29 +9869,29 @@
         <id>1940</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Priority</en>
+        <ru>Приоритет</ru>
+        <id>1941</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Base point</en>
+        <ru>Место базирования</ru>
+        <id>1942</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Failure Reason</en>
+        <ru>Причина неисправности</ru>
+        <id>1943</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Expected date</en>
+        <ru>Ожидаемая дата</ru>
+        <id>1944</id>
     </text>
     <text>
-        <en></en>
-        <ru></ru>
-        <id>19</id>
+        <en>Planer states</en>
+        <ru>Состояния ВС</ru>
+        <id>1945</id>
     </text>
     <text>
         <en></en>

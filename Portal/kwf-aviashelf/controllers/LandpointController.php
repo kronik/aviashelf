@@ -2,8 +2,9 @@
 class LandpointController extends Kwf_Controller_Action_Auto_Form
 {
     protected $_modelName = 'Landpoints';
-    protected $_buttons = array();
+    protected $_buttons = array('save');
     protected $_paging = 0;
+    protected $_permissions = array('save', 'add');
 
     protected function _initFields()
     {        
@@ -51,9 +52,7 @@ class LandpointController extends Kwf_Controller_Action_Auto_Form
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
-    {
-        $row->flightId = $this->_getParam('flightId');
-        
+    {        
         $this->updateReferences($row);
     }
     

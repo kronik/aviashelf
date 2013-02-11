@@ -45,6 +45,12 @@ var Flightplans = Ext.extend(Ext.Panel,
               region          : 'center',
               title           : trlKwf('Responsibles')
         });
+                             
+        var planerstates = new Kwf.Auto.GridPanel({
+              controllerUrl   : '/planerstates',
+              region          : 'center',
+              title           : trlKwf('Planer states')
+        });
 
         var grid = new Kwf.Auto.GridPanel({
             controllerUrl   : '/flightplans',
@@ -60,6 +66,10 @@ var Flightplans = Ext.extend(Ext.Panel,
                       {
                         queryParam: 'planId',
                         item: flighttracks
+                      },
+                      {
+                        queryParam: 'planId',
+                        item: planerstates
                       }],
             title           : trlKwf('Flight plans')
         });
@@ -82,7 +92,7 @@ var Flightplans = Ext.extend(Ext.Panel,
            region    : 'center',
            tabPosition:'top',
            split       : true,
-           items:[flighttasks, flighttracks]
+           items:[flighttasks, planerstates, flighttracks]
         });
 
         this.layout = 'border';
@@ -114,3 +124,15 @@ Ext.util.Format.dateCorrect = function(val)
     return dayStr + "-" + monthStr + "-" + year;
 };
 
+Ext.util.Format.planerStateColorer = function(val)
+{
+    if (val == 'исправно' || val == 'Исправно')
+    {
+        return '<span style="color:green;">' + val + '</span>';
+    }
+    else
+    {
+        return '<span style="color:red;">' + val + '</span>';
+    }
+    return val;
+};

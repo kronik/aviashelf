@@ -92,7 +92,12 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $prow = $m2->getRow($s);
         
         $row->employeeName = (string)$prow;
-        
+
+        if ($row->mainCrew == FALSE)
+        {
+            return;
+        }
+
         $flightRow = $flightsModel->getRow($flightsSelect);
 
         if ($this->isContain(trlKwf('KWS'), $row->positionName))

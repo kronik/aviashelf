@@ -133,6 +133,7 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (19, 'Свидетельства специалиста'),
 (20, 'Тип экипажа'),
 (21, 'Метеоминимумы'),
+(22, 'Статусы ВС'),
 (12, 'Цели');
 
 
@@ -496,7 +497,9 @@ INSERT INTO `link_data` (`id`, `link_id`, `name`, `value`, `desc`) VALUES
 (362, 8, 'Позиции на борту', 'Тренируемый', 'Тренируемый'),
 (363, 21, 'Метеоминимумы', 'ПВП (день) 150 х 2000 х 25м/с', 'ПВП (день) 150 х 2000 х 25м/с'),
 (364, 21, 'Метеоминимумы', 'ПВП (ночь) 450 х 4000 х 25м/с', 'ПВП (ночь) 450 х 4000 х 25м/с'),
-(365, 21, 'Метеоминимумы', 'ППП 80 x 1000 x 25 м/с', 'ППП 80 x 1000 x 25 м/с');
+(365, 21, 'Метеоминимумы', 'ППП 80 x 1000 x 25 м/с', 'ППП 80 x 1000 x 25 м/с'),
+(366, 22, 'Статусы ВС', 'Исправно'),
+(367, 22, 'Статусы ВС', 'Неисправно');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL,
@@ -903,6 +906,27 @@ CREATE TABLE IF NOT EXISTS `landPoints` (
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `planerStates` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `planId` int NOT NULL,
+    `planeId` int NOT NULL,
+    `planeName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    `typeId` int NOT NULL,
+    `typeName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    `landpointId` int NOT NULL,
+    `landpointName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    `priority` varchar(20) COLLATE utf8_unicode_ci,
+    `statusId` int NOT NULL,
+    `statusName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    `statusDate` date,
+    `reason` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `expectedDate` date,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `planId` (`planId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 delimiter $$

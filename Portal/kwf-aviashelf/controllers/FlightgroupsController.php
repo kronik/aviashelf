@@ -8,7 +8,7 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/flightgroup',
         'width' => 550,
-        'height' => 260
+        'height' => 230
     );
 
     protected function _initColumns()
