@@ -136,7 +136,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         foreach ($landpoints as $landpoint)
         {
-            $row->routeName . $landpoint->name . '. ';
+            $row->routeName = $row->routeName . $landpoint->name . '. ';
         }
         
         $row->save();
