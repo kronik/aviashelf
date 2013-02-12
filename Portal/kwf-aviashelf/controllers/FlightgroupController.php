@@ -87,28 +87,23 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $s = $m1->select()->whereEquals('id', $row->positionId);
         $prow = $m1->getRow($s);
         $row->positionName = $prow->value;
-        
+                
         $s = $m2->select()->whereEquals('id', $row->employeeId);
         $prow = $m2->getRow($s);
         
         $row->employeeName = (string)$prow;
 
-        if ($row->mainCrew == FALSE)
-        {
-            return;
-        }
-
         $flightRow = $flightsModel->getRow($flightsSelect);
 
-        if ($this->isContain(trlKwf('KWS'), $row->positionName))
+        if (($this->isContain(trlKwf('KWS'), $row->positionName)) && ($row->mainCrew == TRUE))
         {
             $flightRow->firstPilotName = (string)$prow;
         }
-        else if ($this->isContain(trlKwf('Second pilot'), $row->positionName))
+        else if (($this->isContain(trlKwf('Second pilot'), $row->positionName))  && ($row->mainCrew == TRUE))
         {
             $flightRow->secondPilotName = (string)$prow;
         }
-        else if ($this->isContain(trlKwf('Technic'), $row->positionName))
+        else if (($this->isContain(trlKwf('Technic'), $row->positionName))  && ($row->mainCrew == TRUE))
         {
             $flightRow->technicName = (string)$prow;
         }

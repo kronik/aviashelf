@@ -486,7 +486,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         
         $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
-        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->id)->order('id');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->id)->whereEquals('mainCrew', TRUE)->order('id');
         
         $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
         
@@ -506,11 +506,6 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
             $subSpecRow = $subSpecModel->getRow($subSpecSelect);
   
             $position = $flightMember->positionName;
-            
-            if ($position == 'По специальности')
-            {
-                $position = $subSpecRow->value;
-            }
             
             if ($position == 'КВС')
             {
@@ -550,15 +545,15 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
 
-        $rowNumber += 1;
-        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn) . ($rowNumber + 1));
-        
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'Маршрут полёта');
-        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, $row->routeName);
-        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
-        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . ($rowNumber + 1) . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . ($rowNumber + 1));
+//        $rowNumber += 1;
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn) . ($rowNumber + 1));
+//        
+//        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'Маршрут полёта');
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+//
+//        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, $row->routeName);
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . ($rowNumber + 1) . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . ($rowNumber + 1));
 
         $rowNumber += 2;
         
@@ -590,6 +585,68 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
 
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
+        
+        
+        
+        
+        
+        
+        
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+        
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'В ПОЛЕТНОЕ ЗАДАНИЕ ВКЛЮЧИТЬ');
+        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        $rowNumber += 1;
+        
+        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->id)->whereEquals('mainCrew', FALSE)->order('id');
+        
+        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+                
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        
+        foreach ($flightMembers as $flightMember)
+        {
+            $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
+            $employeeRow = $employeesModel->getRow($employeesSelect);
+            
+            $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
+            $subSpecRow = $subSpecModel->getRow($subSpecSelect);
+            
+            $position = $flightMember->positionName;
+            
+            if ($position == 'По специальности')
+            {
+                $position = $subSpecRow->value;
+            }
+                        
+            $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, $position);
+            $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, (string)$employeeRow);
+            $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+            
+            $rowNumber += 1;
+        }
+        
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+        $rowNumber += 1;
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'ЭКИПАЖ ДОПУЩЕН ПО МЕТЕОМИНИМУМУ');
