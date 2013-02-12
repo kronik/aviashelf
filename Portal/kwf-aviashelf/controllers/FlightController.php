@@ -68,7 +68,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         $multifields = new Kwf_Form_Field_MultiFields('FlightLandpoints');
         $multifields->setMinEntries(0);
-        $multifields->fields->add(new Kwf_Form_Field_Select('landpointId', trlKwf('Landpoint')))
+        $multifields->fields->add(new Kwf_Form_Field_Select('landpointId', trlKwf('Airport')))
         ->setValues($landpointsModel)
         ->setSelect($landpointsSelect)
         ->setAllowBlank(false);
@@ -105,7 +105,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         return stripos($where, $what) !== false;
     }
     
-    protected function insertNewRow($positionId, $positionName)
+    protected function insertNewRow($positionId, $positionName, $mainCrew)
     {
         $row = $this->_form->getRow();
 
@@ -118,6 +118,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $newRow->employeeId = 0;
         $newRow->employeeName = '';
         $newRow->flightId = $row->id;
+        $newRow->mainCrew = $mainCrew;
         
         $newRow->save();
     }
@@ -149,17 +150,17 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'КВС'"));
         $kwsRow = $typeModel->getRow($typeSelect);
 
-        $this->insertNewRow($kwsRow->id, $kwsRow->value);
+        $this->insertNewRow($kwsRow->id, $kwsRow->value, TRUE);
 
         $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Второй пилот'"));
         $secondRow = $typeModel->getRow($typeSelect);
         
-        $this->insertNewRow($secondRow->id, $secondRow->value);
+        $this->insertNewRow($secondRow->id, $secondRow->value, TRUE);
         
         $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Бортмеханик'"));
         $techRow = $typeModel->getRow($typeSelect);
         
-        $this->insertNewRow($techRow->id, $techRow->value);
+        $this->insertNewRow($techRow->id, $techRow->value, TRUE);
         
         $groupModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $groupSelect = $groupModel->select()->whereEquals('id', $row->groupId);
@@ -170,21 +171,23 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
             $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Спасатель'"));
             $posRow = $typeModel->getRow($typeSelect);
             
-            $this->insertNewRow($posRow->id, $posRow->value);
+            $this->insertNewRow($posRow->id, $posRow->value, FALSE);
         }
-        else if ($this->isContain('проверяющий', $groupRow->value))
+        
+        if ($this->isContain('проверяющий', $groupRow->value))
         {
             $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Проверяющий'"));
             $posRow = $typeModel->getRow($typeSelect);
             
-            $this->insertNewRow($posRow->id, $posRow->value);
+            $this->insertNewRow($posRow->id, $posRow->value, FALSE);
         }
-        else if ($this->isContain('тренируемы', $groupRow->value))
+        
+        if ($this->isContain('тренируемы', $groupRow->value))
         {
             $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value like 'Тренируемы%'"));
             $posRow = $typeModel->getRow($typeSelect);
             
-            $this->insertNewRow($posRow->id, $posRow->value);
+            $this->insertNewRow($posRow->id, $posRow->value, FALSE);
         }
     }
     

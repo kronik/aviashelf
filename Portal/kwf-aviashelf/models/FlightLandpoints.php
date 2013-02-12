@@ -9,7 +9,7 @@ class FlightLandpoints extends Kwf_Model_Db
         ),
         'Landpoint' => array(
             'column'           => 'landpointId',
-            'refModelClass'     => 'Linkdata',
+            'refModelClass'     => 'Landpoints',
         )
     );
 }
