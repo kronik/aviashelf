@@ -251,7 +251,10 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         foreach ($points as $point)
         {
-            $landPoint = $landPoint . '. ' . $point;
+            if (strlen($point) > 2)
+            {
+                $landPoint = $landPoint . '. ' . $point;
+            }
         }
         
         return $landPoint;
@@ -555,7 +558,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
 //        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
 //        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . ($rowNumber + 1) . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . ($rowNumber + 1));
 
-        $rowNumber += 2;
+        $rowNumber += 1;
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn) . ($rowNumber + 1));
 
@@ -577,7 +580,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'Пункты посадки');
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, $this->extractLandPoints($row->routeName));
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, $row->routeName);
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . ($rowNumber + 1) . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . ($rowNumber + 1));
 
@@ -585,12 +588,6 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
 
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
-        
-        
-        
-        
-        
-        
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         
@@ -632,21 +629,6 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'ЭКИПАЖ ДОПУЩЕН ПО МЕТЕОМИНИМУМУ');
