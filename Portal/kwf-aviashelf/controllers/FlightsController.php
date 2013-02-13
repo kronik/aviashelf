@@ -23,8 +23,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('flightStartTime', trlKwf('Time'), 50))->setRenderer('flightTimeCorrect');
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 70));
-        $this->_columns->add(new Kwf_Grid_Column('routeName', trlKwf('Route'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Customer'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('routeName', trlKwf('Route'), 150));
         $this->_columns->add(new Kwf_Grid_Column('firstPilotName', trlKwf('KWS'), 100));
         $this->_columns->add(new Kwf_Grid_Column('checkPilotName', trlKwf('Instructor (check)'), 200));
         $this->_columns->add(new Kwf_Grid_Column('secondPilotName', trlKwf('Second pilot'), 100));
@@ -32,6 +31,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('resquerName', trlKwf('Resquer'), 100));
         $this->_columns->add(new Kwf_Grid_Column('objectiveName', trlKwf('Objective'), 100));
         $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Request #'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Customer'), 100));
         $this->_columns->add(new Kwf_Grid_Column('comments', trlKwf('Comments')))->setWidth(500);
     }
     

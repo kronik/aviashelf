@@ -139,6 +139,11 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
             $row->routeName = $row->routeName . $landpoint->name . '. ';
         }
         
+        if (strlen($row->routeName) < 2)
+        {
+            $row->routeName = 'Обеспечение ПСО/АСР';
+        }
+        
         $row->save();
     }
     
@@ -177,6 +182,19 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         if ($this->isContain('проверяющий', $groupRow->value))
         {
             $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Проверяющий'"));
+            $posRow = $typeModel->getRow($typeSelect);
+            
+            $this->insertNewRow($posRow->id, $posRow->value, TRUE);
+        }
+        
+        if ($this->isContain('авиатехник', $groupRow->value))
+        {
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Авиатехник'"));
+            $posRow = $typeModel->getRow($typeSelect);
+            
+            $this->insertNewRow($posRow->id, $posRow->value, FALSE);
+            
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Техник АиРЭО'"));
             $posRow = $typeModel->getRow($typeSelect);
             
             $this->insertNewRow($posRow->id, $posRow->value, FALSE);

@@ -94,7 +94,7 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_flightplans');
         $this->allow('user', 'default_landpoints');
         $this->allow('user', 'default_tasks');
-
+        
         $this->allow('admin', 'default_menuitem');
         $this->allow('admin', 'default_settingsmenuitem');
         $this->allow('admin', 'default_checksmenuitem');
