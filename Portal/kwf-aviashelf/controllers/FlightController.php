@@ -460,7 +460,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $typeSelect = $typeModel->select()->whereEquals('id', $plane->twsId);
         $planeType = $typeModel->getRow($typeSelect);
 
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'Командиру вертолёта:');
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, 'Экипажу вертолёта:');
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber, $planeType->Name);
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber, $row->planeName);
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 3) . $rowNumber);
