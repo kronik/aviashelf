@@ -3,7 +3,7 @@ class LandpointsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Landpoints';
     protected $_defaultOrder = 'name';
-    protected $_buttons = array('add');
+    protected $_buttons = array('add', 'delete');
 
     public function indexAction()
     {

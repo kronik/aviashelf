@@ -68,7 +68,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         $multifields = new Kwf_Form_Field_MultiFields('FlightLandpoints');
         $multifields->setMinEntries(0);
-        $multifields->fields->add(new Kwf_Form_Field_Select('landpointId', trlKwf('Airport')))
+        $multifields->fields->add(new Kwf_Form_Field_Select('landpointId', trlKwf('Destination')))
         ->setValues($landpointsModel)
         ->setSelect($landpointsSelect)
         ->setAllowBlank(false);

@@ -86,13 +86,19 @@ class Acl extends Kwf_Acl
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
         
+        $this->addRole(new Zend_Acl_Role('user'));
+        
+        $this->allow('user', 'default_links');
+        $this->allow('user', 'default_index');
+        $this->allow('user', 'default_employees');
+        $this->allow('user', 'default_flightplans');
+        $this->allow('user', 'default_landpoints');
+        $this->allow('user', 'default_tasks');
+
         $this->allow('admin', 'default_menuitem');
         $this->allow('admin', 'default_settingsmenuitem');
         $this->allow('admin', 'default_checksmenuitem');
         $this->allow('admin', 'default_flightsmenuitem');
-
-        $this->allow('admin', 'kwf_user_users');
-
         $this->allow('admin', 'default_flightgroupsfilter');
         $this->allow('admin', 'default_flightplans');
         $this->allow('admin', 'default_checkresults');
@@ -112,6 +118,10 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'default_links');
         $this->allow('admin', 'default_index');
         $this->allow('admin', 'kwf_media_upload');
+        $this->allow('admin', 'kwf_user_users');
+        
         $this->allow('guest', 'kwf_media_upload');
+        $this->allow(null, 'kwf_user_login');
+        $this->allow(null, 'kwf_error_error');
     }
 }
