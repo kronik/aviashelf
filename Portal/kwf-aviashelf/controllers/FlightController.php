@@ -14,10 +14,6 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         // **** General Info
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('General Info'));
-
-        $tab->fields->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
-            ->setAllowBlank(false)
-            ->setWidth(400);
         
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
         $companySelect = $companyModel->select()->whereEquals('Hidden', '0')->order('Name');
@@ -218,6 +214,29 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $prow = $flightPlansModel->getRow($flightPlansSelect);
         
         $row->flightStartDate = $prow->planDate;
+                
+        $db = Zend_Registry::get('db');
+        
+        $stmt = $db->query("CALL getNextId(0, @nextId)", array(25));
+        
+        while ($stmt->nextRowset()) { };
+        
+        $stmt = $db->query("SELECT @nextId");
+        $rows = $stmt->fetchAll();
+        $row->number = $rows[0]["@nextId"];
+        
+        if (strlen($row->number) == 1)
+        {
+            $row->number = '000' . $row->number;
+        }
+        else if (strlen($row->number) == 2)
+        {
+            $row->number = '00' . $row->number;
+        }
+        else if (strlen($row->number) == 3)
+        {
+            $row->number = '0' . $row->number;
+        }
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)

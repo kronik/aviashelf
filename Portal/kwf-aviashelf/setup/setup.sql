@@ -15,6 +15,12 @@ INSERT INTO `kwf_pools` (`id`, `pool`, `pos`, `value`, `visible`) VALUES
 INSERT INTO `kwf_users` (`id`, `role`, `language`, `email`, `password`, `password_salt`, `gender`, `title`, `firstname`, `lastname`, `created`, `deleted`, `locked`, `logins`, `last_login`) VALUES
 (9, 'admin', 'en', 'demo@koala-framework.org', 'b2c5ae6bb7bec6021e3224f316d8a0c0', '684e86989d', 'male', '', 'Koala', 'Framework', '2011-10-25 10:06:07', 0, 0, 2, '2011-10-25 10:50:59');
 
+CREATE TABLE IF NOT EXISTS `recordIds` (
+    `id` int NOT NULL,
+    `year` int NOT NULL,
+    `type` int NOT NULL
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `tasks` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `userId` int NOT NULL,
@@ -988,3 +994,24 @@ BEGIN
 END
 $$
 delimiter ;
+
+DROP PROCEDURE IF EXISTS `getNextId`;
+DELIMITER $$
+
+CREATE PROCEDURE getNextId(IN `recordType` INT(11), OUT nextId INT(11))
+BEGIN
+    START TRANSACTION;
+
+        SELECT `id` INTO nextId FROM `recordIds` WHERE (`year` = YEAR(CURDATE()) AND `type` = `recordType`);
+        SET nextId = (IFNULL(nextId, 0) + 1);
+
+        IF (nextId > 1) THEN
+            UPDATE `recordIds` SET `id` = nextId WHERE `year` = YEAR(CURDATE()) AND `type` = `recordType`;
+        ELSE
+            INSERT INTO `recordIds` (`id`, `year`, `type`)  VALUES (1, YEAR(CURDATE()), `recordType`);
+        END IF;
+    COMMIT;
+    SELECT nextId;
+END$$
+DELIMITER ;
+
