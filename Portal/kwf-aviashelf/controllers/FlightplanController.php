@@ -338,7 +338,15 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         
         $rowNumber += 1;
         
+        $firstSheet->mergeCells('A' . $rowNumber . ':M' . ($rowNumber + 3));
+        $rowNumber += 4;
+        
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
+        $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
+        
+        $firstSheet->setCellValue('A' . $rowNumber, 'Диспетчерская сводка ПДО');
+        
         $rowNumber += 1;
 
         $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
@@ -386,8 +394,6 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $planerstatesSelect = $planerstatesModel->select()->whereEquals('planId', $row->id)->order(array('typeId', 'id'));
         
         $planerstates = $planerstatesModel->getRows($planerstatesSelect);
-        
-        
         
         foreach ($planerstates as $planerstate)
         {
