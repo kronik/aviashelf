@@ -83,6 +83,12 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         return;
     }
     
+    protected function getFormattedDate($date)
+    {
+        $newDate = new DateTime ($date);
+        return $newDate->format('d-m-Y');
+    }
+    
     protected function _fillTheXlsFile($xls, $firstSheet)
     {
         $row = $this->_form->getRow();
@@ -118,10 +124,8 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->mergeCells('A1:M1');
         $firstSheet->mergeCells('A3:M3');
         $firstSheet->mergeCells('A5:M5');
-        
-        $planDate = new DateTime ($row->planDate);
-        
-        $firstSheet->setCellValue('B2', trlKwf('Date') . ': ' . $planDate->format('d-m-Y'));
+                
+        $firstSheet->setCellValue('B2', trlKwf('Date') . ': ' . $this->getFormattedDate($row->planDate));
         
         $firstSheet->setCellValue('K2', trlKwf('Responsible') . ': ');
         $firstSheet->setCellValue('M2', (string)$employeeRow);
@@ -333,6 +337,85 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->setCellValue('A' . $rowNumber, 'Дополнительная информация');
         
         $rowNumber += 1;
+        
+        $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
+        $rowNumber += 1;
 
+        $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
+        $firstSheet->mergeCells('C' . $rowNumber . ':D' . $rowNumber);
+        $firstSheet->mergeCells('K' . $rowNumber . ':M' . $rowNumber);
+
+        $firstSheet->setCellValue('A' . $rowNumber, 'Клиент');
+        $firstSheet->setCellValue('C' . $rowNumber, 'Номер ВС');
+        $firstSheet->setCellValue('E' . $rowNumber, 'Место базирования');
+        $firstSheet->setCellValue('F' . $rowNumber, 'Приоритет');
+        $firstSheet->setCellValue('G' . $rowNumber, 'Состояние');
+        $firstSheet->setCellValue('H' . $rowNumber, 'На дату');
+        $firstSheet->setCellValue('I' . $rowNumber, 'Причина неисправности');
+        $firstSheet->setCellValue('J' . $rowNumber, 'Дата ввода в строй');
+        $firstSheet->setCellValue('K' . $rowNumber, 'Дополнительная информация');
+        
+        $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('C' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('E' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('F' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('G' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('H' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('I' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('J' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('K' . $rowNumber)->getFont()->setBold(true);
+
+        $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        
+        $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setWrapText(true);
+        $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setWrapText(true);
+        $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setWrapText(true);
+                
+        $rowNumber += 1;
+
+        $planerstatesModel = Kwf_Model_Abstract::getInstance('Planerstates');
+        $planerstatesSelect = $planerstatesModel->select()->whereEquals('planId', $row->id)->order(array('typeId', 'id'));
+        
+        $planerstates = $planerstatesModel->getRows($planerstatesSelect);
+        
+        
+        
+        foreach ($planerstates as $planerstate)
+        {
+            $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
+            $firstSheet->mergeCells('C' . $rowNumber . ':D' . $rowNumber);
+            $firstSheet->mergeCells('K' . $rowNumber . ':M' . $rowNumber);
+
+            $firstSheet->setCellValue('A' . $rowNumber, $planerstate->typeName);
+            $firstSheet->setCellValue('C' . $rowNumber, $planerstate->planeName);
+            $firstSheet->setCellValue('E' . $rowNumber, $planerstate->landpointName);
+            $firstSheet->setCellValue('F' . $rowNumber, $planerstate->priority);
+            $firstSheet->setCellValue('G' . $rowNumber, $planerstate->statusName);
+            $firstSheet->setCellValue('H' . $rowNumber, $this->getFormattedDate($planerstate->statusDate));
+            $firstSheet->setCellValue('I' . $rowNumber, $planerstate->reason);
+            $firstSheet->setCellValue('J' . $rowNumber, $this->getFormattedDate($planerstate->expectedDate));
+            $firstSheet->setCellValue('K' . $rowNumber, $planerstate->comment);
+            
+            $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setWrapText(true);
+
+            $rowNumber += 1;
+        }
+        
+        $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
+        $rowNumber += 1;
     }
 }
