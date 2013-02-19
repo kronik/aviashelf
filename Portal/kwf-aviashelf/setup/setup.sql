@@ -79,7 +79,6 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `comment` varchar(1000) DEFAULT NULL,
     `currentCompanyId` int(11) unsigned DEFAULT NULL,
     `subCompanyId` int(11) unsigned DEFAULT NULL,
-    `companyRegNumber` varchar(20) DEFAULT NULL,
     `orderNumber` varchar(30) DEFAULT NULL,
     `orderDate` date DEFAULT NULL,
     `isAllowed` tinyint(3) unsigned NOT NULL DEFAULT '1',

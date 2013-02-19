@@ -80,11 +80,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setValues($linkModel)
         ->setSelect($linkSelect)
         ->setWidth(400);
-        
-        $tab->fields->add(new Kwf_Form_Field_TextField('companyRegNumber', trlKwf('Company Number')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
-        
+                
         $tab->fields->add(new Kwf_Form_Field_TextField('orderNumber', trlKwf('Order Number')))
         ->setWidth(400)
         ->setAllowBlank(false);
