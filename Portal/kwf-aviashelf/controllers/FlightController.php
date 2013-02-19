@@ -15,6 +15,10 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('General Info'));
         
+        $tab->fields->add(new Kwf_Form_Field_TextField('requestNumber', trlKwf('Task number')))
+        ->setWidth(400)
+        ->setAllowBlank(false);
+        
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
         $companySelect = $companyModel->select()->whereEquals('Hidden', '0')->order('Name');
         
@@ -450,9 +454,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
-        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber);
-
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('ЗАДАНИЕ НА ПОЛЁТ #'));
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber);
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
 
         $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
@@ -477,12 +479,16 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
                 break;
             }
         }
-              
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber, $flightSequenceNumber . ' / ' . $row->flightStartDate);
-        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber)->getFont()->setBold(true);
         
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber, 'ЮШ ' . $row->number);
-        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('ЗАДАНИЕ НА ПОЛЁТ #') . $row->number);
+
+        #$firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber, $flightSequenceNumber . ' / ' . $row->flightStartDate);
+        #$firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, $row->number);
+        #$firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber)->getFont()->setBold(true);
+        
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 3) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 3) . $rowNumber, 'ЮШ ' . $row->requestNumber);
+        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 3) . $rowNumber)->getFont()->setBold(true);
 
         $rowNumber += 1;
 
@@ -541,6 +547,11 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         {
             $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
             $employeeRow = $employeesModel->getRow($employeesSelect);
+            
+            if ($employeeRow == NULL)
+            {
+                continue;
+            }
             
             $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
             $subSpecRow = $subSpecModel->getRow($subSpecSelect);

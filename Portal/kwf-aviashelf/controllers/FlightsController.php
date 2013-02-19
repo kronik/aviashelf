@@ -8,7 +8,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
                                    'controllerUrl' => '/flight',
                                    'width' => 550,
-                                   'height' => 360
+                                   'height' => 390
                                    );
 
     public function indexAction()
@@ -23,6 +23,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('flightStartTime', trlKwf('Time'), 50))->setRenderer('flightTimeCorrect');
         $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number'), 70));
+        $this->_columns->add(new Kwf_Grid_Column('requestNumber', trlKwf('Task number'), 70));
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 70));
         $this->_columns->add(new Kwf_Grid_Column('routeName', trlKwf('Route'), 150));
         $this->_columns->add(new Kwf_Grid_Column('firstPilotName', trlKwf('KWS'), 100));

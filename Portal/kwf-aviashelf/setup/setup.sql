@@ -693,6 +693,7 @@ CREATE TABLE IF NOT EXISTS `flightTasks` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `planId` int NOT NULL,
     `number` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    `requestNumber` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     `subCompanyId` int NOT NULL,
     `subCompanyName` varchar(100) COLLATE utf8_unicode_ci,
     `flightStartDate` date NOT NULL,

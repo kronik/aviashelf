@@ -250,7 +250,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $firstSheet->setCellValue('I' . $rowNumber, $flight->technicName);
             $firstSheet->setCellValue('J' . $rowNumber, $flight->resquerName);
             $firstSheet->setCellValue('K' . $rowNumber, $flight->objectiveName);
-            $firstSheet->setCellValue('L' . $rowNumber, $flight->number);
+            $firstSheet->setCellValue('L' . $rowNumber, $flight->requestNumber);
             $firstSheet->setCellValue('M' . $rowNumber, $flight->comments);
             
             $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS);
