@@ -46,8 +46,6 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_TextField('birthPlace', trlKwf('Birthplace')))
         ->setWidth(400);
         
-        $tab->fields->add(new Kwf_Form_Field_TextField('privateAddress', trlKwf('Address')))
-        ->setWidth(400);
         $tab->fields->add(new Kwf_Form_Field_TextField('registerAddress', trlKwf('Reg Address')))
         ->setWidth(400);
         $tab->fields->add(new Kwf_Form_Field_TextField('privatePhone', trlKwf('Phone')))

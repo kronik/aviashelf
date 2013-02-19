@@ -73,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `birthPlace` varchar(255) DEFAULT NULL,
     `sex` enum('male','female') NOT NULL DEFAULT 'male',
     `picture_id` int(11) DEFAULT NULL,
-    `privateAddress` varchar(512) DEFAULT NULL,
     `privatePhone` varchar(255) DEFAULT NULL,
     `registerAddress` varchar(512) DEFAULT NULL,
     `INN` varchar(100) DEFAULT NULL,
