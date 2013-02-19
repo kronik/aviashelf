@@ -4,10 +4,12 @@ class CompanyController extends Kwf_Controller_Action_Auto_Form
     protected $_modelName = 'Companies';
     protected $_permissions = array('save', 'add');
     protected $_buttons = array('save');
-    protected $_paging = 0;
 
     protected function _initFields()
     {
+        $model = Kwf_Model_Abstract::getInstance('Countries');
+        $select = $model->select()->whereEquals('Hidden', '0');
+        
         $this->_form->add(new Kwf_Form_Field_TextField('Name', trlKwf('Title')))
         ->setWidth(400)
         ->setAllowBlank(false);
@@ -25,9 +27,6 @@ class CompanyController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400);
         $this->_form->add(new Kwf_Form_Field_TextField('EMail', trlKwf('Email')))
         ->setWidth(400);
-        
-        $model = Kwf_Model_Abstract::getInstance('Countries');
-        $select = $model->select()->whereEquals('Hidden', '0');
         
         $this->_form->add(new Kwf_Form_Field_Select('CountryId', trlKwf('Country')))
         ->setValues($model)

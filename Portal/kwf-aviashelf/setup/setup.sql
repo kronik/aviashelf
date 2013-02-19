@@ -545,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `company` (
-    `id` int NOT NULL COMMENT 'Код организации',
+    `id` int NOT NULL AUTO_INCREMENT COMMENT 'Код организации',
     `Branch` int,
     `Subdiv` int,
     `Name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Наименование организации',
