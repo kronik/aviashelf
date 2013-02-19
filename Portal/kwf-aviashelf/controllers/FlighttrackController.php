@@ -78,7 +78,7 @@ class FlighttrackController extends Kwf_Controller_Action_Auto_Form
         $landpointModel = Kwf_Model_Abstract::getInstance('Airports');
         
         $s = $landpointModel->select()->whereEquals('id', $row->airportId);
-        $prow = $m->getRow($s);
+        $prow = $landpointModel->getRow($s);
         $row->airportName = (string)$prow;
         
         if ($row->employee1Id != NULL)
