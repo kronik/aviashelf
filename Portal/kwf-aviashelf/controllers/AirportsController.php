@@ -4,7 +4,7 @@ class AirportsController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'Airports';
     protected $_defaultOrder = 'Name';
     protected $_paging = 30;
-    protected $_buttons = array();
+    protected $_buttons = array('add');
 
     public function indexAction()
     {

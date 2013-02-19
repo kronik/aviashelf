@@ -2,8 +2,8 @@
 class AirportController extends Kwf_Controller_Action_Auto_Form
 {
     protected $_modelName = 'Airports';
-    protected $_buttons = array();
-    protected $_paging = 0;
+    protected $_permissions = array('save', 'add');
+    protected $_buttons = array('save');
 
     protected function _initFields()
     {        
@@ -12,7 +12,7 @@ class AirportController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         $this->_form->add(new Kwf_Form_Field_TextField('NameEn', trlKwf('English name')))
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
         $this->_form->add(new Kwf_Form_Field_TextField('City', trlKwf('City')))
         ->setWidth(400)
         ->setAllowBlank(false);

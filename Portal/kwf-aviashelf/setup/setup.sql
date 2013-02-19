@@ -510,15 +510,15 @@ INSERT INTO `link_data` (`link_id`, `name`, `value`, `desc`) VALUES
 (22, 'Статусы ВС', 'Неисправно', 'Неисправно');
 
 CREATE TABLE IF NOT EXISTS `airports` (
-    `id` int NOT NULL,
+    `id` int NOT NULL AUTO_INCREMENT,
     `Name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-    `NameEn` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+    `NameEn` varchar(25) COLLATE utf8_unicode_ci,
     `CountryId` int,
     `City` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-    `CityEn` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-    `KOD` varchar(5) NOT NULL,
+    `CityEn` varchar(20) COLLATE utf8_unicode_ci,
+    `KOD` varchar(5),
     `IKAO` varchar(5) NOT NULL,
-    `IATA` varchar(5) NOT NULL,
+    `IATA` varchar(5),
     `ISN_AERODR` int,
     `Fixed` char,
     `ZCode` int,
@@ -529,7 +529,7 @@ CREATE TABLE IF NOT EXISTS `airports` (
     )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `countries` (
-    `id` int NOT NULL,
+    `id` int NOT NULL AUTO_INCREMENT,
     `Name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     `NameEn` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     `Prefix` varchar(2) NOT NULL,

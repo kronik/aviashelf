@@ -15,8 +15,8 @@ class FlighttrackController extends Kwf_Controller_Action_Auto_Form
         $employees5Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
         $employees6Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
         
-        $landpointModel = Kwf_Model_Abstract::getInstance('Landpoints');
-        $landpointSelect = $landpointModel->select()->order('description');
+        $landpointModel = Kwf_Model_Abstract::getInstance('Airports');
+        $landpointSelect = $landpointModel->select()->order('Name');
         
         $this->_form->add(new Kwf_Form_Field_Select('airportId', trlKwf('Airport')))
         ->setValues($landpointModel)
@@ -75,7 +75,7 @@ class FlighttrackController extends Kwf_Controller_Action_Auto_Form
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m = Kwf_Model_Abstract::getInstance('Employees');
-        $landpointModel = Kwf_Model_Abstract::getInstance('Landpoints');
+        $landpointModel = Kwf_Model_Abstract::getInstance('Airports');
         
         $s = $landpointModel->select()->whereEquals('id', $row->airportId);
         $prow = $m->getRow($s);
