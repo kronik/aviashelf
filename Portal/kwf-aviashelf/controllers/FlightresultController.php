@@ -8,7 +8,7 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $wstypesModel = Kwf_Model_Abstract::getInstance('Wstypes');
-        $wstypesSelect = $wstypesModel->select()->whereEquals('Hidden', '0');
+        $wstypesSelect = $wstypesModel->select();
         
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('name', 'Типы налета');

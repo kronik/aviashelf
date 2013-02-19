@@ -20,7 +20,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
-        $companySelect = $companyModel->select()->whereEquals('Hidden', '0')->order('Name');
+        $companySelect = $companyModel->select()->order('Name');
         
         $tab->fields->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Customer')))
         ->setValues($companyModel)
@@ -31,7 +31,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
 
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
-        $airplanesSelect = $airplanesModel->select()->whereEquals('Hidden', '0');
+        $airplanesSelect = $airplanesModel->select();
         
         $tab->fields->add(new Kwf_Form_Field_Select('planeId', trlKwf('Airplane')))
         ->setValues($airplanesModel)

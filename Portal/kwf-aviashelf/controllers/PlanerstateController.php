@@ -7,7 +7,7 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
-        $airplanesSelect = $airplanesModel->select()->whereEquals('Hidden', '0');
+        $airplanesSelect = $airplanesModel->select();
         
         $this->_form->add(new Kwf_Form_Field_Select('planeId', trlKwf('Airplane')))
         ->setValues($airplanesModel)
@@ -25,7 +25,7 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
 
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
-        $companySelect = $companyModel->select()->whereEquals('Hidden', '0')->order('Name');
+        $companySelect = $companyModel->select()->order('Name');
         
         $this->_form->add(new Kwf_Form_Field_Select('typeId', trlKwf('Customer')))
         ->setValues($companyModel)

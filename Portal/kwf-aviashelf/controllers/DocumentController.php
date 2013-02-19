@@ -15,7 +15,7 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         $tab->setTitle(trlKwf('General Info'));
                 
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
-        $companySelect = $companyModel->select()->whereEquals('Hidden', '0');
+        $companySelect = $companyModel->select();
         
         $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы документов');

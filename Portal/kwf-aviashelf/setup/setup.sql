@@ -568,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `company` (
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `polis` (
-    `id` int NOT NULL,
+    `id` int NOT NULL AUTO_INCREMENT,
     `CompanyId` int,
     `Number` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
     `Addendum` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
@@ -584,7 +584,7 @@ CREATE TABLE IF NOT EXISTS `polis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `wsCategories` (
-    `id` int NOT NULL,
+    `id` int NOT NULL AUTO_INCREMENT,
     `Name` varchar(20) COLLATE utf8_unicode_ci,
     `Fixed` char,
     `Hidden` char,
@@ -596,7 +596,7 @@ INSERT INTO `wsCategories` (`id`, `Name`, `Fixed`, `Hidden`) VALUES (0, 'Сам�
 INSERT INTO `wsCategories` (`id`, `Name`, `Fixed`, `Hidden`) VALUES (1, 'Вертолет', 1, 0);
 
 CREATE TABLE IF NOT EXISTS `wsTypes` (
-    `id` int NOT NULL,
+    `id` int NOT NULL AUTO_INCREMENT,
     `twsId` int,
     `Name` varchar(15) COLLATE utf8_unicode_ci,
     `NameEn` varchar(15),
@@ -617,7 +617,7 @@ CREATE TABLE IF NOT EXISTS `wsTypes` (
 
 
 CREATE TABLE IF NOT EXISTS `planers` (
-    `id` int NOT NULL,
+    `id` int NOT NULL AUTO_INCREMENT,
     `twsId` int,
     `State` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
     `CountryId` int,

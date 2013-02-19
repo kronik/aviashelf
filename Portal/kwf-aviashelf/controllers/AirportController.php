@@ -21,7 +21,7 @@ class AirportController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $model = Kwf_Model_Abstract::getInstance('Countries');
-        $select = $model->select()->whereEquals('Hidden', '0');
+        $select = $model->select();
         
         $this->_form->add(new Kwf_Form_Field_Select('CountryId', trlKwf('Country')))
         ->setValues($model)

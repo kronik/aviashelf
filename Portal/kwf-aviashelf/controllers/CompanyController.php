@@ -8,7 +8,7 @@ class CompanyController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $model = Kwf_Model_Abstract::getInstance('Countries');
-        $select = $model->select()->whereEquals('Hidden', '0');
+        $select = $model->select();
         
         $this->_form->add(new Kwf_Form_Field_TextField('Name', trlKwf('Title')))
         ->setWidth(400)

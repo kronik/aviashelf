@@ -11,7 +11,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         $docsSelect = $docsModel->select()->whereEquals('ownerId', $this->_getParam('employeeId'))->order('value');
         
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
-        $wstypeSelect = $wstypeModel->select()->whereEquals('Hidden', '0');
+        $wstypeSelect = $wstypeModel->select();
         
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('name', 'Метеоминимумы')->order('value');

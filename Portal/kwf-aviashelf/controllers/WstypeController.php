@@ -21,7 +21,7 @@ class WstypeController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400);
         
         $model = Kwf_Model_Abstract::getInstance('WsCategories');
-        $select = $model->select()->whereEquals('Hidden', '0');
+        $select = $model->select();
         
         $this->_form->add(new Kwf_Form_Field_Select('TypeId', trlKwf('Type')))
         ->setValues($model)

@@ -65,7 +65,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->setLabelAlign('top');
 
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
-        $companySelect = $companyModel->select()->whereEquals('Hidden', '0');
+        $companySelect = $companyModel->select();
         
         $tab->fields->add(new Kwf_Form_Field_Select('currentCompanyId', trlKwf('Current company')))
         ->setValues($companyModel)
@@ -96,7 +96,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_DateField('totalTimeDate', trlKwf('Total Time Date')));
         
         $specModel = Kwf_Model_Abstract::getInstance('Specialities');
-        $specSelect = $specModel->select()->whereEquals('Hidden', '0');
+        $specSelect = $specModel->select();
         
         $tab->fields->add(new Kwf_Form_Field_Select('specId', trlKwf('Speciality')))
         ->setValues($specModel)

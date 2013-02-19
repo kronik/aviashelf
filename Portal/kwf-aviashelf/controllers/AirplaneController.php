@@ -9,7 +9,7 @@ class AirplaneController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $typeModel = Kwf_Model_Abstract::getInstance('Wstypes');
-        $typeSelect = $typeModel->select()->whereEquals('Hidden', '0');
+        $typeSelect = $typeModel->select();
         
         $this->_form->add(new Kwf_Form_Field_Select('twsId', trlKwf('WsType')))
         ->setValues($typeModel)
@@ -36,7 +36,7 @@ class AirplaneController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $countryModel = Kwf_Model_Abstract::getInstance('Countries');
-        $countrySelect = $countryModel->select()->whereEquals('Hidden', '0');
+        $countrySelect = $countryModel->select();
         
         $this->_form->add(new Kwf_Form_Field_Select('CountryId', trlKwf('Country')))
         ->setValues($countryModel)
@@ -45,7 +45,7 @@ class AirplaneController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $ownerModel = Kwf_Model_Abstract::getInstance('Companies');
-        $ownerSelect = $ownerModel->select()->whereEquals('Hidden', '0');
+        $ownerSelect = $ownerModel->select();
         
         $this->_form->add(new Kwf_Form_Field_Select('OwnerId', trlKwf('Owner')))
         ->setValues($ownerModel)
