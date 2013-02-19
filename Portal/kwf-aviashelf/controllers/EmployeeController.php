@@ -95,7 +95,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         
         $tab->fields->add(new Kwf_Form_Field_Checkbox('isAllowed', trlKwf('Allowed')));
 
-        $tab->fields->add(new Kwf_Form_Field_TextField('totalTime', trlKwf('Total Time')))
+        $tab->fields->add(new Kwf_Form_Field_TextField('totalTimeStr', trlKwf('Total Time')))
         ->setWidth(400)
         ->setAllowBlank(true);
         

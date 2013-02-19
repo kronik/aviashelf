@@ -84,7 +84,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `orderNumber` varchar(30) DEFAULT NULL,
     `orderDate` date DEFAULT NULL,
     `isAllowed` tinyint(3) unsigned NOT NULL DEFAULT '1',
-    `totalTime` time DEFAULT '00:00',
+    `totalTimeInMinutes` int UNSIGNED,
+    `totalTimeStr` varchar(20),
     `totalTimeDate` date DEFAULT NULL,
     `specId` int(8) unsigned DEFAULT NULL,
     `positionId` int(8) unsigned DEFAULT NULL,
@@ -971,7 +972,7 @@ delimiter $$
 CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`
 FOR EACH ROW 
 BEGIN
-    UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = NEW.ownerId AND NEW.showInTotal = 1;
+    UPDATE `employee` SET `totalTimeInMinutes` = `totalTimeInMinutes` + (HOUR(NEW.flightTime) * 60 + MINUTE(NEW.flightTime)), `totalTimeDate` = NOW() WHERE id = NEW.ownerId AND NEW.showInTotal = 1;
 END
 $$
 delimiter ;
@@ -982,13 +983,13 @@ FOR EACH ROW
 BEGIN
     IF NEW.showInTotal = 1 THEN
         IF OLD.showInTotal = 1 THEN
-            UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+            UPDATE `employee` SET `totalTimeInMinutes` = `totalTimeInMinutes` - (HOUR(OLD.flightTime) * 60 + MINUTE(OLD.flightTime)) + (HOUR(NEW.flightTime) * 60 + MINUTE(NEW.flightTime)), `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
         ELSE
-            UPDATE `employee` SET `totalTime` = `totalTime` + NEW.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+            UPDATE `employee` SET `totalTimeInMinutes` = `totalTimeInMinutes` + (HOUR(NEW.flightTime) * 60 + MINUTE(NEW.flightTime)), `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
         END IF;
     ELSE
         IF OLD.showInTotal = 1 THEN
-            UPDATE `employee` SET `totalTime` = `totalTime` - OLD.flightTime, `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
+            UPDATE `employee` SET `totalTimeInMinutes` = `totalTimeInMinutes` - (HOUR(OLD.flightTime) * 60 + MINUTE(OLD.flightTime)), `totalTimeDate` = NOW() WHERE id = OLD.ownerId;
         END IF;
     END IF;
 END
