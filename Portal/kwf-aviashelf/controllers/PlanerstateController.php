@@ -15,8 +15,8 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $landpointsModel = Kwf_Model_Abstract::getInstance('Landpoints');
-        $landpointsSelect = $landpointsModel->select()->order('description');
+        $landpointsModel = Kwf_Model_Abstract::getInstance('Airports');
+        $landpointsSelect = $landpointsModel->select()->order('Name');
         
         $this->_form->add(new Kwf_Form_Field_Select('landpointId', trlKwf('Base point')))
         ->setValues($landpointsModel)
@@ -66,7 +66,7 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
         $companySelect = $companyModel->select()->whereEquals('id', $row->typeId);
 
-        $landpointsModel = Kwf_Model_Abstract::getInstance('Landpoints');
+        $landpointsModel = Kwf_Model_Abstract::getInstance('Airports');
         $landpointSelect = $landpointsModel->select()->whereEquals('id', $row->landpointId);
 
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
@@ -76,7 +76,7 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         $row->typeName = $prow->Name;
         
         $prow = $landpointsModel->getRow($landpointSelect);
-        $row->landpointName = $prow->name;
+        $row->landpointName = $prow->Name;
         
         $s = $m1->select()->whereEquals('id', $row->statusId);
         $prow = $m1->getRow($s);
