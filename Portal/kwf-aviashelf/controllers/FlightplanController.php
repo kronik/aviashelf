@@ -85,6 +85,11 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
     
     protected function getFormattedDate($date)
     {
+        if ($date == NULL)
+        {
+            return '';
+        }
+
         $newDate = new DateTime ($date);
         return $newDate->format('d-m-Y');
     }
