@@ -123,6 +123,11 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $newRow->save();
     }
     
+    protected function createNewTask()
+    {
+        // TODO: Assign new task for every member in crew
+    }
+    
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
         $flightLandpointSelect = new Kwf_Model_Select();

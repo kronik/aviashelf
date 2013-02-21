@@ -66,9 +66,9 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `firstname` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `lastname` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `middlename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `firstnameEn` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `lastnameEn` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `visible` tinyint(3) unsigned NOT NULL DEFAULT '1',
+    `firstnameEn` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+    `lastnameEn` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+    `visible` tinyint(3) unsigned DEFAULT '1',
     `birthDate` date DEFAULT NULL,
     `birthPlace` varchar(255) DEFAULT NULL,
     `sex` enum('male','female') NOT NULL DEFAULT 'male',
@@ -87,9 +87,10 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `totalTimeDate` date DEFAULT NULL,
     `specId` int(8) unsigned DEFAULT NULL,
     `positionId` int(8) unsigned DEFAULT NULL,
-    `isLeader` tinyint(3) unsigned NOT NULL DEFAULT '0',
+    `isLeader` tinyint(3) unsigned DEFAULT '0',
     `failsDocNumber` varchar(20) DEFAULT NULL,
     `specTypeId` int(8) unsigned DEFAULT NULL,
+    `groupType` tinyint DEFAULT 1,
     PRIMARY KEY (`id`),
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -139,6 +140,7 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (20, 'Тип экипажа'),
 (21, 'Метеоминимумы'),
 (22, 'Статусы ВС'),
+(23, 'Позиции в плане'),
 (12, 'Цели');
 
 
@@ -507,7 +509,15 @@ INSERT INTO `link_data` (`link_id`, `name`, `value`, `desc`) VALUES
 (21, 'Метеоминимумы', 'ПВП (ночь) 450 х 4000 х 25м/с', 'ПВП (ночь) 450 х 4000 х 25м/с'),
 (21, 'Метеоминимумы', 'ППП 80 x 1000 x 25 м/с', 'ППП 80 x 1000 x 25 м/с'),
 (22, 'Статусы ВС', 'Исправно', 'Исправно'),
-(22, 'Статусы ВС', 'Неисправно', 'Неисправно');
+(22, 'Статусы ВС', 'Неисправно', 'Неисправно')
+(23, 'Позиции в плане', 'Ответственный', 'Ответственный'),
+(23, 'Позиции в плане', 'Дежурный КВС', 'Дежурный КВС'),
+(23, 'Позиции в плане', 'Руководитель ПБ (СЭИК)', 'Руководитель ПБ (СЭИК)'),
+(23, 'Позиции в плане', 'Руководитель ПБ (ЭНЛ)', 'Руководитель ПБ (ЭНЛ)'),
+(23, 'Позиции в плане', 'Руководитель ЛС ИАС', 'Руководитель ЛС ИАС'),
+(23, 'Позиции в плане', 'Диспетчер ПДС по ОП', 'Диспетчер ПДС по ОП'),
+(23, 'Позиции в плане', 'Дежурный по компании', 'Дежурный по компании'),
+(23, 'Позиции в плане', 'Спасатель', 'Спасатель');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL AUTO_INCREMENT,
@@ -526,7 +536,12 @@ CREATE TABLE IF NOT EXISTS `airports` (
     PRIMARY KEY (`id`),
     KEY `CountryId` (`CountryId`),
     INDEX `Name` (`Name` ASC)
-    )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+    
+INSERT INTO `airports` (`id`, `Name`, `NameEn`, `CountryId`, `City`, `CityEn`, `KOD`, `IKAO`, `IATA`, `ISN_AERODR`, `Fixed`, `ZCode`, `Hidden`) VALUES
+(1, 'Ноглики', 'Nogliki', 134, 'Ноглики', NULL, NULL, 'UHSN', NULL, NULL, NULL, NULL, NULL),
+(2, 'Южно-Сахалинск', 'Homutovo', 134, 'Южно-Сахалинск', NULL, NULL, 'UHSS', NULL, NULL, NULL, NULL, NULL),
+(3, 'Оха', 'Okha', 134, 'Оха', NULL, NULL, 'UHSH', NULL, NULL, NULL, NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS `countries` (
     `id` int NOT NULL AUTO_INCREMENT,
@@ -566,6 +581,13 @@ CREATE TABLE IF NOT EXISTS `company` (
     INDEX `Subdiv` (`Subdiv` ASC),
     INDEX `ZCode` (`ZCode` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `company` (`id`, `Branch`, `Subdiv`, `Name`, `NameEn`, `FullName`, `CountryId`, `INN`, `Address`, `Phone`, `Fax`, `EMail`, `Fixed`, `ZCode`, `Hidden`, `CategoryId`) VALUES
+(1, NULL, NULL, 'АВИАШЕЛЬФ', 'Aviashelf', 'ЗАО СП "Авиационная компания "Авиашельф-Aviashelf"', 134, '', 'г.Южно-Сахалинск, проспект Мира 420', '8(4242) 73 89 09', '8(4242) 73 70 37', '', NULL, NULL, NULL, NULL),
+(2, NULL, NULL, 'СЕИК', 'SEIK', 'САХАЛИН ЭНЕРДЖИ ИНВЕСТМЕНТ КОМПАНИ', NULL, '', '', '', '', '', NULL, NULL, NULL, NULL),
+(3, NULL, NULL, 'ЭНЛ', 'EXXON NEFTEGAS LIMITED (ENL)', 'Эксон Нефтегаз Лимитед', NULL, '', '', '', '', '', NULL, NULL, NULL, NULL),
+(4, NULL, NULL, 'РОСНЕФТЬ', '', 'РН-Сахалинморнефтегаз', 134, '6501163102', '693010, Россия, Сахалинская обл., г. Южно-Сахалинск, ул. Хабаровская, 17', '', '', '', NULL, NULL, NULL, NULL);
+
 
 CREATE TABLE IF NOT EXISTS `polis` (
     `id` int NOT NULL AUTO_INCREMENT,

@@ -3,6 +3,6 @@ class IndexController extends Kwf_Controller_Action
 {
     public function indexAction()
     {
-        $this->view->ext('Employees');
+        $this->view->ext('Tasks');
     }
 }

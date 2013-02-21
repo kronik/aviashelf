@@ -28,7 +28,7 @@ var Employees = Ext.extend(Ext.Panel,
             resizable       : true,
             split           : true,
             collapsible     : true,
-            title           : trlKwf('Employees'),
+            title           : trlKwf('Flight crew'),
             bindings: [{
                 queryParam: 'ownerId',
                 item: documents

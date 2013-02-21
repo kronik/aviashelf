@@ -6,26 +6,12 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
     protected $_paging = 0;
 
     protected function _initFields()
-    {
-        //$row = $this->_form->getRow();
-
-//        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        
+    {        
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('name', 'Позиции на борту')->order('value');
         
-        $positions = $typeModel->getRows($typeSelect);
-        $positionRecords = array();
-        
-        foreach ($positions as $position)
-        {
-            array_push($positionRecords, array('id'=>$position->id, 'value'=>$position->value));
-        }
-        
         $positions = new Kwf_Form_Field_Select('positionId', trlKwf('Position'));
         $positions->setValues($typeModel->getRows($typeSelect));
-        //$positions->setSelect($typeSelect);
-        //$positions->setSave(false);
         $positions->setAllowBlank(false);
         $positions->setWidth(400);
         
@@ -39,33 +25,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         ->setFilteredField($employees)
         ->setFilterField($positions)
         ->setWidth(400);
-        
-//        if (($row != NULL) && ($row->positionId != NULL))
-//        {
-//            $groupModel = Kwf_Model_Abstract::getInstance('EmployeeFlightRoles');
-//            $groupSelect = $groupModel->select()->whereEquals('groupId', $row->positionId);
-//
-//            $employeesSelect = $employeesModel->select()
-//            ->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeFlightRoles', $groupSelect))
-//            ->order('lastname');
-//        }
-//        else
-//        {
-//            $employeesSelect = $employeesModel->select()->order('lastname');
-//        }
-        
-//        $this->_form->add(new Kwf_Form_Field_Select('positionId', trlKwf('Position')))
-//        ->setValues($typeModel)
-//        ->setSelect($typeSelect)
-//        ->setWidth(400)
-//        ->setAllowBlank(false);
-        
-//        $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
-//        ->setValues($employeesModel)
-//        ->setSelect($employeesSelect)
-//        ->setWidth(400)
-//        ->setAllowBlank(false);
-        
+                
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);        
