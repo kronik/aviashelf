@@ -72,6 +72,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightgroupsfilter'), 'default_flightgroup');
         $this->addResource(new Zend_Acl_Resource('default_staffgroups'), 'default_flights');
         $this->addResource(new Zend_Acl_Resource('default_staffgroup'), 'default_staffgroups');
+        $this->addResource(new Zend_Acl_Resource('default_staffgroupsfilter'), 'default_staffgroup');
         $this->addResource(new Zend_Acl_Resource('default_training'), 'default_trainings');
 
         $this->addResource(new Zend_Acl_Resource('default_checkdoc'), 'default_checksdocs');
@@ -101,6 +102,7 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'default_checksmenuitem');
         $this->allow('admin', 'default_flightsmenuitem');
         $this->allow('admin', 'default_flightgroupsfilter');
+        $this->allow('admin', 'default_staffgroupsfilter');
         $this->allow('admin', 'default_flightplans');
         $this->allow('admin', 'default_checkresults');
         $this->allow('admin', 'default_checksdocs');

@@ -178,7 +178,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
 
         if ($this->isContain('спасатель', $groupRow->value))
         {
-            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Спасатель'"));
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Спасатель'"));
             $posRow = $typeModel->getRow($typeSelect);
             
             $this->insertNewRow($posRow->id, $posRow->value, FALSE);
@@ -194,12 +194,12 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         if ($this->isContain('авиатехник', $groupRow->value))
         {
-            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Авиатехник'"));
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Авиатехник'"));
             $posRow = $typeModel->getRow($typeSelect);
             
             $this->insertNewRow($posRow->id, $posRow->value, FALSE);
             
-            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value = 'Техник АиРЭО'"));
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Техник АиРЭО'"));
             $posRow = $typeModel->getRow($typeSelect);
             
             $this->insertNewRow($posRow->id, $posRow->value, FALSE);
@@ -207,7 +207,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         if ($this->isContain('тренируемы', $groupRow->value))
         {
-            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value like 'Тренируемы%'"));
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value like 'Тренируемы%'"));
             $posRow = $typeModel->getRow($typeSelect);
             
             $this->insertNewRow($posRow->id, $posRow->value, FALSE);
@@ -672,12 +672,15 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
             {
                 $position = $subSpecRow->value;
             }
-                        
-            $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, $position);
-            $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, (string)$employeeRow);
-            $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
             
-            $rowNumber += 1;
+            if ($employeeRow != NULL)
+            {
+                $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, $position);
+                $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, (string)$employeeRow);
+                $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+                
+                $rowNumber += 1;
+            }
         }
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);

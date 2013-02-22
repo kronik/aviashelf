@@ -3,6 +3,7 @@ class FlighttracksController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Flighttracks';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
+    protected $_grouping = array('groupField' => 'airportName');
     protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
         'controllerUrl' => '/flighttrack',
@@ -15,7 +16,6 @@ class FlighttracksController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
-        $this->_columns->add(new Kwf_Grid_Column('airportName', trlKwf('Airport')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('employee1Name', 'Дежурный КВС'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('employee2Name', 'Руководитель ПБ (СЭИК)'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('employee3Name', 'Руководитель ПБ (ЭНЛ)'))->setWidth(150);
@@ -23,6 +23,7 @@ class FlighttracksController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('employee5Name', 'Диспетчер ПДС по ОП'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('employee6Name', 'Дежурный по компании'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('comments', trlKwf('Comment')))->setWidth(300);
+        $this->_columns->add(new Kwf_Grid_Column('airportName', trlKwf('Airport')))->setWidth(100);
     }
 
     protected function _getWhere()

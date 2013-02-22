@@ -4,7 +4,7 @@ class StaffgroupController extends FlightgroupController
     protected function _initFields()
     {
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $typeSelect = $typeModel->select()->whereEquals('name', 'Позиции в плане')->order('value');
+        $typeSelect = $typeModel->select()->whereEquals('name', 'Дополнительные позиции')->order('value');
         
         $positions = new Kwf_Form_Field_Select('positionId', trlKwf('Position'));
         $positions->setValues($typeModel->getRows($typeSelect));
@@ -12,7 +12,7 @@ class StaffgroupController extends FlightgroupController
         $positions->setWidth(400);
         
         $employees = new Kwf_Form_Field_Select('employeeId', trlKwf('Employee'));
-        $employees->setValues('/flightgroupsfilter/json-data');
+        $employees->setValues('/staffgroupsfilter/json-data');
         $employees->setAllowBlank(false);
         $employees->setWidth(400);
         

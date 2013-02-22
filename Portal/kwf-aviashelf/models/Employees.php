@@ -11,9 +11,10 @@ class Employees extends Kwf_Model_Db
     );
     
     protected $_dependentModels = array(
-        'EmployeeFlightRoles' => 'EmployeeFlightRoles'
+        'EmployeeFlightRoles' => 'EmployeeFlightRoles',
+        'EmployeeStaffRoles' => 'EmployeeStaffRoles'
     );
-    
+        
     protected $_toStringField = 'name';
     
     protected function _init()

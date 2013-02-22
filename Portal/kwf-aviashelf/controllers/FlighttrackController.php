@@ -8,13 +8,50 @@ class FlighttrackController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employees1Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
-        $employees2Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
-        $employees3Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
-        $employees4Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
-        $employees5Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
-        $employees6Select = $employeesModel->select()->whereEquals('visible', '1')->order('lastname');
         
+        $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Дежурный КВС'"));
+        $posRow = $typeModel->getRow($typeSelect);
+        
+        $groupSelect1 = new Kwf_Model_Select();
+        $groupSelect1->whereEquals('groupId', $posRow->id);
+        $employees1Select = $employeesModel->select()->whereEquals('visible', '1')->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeStaffRoles', $groupSelect1))->order('lastname');
+        
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Руководитель ПБ (СЭИК)'"));
+        $posRow = $typeModel->getRow($typeSelect);
+        
+        $groupSelect2 = new Kwf_Model_Select();
+        $groupSelect2->whereEquals('groupId', $posRow->id);
+        $employees2Select = $employeesModel->select()->whereEquals('visible', '1')->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeStaffRoles', $groupSelect2))->order('lastname');
+        
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Руководитель ПБ (ЭНЛ)'"));
+        $posRow = $typeModel->getRow($typeSelect);
+        
+        $groupSelect3 = new Kwf_Model_Select();
+        $groupSelect3->whereEquals('groupId', $posRow->id);
+        $employees3Select = $employeesModel->select()->whereEquals('visible', '1')->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeStaffRoles', $groupSelect3))->order('lastname');
+      
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Руководитель ЛС ИАС'"));
+        $posRow = $typeModel->getRow($typeSelect);
+        
+        $groupSelect4 = new Kwf_Model_Select();
+        $groupSelect4->whereEquals('groupId', $posRow->id);
+        $employees4Select = $employeesModel->select()->whereEquals('visible', '1')->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeStaffRoles', $groupSelect4))->order('lastname');
+        
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Диспетчер ПДС по ОП'"));
+        $posRow = $typeModel->getRow($typeSelect);
+        
+        $groupSelect5 = new Kwf_Model_Select();
+        $groupSelect5->whereEquals('groupId', $posRow->id);
+        $employees5Select = $employeesModel->select()->whereEquals('visible', '1')->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeStaffRoles', $groupSelect5))->order('lastname');
+        
+        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value = 'Дежурный по компании'"));
+        $posRow = $typeModel->getRow($typeSelect);
+        
+        $groupSelect6 = new Kwf_Model_Select();
+        $groupSelect6->whereEquals('groupId', $posRow->id);
+        $employees6Select = $employeesModel->select()->whereEquals('visible', '1')->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeStaffRoles', $groupSelect6))->order('lastname');
+                
         $landpointModel = Kwf_Model_Abstract::getInstance('Airports');
         $landpointSelect = $landpointModel->select()->order('Name');
         

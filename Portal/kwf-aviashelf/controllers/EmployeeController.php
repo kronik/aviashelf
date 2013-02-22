@@ -1,9 +1,9 @@
 <?php
 class EmployeeController extends Kwf_Controller_Action_Auto_Form
 {
-    #protected $_buttons = array('save');
     protected $_permissions = array('save', 'add');
     protected $_modelName = 'Employees';
+    //protected $_buttons = array();
 
     protected function _initFields()
     {
@@ -138,7 +138,20 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($positionsSelect)
         ->setAllowBlank(false);
         $tab->fields->add($multifields);
-
+        
+        $tab = $tabs->add();
+        $tab->setTitle(trlKwf('Additional groups'));
+        
+        $rolesModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $rolesSelect = $rolesModel->select()->whereEquals('name', 'Дополнительные позиции')->order('value');
+        
+        $multifields2 = new Kwf_Form_Field_MultiFields('EmployeeStaffRoles');
+        $multifields2->setMinEntries(0);
+        $multifields2->fields->add(new Kwf_Form_Field_Select('groupId', trlKwf('Position')))
+        ->setValues($rolesModel)
+        ->setSelect($rolesSelect)
+        ->setAllowBlank(false);
+        $tab->fields->add($multifields2);
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

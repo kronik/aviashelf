@@ -86,19 +86,18 @@ class StaffController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400);
         
         $tab = $tabs->add();
-        $tab->setTitle(trlKwf('Plan positions'));
+        $tab->setTitle(trlKwf('Additional groups'));
         
         $positionsModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $positionsSelect = $positionsModel->select()->whereEquals('name', 'Позиции в плане')->order('value');
+        $positionsSelect = $positionsModel->select()->whereEquals('name', 'Дополнительные позиции')->order('value');
         
-        $multifields = new Kwf_Form_Field_MultiFields('EmployeeFlightRoles');
+        $multifields = new Kwf_Form_Field_MultiFields('EmployeeStaffRoles');
         $multifields->setMinEntries(0);
         $multifields->fields->add(new Kwf_Form_Field_Select('groupId', trlKwf('Position')))
         ->setValues($positionsModel)
         ->setSelect($positionsSelect)
         ->setAllowBlank(false);
         $tab->fields->add($multifields);
-
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
