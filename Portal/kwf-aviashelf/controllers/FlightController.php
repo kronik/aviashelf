@@ -207,10 +207,10 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         
         if ($this->isContain('тренируемы', $groupRow->value))
         {
-            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Дополнительные позиции' AND value like 'Тренируемы%'"));
+            $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Позиции на борту' AND value like 'Тренируемы%'"));
             $posRow = $typeModel->getRow($typeSelect);
             
-            $this->insertNewRow($posRow->id, $posRow->value, FALSE);
+            $this->insertNewRow($posRow->id, $posRow->value, TRUE);
         }
     }
     
