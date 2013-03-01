@@ -3,6 +3,15 @@ class IndexController extends Kwf_Controller_Action
 {
     public function indexAction()
     {
-        $this->view->ext('Tasks');
+        $users = Kwf_Registry::get('userModel');
+                
+        if ($users->getAuthedUserRole() == 'guest')
+        {
+            $this->view->ext('Flightplans');
+        }
+        else
+        {
+            $this->view->ext('Tasks');
+        }
     }
 }

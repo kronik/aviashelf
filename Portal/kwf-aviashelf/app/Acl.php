@@ -7,8 +7,6 @@ class Acl extends Kwf_Acl
         $this->remove('default_index');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwf('Dictionaries'), 'icon'=>'book.png')));
-
-        //$this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/tasks'));
         
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/'));
 
@@ -78,11 +76,6 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_checkdoc'), 'default_checksdocs');
         $this->addResource(new Zend_Acl_Resource('default_checkflight'), 'default_checksflights');
         $this->addResource(new Zend_Acl_Resource('default_checktraining'), 'default_checkstrainings');
-
-
-        #        $this->add(new Kwf_Acl_Resource_MenuUrl('kwf_user_users',
-        #                                        array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'),
-        #                                        '/kwf/user/users'));
         
         $this->add(new Zend_Acl_Resource('kwf_user_user'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
@@ -96,6 +89,10 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_flightplans');
         $this->allow('user', 'default_landpoints');
         $this->allow('user', 'default_tasks');
+        
+        $this->allow('guest', 'default_flightsmenuitem');
+        $this->allow('guest', 'default_flightplans');
+        $this->allow('guest', 'default_flights');
         
         $this->allow('admin', 'default_menuitem');
         $this->allow('admin', 'default_settingsmenuitem');

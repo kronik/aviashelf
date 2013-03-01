@@ -6,17 +6,29 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_paging = 10;
     protected $_grouping = array('groupField' => 'planeName');
     protected $_buttons = array('add');
-    protected $_editDialog = array(
-        'controllerUrl' => '/flightresult',
-        'width' => 550,
-        'height' => 310
-    );
+    protected $_editDialog = NULL;
 
     protected function _initColumns()
     {
+        $users = Kwf_Registry::get('userModel');
+        
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        if ($users->getAuthedUserRole() == 'admin')
+        {
+            $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+            
+            $this->_editDialog = array(
+                                       'controllerUrl' => '/flightresult',
+                                       'width' => 550,
+                                       'height' => 310
+                                       );
+        }
+        else
+        {
+            $this->_buttons = array();
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column_Date('flightDate', trlKwf('Date')));

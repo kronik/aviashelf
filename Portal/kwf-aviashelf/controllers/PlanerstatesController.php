@@ -4,12 +4,8 @@ class PlanerstatesController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'Planerstates';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
     protected $_grouping = array('groupField' => 'typeName'); //group by company
-    protected $_buttons = array('add', 'delete');
-    protected $_editDialog = array(
-                                   'controllerUrl' => '/planerstate',
-                                   'width' => 550,
-                                   'height' => 420
-                                   );
+    protected $_buttons = array('add', 'delete', 'xls');
+    protected $_editDialog = NULL;
 
     public function indexAction()
     {
@@ -18,9 +14,26 @@ class PlanerstatesController extends Kwf_Controller_Action_Auto_Grid
     
     protected function _initColumns()
     {
+        $users = Kwf_Registry::get('userModel');
+
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        if ($users->getAuthedUserRole() == 'admin')
+        {
+            $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+            
+            $this->_editDialog = array(
+                                       'controllerUrl' => '/planerstate',
+                                       'width' => 550,
+                                       'height' => 420
+                                       );
+            
+        }
+        else
+        {
+            $this->_buttons = array();
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 70));
         $this->_columns->add(new Kwf_Grid_Column('landpointName', trlKwf('Base point'), 130));
         $this->_columns->add(new Kwf_Grid_Column('priority', trlKwf('Priority'), 70));

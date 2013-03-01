@@ -7,29 +7,39 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
-//        $users = Kwf_Registry::get('userModel');
-//        
-//        if ($users->getAuthedUserRole() == 'admin')
-//        {
-//            //this.getAction('save').enable();
-//            $this->_buttons['xls'] = false;
-//        }
+        $users = Kwf_Registry::get('userModel');
         
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('visible', '1');
-        
-        $this->_form->add(new Kwf_Form_Field_DateField('planDate', trlKwf('Date')))->setAllowBlank(false);
+        if ($users->getAuthedUserRole() == 'admin')
+        {
+            $this->_form->add(new Kwf_Form_Field_DateField('planDate', trlKwf('Date')))->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Responsible')))
-        ->setValues($employeesModel)
-        ->setSelect($employeesSelect)
-        ->setWidth(400)
-        ->setShowNoSelection(true)
-        ->setAllowBlank(true);
-        
-        $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Additional info')))
-        ->setHeight(70)
-        ->setWidth(400);
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('visible', '1');
+            
+            
+            $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Responsible')))
+            ->setValues($employeesModel)
+            ->setSelect($employeesSelect)
+            ->setWidth(400)
+            ->setShowNoSelection(true)
+            ->setAllowBlank(true);
+            
+            $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Additional info')))
+            ->setHeight(70)
+            ->setWidth(400);            
+        }
+        else
+        {
+            $this->_form->add(new Kwf_Form_Field_ShowField('planDate', trlKwf('Date')))
+            ->setWidth(400);
+
+            $this->_form->add(new Kwf_Form_Field_ShowField('employeeName', trlKwf('Responsible')))
+            ->setWidth(400);
+            
+            $this->_form->add(new Kwf_Form_Field_ShowField('comment', trlKwf('Additional info')))
+            ->setHeight(70)
+            ->setWidth(400);            
+        }
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)

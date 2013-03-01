@@ -6,17 +6,29 @@ class FlightfullresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_paging = 10;
     protected $_grouping = array('groupField' => 'ownerName');
     protected $_buttons = array('add');
-    protected $_editDialog = array(
-        'controllerUrl' => '/flightfullresult',
-        'width' => 550,
-        'height' => 290
-    );
+    protected $_editDialog = NULL;
 
     protected function _initColumns()
     {
+        $users = Kwf_Registry::get('userModel');
+        
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        if ($users->getAuthedUserRole() == 'admin')
+        {
+            $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+            
+            $this->_editDialog = array(
+                                       'controllerUrl' => '/flightfullresult',
+                                       'width' => 550,
+                                       'height' => 290
+                                       );
+        }
+        else
+        {
+            $this->_buttons = array();
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('ownerName', trlKwf('Employee')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('flightTime', trlKwf('Time')))->setProperty('summaryType', 'totalTime')->setWidth(60);
