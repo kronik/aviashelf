@@ -80,7 +80,7 @@ class Acl extends Kwf_Acl
         $this->add(new Zend_Acl_Resource('kwf_user_user'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
-        
+
         $this->addRole(new Zend_Acl_Role('user'));
         
         $this->allow('user', 'default_links');
@@ -122,7 +122,7 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'kwf_user_users');
         
         $this->allow('guest', 'kwf_media_upload');
-        $this->allow(null, 'kwf_user_login');
+        $this->allow('guest', 'kwf_user_login');
         $this->allow(null, 'kwf_error_error');
     }
 }
