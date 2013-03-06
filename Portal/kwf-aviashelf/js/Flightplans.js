@@ -23,7 +23,6 @@ var Flightplans = Ext.extend(Ext.Panel,
         var flighttasks = new Kwf.Auto.GridPanel({
            controllerUrl   : '/flights',
            region          : 'center',
-           title           : trlKwf('Flights'),
            bindings: [
                          {
                              queryParam: 'flightId',
@@ -86,20 +85,27 @@ var Flightplans = Ext.extend(Ext.Panel,
              items:[flightgroups, staffgroups, flightresults]
         });
                              
+        var panel = new Ext.Panel({
+                               title: trlKwf('Flights'),
+                               layout:'border',
+                               items: [flighttasks, flighttabs]
+                               
+                               });
+                             
         var tabs = new Ext.TabPanel({
            border    : true,
            activeTab : 0,
            region    : 'center',
            tabPosition:'top',
            split       : true,
-           items:[flighttasks, planerstates, flighttracks]
+           items:[panel, planerstates, flighttracks]
         });
 
         this.layout = 'border';
         this.items = [grid, {
             layout: 'border',
             region: 'center',
-            items: [tabs, flighttabs]
+            items: [tabs]
         }];
         Flightplans.superclass.initComponent.call(this);
     }
