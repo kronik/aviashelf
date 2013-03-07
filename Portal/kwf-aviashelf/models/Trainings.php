@@ -5,6 +5,8 @@ class Trainings extends Kwf_Model_Db
     protected $_toStringField = 'title';
     
     protected $_dependentModels = array(
-                                        'TrainingQuestions' => 'TrainingQuestions'
+                                        'TrainingQuestions' => 'TrainingQuestions',
+                                        'TrainingGroups' => 'TrainingGroups',
+                                        'TrainingResults' => 'TrainingResults'
                                         );
 }

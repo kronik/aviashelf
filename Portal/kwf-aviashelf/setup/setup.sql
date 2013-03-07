@@ -850,6 +850,8 @@ CREATE TABLE IF NOT EXISTS `trainings` (
     `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
     `typeId` int NOT NULL DEFAULT '0',
+    `docTypeId` int NOT NULL,
+    `docTypeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `body` varchar(65000) COLLATE utf8_unicode_ci,
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),

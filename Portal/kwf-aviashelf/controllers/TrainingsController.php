@@ -8,7 +8,7 @@ class TrainingsController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
         'controllerUrl' => '/training',
         'width' => 800,
-        'height' => 560
+        'height' => 610
     );
 
     public function indexAction()

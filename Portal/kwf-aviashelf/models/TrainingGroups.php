@@ -10,4 +10,8 @@ class TrainingGroups extends Kwf_Model_Db
                                                          'refModelClass'     => 'Trainings'
                                                          )
     );
+    
+    protected $_dependentModels = array(
+                                        'TrainingResults' => 'TrainingResults'
+                                        );
 }

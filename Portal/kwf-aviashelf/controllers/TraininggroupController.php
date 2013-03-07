@@ -28,6 +28,13 @@ class TraininggroupController extends Kwf_Controller_Action_Auto_Form
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
+        $m = Kwf_Model_Abstract::getInstance('Trainings');
+
         $row->trainingId = $this->_getParam('trainingId');
+        
+        $s = $m->select()->whereEquals('id', $row->trainingId);
+        $prow = $m->getRow($s);
+        
+        $row->trainingName = (string)$prow;
     }
 }
