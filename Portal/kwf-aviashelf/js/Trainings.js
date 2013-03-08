@@ -101,3 +101,28 @@ var Trainings = Ext.extend(Ext.Panel,
        Trainings.superclass.initComponent.call(this);
     }
 });
+
+Ext.util.Format.checkScore = function(v, params, record)
+{
+    if (record.data.currentScore > 1)
+    {
+        return '<span style="color:green;">' + record.data.employeeName + '</span>';
+    }
+    else
+    {
+        return '<span style="color:red;">' + record.data.employeeName + '</span>';
+    }
+}
+
+Ext.util.Format.highlightScore = function(val)
+{
+    if (val > 1)
+    {
+        return '<span style="color:green;">' + val + '</span>';
+    }
+    else
+    {
+        return '<span style="color:red;">' + val + '</span>';
+    }
+    return val;
+};
