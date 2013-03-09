@@ -18,6 +18,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightplans', array('text'=>trlKwf('Flight plans'), 'icon'=>'calendar.png'), '/flightplans'), 'default_flightsmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_edumenuitem', array('text'=>trlKwf('Education'), 'icon'=>'database.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mytrainings', array('text'=>trlKwf('My trainings'), 'icon'=>'user.png'), '/mytrainings'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mygroups', array('text'=>trlKwf('My groups'), 'icon'=>'group.png'), '/mygroups'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainings', array('text'=>trlKwf('Trainings'), 'icon'=>'database.png'), '/trainings'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_traininggroups', array('text'=>trlKwf('Groups'), 'icon'=>'database.png'), '/traininggroups'), 'default_edumenuitem');
         
@@ -74,6 +76,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_staffgroup'), 'default_staffgroups');
         $this->addResource(new Zend_Acl_Resource('default_staffgroupsfilter'), 'default_staffgroup');
         $this->addResource(new Zend_Acl_Resource('default_training'), 'default_trainings');
+        $this->addResource(new Zend_Acl_Resource('default_mytraining'), 'default_mytrainings');
+        $this->addResource(new Zend_Acl_Resource('default_mygroup'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_trainingquestions'), 'default_trainings');
         $this->addResource(new Zend_Acl_Resource('default_trainingquestion'), 'default_trainingquestions');
         $this->addResource(new Zend_Acl_Resource('default_traininganswers'), 'default_trainingquestion');
@@ -90,7 +94,12 @@ class Acl extends Kwf_Acl
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
 
-        $this->addRole(new Zend_Acl_Role('user'));
+        $this->addRole(new Kwf_Acl_Role('user', trl('User')));
+        
+        $this->add(new Kwf_Acl_Resource_EditRole('edit_role_user', 'user'), 'edit_role');
+        //$this->add(new Kwf_Acl_Resource_EditRole('edit_role_guest', 'guest'), 'edit_role');
+        $this->allow('admin', 'edit_role_user');
+        //$this->allow('admin', 'edit_role_guest');
         
         $this->allow('user', 'default_links');
         $this->allow('user', 'default_index');
@@ -98,7 +107,9 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_flightplans');
         $this->allow('user', 'default_landpoints');
         $this->allow('user', 'default_tasks');
-        
+        $this->allow('user', 'default_mytrainings');
+        $this->allow('user', 'default_mygroups');
+
         $this->allow('guest', 'default_flightsmenuitem');
         $this->allow('guest', 'default_flightplans');
         $this->allow('guest', 'default_flights');
@@ -114,6 +125,8 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'default_checksdocs');
         $this->allow('admin', 'default_checksflights');
         $this->allow('admin', 'default_checkstrainings');
+        $this->allow('admin', 'default_mytrainings');
+        $this->allow('admin', 'default_mygroups');
         $this->allow('admin', 'default_trainings');
         $this->allow('admin', 'default_trainingquestions');
         $this->allow('admin', 'default_traininggroups');

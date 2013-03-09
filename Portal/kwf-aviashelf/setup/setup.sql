@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `failsDocNumber` varchar(20) DEFAULT NULL,
     `specTypeId` int(8) unsigned DEFAULT NULL,
     `groupType` tinyint DEFAULT 1,
+    `userId` int(11) unsigned DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

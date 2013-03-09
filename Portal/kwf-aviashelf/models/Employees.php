@@ -7,6 +7,10 @@ class Employees extends Kwf_Model_Db
         'Picture' => array(
             'column'           => 'picture_id',
             'refModelClass'     => 'Kwf_Uploads_Model'
+        ),
+        'User' => array(
+            'column'           => 'userId',
+            'refModelClass'     => 'Kwf_User_Model'
         )
     );
     

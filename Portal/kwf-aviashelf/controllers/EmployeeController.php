@@ -3,7 +3,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
 {
     protected $_permissions = array('save', 'add');
     protected $_modelName = 'Employees';
-    //protected $_buttons = array();
+    protected $_buttons = array('save');
 
     protected function _initFields()
     {
@@ -57,6 +57,19 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);
+        
+        $tab = $tabs->add();
+        $tab->setTitle(trlKwf('Permissions'));
+        
+        $userModel = Kwf_Model_Abstract::getInstance('Kwf_User_Model');
+        $userSelect = $userModel->select();
+        
+        $tab->fields->add(new Kwf_Form_Field_Select('userId', trlKwf('User')))
+        ->setValues($userModel)
+        ->setSelect($userSelect)
+        ->setWidth(400)
+        ->setShowNoSelection(true)
+        ->setAllowBlank(true);
         
         $tab->fields->add(new Kwf_Form_Field_Checkbox('visible', trlKwf('Active')));
     

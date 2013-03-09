@@ -8,7 +8,13 @@ var Staffs = Ext.extend(Ext.Panel,
              stripeRows      : true,
              title           : trlKwf('Documents')
         });
-                           
+        
+        var user = new Kwf.Auto.FormPanel({
+              controllerUrl   : '/staff',
+              collapsible     : true,
+              title           : trlKwf('General Info')
+        });
+                        
 //        var accesses = new Kwf.Auto.GridPanel({
 //              controllerUrl   : '/flightaccesses',
 //              collapsible     : true,
@@ -32,6 +38,11 @@ var Staffs = Ext.extend(Ext.Panel,
             bindings: [{
                 queryParam: 'ownerId',
                 item: documents
+               },
+               {
+                queryParam: 'id',
+                item: user
+               
 //            },
 //            {
 //                queryParam: 'employeeId',
@@ -48,7 +59,7 @@ var Staffs = Ext.extend(Ext.Panel,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',
-               items:[documents]//, accesses, flightresults]
+               items:[user, documents]//, accesses, flightresults]
         });
 
         this.layout = 'border';
