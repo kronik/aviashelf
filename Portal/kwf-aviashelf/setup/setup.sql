@@ -919,17 +919,29 @@ CREATE TABLE IF NOT EXISTS `trainingAnswers` (
     KEY `questionId` (`questionId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `trainingContents` (
-    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `questionId` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `trainingContentQuestions` (
+    `id` int unsigned NOT NULL AUTO_INCREMENT,
+    `number` int NOT NULL,
+    `resultId` int NOT NULL,
+    `question` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
+    `picture_id` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `questionId` (`questionId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `trainingContentAnswers` (
+    `id` int unsigned NOT NULL AUTO_INCREMENT,
+    `contentQuestionId` int NOT NULL,
     `answer` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
     `isCorrect` BOOL DEFAULT '0',
     `isSelected` BOOL DEFAULT '0',
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
-    KEY `questionId` (`questionId`)
+    KEY `questionId` (`contentQuestionId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 CREATE TABLE IF NOT EXISTS `flightPlans` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

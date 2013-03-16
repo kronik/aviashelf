@@ -18,4 +18,8 @@ class TrainingResults extends Kwf_Model_Db
                                                       'refModelClass'     => 'Employees',
                                                       )
     );
+    
+    protected $_dependentModels = array(
+                                        'TrainingContentQuestions' => 'TrainingContentQuestions'
+                                        );
 }

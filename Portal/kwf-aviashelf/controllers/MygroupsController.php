@@ -19,6 +19,10 @@ class MygroupsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('title', trlKwf('Title')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('trainingName', trlKwf('Training')))->setWidth(300);
         $this->_columns->add(new Kwf_Grid_Column('questions', trlKwf('Questions in session')))->setWidth(100);
+        
+        $this->_columns->add(new Kwf_Grid_Column_Button('customButton', trlKwf('Action'), 100))
+        ->setTooltip(trlKwf('Start the test'))
+        ->setButtonIcon(new Kwf_Asset('lightbulb.png'));
     }
     
     protected function _getSelect()
@@ -40,5 +44,11 @@ class MygroupsController extends Kwf_Controller_Action_Auto_Grid
         }
         
         return $ret;
+    }
+    
+    public function jsonCustomButtonAction()
+    {
+        $recordId = $this->getRequest()->getParam('groupId');
+        //p($this->getRequest()->getParam('url'));
     }
 }
