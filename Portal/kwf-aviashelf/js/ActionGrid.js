@@ -15,3 +15,6 @@ ActionGrid = Ext.extend(Kwf.Auto.GridPanel,
                         
     onCustomAction: function(rowId) {}
 });
+
+Ext.reg('actiongrid', ActionGrid);
+

@@ -11,3 +11,6 @@ MyGroupsGrid = Ext.extend(ActionGrid,
         this.hide();
     }
 });
+
+Ext.reg('mygroupsgrid', MyGroupsGrid);
+
