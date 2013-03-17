@@ -1,7 +1,7 @@
-MyGroupsGrid = Ext.extend(ActionGrid,
+Mygroupsgrid = Ext.extend(Actiongrid,
 {
     initComponent: function() {
-        MyGroupsGrid.superclass.initComponent.call(this);
+        Mygroupsgrid.superclass.initComponent.call(this);
     },
                         
     onCustomAction: function(rowId) {
@@ -12,5 +12,5 @@ MyGroupsGrid = Ext.extend(ActionGrid,
     }
 });
 
-Ext.reg('mygroupsgrid', MyGroupsGrid);
+Ext.reg('mygroupsgrid', Mygroupsgrid);
 

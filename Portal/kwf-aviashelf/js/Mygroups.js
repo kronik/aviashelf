@@ -46,7 +46,7 @@ var Mygroups = Ext.extend(Ext.Panel,
        });
 
               
-       var grid = new MyGroupsGrid({
+       var grid = new Mygroupsgrid({
                                          controllerUrl   : '/mygroups',
                                          region          : 'west',
                                          width           : '100%',
