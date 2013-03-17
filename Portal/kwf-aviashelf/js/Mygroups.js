@@ -1,16 +1,39 @@
+Actiongrid = Ext.extend(Kwf.Auto.GridPanel,
+{
+    initComponent: function() {
+        Actiongrid.superclass.initComponent.call(this);
+        if (!this.columnsConfig) this.columnsConfig = { };
+        this.columnsConfig['customButton'] = {
+            clickHandler: function(grid, rowIndex, col, e) {
+                var r = grid.getStore().getAt(rowIndex);
+                this.onCustomAction(r.data.id);
+            },
+            scope: this
+        };
+    },
+
+    onCustomAction: function(rowId) {}
+});
+
+
+Mygroupsgrid = Ext.extend(Actiongrid,
+{
+    initComponent: function() {
+        Mygroupsgrid.superclass.initComponent.call(this);
+    },
+
+    onCustomAction: function(rowId) {
+        var params = this.getBaseParams() || {};
+        params[this.store.reader.meta.id] = rowId;
+        this.collapse();
+        this.hide();
+    }
+});
+
 var Mygroups = Ext.extend(Ext.Panel,
 {
        initComponent : function(test)
-       {
-//                          
-//       var results = new Kwf.Auto.GridPanel({
-//                                        controllerUrl   : '/myresults',
-//                                        region          : 'north',
-//                                        height          : 50,
-//                                        split           : true,
-//                                        collapsible     : false
-//       });
-                          
+       {                          
        var answers = new Kwf.Auto.GridPanel({
                                            controllerUrl   : '/myanswers',
                                            region          : 'south',
