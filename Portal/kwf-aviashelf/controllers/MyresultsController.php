@@ -33,10 +33,14 @@ class MyresultsController extends Kwf_Controller_Action_Auto_Grid
         
         $ret = parent::_getWhere();
 
+        $employeeId = 0;
+        
         if ($employee != NULL)
         {
-            $ret['employeeId = ?'] = $employee->id;
+            $employeeId = $employee->id;
         }
+        
+        $ret['employeeId = ?'] = $employeeId;
 
         return $ret;
     }
