@@ -31,6 +31,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
         $questions = $questionsModel->getRows($questionsSelect);
         
         $totalScore = 0;
+        $numberOfPassedQuestions = 0;
         
         foreach ($questions as $question)
         {
@@ -38,19 +39,51 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
             $answersSelect = $answersModel->select()->whereEquals('contentQuestionId', $question->id);
             
             $answers = $answersModel->getRows($answersSelect);
+            $questionIsAnswered = 0;
 
             foreach ($answers as $answer)
             {
-                if ($answer->isCorrect && $answer->isSelected)
+                if ($answer->isSelected)
                 {
-                    $totalScore += 1;
+                    if ($answer->isCorrect)
+                    {
+                        $totalScore += 1;
+                    }
+                    $questionIsAnswered += 1;
                 }
+            }
+            
+            if ($questionIsAnswered > 0)
+            {
+                $numberOfPassedQuestions += 1;
             }
         }
         
+        if ($numberOfPassedQuestions == count($questions))
+        {
+            $scoreInPercents = ($totalScore * 100.0) / $result->totalScore;
+            
+            if ($scoreInPercents >= 90)
+            {
+                
+            }
+            else if ($scoreInPercents >= 75)
+            {
+                
+            }
+            else if ($scoreInPercents >= 50)
+            {
+                
+            }
+            else
+            {
+                $result->gradeName = "Все плохо";
+            }
+        }
+        
+        // TODO: Implement setting the grade
+        
         $result->currentScore = $totalScore;
         $result->save();
-        
-        // TODO: Implement setting the grade 
     }
 }

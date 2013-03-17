@@ -6,9 +6,7 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
     protected $_paging = 0;
 
     protected function _initFields()
-    {
-        p($this->_form->getId());
-        
+    {        
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
         $employeesSelect = $employeesModel->select()
         ->where(new Kwf_Model_Select_Expr_Sql("userId > 0 AND visible = 1"));
