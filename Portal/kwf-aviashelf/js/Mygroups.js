@@ -2,14 +2,14 @@ var Mygroups = Ext.extend(Ext.Panel,
 {
        initComponent : function(test)
        {
-                          
-       var results = new Kwf.Auto.GridPanel({
-                                        controllerUrl   : '/myresults',
-                                        region          : 'north',
-                                        height          : 50,
-                                        split           : true,
-                                        collapsible     : false
-       });
+//                          
+//       var results = new Kwf.Auto.GridPanel({
+//                                        controllerUrl   : '/myresults',
+//                                        region          : 'north',
+//                                        height          : 50,
+//                                        split           : true,
+//                                        collapsible     : false
+//       });
                           
        var answers = new Kwf.Auto.GridPanel({
                                            controllerUrl   : '/myanswers',
@@ -56,10 +56,6 @@ var Mygroups = Ext.extend(Ext.Panel,
                                          title           : trlKwf('My groups'),
                                          bindings: [{
                                                         queryParam: 'groupId',
-                                                        item: results
-                                                    },
-                                                    {
-                                                        queryParam: 'groupId',
                                                         item: questions
                                                     }]
        });
@@ -68,10 +64,10 @@ var Mygroups = Ext.extend(Ext.Panel,
                                    layout:'border',
                                    region:'center',
                                    height: '90%',
-                                   items:[results, {
+                                   items:[questions, {
                                            layout: 'border',
                                            region: 'center',
-                                           items: [questions, question, answers]
+                                           items: [question, answers]
                                           }]
        });
            

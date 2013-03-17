@@ -927,7 +927,7 @@ CREATE TABLE IF NOT EXISTS `trainingContentQuestions` (
     `picture_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
-    KEY `questionId` (`questionId`)
+    KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `trainingContentAnswers` (

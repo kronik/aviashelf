@@ -2,11 +2,13 @@
 class TrainingresultController extends Kwf_Controller_Action_Auto_Form
 {
     protected $_modelName = 'TrainingResults';
-    protected $_permissions = array('save', 'add');
+    protected $_permissions = array('add');
     protected $_paging = 0;
 
     protected function _initFields()
     {
+        p($this->_form->getId());
+        
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
         $employeesSelect = $employeesModel->select()
         ->where(new Kwf_Model_Select_Expr_Sql("userId > 0 AND visible = 1"));
@@ -52,7 +54,6 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
-        $this->updateReferences($row);
     }
     
     protected function _afterInsert(Kwf_Model_Row_Interface $row)

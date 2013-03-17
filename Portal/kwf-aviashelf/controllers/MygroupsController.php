@@ -39,7 +39,7 @@ class MygroupsController extends Kwf_Controller_Action_Auto_Grid
         if ($employee != NULL)
         {
             $s = new Kwf_Model_Select();
-            $s->whereEquals('employeeId', $employee->id);
+            $s->where(new Kwf_Model_Select_Expr_Sql("employeeId = " . $employee->id . " AND currentScore = 0"));
             $ret->where(new Kwf_Model_Select_Expr_Child_Contains('TrainingResults', $s));
         }
         

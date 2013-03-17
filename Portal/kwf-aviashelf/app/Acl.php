@@ -20,6 +20,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_edumenuitem', array('text'=>trlKwf('Education'), 'icon'=>'database.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mytrainings', array('text'=>trlKwf('My trainings'), 'icon'=>'user.png'), '/mytrainings'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mygroups', array('text'=>trlKwf('My groups'), 'icon'=>'group.png'), '/mygroups'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myresults', array('text'=>trlKwf('My results'), 'icon'=>'user.png'), '/myresults'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainings', array('text'=>trlKwf('Trainings'), 'icon'=>'database.png'), '/trainings'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_traininggroups', array('text'=>trlKwf('Groups'), 'icon'=>'database.png'), '/traininggroups'), 'default_edumenuitem');
         
@@ -81,7 +82,6 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_myquestions'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_myquestion'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_myanswers'), 'default_mygroups');
-        $this->addResource(new Zend_Acl_Resource('default_myresults'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_trainingquestions'), 'default_trainings');
         $this->addResource(new Zend_Acl_Resource('default_trainingquestion'), 'default_trainingquestions');
         $this->addResource(new Zend_Acl_Resource('default_traininganswers'), 'default_trainingquestion');

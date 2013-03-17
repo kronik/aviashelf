@@ -20,7 +20,6 @@ class TrainingresultsController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(200)->setRenderer('checkScore');
         $this->_columns->add(new Kwf_Grid_Column('currentScore', trlKwf('Score')))->setWidth(100)->setRenderer('highlightScore');
         $this->_columns->add(new Kwf_Grid_Column('totalScore', trlKwf('Total Score')))->setWidth(100);

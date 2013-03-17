@@ -5,7 +5,7 @@ class TrainingContentAnswers extends Kwf_Model_Db
     protected $_toStringField = 'answer';
     
     protected $_referenceMap = array(
-        'TrainingContentQuestions' => array(
+        'TrainingContentQuestion' => array(
             'column'           => 'contentQuestionId',
             'refModelClass'     => 'TrainingContentQuestions'
         )
