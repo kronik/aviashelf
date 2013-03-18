@@ -2,8 +2,9 @@
 class MytrainingsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Trainings';
-    protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
+    protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
     protected $_paging = 30;
+    protected $_grouping = array('groupField' => 'type');
     protected $_buttons = array();
 
     public function indexAction()
@@ -15,9 +16,9 @@ class MytrainingsController extends Kwf_Controller_Action_Auto_Grid
     {
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number')))->setWidth(100);
-        $this->_columns->add(new Kwf_Grid_Column('title', trlKwf('Title')))->setWidth(100);
-        $this->_columns->add(new Kwf_Grid_Column('description', trlKwf('Description')))->setWidth(800);
+        $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number')))->setWidth(50);
+        $this->_columns->add(new Kwf_Grid_Column('type', trlKwf('Type')))->setWidth(60);
+        $this->_columns->add(new Kwf_Grid_Column('title', trlKwf('Title')))->setWidth(300);
     }
     
     protected function _getSelect()

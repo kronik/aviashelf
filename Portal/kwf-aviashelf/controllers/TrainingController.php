@@ -13,6 +13,11 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
         ->setMaxLength(100)
         ->setAllowBlank(false);
         
+        $this->_form->add(new Kwf_Form_Field_Select('type', trlKwf('Type')))
+        ->setValues(array('Ми-8' => trlKwf('Ми-8'), 'Ми-8МТВ' => trlKwf('Ми-8МТВ')))
+        ->setWidth(650)
+        ->setAllowBlank(false);
+        
         $this->_form->add(new Kwf_Form_Field_TextField('title', trlKwf('Title')))
         ->setWidth(650)
         ->setMaxLength(300)
