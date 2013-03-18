@@ -1,3 +1,5 @@
+SET NAMES utf8;
+
 INSERT INTO `kwf_uploads` (`id`, `filename`, `extension`, `mime_type`)
 VALUES
 	(1,'0','jpg','image/jpeg');

@@ -24,6 +24,8 @@ class TraininggroupController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_NumberField('questions', trlKwf('Questions in session')))
         ->setWidth(400)
         ->setAllowBlank(false);
+        
+        $this->_form->add(new Kwf_Form_Field_Checkbox('isDifGrade', trlKwf('Grade')));
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

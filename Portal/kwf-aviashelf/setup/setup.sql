@@ -868,6 +868,7 @@ CREATE TABLE IF NOT EXISTS `trainingGroups` (
     `endDate` date NOT NULL,
     `questions` int NOT NULL DEFAULT 10,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `isDifGrade` tinyint(3) unsigned DEFAULT '0',
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),

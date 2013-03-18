@@ -6,22 +6,22 @@ class MyquestionController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
-        $cards = $this->_form->add(new Kwf_Form_Container_Cards('picture_id', trl('Picture')));
-        $cards->setCombobox(new Kwf_Form_Field_Hidden('picture_id'));
-
-        $card = $cards->add();
+//        $cards = $this->_form->add(new Kwf_Form_Container_Cards('picture_id', trl('Picture')));
+//        $cards->setCombobox(new Kwf_Form_Field_Hidden('picture_id'));
+//
+//        $card = $cards->add();
+//        
+//        $card->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
+//        
+//        $card->fields->add(new Kwf_Form_Field_ShowField('question', trlKwf('Text')))
+//        ->setWidth(650)
+//        ->setHeight(300);
+//        
+//        $card = $cards->add();
         
-        $card->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
-        
-        $card->fields->add(new Kwf_Form_Field_ShowField('question', trlKwf('Text')))
-        ->setWidth(650)
-        ->setHeight(300);
-        
-        $card = $cards->add();
-        
-        //$this->_form->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
+        $this->_form->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
                         
-        $card->fields->add(new Kwf_Form_Field_ShowField('question', trlKwf('Text')))
+        $this->_form->add(new Kwf_Form_Field_ShowField('question', trlKwf('Text')))
         ->setWidth(650)
         ->setHeight(300);
     }
