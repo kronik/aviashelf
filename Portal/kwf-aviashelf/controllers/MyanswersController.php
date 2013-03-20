@@ -24,6 +24,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
     {
         $question = $row->getParentRow('TrainingContentQuestions');
         $result = $question->getParentRow('TrainingResult');
+        $group = $result->getParentRow('TrainingGroup');
         
         $questionsModel = Kwf_Model_Abstract::getInstance('TrainingContentQuestions');
         $questionsSelect = $questionsModel->select()->whereEquals('resultId', $result->id);
@@ -63,26 +64,94 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
         {
             $scoreInPercents = ($totalScore * 100.0) / $result->totalScore;
             
-            if ($scoreInPercents >= 90)
+            $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
+
+            if ($group->isDifGrade == 0)
             {
-                
-            }
-            else if ($scoreInPercents >= 75)
-            {
-                
-            }
-            else if ($scoreInPercents >= 50)
-            {
-                
+                if ($scoreInPercents >= 51)
+                {
+                    $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Оценки' AND value = 'зачет'"));
+                    $gradeRow = $typeModel->getRow($typeSelect);
+                    
+                    if ($gradeRow != NULL)
+                    {
+                        $result->gradeId = $gradeRow->id;
+                        $result->gradeName = $gradeRow->value;
+                    }
+                }
             }
             else
             {
-                $result->gradeName = "Все плохо";
+                if ($scoreInPercents >= 90)
+                {
+                    $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Оценки' AND value = 'пять'"));
+                    $gradeRow = $typeModel->getRow($typeSelect);
+                    
+                    if ($gradeRow != NULL)
+                    {
+                        $result->gradeId = $gradeRow->id;
+                        $result->gradeName = $gradeRow->value;
+                    }
+                }
+                else if ($scoreInPercents >= 75)
+                {
+                    $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Оценки' AND value = 'четыре'"));
+                    $gradeRow = $typeModel->getRow($typeSelect);
+                    
+                    if ($gradeRow != NULL)
+                    {
+                        $result->gradeId = $gradeRow->id;
+                        $result->gradeName = $gradeRow->value;
+                    }
+                }
+                else if ($scoreInPercents >= 51)
+                {
+                    $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Оценки' AND value = 'три'"));
+                    $gradeRow = $typeModel->getRow($typeSelect);
+                    
+                    if ($gradeRow != NULL)
+                    {
+                        $result->gradeId = $gradeRow->id;
+                        $result->gradeName = $gradeRow->value;
+                    }
+                }
+                else
+                {
+                    $result->gradeId = 0;
+                    $result->gradeName = trlKwf('Too bad');
+                }
+            }
+            
+            $task = $result->getParentRow('Task');
+            
+            if ($task != NULL)
+            {
+                $task->status = 1;
+                $task->save();
+            }
+            
+            if ($result->gradeId != 0)
+            {
+                $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Типы документов' AND value = 'Сертификат о прохождении теста'"));
+                $typeRow = $typeModel->getRow($typeSelect);
+
+                $m = Kwf_Model_Abstract::getInstance('Documents');
+                
+                $row = $m->createRow();
+                
+                $row->typeId = $typeRow->id;
+                $row->typeName = $typeRow->value;
+                $row->gradeId = $result->gradeId;
+                $row->gradeName = $result->gradeName;
+                $row->gradeVisible = 1;
+                $row->comment = $result->trainingName . ' : ' . $result->trainingGroupName;
+                $row->companyId = 0;
+                $row->startDate = = date('d-m-Y H:i:s');
+                
+                $row->save();
             }
         }
-        
-        // TODO: Implement setting the grade
-        
+                
         $result->currentScore = $totalScore;
         $result->save();
     }

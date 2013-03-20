@@ -128,6 +128,8 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         $row->userId = $employee->userId;
         
         $row->save();
+        
+        $currentRow->taskId = $row->id;
     }
     
     protected function createQuestionsSet(Kwf_Model_Row_Interface $row)

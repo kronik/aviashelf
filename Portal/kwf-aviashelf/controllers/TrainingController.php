@@ -14,7 +14,7 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $this->_form->add(new Kwf_Form_Field_Select('type', trlKwf('Type')))
-        ->setValues(array('Ми-8' => trlKwf('Ми-8'), 'Ми-8МТВ' => trlKwf('Ми-8МТВ')))
+        ->setValues(array('Ми-8' => trlKwf('Ми-8'), 'Ми-8МТВ' => trlKwf('Ми-8МТВ'), 'Другое' => trlKwf('Questionary')))
         ->setWidth(650)
         ->setAllowBlank(false);
         

@@ -16,7 +16,11 @@ class TrainingResults extends Kwf_Model_Db
                                      'Employee' => array(
                                                       'column'           => 'employeeId',
                                                       'refModelClass'     => 'Employees',
-                                                      )
+                                                         ),
+                                     'Task' => array(
+                                                         'column'           => 'taskId',
+                                                         'refModelClass'     => 'Tasks',
+                                                         )
     );
     
     protected $_dependentModels = array(

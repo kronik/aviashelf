@@ -16,7 +16,6 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
             $employeesSelect = $employeesModel->select()->whereEquals('visible', '1');
             
-            
             $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Responsible')))
             ->setValues($employeesModel)
             ->setSelect($employeesSelect)
