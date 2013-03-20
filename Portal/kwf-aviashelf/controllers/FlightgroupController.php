@@ -58,6 +58,25 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         if (($this->isContain(trlKwf('KWS'), $row->positionName)) && ($row->mainCrew == TRUE))
         {
             $flightRow->firstPilotName = (string)$prow;
+         
+            $users = Kwf_Model_Abstract::getInstance('Employees');
+            $userSelect = $users->select()->whereEquals('id', $row->employeeId);
+            $employee = $users->getRow($userSelect);
+            
+            if ($employee->userId != NULL)
+            {
+                $tasks = Kwf_Model_Abstract::getInstance('Tasks');
+                
+                $taskRow = $tasks->createRow();
+                
+                $taskRow->title = 'Выполнить полет: ' . $flightRow->number;
+                $taskRow->description = 'Выполнить полет: ' . $flightRow->number . ' ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
+                $taskRow->startDate = $flightRow->flightStartDate;
+                $taskRow->userId = $employee->userId;
+                $taskRow->status = 0;
+                
+                $taskRow->save();
+            }
         }
         else if (($this->isContain(trlKwf('Second pilot'), $row->positionName))  && ($row->mainCrew == TRUE))
         {

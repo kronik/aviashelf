@@ -26,12 +26,11 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
         $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы документов');
         
-        
         $this->_form->add(new Kwf_Form_Field_Select('docTypeId', trlKwf('Document type')))
         ->setValues($docTypeModel)
         ->setSelect($docTypeSelect)
         ->setWidth(650)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
         
         $this->_form->add(new Kwf_Form_Field_TextArea('description', trlKwf('Description')))
         ->setWidth(650)
@@ -43,17 +42,25 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(650)
         ->setHeight(300)
         ->setMaxLength(65000)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m = Kwf_Model_Abstract::getInstance('Linkdata');
         
-        $s = $m->select()->whereEquals('id', $row->docTypeId);
-        $prow = $m->getRow($s);
-        
-        $row->docTypeName = $prow->value;
+        if ($row->docTypeId != NULL)
+        {
+            $s = $m->select()->whereEquals('id', $row->docTypeId);
+            $prow = $m->getRow($s);
+            
+            $row->docTypeName = $prow->value;
+        }
+        else
+        {
+            $row->docTypeId = 0;
+            $row->docTypeName = '';
+        }
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

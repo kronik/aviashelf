@@ -22,7 +22,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
     
     protected function _afterSave(Kwf_Model_Row_Interface $row, $submitRow)
     {
-        $question = $row->getParentRow('TrainingContentQuestions');
+        $question = $row->getParentRow('TrainingContentQuestion');
         $result = $question->getParentRow('TrainingResult');
         $group = $result->getParentRow('TrainingGroup');
         
@@ -132,23 +132,34 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
             
             if ($result->gradeId != 0)
             {
-                $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Типы документов' AND value = 'Сертификат о прохождении теста'"));
-                $typeRow = $typeModel->getRow($typeSelect);
+                $training = $group->getParentRow('Training');
+                
+                $typeSelect = NULL;
+                
+                if (($training != NULL) && ($training->docTypeId != 0))
+                {
+                    $typeSelect = $typeModel->select()->whereEquals('id', $training->docTypeId); 
+                }
 
-                $m = Kwf_Model_Abstract::getInstance('Documents');
-                
-                $row = $m->createRow();
-                
-                $row->typeId = $typeRow->id;
-                $row->typeName = $typeRow->value;
-                $row->gradeId = $result->gradeId;
-                $row->gradeName = $result->gradeName;
-                $row->gradeVisible = 1;
-                $row->comment = $result->trainingName . ' : ' . $result->trainingGroupName;
-                $row->companyId = 0;
-                $row->startDate = = date('d-m-Y H:i:s');
-                
-                $row->save();
+                if ($typeSelect != NULL)
+                {
+                    $typeRow = $typeModel->getRow($typeSelect);
+
+                    $m = Kwf_Model_Abstract::getInstance('Documents');
+                    
+                    $row = $m->createRow();
+                    
+                    $row->typeId = $typeRow->id;
+                    $row->typeName = $typeRow->value;
+                    $row->gradeId = $result->gradeId;
+                    $row->gradeName = $result->gradeName;
+                    $row->gradeVisible = 1;
+                    $row->comment = $result->trainingName . ' : ' . $result->trainingGroupName;
+                    $row->companyId = 0;
+                    $row->startDate = = date('d-m-Y H:i:s');
+                    
+                    $row->save();
+                }
             }
         }
                 
