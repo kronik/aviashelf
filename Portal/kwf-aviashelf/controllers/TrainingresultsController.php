@@ -4,7 +4,7 @@ class TrainingresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'TrainingResults';
     protected $_defaultOrder = array('field' => 'employeeName', 'direction' => 'ASC');
     protected $_paging = 0;
-    protected $_buttons = array('add', 'delete');
+    protected $_buttons = array('add', 'delete', 'xls');
     protected $_editDialog = array(
         'controllerUrl' => '/trainingresult',
         'width' => 350,

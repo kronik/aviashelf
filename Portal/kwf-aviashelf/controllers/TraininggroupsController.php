@@ -5,7 +5,7 @@ class TraininggroupsController extends Kwf_Controller_Action_Auto_Grid
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 100;
     protected $_grouping = array('groupField' => 'trainingName');
-    protected $_buttons = array('add', 'delete');
+    protected $_buttons = array('add', 'delete', 'xls');
     protected $_editDialog = array(
         'controllerUrl' => '/traininggroup',
         'width' => 550,

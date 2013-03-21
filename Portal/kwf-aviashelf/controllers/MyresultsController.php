@@ -4,7 +4,7 @@ class MyresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'TrainingResults';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 30;
-    protected $_buttons = array();
+    protected $_buttons = array('xls');
 
     public function indexAction()
     {

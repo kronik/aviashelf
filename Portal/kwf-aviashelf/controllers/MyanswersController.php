@@ -50,7 +50,18 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
                     {
                         $totalScore += 1;
                     }
+                    else
+                    {
+                        $totalScore -= 1;
+                    }
                     $questionIsAnswered += 1;
+                }
+                else
+                {
+                    if ($answer->isCorrect)
+                    {
+                        $totalScore -= 1;
+                    }
                 }
             }
             
@@ -161,9 +172,9 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
                     $row->save();
                 }
             }
+            
+            $result->currentScore = $totalScore;
+            $result->save();
         }
-                
-        $result->currentScore = $totalScore;
-        $result->save();
     }
 }
