@@ -16,6 +16,7 @@ class Acl extends Kwf_Acl
         
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwf('Flights'), 'icon'=>'calendar.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightplans', array('text'=>trlKwf('Flight plans'), 'icon'=>'calendar.png'), '/flightplans'), 'default_flightsmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myflights', array('text'=>trlKwf('My flights'), 'icon'=>'book_open.png'), '/myflights'), 'default_flightsmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_edumenuitem', array('text'=>trlKwf('Education'), 'icon'=>'database.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mytrainings', array('text'=>trlKwf('My trainings'), 'icon'=>'user.png'), '/mytrainings'), 'default_edumenuitem');
@@ -64,6 +65,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightplan'), 'default_flightplans');
         $this->addResource(new Zend_Acl_Resource('default_flights'), 'default_flightplans');
         $this->addResource(new Zend_Acl_Resource('default_flight'), 'default_flightplans');
+        $this->addResource(new Zend_Acl_Resource('default_myflight'), 'default_myflights');
         $this->addResource(new Zend_Acl_Resource('default_flighttracks'), 'default_flights');
         $this->addResource(new Zend_Acl_Resource('default_flighttrack'), 'default_flighttracks');
         $this->addResource(new Zend_Acl_Resource('default_planerstates'), 'default_flights');
@@ -116,6 +118,7 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_myquestions');
         $this->allow('user', 'default_myanswers');
         $this->allow('user', 'default_myresults');
+        $this->allow('user', 'default_myflights');
 
         $this->allow('guest', 'default_flightsmenuitem');
         $this->allow('guest', 'default_flightplans');
@@ -128,6 +131,7 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'default_flightgroupsfilter');
         $this->allow('admin', 'default_staffgroupsfilter');
         $this->allow('admin', 'default_flightplans');
+        $this->allow('admin', 'default_myflights');
         $this->allow('admin', 'default_checkresults');
         $this->allow('admin', 'default_checksdocs');
         $this->allow('admin', 'default_checksflights');

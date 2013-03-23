@@ -6,6 +6,10 @@ class Flightgroups extends Kwf_Model_Db
        'Employee' => array(
              'column'           => 'employeeId',
              'refModelClass'     => 'Employees',
-        )
+        ),
+       'Flight' => array(
+                         'column'           => 'flightId',
+                         'refModelClass'     => 'Flights',
+                         ),
     );
 }

@@ -11,6 +11,9 @@ class MyquestionController extends Kwf_Controller_Action_Auto_Form
 //
 //        $card = $cards->add();
 //        
+//        $card->setName('0');
+//        $card->setTitle('0');
+//        
 //        $card->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
 //        
 //        $card->fields->add(new Kwf_Form_Field_ShowField('question', trlKwf('Text')))
@@ -18,6 +21,12 @@ class MyquestionController extends Kwf_Controller_Action_Auto_Form
 //        ->setHeight(300);
 //        
 //        $card = $cards->add();
+//        $card->setName('1');
+//        $card->setTitle('1');
+//        
+//        $card->fields->add(new Kwf_Form_Field_ShowField('question', trlKwf('Text')))
+//        ->setWidth(650)
+//        ->setHeight(300);
         
         $this->_form->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
                         

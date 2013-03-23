@@ -22,7 +22,7 @@ class MygroupsController extends Kwf_Controller_Action_Auto_Grid
         
         $this->_columns->add(new Kwf_Grid_Column_Button('customButton', trlKwf('Action'), 100))
         ->setTooltip(trlKwf('Start the test'))
-        ->setButtonIcon(new Kwf_Asset('lightbulb.png'));
+        ->setButtonIcon(new Kwf_Asset('application_go.png'));
     }
     
     protected function _getSelect()
