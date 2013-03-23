@@ -107,11 +107,11 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'edit_role_user');
         //$this->allow('admin', 'edit_role_guest');
         
-        $this->allow('user', 'default_links');
+        //$this->allow('user', 'default_links');
         $this->allow('user', 'default_index');
-        $this->allow('user', 'default_employees');
+        //$this->allow('user', 'default_employees');
         $this->allow('user', 'default_flightplans');
-        $this->allow('user', 'default_landpoints');
+        //$this->allow('user', 'default_landpoints');
         $this->allow('user', 'default_tasks');
         $this->allow('user', 'default_mytrainings');
         $this->allow('user', 'default_mygroups');
