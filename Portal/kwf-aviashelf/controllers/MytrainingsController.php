@@ -31,7 +31,7 @@ class MytrainingsController extends Kwf_Controller_Action_Auto_Grid
         $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
 
         $employee = $employeesModel->getRow($employeesSelect);
-        $employeeId = 0;
+        $employeeId = -1;
         
         if ($employee != NULL)
         {

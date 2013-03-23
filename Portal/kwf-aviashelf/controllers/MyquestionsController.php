@@ -25,7 +25,6 @@ class MyquestionsController extends Kwf_Controller_Action_Auto_Grid
         
         $employee = $employeesModel->getRow($employeesSelect);
         
-    
         $resultsModel = Kwf_Model_Abstract::getInstance('TrainingResults');
         
         if ($employee != NULL)
