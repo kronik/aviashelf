@@ -60,6 +60,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         ->setHeight(70)
         ->setWidth(400);
         
+        $tab->fields->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
+        
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Landpoints'));
         
@@ -223,7 +225,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         $prow = $flightPlansModel->getRow($flightPlansSelect);
         
         $row->flightStartDate = $prow->planDate;
-                
+        $row->status = 0;
+        
         $db = Zend_Registry::get('db');
         
         $stmt = $db->query("CALL getNextId(0, @nextId)", array(25));

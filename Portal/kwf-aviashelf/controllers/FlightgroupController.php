@@ -78,11 +78,11 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                 $taskRow->save();
             }
         }
-        else if (($this->isContain(trlKwf('Second pilot'), $row->positionName))  && ($row->mainCrew == TRUE))
+        else if (($this->isContain(trlKwf('Second pilot'), $row->positionName)) && ($row->mainCrew == TRUE))
         {
             $flightRow->secondPilotName = (string)$prow;
         }
-        else if (($this->isContain(trlKwf('Technic'), $row->positionName))  && ($row->mainCrew == TRUE))
+        else if (($this->isContain(trlKwf('Technic'), $row->positionName)) && ($row->mainCrew == TRUE))
         {
             $flightRow->technicName = (string)$prow;
         }
@@ -97,6 +97,47 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         }
         
         $flightRow->save();
+        
+        if ($row->mainCrew == TRUE)
+        {
+            if ($this->isContain(trlKwf('KWS'), $row->positionName))
+            {
+                $this->addFlightResult($flightRow, $row, 'Налет КВС');
+            }
+            
+            $this->addFlightResult($flightRow, $row, 'Налет');
+        }
+    }
+    
+    protected function addFlightResult($flight, $groupRow, $type)
+    {
+        $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $typeSelect = $typeModel->select()->whereEquals('name', 'Типы налета')->whereEquals('value', $type);
+        $typeRow = $typeModel->getRow($typeSelect);
+        
+        $result = Kwf_Model_Abstract::getInstance('Flightresults');
+        $resultSelect = $result->select()->where(new Kwf_Model_Select_Expr_Sql("ownerId = " . $groupRow->employeeId
+                                                                               ." AND flightId = " . $flight->id
+                                                                               ." AND typeId = " . $typeRow->id));
+        $resultRow = $result->getRow($resultSelect);
+        
+        if ($resultRow == NULL)
+        {
+            $resultRow = $result->createRow();
+            
+            $resultRow->typeId = $typeRow->id;
+            $resultRow->typeName = $typeRow->value;
+            $resultRow->planeId = $flight->planeId;
+            $resultRow->planeName = $flight->planeName;
+            $resultRow->flightDate = $flight->flightStartDate;
+            $resultRow->flightId = $flight->id;
+            $resultRow->flightTime = '00:00';
+            $resultRow->ownerId = $groupRow->employeeId;
+            $resultRow->ownerName = $groupRow->employeeName;
+            $resultRow->showInTotal = 0;
+            
+            $resultRow->save();
+        }
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

@@ -6,6 +6,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
     protected $_grouping = array('groupField' => 'subCompanyName');
     protected $_buttons = array('add', 'delete', 'xls');
     protected $_editDialog = NULL;
+    protected $_paging = 100;
 
     public function indexAction()
     {
@@ -25,7 +26,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
             $this->_editDialog = array(
                                            'controllerUrl' => '/flight',
                                            'width' => 550,
-                                           'height' => 390
+                                           'height' => 410
                                        );            
         }
         else

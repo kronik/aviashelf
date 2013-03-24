@@ -14,6 +14,10 @@ class Flightresults extends Kwf_Model_Db
        'Owner' => array(
              'column'           => 'ownerId',
              'refModelClass'     => 'Employees',
+        ),
+       'Flight' => array(
+              'column'           => 'flightId',
+              'refModelClass'     => 'Flights',
         )
     );
 }

@@ -165,7 +165,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
                     $row->gradeId = $result->gradeId;
                     $row->gradeName = $result->gradeName;
                     $row->gradeVisible = 1;
-                    $row->comment = $result->trainingName . ' : ' . $result->trainingGroupName;
+                    $row->comment = $result->trainingName . ': ' . $result->trainingGroupName;
                     $row->companyId = 0;
                     $row->startDate = date('d-m-Y H:i:s');
                     

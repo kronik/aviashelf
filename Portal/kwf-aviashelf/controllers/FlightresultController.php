@@ -13,7 +13,6 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('name', 'Типы налета');
         
-        
         $this->_form->add(new Kwf_Form_Field_Select('typeId', trlKwf('Type')))
         ->setValues($typeModel)
         ->setSelect($typeSelect)
@@ -54,7 +53,6 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
 
         $s = $m2->select()->whereEquals('id', $row->planeId);
         $prow = $m2->getRow($s);
-        
         
         $row->planeName = $prow->Name;
     }

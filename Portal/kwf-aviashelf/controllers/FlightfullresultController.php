@@ -49,7 +49,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $s = $m3->select()->whereEquals('id', $this->_getParam('flightId'));
         $prow = $m3->getRow($s);
         
-        $row->flightDate = $prow->flightEndDate;
+        $row->flightDate = $prow->flightStartDate;
         $row->planeId = $prow->planeId;
         $row->planeName = $prow->planeName;
         
@@ -72,7 +72,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $s = $m3->select()->whereEquals('id', $this->_getParam('flightId'));
         $prow = $m3->getRow($s);
         
-        $row->flightDate = $prow->flightEndDate;
+        $row->flightDate = $prow->flightStartDate;
         $row->planeId = $prow->planeId;
         $row->planeName = $prow->planeName;
         

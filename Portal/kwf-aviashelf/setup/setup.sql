@@ -154,7 +154,6 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (23, 'Дополнительные позиции'),
 (12, 'Цели');
 
-
 --
 -- Dumping data for table `link_data`
 --
@@ -738,6 +737,7 @@ CREATE TABLE IF NOT EXISTS `flightTasks` (
     `planeName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     `objectiveId` int NOT NULL,
     `objectiveName` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
     `routeId` int NOT NULL,
     `routeName` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
     `comments` varchar(1000) COLLATE utf8_unicode_ci,
