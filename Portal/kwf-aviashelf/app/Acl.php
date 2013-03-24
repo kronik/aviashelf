@@ -8,14 +8,14 @@ class Acl extends Kwf_Acl
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwf('Dictionaries'), 'icon'=>'book.png')));
         
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/'));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/tasks'));
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_staffmenuitem', array('text'=>trlKwf('Employees'), 'icon'=>'user.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwf('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
          $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwf('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
         
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwf('Flights'), 'icon'=>'calendar.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightplans', array('text'=>trlKwf('Flight plans'), 'icon'=>'calendar.png'), '/flightplans'), 'default_flightsmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myflights', array('text'=>trlKwf('My flights'), 'icon'=>'book_open.png'), '/myflights'), 'default_flightsmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_edumenuitem', array('text'=>trlKwf('Education'), 'icon'=>'database.png')));
@@ -43,7 +43,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_settingsmenuitem', array('text'=>trlKwf('Settings'), 'icon'=>'cog.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('kwf_user_users', array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'), '/kwf/user/users'), 'default_settingsmenuitem');
 
-        $this->addResource(new Zend_Acl_Resource('default_tasks'), 'default_index');
+        //$this->addResource(new Zend_Acl_Resource('default_tasks'), 'default_index');
+        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
         $this->addResource(new Zend_Acl_Resource('default_link'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdata'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdataentry'), 'default_linkdata');
@@ -123,6 +124,9 @@ class Acl extends Kwf_Acl
         $this->allow('guest', 'default_flightsmenuitem');
         $this->allow('guest', 'default_flightplans');
         $this->allow('guest', 'default_flights');
+        $this->allow('guest', 'default_index');
+        
+        $this->deny('guest', 'default_myflights');
         
         $this->allow('admin', 'default_menuitem');
         $this->allow('admin', 'default_settingsmenuitem');
