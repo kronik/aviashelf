@@ -166,7 +166,7 @@ class Reporter
         $firstSheet->getColumnDimension('J')->setWidth('15pt');
         $firstSheet->getColumnDimension('M')->setWidth('15pt');
         
-        $firstSheet->setCellValue('A6', trlKwf('#'));
+        $firstSheet->setCellValue('A6', trlKwf('№'));
         $firstSheet->setCellValue('B6', trlKwf('Customer'));
         $firstSheet->setCellValue('C6', trlKwf('Time'));
         $firstSheet->setCellValue('D6', trlKwf('WS Number'));
@@ -599,7 +599,7 @@ class Reporter
             }
         }
         
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('ЗАДАНИЕ НА ПОЛЁТ #') . $row->number);
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('ЗАДАНИЕ НА ПОЛЁТ №') . $row->number);
         
         #$firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber, $flightSequenceNumber . ' / ' . $row->flightStartDate);
         #$firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, $row->number);
