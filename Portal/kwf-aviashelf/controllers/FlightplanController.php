@@ -14,7 +14,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $this->_form->add(new Kwf_Form_Field_DateField('planDate', trlKwf('Date')))->setAllowBlank(false);
 
             $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-            $employeesSelect = $employeesModel->select()->whereEquals('visible', '1');
+            $employeesSelect = $employeesModel->select()->whereEquals('visible', '1')->whereEquals('groupType', 2);
             
             $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Responsible')))
             ->setValues($employeesModel)
@@ -68,8 +68,12 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
     protected function _fillTheXlsFile($xls, $firstSheet)
     {
         $row = $this->_form->getRow();
-
+        
+        $this->_progressBar = new Zend_ProgressBar(new Kwf_Util_ProgressBar_Adapter_Cache($this->_getParam('progressNum')),
+                                                   0, 100);
         $reporter = new Reporter ();
-        $reporter->exportFlightPlanToXls($xls, $firstSheet, $row);
+        $reporter->exportFlightPlanToXls($xls, $firstSheet, $row, $this->_progressBar);
+        
+        $this->_progressBar->finish();
     }
 }

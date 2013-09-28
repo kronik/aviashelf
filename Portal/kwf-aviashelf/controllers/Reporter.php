@@ -100,12 +100,21 @@ class Reporter
         return $landPoint;
     }
     
-    public function exportFlightPlanToXls($xls, $firstSheet, $row)
+    public function exportFlightPlanToXls($xls, $firstSheet, $row, $progressBar)
     {
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
         $employeesSelect = $employeesModel->select()->whereEquals('id', $row->employeeId);
         
         $employeeRow = $employeesModel->getRow($employeesSelect);
+        
+        $styleThinBlackBorderOutline = array(
+                                             'borders' => array(
+                                                                'outline' => array(
+                                                                                   'style' => PHPExcel_Style_Border::BORDER_THIN,
+                                                                                   'color' => array('argb' => 'FF000000'),
+                                                                                   ),
+                                                                ),
+                                             );
         
         $xls->getProperties()->setCreator(Kwf_Config::getValue('application.name'));
         $xls->getProperties()->setLastModifiedBy(Kwf_Config::getValue('application.name'));
@@ -132,21 +141,41 @@ class Reporter
         
         $firstSheet->mergeCells('A1:M1');
         $firstSheet->mergeCells('A3:M3');
-        $firstSheet->mergeCells('A5:M5');
         
-        $firstSheet->setCellValue('B2', trlKwf('Date') . ': ' . $this->getFormattedDate($row->planDate));
-        
-        $firstSheet->setCellValue('K2', trlKwf('Responsible') . ': ');
-        $firstSheet->setCellValue('M2', (string)$employeeRow);
-        
+        $firstSheet->mergeCells('J2:K2');
+        $firstSheet->setCellValue('J2', 'План передал: ');
+        $firstSheet->getStyle('J2')->getFont()->setBold(true);
+
+        $firstSheet->mergeCells('L2:M2');
+        $firstSheet->setCellValue('L2', (string)$employeeRow);
+        $firstSheet->getStyle('L2')->getFont()->getColor()->applyFromArray(array('rgb' => 'FF2200'));
+
         $firstSheet->setCellValue('A4', trlKwf('Daily flights plan'));
         $firstSheet->getStyle('A4')->getFont()->setSize(12);
         $firstSheet->getStyle('A4')->getFont()->setBold(true);
-        $firstSheet->getStyle('A4')->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
+        #$firstSheet->getStyle('A4')->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
+        $firstSheet->getStyle('A4')->getFont()->getColor()->applyFromArray(array('rgb' => 'FF2200'));
+        $firstSheet->getStyle('A4:M4')->applyFromArray($styleThinBlackBorderOutline);
+
+        $firstSheet->getStyle('A4')->getFill()
+        ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+                               'startcolor' => array('rgb' => 'E0E0E0')
+                               ));
         
         $firstSheet->mergeCells('A4:M4');
-        
         $firstSheet->getStyle('A4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS);
+        
+        $firstSheet->mergeCells('A5:E5');
+        $firstSheet->getStyle('A5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $firstSheet->getStyle('A5')->getFont()->setBold(true);
+        $firstSheet->setCellValue('A5', 'На: ');
+
+        $firstSheet->mergeCells('F5:M5');
+        $firstSheet->getStyle('F5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $firstSheet->getStyle('F5')->getFont()->setBold(true);
+        $firstSheet->getStyle('F5')->getFont()->getColor()->applyFromArray(array('rgb' => 'FF2200'));
+
+        $firstSheet->setCellValue('F5', $this->getFormattedDate($row->planDate));
         
         $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
         $flightsSelect = $flightsModel->select()->whereEquals('planId', $row->id)->order(array('subCompanyId', 'flightStartTime'));
@@ -196,6 +225,33 @@ class Reporter
         $firstSheet->getStyle('L6')->getFont()->setBold(true);
         $firstSheet->getStyle('M6')->getFont()->setBold(true);
         
+        $firstSheet->getStyle('A6:B6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('B6:C6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('C6:D6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('D6:E6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('E6:F6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('F6:G6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('G6:H6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('H6:I6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('I6:J6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('J6:K6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('K6:L6')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('L6:M6')->applyFromArray($styleThinBlackBorderOutline);
+
+        $firstSheet->getStyle('A6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('B6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('C6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('D6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('E6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('F6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('G6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('H6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('I6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('J6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('K6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('L6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('M6')->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        
         $firstSheet->getStyle('A6')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('B6')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('C6')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
@@ -227,6 +283,8 @@ class Reporter
         $firstSheet->getColumnDimension('B')->setAutoSize(true);
         
         $rowNumber = 7;
+        
+        $progressBar->update(10);
         
         foreach ($flights as $flight)
         {
@@ -262,11 +320,29 @@ class Reporter
             $firstSheet->setCellValue('L' . $rowNumber, $flight->requestNumber);
             $firstSheet->setCellValue('M' . $rowNumber, $flight->comments);
             
+            $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
+            $firstSheet->getStyle('D' . $rowNumber)->getFont()->setBold(true);
+            
             $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS);
             $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS);
-            
+
+            $firstSheet->getStyle('A' . $rowNumber .':B'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('B' . $rowNumber .':C'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('C' . $rowNumber .':D'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('D' . $rowNumber .':E'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('E' . $rowNumber .':F'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('F' . $rowNumber .':G'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('G' . $rowNumber .':H'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('H' . $rowNumber .':I'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('I' . $rowNumber .':J'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('J' . $rowNumber .':K'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+
             $rowNumber += 1;
         }
+        
+        $progressBar->update(60);
         
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
         $rowNumber += 1;
@@ -299,6 +375,31 @@ class Reporter
         $firstSheet->getStyle('H' . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle('I' . $rowNumber)->getFont()->setBold(true);
         
+        $firstSheet->getStyle('A' . $rowNumber .':B'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('B' . $rowNumber .':C'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('C' . $rowNumber .':D'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('D' . $rowNumber .':E'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('E' . $rowNumber .':F'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('F' . $rowNumber .':G'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('G' . $rowNumber .':H'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('H' . $rowNumber .':I'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('I' . $rowNumber .':J'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('J' . $rowNumber .':K'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        
+        $firstSheet->getStyle('A' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('C' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('E' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('F' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('G' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('H' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('I' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('J' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('K' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('L' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('M' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        
         $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
@@ -320,6 +421,8 @@ class Reporter
         
         $flighttracks = $flighttracksModel->getRows($flighttracksSelect);
         
+        $progressBar->update(70);
+
         foreach ($flighttracks as $flighttrack)
         {
             $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
@@ -333,9 +436,24 @@ class Reporter
             $firstSheet->setCellValue('H' . $rowNumber, $flighttrack->employee5Name);
             $firstSheet->setCellValue('I' . $rowNumber, $flighttrack->employee6Name);
             
+            $firstSheet->getStyle('A' . $rowNumber .':B'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('B' . $rowNumber .':C'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('C' . $rowNumber .':D'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('D' . $rowNumber .':E'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('E' . $rowNumber .':F'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('F' . $rowNumber .':G'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('G' . $rowNumber .':H'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('H' . $rowNumber .':I'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('I' . $rowNumber .':J'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('J' . $rowNumber .':K'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            
             $rowNumber += 1;
         }
         
+        $progressBar->update(80);
+
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
         $rowNumber += 1;
         
@@ -343,8 +461,16 @@ class Reporter
         $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
         
-        $firstSheet->setCellValue('A' . $rowNumber, 'Дополнительная информация');
+        $firstSheet->getStyle('A' . $rowNumber)->getFont()->getColor()->applyFromArray(array('rgb' => '#0083CF'));
         
+        $firstSheet->getStyle('A' . $rowNumber)->getFill()
+        ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+                               'startcolor' => array('rgb' => 'E0E0E0')
+                               ));
+
+        $firstSheet->setCellValue('A' . $rowNumber, 'Дополнительная информация');
+        $firstSheet->getStyle('A' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+
         $rowNumber += 1;
         
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . ($rowNumber + 3));
@@ -355,7 +481,9 @@ class Reporter
         $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
         
         $firstSheet->setCellValue('A' . $rowNumber, 'Диспетчерская сводка ПДО');
-        
+        $firstSheet->getStyle('A' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('A' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+
         $rowNumber += 1;
         
         $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
@@ -371,6 +499,29 @@ class Reporter
         $firstSheet->setCellValue('I' . $rowNumber, 'Причина неисправности');
         $firstSheet->setCellValue('J' . $rowNumber, 'Дата ввода в строй');
         $firstSheet->setCellValue('K' . $rowNumber, 'Дополнительная информация');
+        
+        $firstSheet->getStyle('A' . $rowNumber .':B'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('B' . $rowNumber .':C'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('C' . $rowNumber .':D'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('D' . $rowNumber .':E'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('E' . $rowNumber .':F'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('F' . $rowNumber .':G'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('G' . $rowNumber .':H'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('H' . $rowNumber .':I'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('I' . $rowNumber .':J'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('J' . $rowNumber .':K'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        
+        $firstSheet->getStyle('A' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('C' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('E' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('F' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('G' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('H' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('I' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('J' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('K' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
         
         $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle('C' . $rowNumber)->getFont()->setBold(true);
@@ -404,6 +555,8 @@ class Reporter
         
         $planerstates = $planerstatesModel->getRows($planerstatesSelect);
         
+        $progressBar->update(90);
+
         foreach ($planerstates as $planerstate)
         {
             $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
@@ -420,6 +573,19 @@ class Reporter
             $firstSheet->setCellValue('J' . $rowNumber, $this->getFormattedDate($planerstate->expectedDate));
             $firstSheet->setCellValue('K' . $rowNumber, $planerstate->comment);
             
+            $firstSheet->getStyle('A' . $rowNumber .':B'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('B' . $rowNumber .':C'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('C' . $rowNumber .':D'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('D' . $rowNumber .':E'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('E' . $rowNumber .':F'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('F' . $rowNumber .':G'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('G' . $rowNumber .':H'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('H' . $rowNumber .':I'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('I' . $rowNumber .':J'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('J' . $rowNumber .':K'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+
             $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -430,11 +596,15 @@ class Reporter
             $rowNumber += 1;
         }
         
+        $progressBar->update(100);
+
+        $firstSheet->getStyle('A1:M'. ($rowNumber - 1))->applyFromArray($styleThinBlackBorderOutline);
+        
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
         $rowNumber += 1;
     }
     
-    public function exportFlightTaskToXls($xls, $firstSheet, $row)
+    public function exportFlightTaskToXls($xls, $firstSheet, $row, $progressBar)
     {        
         foreach($firstSheet->getRowDimensions() as $rd)
         {
@@ -443,9 +613,9 @@ class Reporter
         
         $xls->getProperties()->setCreator(Kwf_Config::getValue('application.name'));
         $xls->getProperties()->setLastModifiedBy(Kwf_Config::getValue('application.name'));
-        $xls->getProperties()->setTitle("План полетов");
-        $xls->getProperties()->setSubject("План полетов");
-        $xls->getProperties()->setDescription("План полетов на сегодня");
+        $xls->getProperties()->setTitle("Полетное Задание");
+        $xls->getProperties()->setSubject("Полетное Задание");
+        $xls->getProperties()->setDescription("Полетное Задание на сегодня");
         $xls->getProperties()->setKeywords("");
         $xls->getProperties()->setCategory("");
         
@@ -521,6 +691,7 @@ class Reporter
         $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setTextRotation(-90);
         
+        $progressBar->update(10);
         
         for ($i = 2; $i <= $totalLeftColumns-1; $i++)
         {
@@ -662,6 +833,8 @@ class Reporter
         
         $kwsId = 0;
         
+        $progressBar->update(50);
+
         foreach ($flightMembers as $flightMember)
         {
             $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
@@ -688,6 +861,8 @@ class Reporter
             
             $rowNumber += 1;
         }
+        
+        $progressBar->update(60);
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
@@ -772,6 +947,8 @@ class Reporter
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
         $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
         
+        $progressBar->update(70);
+
         foreach ($flightMembers as $flightMember)
         {
             $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
@@ -801,6 +978,8 @@ class Reporter
             }
         }
         
+        $progressBar->update(80);
+
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
@@ -827,6 +1006,8 @@ class Reporter
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
+        $progressBar->update(100);
+
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . 1 . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . 39)->applyFromArray($styleThinBlackBorderOutline);
     }
     

@@ -259,8 +259,13 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
     protected function _fillTheXlsFile($xls, $firstSheet)
     {
         $row = $this->_form->getRow();
+        
+        $this->_progressBar = new Zend_ProgressBar(new Kwf_Util_ProgressBar_Adapter_Cache($this->_getParam('progressNum')),
+                                                   0, 100);
 
         $reporter = new Reporter ();
-        $reporter->exportFlightTaskToXls($xls, $firstSheet, $row);        
+        $reporter->exportFlightTaskToXls($xls, $firstSheet, $row, $this->_progressBar);
+        
+        $this->_progressBar->finish();
     }
 }
