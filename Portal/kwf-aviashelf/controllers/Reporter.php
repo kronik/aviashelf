@@ -777,14 +777,18 @@ class Reporter
             $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
             $employeeRow = $employeesModel->getRow($employeesSelect);
             
-            $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
-            $subSpecRow = $subSpecModel->getRow($subSpecSelect);
-            
             $position = $flightMember->positionName;
             
             if ($position == 'По специальности')
             {
-                $position = $subSpecRow->value;
+                if ($employeeRow->positionId == NULL) {
+                    $position = '';
+                } else {
+                    $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
+                    $subSpecRow = $subSpecModel->getRow($subSpecSelect);
+
+                    $position = $subSpecRow->value;
+                }
             }
             
             if ($employeeRow != NULL)
