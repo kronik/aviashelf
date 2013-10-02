@@ -495,14 +495,41 @@ class Reporter
 
         $rowNumber += 4;
         
-        $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
+        $firstSheet->mergeCells('A' . $rowNumber . ':H' . $rowNumber);
         $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
         
         $firstSheet->setCellValue('A' . $rowNumber, 'Диспетчерская сводка ПДО');
         $firstSheet->getStyle('A' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
-        $firstSheet->getStyle('A' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('A' . $rowNumber .':H'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
+        $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('I' . $rowNumber)->getFont()->setBold(true);
+        
+        $firstSheet->setCellValue('I' . $rowNumber, 'Составил:');
+        $firstSheet->getStyle('I' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('I' . $rowNumber .':I'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('J' . $rowNumber)->getFont()->setBold(true);
+        
+        $firstSheet->setCellValue('J' . $rowNumber, 'техник ПДО');
+        $firstSheet->getStyle('J' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('J' . $rowNumber .':J'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+
+        $firstSheet->mergeCells('K' . $rowNumber . ':M' . $rowNumber);
+        $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('K' . $rowNumber)->getFont()->setBold(true);
+        
+        $firstSheet->setCellValue('K' . $rowNumber, $row->techName);
+        $firstSheet->getStyle('K' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('K' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('K' . $rowNumber)->getFont()->getColor()->applyFromArray(array('rgb' => 'FF2200'));
+        
         $rowNumber += 1;
         
         $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
@@ -676,14 +703,14 @@ class Reporter
             $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('1.5pt');
         }
         
-        $tableColumnt = $this->_getColumnLetterByIndex($totalLeftColumns - 1);
+        $tableColumn = $this->_getColumnLetterByIndex($totalLeftColumns - 1);
         $tableHeaderColumnt = $this->_getColumnLetterByIndex($totalLeftColumns);
         
         $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($totalLeftColumns + 1))->setWidth('1pt');
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($totalLeftColumns + 1) . '1:' . $this->_getColumnLetterByIndex($totalLeftColumns + 1) . '39');
         
-        $firstSheet->getStyle('A1:' . $tableColumnt . '13')->applyFromArray($styleThinBlackBorderOutline);
-        $firstSheet->mergeCells('A1:' . $tableColumnt . '13');
+        $firstSheet->getStyle('A1:' . $tableColumn . '13')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->mergeCells('A1:' . $tableColumn . '13');
         
         $firstSheet->getStyle($tableHeaderColumnt . '1:' . $tableHeaderColumnt . '13')->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->mergeCells($tableHeaderColumnt . '1:' . $tableHeaderColumnt . '13');
@@ -694,8 +721,8 @@ class Reporter
         $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setTextRotation(-90);
         
-        $firstSheet->getStyle('A14:' . $tableColumnt . '26')->applyFromArray($styleThinBlackBorderOutline);
-        $firstSheet->mergeCells('A14:' . $tableColumnt . '26');
+        $firstSheet->getStyle('A14:' . $tableColumn . '26')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->mergeCells('A14:' . $tableColumn . '26');
         
         $firstSheet->getStyle($tableHeaderColumnt . '14:' . $tableHeaderColumnt . '26')->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->mergeCells($tableHeaderColumnt . '14:' . $tableHeaderColumnt . '26');
@@ -707,7 +734,7 @@ class Reporter
         $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setTextRotation(-90);
         
-        $firstSheet->getStyle('A27:' . $tableColumnt . '39')->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('A27:' . $tableColumn . '39')->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->mergeCells('A27:B39');
         
         $firstSheet->getStyle($tableHeaderColumnt . '27:' . $tableHeaderColumnt . '39')->applyFromArray($styleThinBlackBorderOutline);
@@ -1035,9 +1062,42 @@ class Reporter
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
-        $progressBar->update(100);
-
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . 1 . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . 39)->applyFromArray($styleThinBlackBorderOutline);
+        
+        # Second page
+        
+        $rowNumber = 40;
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+        $rowNumber += 1;
+        
+        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber);
+        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber, 'отчет о полёте');
+        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber)->getFont()->setBold(true);
+
+        $rowNumber += 1;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        $progressBar->update(100);
     }
     
     public function exportLastFlightPlanToXls()

@@ -115,7 +115,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setValues($specModel)
         ->setSelect($specSelect)
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
         
         $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $subSpecSelect = $subSpecModel->select()->whereEquals('name', 'Должности');

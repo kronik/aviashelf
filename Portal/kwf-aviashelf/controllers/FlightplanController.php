@@ -15,10 +15,20 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
 
             $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
             $employeesSelect = $employeesModel->select()->whereEquals('visible', '1')->whereEquals('groupType', 2);
-            
+
+            $techModel = Kwf_Model_Abstract::getInstance('Employees');
+            $techSelect = $techModel->select()->whereEquals('visible', '1')->whereEquals('groupType', 2);
+
             $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Responsible')))
             ->setValues($employeesModel)
             ->setSelect($employeesSelect)
+            ->setWidth(400)
+            ->setShowNoSelection(true)
+            ->setAllowBlank(true);
+            
+            $this->_form->add(new Kwf_Form_Field_Select('techId', 'Техник ПДО'))
+            ->setValues($techModel)
+            ->setSelect($techSelect)
             ->setWidth(400)
             ->setShowNoSelection(true)
             ->setAllowBlank(true);
@@ -34,7 +44,10 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
 
             $this->_form->add(new Kwf_Form_Field_ShowField('employeeName', trlKwf('Responsible')))
             ->setWidth(400);
-            
+
+            $this->_form->add(new Kwf_Form_Field_ShowField('techName', 'Техник ПДО'))
+            ->setWidth(400);
+
             $this->_form->add(new Kwf_Form_Field_ShowField('comment', trlKwf('Additional info')))
             ->setHeight(70)
             ->setWidth(400);            
@@ -51,7 +64,16 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $prow = $employeesModel->getRow($employeesSelect);
             $row->employeeName = (string)$prow;
         }
-        
+
+        if ($row->techId != NULL)
+        {
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('id', $row->techId);
+            
+            $prow = $employeesModel->getRow($employeesSelect);
+            $row->techName = (string)$prow;
+        }
+
         return $row;
     }
     

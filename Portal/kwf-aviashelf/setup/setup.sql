@@ -50,16 +50,14 @@ CREATE TABLE IF NOT EXISTS `speciality` (
     INDEX `SortOrder` (`SortOrder` ASC)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (1, 'КВС', 1, 1, 1, 0, 0, 0, 1, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (2, 'Пилот', 1, 1, 0, 0, 0, 0, 2, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (3, 'Штурман', 1, 0, 0, 1, 0, 0, 3, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (4, 'Бортинженер', 1, 0, 0, 0, 0, 0, 4, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (5, 'Бортмеханик', 1, 0, 0, 0, 0, 0, 5, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (6, 'Бортрадист', 1, 0, 0, 0, 0, 0, 6, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (7, 'Бортоператор', 1, 0, 0, 0, 0, 0, 7, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (8, 'Бортпроводник', 1, 0, 0, 0, 1, 0, 8, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (9, 'Техник', 0, 0, 0, 0, 0, 1, 10, 1, 0);
-INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES (10, 'Авиаинженер', 0, 0, 0, 0, 0, 1, 9, 1, 0);
+INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `Steward`, `Ground`, `SortOrder`, `Fixed`, `Hidden`) VALUES
+(2, 'Пилот', '1', '1', '0', '0', '0', '0', 2, '1', '0'),
+(4, 'Бортинженер', '1', '0', '0', '0', '0', '0', 4, '1', '0'),
+(5, 'Бортмеханик', '1', '0', '0', '0', '0', '0', 5, '1', '0'),
+(9, 'Техник АиРЭО', '0', '0', '0', '0', '0', '1', 10, '1', '0'),
+(11, 'Техник по ЛАиД', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'Инженер по АиРЭО', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 'Инженер по ЛАиД', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS `employee` (
     `id` int(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -952,6 +950,8 @@ CREATE TABLE IF NOT EXISTS `flightPlans` (
     `planDate` date NOT NULL,
     `employeeId` int,
     `employeeName` varchar(300) COLLATE utf8_unicode_ci,
+  `techId` int,
+  `techName` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
