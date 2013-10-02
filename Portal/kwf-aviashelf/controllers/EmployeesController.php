@@ -3,7 +3,7 @@ class EmployeesController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Employees';
     protected $_defaultOrder = 'lastname';
-    protected $_paging = 0;
+    protected $_paging = 20;
     protected $_buttons = array('add', 'delete');
     
     protected $_editDialog = array(

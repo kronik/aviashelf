@@ -129,6 +129,7 @@ class Reporter
         $firstSheet->getPageSetup()->setFitToPage(true);
         $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $firstSheet->setTitle('План полетов');
         
         $pageMargins = $firstSheet->getPageMargins();
         
@@ -678,7 +679,7 @@ class Reporter
         $firstSheet->getPageSetup()->setFitToPage(true);
         $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-        
+        $firstSheet->setTitle('Титульный лист');
         $pageMargins = $firstSheet->getPageMargins();
         
         $margin = 0.42;
@@ -1066,13 +1067,31 @@ class Reporter
         
         # Second page
         
+        $sheetId = 1;
+        $secondSheet = $xls->createSheet($sheetId);
+        
+        $secondSheet->getPageSetup()->setFitToPage(true);
+        $secondSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $secondSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $secondSheet->setTitle('Отчет о полете');
+        
+        $pageMargins = $secondSheet->getPageMargins();
+        
+        $margin = 0.4;
+        
+        $pageMargins->setTop($margin);
+        $pageMargins->setBottom($margin);
+        $pageMargins->setLeft($margin);
+        $pageMargins->setRight($margin);
+        
+        
         $rowNumber = 40;
-        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+        $secondSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
-        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber);
-        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber, 'отчет о полёте');
-        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber)->getFont()->setBold(true);
+        $secondSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber);
+        $secondSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber, 'отчет о полёте');
+        $secondSheet->getStyle($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber)->getFont()->setBold(true);
 
         $rowNumber += 1;
         
