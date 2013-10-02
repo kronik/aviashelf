@@ -951,7 +951,7 @@ CREATE TABLE IF NOT EXISTS `flightPlans` (
     `employeeId` int,
     `employeeName` varchar(300) COLLATE utf8_unicode_ci,
   `techId` int,
-  `techName` varchar(300) COLLATE utf8_unicode_ci,
+   `techName` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
