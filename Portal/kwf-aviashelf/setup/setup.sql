@@ -57,7 +57,8 @@ INSERT INTO `speciality` (`id`, `name`, `Flight`, `Pilot`, `KWS`, `Navigator`, `
 (9, 'Техник АиРЭО', '0', '0', '0', '0', '0', '1', 10, '1', '0'),
 (11, 'Техник по ЛАиД', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (12, 'Инженер по АиРЭО', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 'Инженер по ЛАиД', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(13, 'Инженер по ЛАиД', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, '   ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS `employee` (
     `id` int(8) unsigned NOT NULL AUTO_INCREMENT,
