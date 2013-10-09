@@ -1067,8 +1067,8 @@ class Reporter
         
         # Second page
         
-        $sheetId = 1;
-        $secondSheet = $xls->createSheet($sheetId);
+        $xls->setActiveSheetIndex(1);
+        $secondSheet = $xls->getActiveSheet();
         
         $secondSheet->getPageSetup()->setFitToPage(true);
         $secondSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
@@ -1083,38 +1083,6 @@ class Reporter
         $pageMargins->setBottom($margin);
         $pageMargins->setLeft($margin);
         $pageMargins->setRight($margin);
-        
-        
-        $rowNumber = 40;
-        $secondSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
-        $rowNumber += 1;
-        
-        $secondSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber);
-        $secondSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber, 'отчет о полёте');
-        $secondSheet->getStyle($this->_getColumnLetterByIndex($rightColumn - 2) . $rowNumber)->getFont()->setBold(true);
-
-        $rowNumber += 1;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         $progressBar->update(100);
     }
