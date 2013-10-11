@@ -701,7 +701,7 @@ class Reporter
         
         for ($i = 0; $i <= $totalLeftColumns-1; $i++)
         {
-            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('1.5pt');
+            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('2.0pt');
         }
         
         $tableColumn = $this->_getColumnLetterByIndex($totalLeftColumns - 1);
@@ -780,7 +780,11 @@ class Reporter
         $rowNumber += 1;
         
         $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn))->setWidth('15pt');
-        
+        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 1))->setWidth('15pt');
+        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 2))->setWidth('10pt');
+        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 3))->setWidth('10pt');
+        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 4))->setWidth('15pt');
+
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
@@ -794,6 +798,7 @@ class Reporter
         $objDrawing->setPath('./images/doc_logo.png');
         $objDrawing->setCoordinates($this->_getColumnLetterByIndex($rightColumn) . $rowNumber);
         $objDrawing->setWidth('360px');
+        $objDrawing->setOffsetX(50);
         $objDrawing->setWorksheet($firstSheet);
         
         $rowNumber += 4;
@@ -1089,6 +1094,8 @@ class Reporter
         $pageMargins->setLeft($margin);
         $pageMargins->setRight($margin);
         
+        $xls->setActiveSheetIndex(0);
+
         $progressBar->update(100);
     }
     
