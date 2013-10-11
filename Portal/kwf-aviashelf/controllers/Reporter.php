@@ -684,7 +684,7 @@ class Reporter
         
         $margin = 0.42;
         
-        $pageMargins->setTop($margin);
+        $pageMargins->setTop($margin * 2);
         $pageMargins->setBottom($margin);
         $pageMargins->setLeft($margin);
         $pageMargins->setRight($margin);
@@ -707,7 +707,7 @@ class Reporter
         $tableColumn = $this->_getColumnLetterByIndex($totalLeftColumns - 1);
         $tableHeaderColumnt = $this->_getColumnLetterByIndex($totalLeftColumns);
         
-        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($totalLeftColumns + 1))->setWidth('1pt');
+        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($totalLeftColumns + 1))->setWidth('10pt');
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($totalLeftColumns + 1) . '1:' . $this->_getColumnLetterByIndex($totalLeftColumns + 1) . '39');
         
         $firstSheet->getStyle('A1:' . $tableColumn . '13')->applyFromArray($styleThinBlackBorderOutline);
@@ -779,7 +779,7 @@ class Reporter
         
         $rowNumber += 1;
         
-        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn))->setWidth('20pt');
+        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn))->setWidth('15pt');
         
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
@@ -793,7 +793,7 @@ class Reporter
         $objDrawing->setDescription('Logo');
         $objDrawing->setPath('./images/doc_logo.png');
         $objDrawing->setCoordinates($this->_getColumnLetterByIndex($rightColumn) . $rowNumber);
-        $objDrawing->setWidth('380px');
+        $objDrawing->setWidth('360px');
         $objDrawing->setWorksheet($firstSheet);
         
         $rowNumber += 4;
