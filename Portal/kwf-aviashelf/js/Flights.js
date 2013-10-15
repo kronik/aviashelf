@@ -2,6 +2,12 @@ var Flights = Ext.extend(Ext.Panel,
 {
     initComponent : function(test)
     {
+        var flightfiles = new Kwf.Auto.GridPanel({
+                controllerUrl   : '/flightfiles',
+                collapsible     : true,
+                title           : 'Документы'
+        });
+
         var flightresults = new Kwf.Auto.GridPanel({
               controllerUrl   : '/flightfullresults',
               collapsible     : true,
@@ -25,6 +31,10 @@ var Flights = Ext.extend(Ext.Panel,
             bindings: [
             {
                 queryParam: 'flightId',
+                item: flightfiles
+            },
+            {
+                queryParam: 'flightId',
                 item: flightresults
             },
             {
@@ -38,7 +48,7 @@ var Flights = Ext.extend(Ext.Panel,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',
-               items:[flightgroups, flightresults]
+               items:[flightfiles, flightgroups, flightresults]
         });
 
         this.layout = 'border';

@@ -66,6 +66,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightplan'), 'default_flightplans');
         $this->addResource(new Zend_Acl_Resource('default_flights'), 'default_flightplans');
         $this->addResource(new Zend_Acl_Resource('default_flight'), 'default_flightplans');
+        $this->addResource(new Zend_Acl_Resource('default_flightfiles'), 'default_flight');
+        $this->addResource(new Zend_Acl_Resource('default_flightfile'), 'default_flightfiles');
         $this->addResource(new Zend_Acl_Resource('default_myflight'), 'default_myflights');
         $this->addResource(new Zend_Acl_Resource('default_flighttracks'), 'default_flights');
         $this->addResource(new Zend_Acl_Resource('default_flighttrack'), 'default_flighttracks');

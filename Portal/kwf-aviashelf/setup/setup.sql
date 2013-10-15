@@ -703,6 +703,17 @@ CREATE TABLE IF NOT EXISTS `documents` (
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `flightFiles` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `flightId` int NOT NULL,
+    `file_id` int(11) DEFAULT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    KEY `flightId` (`flightId`),
+    KEY `file_id` (`file_id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `flightResults` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `flightId` int DEFAULT '0',
