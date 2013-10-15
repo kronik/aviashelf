@@ -5,14 +5,15 @@ class FlightfullresultsController extends Kwf_Controller_Action_Auto_Grid
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 10;
     protected $_grouping = array('groupField' => 'ownerName');
-    protected $_buttons = array('add');
+    protected $_buttons = array('add', 'xls');
     protected $_editDialog = NULL;
 
     protected function _initColumns()
     {
         $users = Kwf_Registry::get('userModel');
         
-        $this->_filters = array('text' => array('type' => 'TextField'));
+        $this->_filters = array('typeName' => array('type' => 'TextField'), 'flightDate' => array('type' => 'DateRange'));
+        $this->_queryFields = array('typeName', 'ownerName');
         
         if ($users->getAuthedUserRole() == 'admin')
         {
