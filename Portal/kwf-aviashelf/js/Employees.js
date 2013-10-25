@@ -6,7 +6,7 @@ var Employees = Ext.extend(Ext.Panel,
              controllerUrl   : '/documents',
              collapsible     : true,
              stripeRows      : true,
-             title           : trlKwf('Documents')
+             title           : 'Периодическая подготовка'
         });
                            
         var user = new Kwf.Auto.FormPanel({
@@ -18,7 +18,7 @@ var Employees = Ext.extend(Ext.Panel,
         var accesses = new Kwf.Auto.GridPanel({
               controllerUrl   : '/flightaccesses',
               collapsible     : true,
-              title           : 'Периодическая подготовка'
+              title           : 'Допуски'
         });
         
         var flightresults = new Kwf.Auto.GridPanel({
