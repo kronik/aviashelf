@@ -24,8 +24,8 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $companyModel = Kwf_Model_Abstract::getInstance('Companies');
-        $companySelect = $companyModel->select()->order('Name');
+        $companyModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $companySelect = $companyModel->select()->whereEquals('name', 'Компании для ПЗ')->order('name');
         
         $this->_form->add(new Kwf_Form_Field_Select('typeId', trlKwf('Customer')))
         ->setValues($companyModel)
@@ -63,7 +63,7 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
-        $companyModel = Kwf_Model_Abstract::getInstance('Companies');
+        $companyModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $companySelect = $companyModel->select()->whereEquals('id', $row->typeId);
 
         $landpointsModel = Kwf_Model_Abstract::getInstance('Airports');
@@ -73,7 +73,7 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         $m2 = Kwf_Model_Abstract::getInstance('Airplanes');
         
         $prow = $companyModel->getRow($companySelect);
-        $row->typeName = $prow->Name;
+        $row->typeName = $prow->value;
         
         $prow = $landpointsModel->getRow($landpointSelect);
         $row->landpointName = $prow->Name;

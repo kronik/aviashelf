@@ -3,7 +3,7 @@ var Staffs = Ext.extend(Ext.Panel,
     initComponent : function(test)
     {                           
         var documents = new Kwf.Auto.GridPanel({
-             controllerUrl   : '/documents',
+             controllerUrl   : '/staffdocuments',
              collapsible     : true,
              stripeRows      : true,
              title           : trlKwf('Documents')

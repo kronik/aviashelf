@@ -19,8 +19,8 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $companyModel = Kwf_Model_Abstract::getInstance('Companies');
-        $companySelect = $companyModel->select()->order('Name');
+        $companyModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $companySelect = $companyModel->select()->whereEquals('name', 'Компании для ПЗ')->order('name');
         
         $tab->fields->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Customer')))
         ->setValues($companyModel)
@@ -79,14 +79,14 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
-        $companyModel = Kwf_Model_Abstract::getInstance('Companies');
+        $companyModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $companySelect = $companyModel->select()->whereEquals('id', $row->subCompanyId);
         
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Airplanes');
         
         $prow = $companyModel->getRow($companySelect);
-        $row->subCompanyName = $prow->Name;
+        $row->subCompanyName = $prow->value;
         
         $s = $m1->select()->whereEquals('id', $row->objectiveId);
         $prow = $m1->getRow($s);
