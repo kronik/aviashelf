@@ -1087,13 +1087,19 @@ class Reporter
         
         $pageMargins = $secondSheet->getPageMargins();
         
-        $margin = 0.4;
+        $margin = 0.2;
         
         $pageMargins->setTop($margin);
         $pageMargins->setBottom($margin);
         $pageMargins->setLeft($margin);
         $pageMargins->setRight($margin);
         
+        for ($column = 0; $column < 70; $column++) {
+            $secondSheet->getColumnDimension($this->_getColumnLetterByIndex($column))->setWidth('2.5pt');
+        }
+        
+        $secondSheet->getPageSetup()->setFitToPage(true);
+
         $xls->setActiveSheetIndex(0);
 
         $progressBar->update(100);
