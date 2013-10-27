@@ -91,6 +91,12 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `specTypeId` int(8) unsigned DEFAULT NULL,
     `groupType` tinyint DEFAULT 1,
     `userId` int(11) unsigned DEFAULT NULL,
+    `ruPassportNumber` VARCHAR(20) DEFAULT NULL,
+    `ruPassportDate` DATE DEFAULT NULL,
+    `ruPassportCompany` VARCHAR(500) DEFAULT NULL,
+    `enPassportNumber` VARCHAR(20) DEFAULT NULL,
+    `enPassportDate` DATE DEFAULT NULL,
+    `enPassportCompany` VARCHAR(500) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

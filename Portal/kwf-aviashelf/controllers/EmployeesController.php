@@ -8,8 +8,8 @@ class EmployeesController extends Kwf_Controller_Action_Auto_Grid
     
     protected $_editDialog = array(
                                    'controllerUrl' => '/employee',
-                                   'width' => 600,
-                                   'height' => 700
+                                   'width' => 700,
+                                   'height' => 730
                                    );
 
     public function indexAction()
