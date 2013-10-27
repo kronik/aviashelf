@@ -29,8 +29,8 @@ class DocumentsController extends Kwf_Controller_Action_Auto_Grid
         #->setAllowBlank(false);
         
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
-        $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(150);
-        $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number')));
+        $this->_columns->add(new Kwf_Grid_Column('typeName', 'Тип проверки'))->setWidth(200);
+        $this->_columns->add(new Kwf_Grid_Column('number', 'Номер документа'))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column_Date('startDate', trlKwf('Doc Start Date')));
         $this->_columns->add(new Kwf_Grid_Column_Date('endDate', trlKwf('Doc End Date')))->setRenderer('docCheckDate');
         $this->_columns->add(new Kwf_Grid_Column('gradeName', trlKwf('Note')))->setWidth(300)->setRenderer('checkGrade');

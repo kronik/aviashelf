@@ -4,7 +4,7 @@ class CheckdocController extends CheckController
     protected function _initFields()
     {
         $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы документов');
+        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы проверок');
         
         $this->_form->add(new Kwf_Form_Field_TextField('title', trlKwf('Title')))
         ->setWidth(400)

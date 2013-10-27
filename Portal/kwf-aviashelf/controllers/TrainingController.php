@@ -24,9 +24,9 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы документов');
+        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы проверок');
         
-        $this->_form->add(new Kwf_Form_Field_Select('docTypeId', trlKwf('Document type')))
+        $this->_form->add(new Kwf_Form_Field_Select('docTypeId', 'Тип проверки'))
         ->setValues($docTypeModel)
         ->setSelect($docTypeSelect)
         ->setWidth(650)

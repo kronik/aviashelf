@@ -18,18 +18,18 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         $companySelect = $companyModel->select();
         
         $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы документов');
+        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы проверок');
         
         $docGradeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $docGradeSelect = $docGradeModel->select()->whereEquals('name', 'Оценки');
         
-        $tab->fields->add(new Kwf_Form_Field_Select('typeId', trlKwf('Type')))
+        $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Тип проверки'))
         ->setValues($docTypeModel)
         ->setSelect($docTypeSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $tab->fields->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
+        $tab->fields->add(new Kwf_Form_Field_TextField('number', 'Номер документа'))
         ->setWidth(400)
         ->setAllowBlank(false);
         
