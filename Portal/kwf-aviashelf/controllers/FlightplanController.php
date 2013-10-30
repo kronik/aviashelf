@@ -9,7 +9,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
     {
         $users = Kwf_Registry::get('userModel');
         
-        if ($users->getAuthedUserRole() == 'admin')
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan')
         {
             $this->_form->add(new Kwf_Form_Field_DateField('planDate', trlKwf('Date')))->setAllowBlank(false);
 

@@ -106,10 +106,15 @@ class Acl extends Kwf_Acl
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
 
         $this->addRole(new Kwf_Acl_Role('user', trl('User')));
-        
+        $this->addRole(new Kwf_Acl_Role('plan', 'Планирование'));
+
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_user', 'user'), 'edit_role');
+        $this->add(new Kwf_Acl_Resource_EditRole('edit_role_plan', 'plan'), 'edit_role');
+
         //$this->add(new Kwf_Acl_Resource_EditRole('edit_role_guest', 'guest'), 'edit_role');
         $this->allow('admin', 'edit_role_user');
+        $this->allow('admin', 'edit_role_plan');
+
         //$this->allow('admin', 'edit_role_guest');
         
         //$this->allow('user', 'default_links');
@@ -129,7 +134,14 @@ class Acl extends Kwf_Acl
         $this->allow('guest', 'default_flightplans');
         $this->allow('guest', 'default_flights');
         $this->allow('guest', 'default_index');
-        
+
+        $this->allow('plan', 'default_flightsmenuitem');
+        $this->allow('plan', 'default_flightplans');
+        $this->allow('plan', 'default_flights');
+        $this->allow('plan', 'default_index');
+        $this->allow('plan', 'default_tasks');
+
+        $this->deny('plan', 'default_myflights');
         $this->deny('guest', 'default_myflights');
         
         $this->allow('admin', 'default_menuitem');

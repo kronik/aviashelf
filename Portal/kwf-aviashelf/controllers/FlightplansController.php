@@ -20,7 +20,7 @@ class FlightplansController extends Kwf_Controller_Action_Auto_Grid
     {
         $users = Kwf_Registry::get('userModel');
 
-        if ($users->getAuthedUserRole() == 'admin')
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan')
         {
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         }

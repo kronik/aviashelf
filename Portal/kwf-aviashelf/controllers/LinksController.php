@@ -4,7 +4,7 @@ class LinksController extends Kwf_Controller_Action_Auto_Grid
     protected $_modelName = 'Links';
     protected $_defaultOrder = 'name';
     protected $_paging = 0;
-    protected $_buttons = array('add');
+    protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
                                    'controllerUrl' => '/link',
                                    'width' => 450,
