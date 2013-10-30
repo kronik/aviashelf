@@ -154,7 +154,8 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (21, 'Метеоминимумы'),
 (22, 'Статусы ВС'),
 (23, 'Дополнительные позиции'),
-(24, 'Типы проверок');
+(24, 'Типы проверок'),
+(25, 'Типы курсов');
 
 --
 -- Dumping data for table `link_data`
@@ -493,7 +494,10 @@ INSERT INTO `link_data` (`link_id`, `name`, `value`, `desc`) VALUES
 (23, 'Дополнительные позиции', 'Спасатель', 'Спасатель'),
 (24, 'Типы проверок', 'Перевозка ОГ', 'Перевозка опасных грузов'),
 (24, 'Типы проверок', 'АБ', 'Авиационная безопасность'),
-(24, 'Типы проверок', 'HUET', 'Подготовка по покиданию вертолета под водой');
+(24, 'Типы проверок', 'HUET', 'Подготовка по покиданию вертолета под водой'),
+(25, 'Типы курсов', 'Ми-8', 'Ми-8'),
+(25, 'Типы курсов', 'Ми-8МТВ', 'Ми-8МТВ'),
+(25, 'Типы курсов', 'Опрос', 'Опрос');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL AUTO_INCREMENT,
@@ -828,6 +832,7 @@ CREATE TABLE IF NOT EXISTS `trainings` (
     `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+    `typeId` int NOT NULL DEFAULT 0,
     `type` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
     `docTypeId` int NOT NULL,
     `docTypeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,

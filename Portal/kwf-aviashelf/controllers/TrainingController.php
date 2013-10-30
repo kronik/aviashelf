@@ -8,13 +8,17 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
+        $trainingTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $trainingTypeSelect = $trainingTypeModel->select()->whereEquals('name', 'Типы курсов');
+
         $this->_form->add(new Kwf_Form_Field_TextField('number', trlKwf('Number')))
         ->setWidth(650)
         ->setMaxLength(100)
         ->setAllowBlank(false);
         
-        $this->_form->add(new Kwf_Form_Field_Select('type', trlKwf('Type')))
-        ->setValues(array('Ми-8' => trlKwf('Ми-8'), 'Ми-8МТВ' => trlKwf('Ми-8МТВ'), 'Другое' => trlKwf('Questionary')))
+        $this->_form->add(new Kwf_Form_Field_Select('typeId', trlKwf('Type')))
+        ->setValues($trainingTypeModel)
+        ->setSelect($trainingTypeSelect)
         ->setWidth(650)
         ->setAllowBlank(false);
         
@@ -55,11 +59,19 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
             $prow = $m->getRow($s);
             
             $row->docTypeName = $prow->value;
+            
+            $s = $m->select()->whereEquals('id', $row->typeId);
+            $prow = $m->getRow($s);
+
+            $row->type = $prow->value;
         }
         else
         {
             $row->docTypeId = 0;
             $row->docTypeName = '';
+            
+            $row->typeId = 0;
+            $row->type = '';
         }
     }
     

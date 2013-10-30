@@ -104,7 +104,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
                         $result->gradeName = $gradeRow->value;
                     }
                 }
-                else if ($scoreInPercents >= 75)
+                else if ($scoreInPercents >= 80)
                 {
                     $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Оценки' AND value = 'четыре'"));
                     $gradeRow = $typeModel->getRow($typeSelect);
@@ -115,7 +115,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
                         $result->gradeName = $gradeRow->value;
                     }
                 }
-                else if ($scoreInPercents >= 51)
+                else if ($scoreInPercents >= 75)
                 {
                     $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Оценки' AND value = 'три'"));
                     $gradeRow = $typeModel->getRow($typeSelect);
