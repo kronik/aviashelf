@@ -18,7 +18,7 @@ var Employees = Ext.extend(Ext.Panel,
         var accesses = new Kwf.Auto.GridPanel({
               controllerUrl   : '/flightaccesses',
               collapsible     : true,
-              title           : 'Допуски'
+              title           : 'Летные проверки'
         });
         
         var flightresults = new Kwf.Auto.GridPanel({
