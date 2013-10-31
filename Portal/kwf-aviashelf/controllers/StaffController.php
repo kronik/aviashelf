@@ -114,9 +114,25 @@ class StaffController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add($multifields);
     }
     
+    protected function updateReferences(Kwf_Model_Row_Interface $row)
+    {
+        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
+        
+        $s = $m1->select()->whereEquals('id', $row->subCompanyId);
+        $prow = $m1->getRow($s);
+        $row->subCompanyName = $prow->value;
+    }
+    
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
         $row->visible = 1;
         $row->groupType = 2;
+        
+        $this->updateReferences($row);
     }
+    
+    protected function _beforeSave(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateReferences($row);
+    }    
 }

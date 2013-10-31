@@ -5,6 +5,7 @@ class StaffsController extends Kwf_Controller_Action_Auto_Grid
     protected $_defaultOrder = 'lastname';
     protected $_paging = 20;
     protected $_buttons = array('add', 'delete');
+    protected $_grouping = array('groupField' => 'subCompanyName');
 
     protected $_editDialog = array(
                                    'controllerUrl' => '/staff',
@@ -20,6 +21,7 @@ class StaffsController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('lastname', trlKwf('Lastname'), 80));
         $this->_columns->add(new Kwf_Grid_Column('firstname', trlKwf('Firstname'), 80));
         $this->_columns->add(new Kwf_Grid_Column('middlename', trlKwf('Middlename'), 90));
+        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', 'Подразделение', 100));
     }
     
     public function indexAction()
