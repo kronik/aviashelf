@@ -155,6 +155,6 @@ Ext.util.Format.checkGrade = function(val)
     return val;
 };
 
-Kwf.keepAlive = function() {};
-Kwf.keepAliveActivated = false;
-Kwf.activateKeepAlive = function() {};
+//Kwf.keepAlive = function() {};
+//Kwf.keepAliveActivated = false;
+//Kwf.activateKeepAlive = function() {};

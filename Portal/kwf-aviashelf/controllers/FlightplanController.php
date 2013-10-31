@@ -14,10 +14,10 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
             $this->_form->add(new Kwf_Form_Field_DateField('planDate', trlKwf('Date')))->setAllowBlank(false);
 
             $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-            $employeesSelect = $employeesModel->select()->whereEquals('visible', '1')->whereEquals('groupType', 2);
-
+            $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 2'))->order('lastname');
+            
             $techModel = Kwf_Model_Abstract::getInstance('Employees');
-            $techSelect = $techModel->select()->whereEquals('visible', '1')->whereEquals('groupType', 2);
+            $techSelect = $techModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 2'))->order('lastname');
 
             $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Responsible')))
             ->setValues($employeesModel)
