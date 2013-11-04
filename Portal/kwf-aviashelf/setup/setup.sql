@@ -797,6 +797,26 @@ CREATE TABLE IF NOT EXISTS `flightAccesses` (
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `flightSets` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `flightId` int NOT NULL,
+    `setId` int NOT NULL,
+    `setName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `wsTypeId` int NOT NULL,
+    `wsTypeName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    `setTypeId` int NOT NULL,
+    `setTypeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `setMeteoTypeId` int NOT NULL,
+    `setMeteoTypeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `setStartDate` date,
+    `setEndDate` date,
+    `flightsCount` int NOT NULL DEFAULT 0,
+    `setsCount` int NOT NULL DEFAULT 0,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `checks` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `checkType` enum('doc','flight','training') NOT NULL DEFAULT 'doc',

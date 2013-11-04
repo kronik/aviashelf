@@ -14,6 +14,12 @@ var Flightplans = Ext.extend(Ext.Panel,
             title           : trlKwf('Flight results')
         });
 
+        var flightsets = new Kwf.Auto.GridPanel({
+            controllerUrl   : '/flightsets',
+            collapsible     : true,
+            title           : 'Заходы'
+        });
+
         var flightgroups = new Kwf.Auto.GridPanel({
             controllerUrl   : '/flightgroups',
             collapsible     : true,
@@ -45,6 +51,10 @@ var Flightplans = Ext.extend(Ext.Panel,
                          {
                              queryParam: 'flightId',
                              item: staffgroups
+                         },
+                         {
+                             queryParam: 'flightId',
+                             item: flightsets
                          }
                      ]
         });
@@ -92,7 +102,7 @@ var Flightplans = Ext.extend(Ext.Panel,
              resizable   : true,
              split       : true,
              collapsible : true,
-             items:[flightfiles, flightgroups, staffgroups, flightresults]
+             items:[flightfiles, flightgroups, staffgroups, flightresults, flightsets]
         });
                              
         var panel = new Ext.Panel({

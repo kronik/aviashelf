@@ -77,6 +77,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_planerstate'), 'default_planerstates');
         $this->addResource(new Zend_Acl_Resource('default_flightfullresults'), 'default_flights');
         $this->addResource(new Zend_Acl_Resource('default_flightfullresult'), 'default_flightfullresults');
+        $this->addResource(new Zend_Acl_Resource('default_flightsets'), 'default_flights');
+        $this->addResource(new Zend_Acl_Resource('default_flightset'), 'default_flightsets');
         $this->addResource(new Zend_Acl_Resource('default_flightgroups'), 'default_flights');
         $this->addResource(new Zend_Acl_Resource('default_flightgroup'), 'default_flightgroups');
         $this->addResource(new Zend_Acl_Resource('default_flightgroupsfilter'), 'default_flightgroup');

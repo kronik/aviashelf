@@ -6,10 +6,6 @@ class Flightaccesses extends Kwf_Model_Db
        'Employee' => array(
              'column'           => 'employeeId',
              'refModelClass'     => 'Employees',
-        ),
-        'Document' => array(
-             'column'           => 'docId',
-             'refModelClass'     => 'Documents',
         )
     );
 }

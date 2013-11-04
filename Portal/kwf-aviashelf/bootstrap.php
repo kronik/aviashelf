@@ -8,6 +8,11 @@ $include_path .= PATH_SEPARATOR . 'app';
 set_include_path($include_path);
 require_once 'kwf-lib/Kwf/Setup.php';
 Kwf_Setup::setUp();
+    
+    
+//Kwf_Session::start();
+//d($_SESSION);
+    
 Kwf_Setup::dispatchMedia();
 //Kwf_Assets_Loader::load();
 
