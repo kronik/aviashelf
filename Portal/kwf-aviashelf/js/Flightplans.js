@@ -99,7 +99,6 @@ var Flightplans = Ext.extend(Ext.Panel,
                                title: trlKwf('Flights'),
                                layout:'border',
                                items: [flighttasks, flighttabs]
-                               
                                });
                              
         var tabs = new Ext.TabPanel({

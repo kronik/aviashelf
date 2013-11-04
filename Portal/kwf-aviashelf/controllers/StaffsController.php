@@ -3,7 +3,7 @@ class StaffsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Employees';
     protected $_defaultOrder = 'lastname';
-    protected $_paging = 20;
+    protected $_paging = 100;
     protected $_buttons = array('add', 'delete');
     protected $_grouping = array('groupField' => 'subCompanyName');
 

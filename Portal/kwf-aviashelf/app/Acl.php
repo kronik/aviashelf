@@ -6,42 +6,42 @@ class Acl extends Kwf_Acl
         parent::__construct();
         $this->remove('default_index');
 
-        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwf('Dictionaries'), 'icon'=>'book.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwfStatic('Dictionaries'), 'icon'=>'book.png')));
         
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwf('Tasks'), 'icon'=>'time.png'), '/tasks'));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwfStatic('Tasks'), 'icon'=>'time.png'), '/tasks'));
 
-        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_staffmenuitem', array('text'=>trlKwf('Employees'), 'icon'=>'user.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwf('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
-         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwf('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_staffmenuitem', array('text'=>trlKwfStatic('Employees'), 'icon'=>'user.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwfStatic('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
+         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwfStatic('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
         
-        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwf('Flights'), 'icon'=>'calendar.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwf('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myflights', array('text'=>trlKwf('My flights'), 'icon'=>'book_open.png'), '/myflights'), 'default_flightsmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwfStatic('Flights'), 'icon'=>'calendar.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwfStatic('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myflights', array('text'=>trlKwfStatic('My flights'), 'icon'=>'book_open.png'), '/myflights'), 'default_flightsmenuitem');
 
-        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_edumenuitem', array('text'=>trlKwf('Education'), 'icon'=>'database.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mytrainings', array('text'=>trlKwf('My trainings'), 'icon'=>'user.png'), '/mytrainings'), 'default_edumenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mygroups', array('text'=>trlKwf('My groups'), 'icon'=>'group.png'), '/mygroups'), 'default_edumenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myresults', array('text'=>trlKwf('My results'), 'icon'=>'user.png'), '/myresults'), 'default_edumenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainings', array('text'=>trlKwf('Trainings'), 'icon'=>'database.png'), '/trainings'), 'default_edumenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_traininggroups', array('text'=>trlKwf('Groups'), 'icon'=>'database.png'), '/traininggroups'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_edumenuitem', array('text'=>trlKwfStatic('Education'), 'icon'=>'database.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mytrainings', array('text'=>trlKwfStatic('My trainings'), 'icon'=>'user.png'), '/mytrainings'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mygroups', array('text'=>trlKwfStatic('My groups'), 'icon'=>'group.png'), '/mygroups'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myresults', array('text'=>trlKwfStatic('My results'), 'icon'=>'user.png'), '/myresults'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainings', array('text'=>trlKwfStatic('Trainings'), 'icon'=>'database.png'), '/trainings'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_traininggroups', array('text'=>trlKwfStatic('Groups'), 'icon'=>'database.png'), '/traininggroups'), 'default_edumenuitem');
         
-        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_checksmenuitem', array('text'=>trlKwf('Checks'), 'icon'=>'calculator.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>trlKwf('Documents checks'), 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksflights', array('text'=>trlKwf('Flights checks'), 'icon'=>'calculator.png'), '/checksflights'), 'default_checksmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkstrainings', array('text'=>trlKwf('Trainings checks'), 'icon'=>'calculator.png'), '/checkstrainings'), 'default_checksmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkresults', array('text'=>trlKwf('Check Results'), 'icon'=>'database.png'), '/checkresults'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_checksmenuitem', array('text'=>trlKwfStatic('Checks'), 'icon'=>'calculator.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>trlKwfStatic('Documents checks'), 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksflights', array('text'=>trlKwfStatic('Flights checks'), 'icon'=>'calculator.png'), '/checksflights'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkstrainings', array('text'=>trlKwfStatic('Trainings checks'), 'icon'=>'calculator.png'), '/checkstrainings'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkresults', array('text'=>trlKwfStatic('Check Results'), 'icon'=>'database.png'), '/checkresults'), 'default_checksmenuitem');
         
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwf('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwf('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airports', array('text'=>trlKwf('Airports'), 'icon'=>'book.png'), '/airports'), 'default_menuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_landpoints', array('text'=>trlKwf('Landpoints'), 'icon'=>'book.png'), '/landpoints'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwfStatic('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwfStatic('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airports', array('text'=>trlKwfStatic('Airports'), 'icon'=>'book.png'), '/airports'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_landpoints', array('text'=>trlKwfStatic('Landpoints'), 'icon'=>'book.png'), '/landpoints'), 'default_menuitem');
 
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_companies', array('text'=>trlKwf('Companies'), 'icon'=>'book.png'), '/companies'), 'default_menuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_wstypes', array('text'=>trlKwf('WsTypes'), 'icon'=>'book.png'), '/wstypes'), 'default_menuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airplanes', array('text'=>trlKwf('Airplanes'), 'icon'=>'book.png'), '/airplanes'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_companies', array('text'=>trlKwfStatic('Companies'), 'icon'=>'book.png'), '/companies'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_wstypes', array('text'=>trlKwfStatic('WsTypes'), 'icon'=>'book.png'), '/wstypes'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airplanes', array('text'=>trlKwfStatic('Airplanes'), 'icon'=>'book.png'), '/airplanes'), 'default_menuitem');
         
-        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_settingsmenuitem', array('text'=>trlKwf('Settings'), 'icon'=>'cog.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('kwf_user_users', array('text'=>trlKwf('Users management'), 'icon'=>'user_suit.png'), '/kwf/user/users'), 'default_settingsmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_settingsmenuitem', array('text'=>trlKwfStatic('Settings'), 'icon'=>'cog.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('kwf_user_users', array('text'=>trlKwfStatic('Users management'), 'icon'=>'user_suit.png'), '/kwf/user/users'), 'default_settingsmenuitem');
 
         //$this->addResource(new Zend_Acl_Resource('default_tasks'), 'default_index');
         $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
@@ -105,7 +105,7 @@ class Acl extends Kwf_Acl
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
 
-        $this->addRole(new Kwf_Acl_Role('user', trl('User')));
+        $this->addRole(new Kwf_Acl_Role('user', trlStatic('User')));
         $this->addRole(new Kwf_Acl_Role('plan', 'Планирование'));
 
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_user', 'user'), 'edit_role');

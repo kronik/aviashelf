@@ -7,9 +7,6 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
-        $docsModel = Kwf_Model_Abstract::getInstance('Documents');
-        $docsSelect = $docsModel->select()->whereEquals('ownerId', $this->_getParam('employeeId'))->order('value');
-        
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select();
         
@@ -18,12 +15,6 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
 
         $accessTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $accessTypeSelect = $accessTypeModel->select()->whereEquals('name', 'Типы допусков')->order('value');
-
-        $this->_form->add(new Kwf_Form_Field_Select('docId', trlKwf('Document')))
-        ->setValues($docsModel)
-        ->setSelect($docsSelect)
-        ->setWidth(400)
-        ->setAllowBlank(false);
         
         $this->_form->add(new Kwf_Form_Field_Select('wsTypeId', trlKwf('WsType')))
         ->setValues($wstypeModel)
@@ -43,7 +34,8 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_DateField('accessDate', 'Дата'))->setAllowBlank(false);
+        $this->_form->add(new Kwf_Form_Field_DateField('accessDate', 'Дата допуска'))->setAllowBlank(false);
+        $this->_form->add(new Kwf_Form_Field_DateField('accessEndDate', 'Дата окончания'))->setAllowBlank(false);
 
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
@@ -54,7 +46,6 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
-        $m3 = Kwf_Model_Abstract::getInstance('Documents');
         $m4 = Kwf_Model_Abstract::getInstance('Linkdata');
 
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
@@ -70,9 +61,8 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         $prow = $m2->getRow($s);
         $row->employeeName = (string)$prow;
         
-        $s = $m3->select()->whereEquals('id', $row->docId);
-        $prow = $m3->getRow($s);
-        $row->docName = (string)$prow;
+        $row->docId = 0;
+        $row->docName = '';
         
         $s = $m4->select()->whereEquals('id', $row->accessTypeId);
         $prow = $m4->getRow($s);

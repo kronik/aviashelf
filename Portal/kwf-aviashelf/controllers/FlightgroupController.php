@@ -105,7 +105,16 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                 $this->addFlightResult($flightRow, $row, 'Налет КВС');
             }
             
+            if (($this->isContain(trlKwf('Instructor'), $row->positionName)) ||
+                ($this->isContain(trlKwf('Checker'), $row->positionName)))
+            {
+                $this->addFlightResult($flightRow, $row, 'Налет КВС');
+                $this->addFlightResult($flightRow, $row, 'Инструктор');
+            }
+
+            
             $this->addFlightResult($flightRow, $row, 'Налет');
+            $this->addFlightResult($flightRow, $row, 'Время работы');
         }
     }
     
@@ -129,6 +138,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             $resultRow->typeName = $typeRow->value;
             $resultRow->planeId = $flight->planeId;
             $resultRow->planeName = $flight->planeName;
+            $resultRow->flightsCount = 0;
             $resultRow->flightDate = $flight->flightStartDate;
             $resultRow->flightId = $flight->id;
             $resultRow->flightTime = '00:00';

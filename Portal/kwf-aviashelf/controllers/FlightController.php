@@ -1,5 +1,9 @@
 <?php
+
+require_once 'FormEx.php';
+
 class FlightController extends Kwf_Controller_Action_Auto_Form
+//class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
 {
     protected $_permissions = array('save', 'add', 'xls');
     protected $_modelName = 'Flights';

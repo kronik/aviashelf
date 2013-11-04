@@ -8,7 +8,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
     protected function _initFields()
     {
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('visible', '1');
+        $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 1'))->order('lastname');
         
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('name', 'Типы налета');
@@ -24,9 +24,11 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($employeesSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
-        
+
         $this->_form->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Time')))->setIncrement(5);
         
+        $this->_form->add(new Kwf_Form_Field_NumberField('flightsCount', 'Кол-во полетов'))->setWidth(400);
+
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);
