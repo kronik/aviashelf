@@ -2,13 +2,13 @@
 class FlightsetsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Flightset';
-    protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
+    protected $_defaultOrder = array('field' => 'employeeName', 'direction' => 'ASC');
     protected $_buttons = array('add', 'delete');
-    protected $_grouping = array('groupField' => 'wsTypeName');
+    protected $_grouping = array('groupField' => 'employeeName');
     protected $_editDialog = array(
         'controllerUrl' => '/flightset',
         'width' => 550,
-        'height' => 390
+        'height' => 420
     );
 
     protected function _initColumns()
@@ -16,6 +16,7 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('docCheckDate');
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);

@@ -802,6 +802,8 @@ CREATE TABLE IF NOT EXISTS `flightAccesses` (
 CREATE TABLE IF NOT EXISTS `flightSets` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `flightId` int NOT NULL,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `setId` int NOT NULL,
     `setName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `wsTypeId` int NOT NULL,

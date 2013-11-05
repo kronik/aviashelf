@@ -7,6 +7,9 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 1'))->order('lastname');
+
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select();
         
@@ -16,6 +19,12 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         $accessTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $accessTypeSelect = $accessTypeModel->select()->whereEquals('name', 'Типы допусков')->order('value');
         
+        $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
+        ->setValues($employeesModel)
+        ->setSelect($employeesSelect)
+        ->setWidth(400)
+        ->setAllowBlank(false);
+
         $this->_form->add(new Kwf_Form_Field_Select('wsTypeId', trlKwf('WsType')))
         ->setValues($wstypeModel)
         ->setSelect($wstypeSelect)
@@ -47,7 +56,7 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
 
         $this->_form->add(new Kwf_Form_Field_DateField('setStartDate', 'Дата начала'))->setAllowBlank(true);
-        $this->_form->add(new Kwf_Form_Field_DateField('setEndEndDate', 'Дата окончания'))->setAllowBlank(false);
+        $this->_form->add(new Kwf_Form_Field_DateField('setEndDate', 'Дата окончания'))->setAllowBlank(false);
 
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
@@ -58,6 +67,7 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m4 = Kwf_Model_Abstract::getInstance('Linkdata');
+        $m2 = Kwf_Model_Abstract::getInstance('Employees');
 
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select()->whereEquals('id', $row->wsTypeId);
@@ -68,15 +78,17 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         $prow = $m1->getRow($s);
         $row->setName = $prow->value;
         
-        $row->docId = 0;
-        $row->docName = '';
-        
-        $row->setMeteoId = 0;
-        $row->setMeteoName = $prow->value;
+        $row->setMeteoTypeId = 0;
+        $row->setMeteoTypeName = $prow->value;
 
         $s = $m4->select()->whereEquals('id', $row->setTypeId);
         $prow = $m4->getRow($s);
         $row->setTypeName = $prow->value;
+        
+        $s = $m2->select()->whereEquals('id', $row->employeeId);
+        $prow = $m2->getRow($s);
+        
+        $row->employeeName = (string)$prow;
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
