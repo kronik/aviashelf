@@ -42,3 +42,24 @@ Ext.util.Format.setsCheckDate = function(val)
     }
     return val;
 };
+
+Ext.grid.GroupSummary.Calculations['totalFlightsCount'] = function(v, record, field)
+{
+    if (v == 0)
+    {
+        return record.data.flightsCount;
+    }
+    
+    return v + record.data.flightsCount;
+}
+
+Ext.grid.GroupSummary.Calculations['totalSetsCount'] = function(v, record, field)
+{
+    if (v == 0)
+    {
+        return record.data.setsCount;
+    }
+    
+    return v + record.data.setsCount;
+}
+

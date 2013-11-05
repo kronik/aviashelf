@@ -103,8 +103,15 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             if ($this->isContain(trlKwf('KWS'), $row->positionName))
             {
                 $this->addFlightResult($flightRow, $row, 'Налет КВС');
+                $this->addFlightSet($flightRow, $row);
+
             }
-            
+
+            if ($this->isContain(trlKwf('Second pilot'), $row->positionName))
+            {
+                $this->addFlightSet($flightRow, $row);
+            }
+
             if (($this->isContain(trlKwf('Instructor'), $row->positionName)) ||
                 ($this->isContain(trlKwf('Checker'), $row->positionName)))
             {
@@ -112,9 +119,10 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                 $this->addFlightResult($flightRow, $row, 'Инструктор');
             }
 
-            
             $this->addFlightResult($flightRow, $row, 'Налет');
             $this->addFlightResult($flightRow, $row, 'Время работы');
+            
+            //p ($row);
         }
     }
     
@@ -150,6 +158,45 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         }
     }
 
+    protected function addFlightSet($flight, $groupRow)
+    {
+        $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
+        $planesSelect = $planesModel->select()->whereEquals('id', $flight->planeId);
+        $plane = $planesModel->getRow($planesSelect);
+        
+        $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
+        $wstypeSelect = $wstypeModel->select()->whereEquals('id', $plane->twsId);
+        $planeType = $wstypeModel->getRow($wstypeSelect);
+
+        $result = Kwf_Model_Abstract::getInstance('Flightset');
+        $resultSelect = $result->select()->where(new Kwf_Model_Select_Expr_Sql("employeeId = " . $groupRow->employeeId
+                                                                               ." AND flightId = " . $flight->id));
+        $resultRow = $result->getRow($resultSelect);
+        
+        if ($resultRow == NULL)
+        {
+            $resultRow = $result->createRow();
+            
+            $resultRow->flightId = $flight->id;
+            $resultRow->flightsCount = 0;
+            $resultRow->setsCount = 0;
+            $resultRow->employeeId = $groupRow->employeeId;
+            $resultRow->employeeName = $groupRow->employeeName;
+            $resultRow->wsTypeId = $planeType->id;
+            $resultRow->wsTypeName = $planeType->Name;
+            $resultRow->setId = 0;
+            $resultRow->setName = '';
+            $resultRow->setMeteoTypeId = 0;
+            $resultRow->setMeteoTypeName = '';
+            $resultRow->setTypeId = 0;
+            $resultRow->setTypeName = '';
+            $resultRow->setStartDate = $flight->flightStartDate;
+            $resultRow->setEndDate = $flight->flightStartDate;
+
+            $resultRow->save();
+        }
+    }
+    
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
         $row->flightId = $this->_getParam('flightId');
