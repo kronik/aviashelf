@@ -656,6 +656,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `typeId` int NOT NULL,
     `typeName` varchar(100) COLLATE utf8_unicode_ci,
     `ownerId` int NOT NULL,
+    `ownerName` varchar(300) COLLATE utf8_unicode_ci,
     `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     `startDate` date,
     `endDate` date,

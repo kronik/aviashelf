@@ -8,7 +8,8 @@ class FlightplansController extends Kwf_Controller_Action_Auto_Grid
     protected $_editDialog = array(
                                      'controllerUrl' => '/flightplan',
                                      'width' => 550,
-                                     'height' => 300
+                                     'height' => 300,
+                                     'type' => 'WindowFormEx'
                                    );
 
     public function indexAction()

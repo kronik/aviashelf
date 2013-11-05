@@ -2,9 +2,9 @@
     
 require_once 'FormEx.php';
   
-class FlightplanController extends Kwf_Controller_Action_Auto_Form
+//class FlightplanController extends Kwf_Controller_Action_Auto_Form
 
-//class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
+class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
 {
     protected $_permissions = array('save', 'add', 'xls');
     protected $_modelName = 'Flightplans';
@@ -13,7 +13,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form
     public function indexAction()
     {
         parent::indexAction();
-        //$this->view->xtype = 'kwf.autoformex';
+        $this->view->xtype = 'kwf.autoformex';
     }
 
     protected function _initFields()

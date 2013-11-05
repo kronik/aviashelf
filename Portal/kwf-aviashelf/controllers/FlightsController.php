@@ -26,8 +26,9 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid
             $this->_editDialog = array(
                                            'controllerUrl' => '/flight',
                                            'width' => 550,
-                                           'height' => 410
-                                       );            
+                                           'height' => 410,
+                                           'type' => 'WindowFormEx'
+                                       );
         }
         else
         {

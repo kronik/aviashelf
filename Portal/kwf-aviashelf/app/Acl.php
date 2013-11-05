@@ -26,10 +26,11 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_traininggroups', array('text'=>trlKwfStatic('Groups'), 'icon'=>'database.png'), '/traininggroups'), 'default_edumenuitem');
         
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_checksmenuitem', array('text'=>trlKwfStatic('Checks'), 'icon'=>'calculator.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>trlKwfStatic('Documents checks'), 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksflights', array('text'=>trlKwfStatic('Flights checks'), 'icon'=>'calculator.png'), '/checksflights'), 'default_checksmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkstrainings', array('text'=>trlKwfStatic('Trainings checks'), 'icon'=>'calculator.png'), '/checkstrainings'), 'default_checksmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkresults', array('text'=>trlKwfStatic('Check Results'), 'icon'=>'database.png'), '/checkresults'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkaccesses', array('text'=>'Летные проверки', 'icon'=>'calculator.png'), '/checkaccesses'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>'Периодическая подготовка', 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
+//        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksflights', array('text'=>trlKwfStatic('Flights checks'), 'icon'=>'calculator.png'), '/checksflights'), 'default_checksmenuitem');
+//        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkstrainings', array('text'=>trlKwfStatic('Trainings checks'), 'icon'=>'calculator.png'), '/checkstrainings'), 'default_checksmenuitem');
+//        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkresults', array('text'=>trlKwfStatic('Check Results'), 'icon'=>'database.png'), '/checkresults'), 'default_checksmenuitem');
         
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwfStatic('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwfStatic('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
@@ -99,9 +100,9 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_trainingresults'), 'default_trainings');
         $this->addResource(new Zend_Acl_Resource('default_trainingresult'), 'default_trainingresults');
 
-        $this->addResource(new Zend_Acl_Resource('default_checkdoc'), 'default_checksdocs');
-        $this->addResource(new Zend_Acl_Resource('default_checkflight'), 'default_checksflights');
-        $this->addResource(new Zend_Acl_Resource('default_checktraining'), 'default_checkstrainings');
+//        $this->addResource(new Zend_Acl_Resource('default_checkdoc'), 'default_checksdocs');
+//        $this->addResource(new Zend_Acl_Resource('default_checkflight'), 'default_checksflights');
+//        $this->addResource(new Zend_Acl_Resource('default_checktraining'), 'default_checkstrainings');
         
         $this->add(new Zend_Acl_Resource('kwf_user_user'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
@@ -154,10 +155,11 @@ class Acl extends Kwf_Acl
         $this->allow('admin', 'default_staffgroupsfilter');
         $this->allow('admin', 'default_flightplans');
         $this->allow('admin', 'default_myflights');
-        $this->allow('admin', 'default_checkresults');
+//        $this->allow('admin', 'default_checkresults');
         $this->allow('admin', 'default_checksdocs');
-        $this->allow('admin', 'default_checksflights');
-        $this->allow('admin', 'default_checkstrainings');
+        $this->allow('admin', 'default_checkaccesses');
+//        $this->allow('admin', 'default_checksflights');
+//        $this->allow('admin', 'default_checkstrainings');
         $this->allow('admin', 'default_mytrainings');
         $this->allow('admin', 'default_mygroups');
         $this->allow('admin', 'default_trainings');

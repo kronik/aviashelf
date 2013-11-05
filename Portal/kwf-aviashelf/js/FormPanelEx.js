@@ -484,11 +484,10 @@ Kwf.Auto.FormPanelEx = Ext.extend(Kwf.Auto.FormPanel, {
                                 }
                                 });
 
-Ext.reg('kwf.autoformex', Kwf.Auto.FormPanelEx);
-
-
+//Ext.reg('kwf.autoformex', Kwf.Auto.FormPanelEx);
 
 */
+
 Kwf.Auto.FormPanelEx = Ext.extend(Kwf.Auto.FormPanel, {
 
     initComponent: function()
@@ -546,4 +545,13 @@ Kwf.Auto.FormPanelEx = Ext.extend(Kwf.Auto.FormPanel, {
 });
 
 Ext.reg('kwf.autoformex', Kwf.Auto.FormPanelEx);
+
+
+WindowFormEx = Ext.extend(Kwf.Auto.Form.Window, {
+                          initComponent : function() {
+                          this.autoForm = 'Kwf.Auto.FormPanelEx'; //or however you calld the form class
+                          WindowFormEx.superclass.initComponent.call(this);
+                          }
+                          });
+
 

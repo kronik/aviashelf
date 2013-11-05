@@ -2,8 +2,8 @@
 
 require_once 'FormEx.php';
 
-class FlightController extends Kwf_Controller_Action_Auto_Form
-//class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
+//class FlightController extends Kwf_Controller_Action_Auto_Form
+class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
 {
     protected $_permissions = array('save', 'add', 'xls');
     protected $_modelName = 'Flights';
@@ -269,7 +269,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form
 
         $reporter = new Reporter ();
         
-        $xls = PHPExcel_IOFactory::load("./templates/flight_task_template.xls");
+        $xls = PHPExcel_IOFactory::load("./templates/flight_task_template (old).xls");
         
         #$xls->setActiveSheetIndex();
         
