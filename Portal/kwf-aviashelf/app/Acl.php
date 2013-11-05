@@ -28,6 +28,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_checksmenuitem', array('text'=>trlKwfStatic('Checks'), 'icon'=>'calculator.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkaccesses', array('text'=>'Летные проверки', 'icon'=>'calculator.png'), '/checkaccesses'), 'default_checksmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>'Периодическая подготовка', 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksets', array('text'=>'Заходы', 'icon'=>'calculator.png'), '/checksets'), 'default_checksmenuitem');
+
 //        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksflights', array('text'=>trlKwfStatic('Flights checks'), 'icon'=>'calculator.png'), '/checksflights'), 'default_checksmenuitem');
 //        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkstrainings', array('text'=>trlKwfStatic('Trainings checks'), 'icon'=>'calculator.png'), '/checkstrainings'), 'default_checksmenuitem');
 //        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkresults', array('text'=>trlKwfStatic('Check Results'), 'icon'=>'database.png'), '/checkresults'), 'default_checksmenuitem');
@@ -158,6 +160,7 @@ class Acl extends Kwf_Acl
 //        $this->allow('admin', 'default_checkresults');
         $this->allow('admin', 'default_checksdocs');
         $this->allow('admin', 'default_checkaccesses');
+        $this->allow('admin', 'default_checksets');
 //        $this->allow('admin', 'default_checksflights');
 //        $this->allow('admin', 'default_checkstrainings');
         $this->allow('admin', 'default_mytrainings');

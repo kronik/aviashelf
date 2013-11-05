@@ -10,11 +10,8 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select();
         
-        $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $typeSelect = $typeModel->select()->whereEquals('name', 'Метеоминимумы')->order('value');
-
         $setTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $setTypeSelect = $setTypeModel->select()->whereEquals('name', 'Типы захода')->order('value');
+        $setTypeSelect = $setTypeModel->select()->whereEquals('name', 'Тип захода')->order('value');
 
         $accessTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $accessTypeSelect = $accessTypeModel->select()->whereEquals('name', 'Типы допусков')->order('value');
@@ -31,9 +28,7 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_Select('setMeteoTypeId', 'Метеоминимум'))
-        ->setValues($typeModel)
-        ->setSelect($typeSelect)
+        $this->_form->add(new Kwf_Form_Field_TextField('setMeteoTypeId', 'Метеоминимум'))
         ->setWidth(400)
         ->setAllowBlank(false);
 
@@ -62,7 +57,6 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
-        $m3 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m4 = Kwf_Model_Abstract::getInstance('Linkdata');
 
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
@@ -77,8 +71,7 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         $row->docId = 0;
         $row->docName = '';
         
-        $s = $m3->select()->whereEquals('id', $row->setMeteoId);
-        $prow = $m3->getRow($s);
+        $row->setMeteoId = 0;
         $row->setMeteoName = $prow->value;
 
         $s = $m4->select()->whereEquals('id', $row->setTypeId);
