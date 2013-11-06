@@ -1,5 +1,5 @@
 <?php
-class Cli_AutochecksController extends Kwf_Controller_Action {
+class Cli_AutochecksControllerController extends Kwf_Controller_Action {
     public function indexAction() {
         
         echo "Hi\n";
