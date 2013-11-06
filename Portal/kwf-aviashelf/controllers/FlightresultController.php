@@ -26,6 +26,7 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $this->_form->add(new Kwf_Form_Field_DateField('flightDate', trlKwf('Date')));
+        
         $this->_form->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Time')))->setIncrement(5);
         
         $this->_form->add(new Kwf_Form_Field_NumberField('flightsCount', 'Кол-во полетов'))->setWidth(400);

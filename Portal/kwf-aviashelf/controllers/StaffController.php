@@ -73,7 +73,15 @@ class StaffController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($companySelect)
         ->setWidth(400)
         ->setAllowBlank(false);
-                
+        
+        $linkModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $linkSelect = $linkModel->select()->whereEquals('name', 'Подразделения');
+        
+        $tab->fields->add(new Kwf_Form_Field_Select('subCompanyId', trlKwf('Subcompany')))
+        ->setValues($linkModel)
+        ->setSelect($linkSelect)
+        ->setWidth(400);
+        
         $specModel = Kwf_Model_Abstract::getInstance('Specialities');
         $specSelect = $specModel->select();
         
