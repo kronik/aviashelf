@@ -192,9 +192,16 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         
-        $s = $m1->select()->whereEquals('id', $row->subCompanyId);
-        $prow = $m1->getRow($s);
-        $row->subCompanyName = $prow->value;
+        if (($row->subCompanyId != NULL) && ($row->subCompanyId > 0)) {
+            $s = $m1->select()->whereEquals('id', $row->subCompanyId);
+            $prow = $m1->getRow($s);
+            
+            if ($prow != NULL) {
+                $row->subCompanyName = $prow->value;
+            } else {
+                $row->subCompanyName = '';
+            }
+        }
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
