@@ -1,5 +1,7 @@
 <?php
-class FlighttracksController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class FlighttracksController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Flighttracks';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
@@ -9,12 +11,17 @@ class FlighttracksController extends Kwf_Controller_Action_Auto_Grid
 
     protected function _initColumns()
     {
+        parent::_initColumns();
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $users = Kwf_Registry::get('userModel');
         
-        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan')
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' || $users->getAuthedUserRole() == 'power')
         {
+            if ($users->getAuthedUserRole() == 'power') {
+                unset($this->_buttons ['delete']);
+            }
+            
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
             
             $this->_editDialog = array(

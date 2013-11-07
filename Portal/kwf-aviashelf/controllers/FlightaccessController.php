@@ -6,7 +6,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
     protected $_paging = 0;
 
     protected function _initFields()
-    {
+    {        
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select();
         
@@ -28,7 +28,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_Select('accessTypeId', 'Тип допуска'))
+        $this->_form->add(new Kwf_Form_Field_Select('accessTypeId', 'Тип проверки'))
         ->setValues($accessTypeModel)
         ->setSelect($accessTypeSelect)
         ->setWidth(400)

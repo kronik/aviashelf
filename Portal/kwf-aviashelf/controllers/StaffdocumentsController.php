@@ -1,5 +1,7 @@
 <?php
-class StaffdocumentsController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class StaffdocumentsController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Documents';
     protected $_defaultOrder = array('field' => 'endDate', 'direction' => 'ASC');
@@ -13,6 +15,8 @@ class StaffdocumentsController extends Kwf_Controller_Action_Auto_Grid
 
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));

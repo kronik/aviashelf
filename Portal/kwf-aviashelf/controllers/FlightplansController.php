@@ -1,5 +1,7 @@
 <?php
-class FlightplansController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class FlightplansController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Flightplans';
     protected $_defaultOrder = array('field' => 'planDate', 'direction' => 'DESC');
@@ -14,14 +16,17 @@ class FlightplansController extends Kwf_Controller_Action_Auto_Grid
 
     public function indexAction()
     {
+        parent::indexAction();
         $this->view->ext('Flightplans');
     }
     
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $users = Kwf_Registry::get('userModel');
 
-        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan')
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' || $users->getAuthedUserRole() == 'power')
         {
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         }

@@ -1,10 +1,14 @@
 <?php
-class StaffgroupsfilterController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class StaffgroupsfilterController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Employees';
 
     protected function _initColumns()
-    {            
+    {
+        parent::_initColumns();
+        
         $this->_columns[] = new Kwf_Grid_Column('id');
         $this->_columns[] = new Kwf_Grid_Column('name');
     }

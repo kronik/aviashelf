@@ -3,6 +3,8 @@ class StaffgroupsController extends FlightgroupsController
 {    
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $users = Kwf_Registry::get('userModel');
         
         $this->_filters = array('text' => array('type' => 'TextField'));

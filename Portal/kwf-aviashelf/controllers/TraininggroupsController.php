@@ -1,5 +1,7 @@
 <?php
-class TraininggroupsController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class TraininggroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'TrainingGroups';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
@@ -14,11 +16,15 @@ class TraininggroupsController extends Kwf_Controller_Action_Auto_Grid
 
     public function indexAction()
     {
+        parent::indexAction();
+        
         $this->view->ext('Traininggroups');
     }
     
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         if ($this->_getParam('trainingId') == NULL)

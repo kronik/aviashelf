@@ -1,5 +1,6 @@
 <?php
-class FlightsetsController extends Kwf_Controller_Action_Auto_Grid
+require_once 'GridEx.php';
+class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Flightset';
     protected $_defaultOrder = array('field' => 'employeeName', 'direction' => 'ASC');
@@ -13,6 +14,8 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid
 
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));

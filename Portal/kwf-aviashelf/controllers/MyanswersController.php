@@ -1,5 +1,7 @@
 <?php
-class MyanswersController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'TrainingContentAnswers';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
@@ -8,6 +10,8 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid
     
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('isSelected', trlKwf('Correct')))->setWidth(100)
         ->setEditor(new Kwf_Form_Field_Checkbox());
         $this->_columns->add(new Kwf_Grid_Column('answer', trlKwf('Answer')))->setWidth(1500);

@@ -1,5 +1,7 @@
 <?php
-class MyquestionsController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class MyquestionsController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'TrainingContentQuestions';
     protected $_defaultOrder = array('field' => 'number', 'direction' => 'ASC');
@@ -13,6 +15,8 @@ class MyquestionsController extends Kwf_Controller_Action_Auto_Grid
     
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number')))->setWidth(100);
     }
     

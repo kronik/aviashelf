@@ -1,5 +1,7 @@
 <?php
-class MygroupsController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class MygroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'TrainingGroups';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
@@ -8,11 +10,14 @@ class MygroupsController extends Kwf_Controller_Action_Auto_Grid
 
     public function indexAction()
     {
+        parent::indexAction();
         $this->view->ext('Mygroups');
     }
     
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $this->_columns->add(new Kwf_Grid_Column('startDate', trlKwf('Start Date')))->setWidth(80)->setRenderer('taskCheckDate');
         $this->_columns->add(new Kwf_Grid_Column('endDate', trlKwf('End Date')))->setWidth(90)->setRenderer('taskCheckDate');
         $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number')))->setWidth(60);

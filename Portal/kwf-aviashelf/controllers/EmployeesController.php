@@ -1,5 +1,7 @@
 <?php
-class EmployeesController extends Kwf_Controller_Action_Auto_Grid
+    require_once 'GridEx.php';
+
+class EmployeesController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Employees';
     protected $_defaultOrder = 'lastname';
@@ -15,11 +17,14 @@ class EmployeesController extends Kwf_Controller_Action_Auto_Grid
 
     public function indexAction()
     {
+        parent::indexAction();
         $this->view->ext('Employees');
     }
     
     protected function _initColumns()
     {
+        parent::_initColumns();
+        
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
