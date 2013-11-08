@@ -111,6 +111,10 @@ Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, fiel
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
     }
     
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+    
     hours = hours + hoursAddition;
 
     return hours + ':' + minutes + ':00';
