@@ -32,7 +32,7 @@ var Myflights = Ext.extend(Ext.Panel,
             title           : trlKwf('Staff groups')
         });
                            
-        var flight = new Kwf.Auto.FormPanel({
+        var flight = new Kwf.Auto.FormPanelEx({
              controllerUrl   : '/myflight',
              collapsible     : true,
              title           : trlKwf('Flight')

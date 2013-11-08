@@ -1,6 +1,6 @@
 <?php
-require_once 'GridEx.php';
-class MyflightsController extends Kwf_Controller_Action_Auto_Grid_Ex
+//require_once 'GridEx.php';
+class MyflightsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Flights';
     protected $_defaultOrder = array('field' => 'flightStartDate', 'direction' => 'DESC');
@@ -11,13 +11,13 @@ class MyflightsController extends Kwf_Controller_Action_Auto_Grid_Ex
 
     public function indexAction()
     {
-        parent::indexAction();
+        //parent::indexAction();
         $this->view->ext('Myflights');
     }
     
     protected function _initColumns()
     {
-        parent::_initColumns();
+        //parent::_initColumns();
         $users = Kwf_Registry::get('userModel');
 
         $this->_filters = array('text' => array('type' => 'TextField'));
@@ -29,8 +29,9 @@ class MyflightsController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                            'controllerUrl' => '/myflight',
                                            'width' => 550,
-                                           'height' => 410
-                                       );            
+                                           'height' => 410,
+                                           'type' => 'WindowFormEx'
+                                       );
         }
         else
         {
