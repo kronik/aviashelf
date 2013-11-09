@@ -55,7 +55,7 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
             $startDate = new DateTime($row->startDate);
             $endDate = new DateTime($row->endDate);
             
-            $description = 'Периодическая подготовка от ' . $startDate->format('d-m-Y') . ' по ' . $endDate->format('d-m-Y') . ' на ' . $row->typeName . ' (' . $row->number . ' / ' . $row->accessName . ')';
+            $description = 'Периодическая подготовка от ' . $startDate->format('d-m-Y') . ' по ' . $endDate->format('d-m-Y') . ' на ' . $row->typeName . ' (' . $row->number . ' / ' . $row->comment . ')';
             
             if ($endDate >= $todayLimit) {
                 $this->sendMessage($row->ownerId, 'Периодическая подготовка', $description, false);
@@ -69,9 +69,9 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         exit;
     }
     
-    public function sendMessage (int $employeeId, string $checkTypeName, string $description, bool $isWarning) {
+    public function sendMessage ($employeeId, $checkTypeName, $description, $isWarning) {
         
-        if ($employeeId <= 0) {
+        if ($employeeId == NULL) {
             return;
         }
         
@@ -97,9 +97,12 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         $mail->fullname = (string)$employeeRow;
         $mail->checkname = $checkTypeName;
         $mail->checkdescription = $description;
-        $mail->addTo($userRow->email);
+        //$mail->addTo($userRow->email);
+        $mail->addTo('dmitry.klimkin@gmail.com');
         $mail->setFrom('admin@aviashelf.com', 'Авиашельф Пульс');
         $mail->send();
+        
+        echo "Message sent!\n";
         
         //TODO: send SMS to $employeeRow->privatePhone
     }
