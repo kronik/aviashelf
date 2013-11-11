@@ -6,7 +6,7 @@ class FlightplansController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected $_modelName = 'Flightplans';
     protected $_defaultOrder = array('field' => 'planDate', 'direction' => 'DESC');
     protected $_paging = 30;
-    protected $_buttons = array('add');
+    protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
                                      'controllerUrl' => '/flightplan',
                                      'width' => 550,

@@ -100,9 +100,10 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         //$mail->addTo($userRow->email);
         $mail->addTo('dmitry.klimkin@gmail.com');
         $mail->setFrom('admin@aviashelf.com', 'Авиашельф Пульс');
+        $mail->setSubject($checkTypeName);
         $mail->send();
         
-        echo "Message sent!\n";
+//        echo "Message sent!\n";
         
         //TODO: send SMS to $employeeRow->privatePhone
     }

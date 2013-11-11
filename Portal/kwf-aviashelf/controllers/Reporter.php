@@ -143,7 +143,7 @@ class Reporter
         $firstSheet->mergeCells('A1:M1');
         $firstSheet->mergeCells('A3:M3');
         
-        $firstSheet->mergeCells('A2:J2');
+        $firstSheet->mergeCells('A2:I2');
         $firstSheet->mergeCells('J2:K2');
         $firstSheet->setCellValue('J2', 'План передал: ');
         $firstSheet->getStyle('J2')->getFont()->setBold(true);
