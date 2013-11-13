@@ -6,7 +6,7 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         set_time_limit(600);
         
         $setsModel = Kwf_Model_Abstract::getInstance('Flightset');
-        $setsSelect = $setsModel->select();
+        $setsSelect = $setsModel->select()->where(new Kwf_Model_Select_Expr_Sql('setsCount > 0');
 
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
         $accessesSelect = $accessesModel->select();

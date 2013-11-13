@@ -15,9 +15,7 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function _initColumns()
     {
         parent::_initColumns();
-        
-        $this->_filters = array('text' => array('type' => 'TextField'));
-        
+                
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
@@ -25,7 +23,7 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setName', 'Тип захода'))->setWidth(200);
 //        $this->_columns->add(new Kwf_Grid_Column('setTypeName', 'Тип допуска'))->setWidth(150);
-//        $this->_columns->add(new Kwf_Grid_Column('setMeteoName', 'Метеоминимум'))->setWidth(200);
+//        $this->_columns->add(new Kwf_Grid_Column('setMeteoTypeName', 'Метеоминимум'))->setWidth(200);
 //        $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(300);
     }
 

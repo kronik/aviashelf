@@ -37,7 +37,7 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_TextField('setMeteoTypeId', 'Метеоминимум'))
+        $this->_form->add(new Kwf_Form_Field_TextField('setMeteoTypeName', 'Метеоминимум'))
         ->setWidth(400)
         ->setAllowBlank(false);
 
@@ -76,10 +76,10 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
 
         $s = $m1->select()->whereEquals('id', $row->setId);
         $prow = $m1->getRow($s);
+        
         $row->setName = $prow->value;
         
         $row->setMeteoTypeId = 0;
-        $row->setMeteoTypeName = $prow->value;
 
         $s = $m4->select()->whereEquals('id', $row->setTypeId);
         $prow = $m4->getRow($s);
