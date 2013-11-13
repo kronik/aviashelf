@@ -126,11 +126,22 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         }
     }
     
-    protected function addFlightResult($flight, $groupRow, $type)
+    protected function addFlightResult($flight, $groupRow, $typeStr)
     {
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $typeSelect = $typeModel->select()->whereEquals('name', 'Типы налета')->whereEquals('value', $type);
+        //$typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Типы налета' and value = '" . $type . "'"));
+        $typeSelect = $typeModel->select()->whereEquals('name', 'Типы налета')->whereEquals('value', $typeStr);
+        //$typeSelect = $typeModel->select()->where('name=?', 'Типы налета')->where('value=?', $typeStr);
+
+//        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_And(array(
+//                                                                                      new Kwf_Model_Select_Expr_Equals('name', 'Типы налета'),
+//                                                                                      new Kwf_Model_Select_Expr_Equals('value', $typeStr))));
+//        p($typeStr);
         $typeRow = $typeModel->getRow($typeSelect);
+
+        if ($typeRow == NULL) {
+            throw new Kwf_Exception_Client('Тип налета: ' . $typeStr . ' не найден в словаре.');
+        }
         
         $result = Kwf_Model_Abstract::getInstance('Flightresults');
         $resultSelect = $result->select()->where(new Kwf_Model_Select_Expr_Sql("ownerId = " . $groupRow->employeeId

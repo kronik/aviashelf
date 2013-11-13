@@ -119,9 +119,9 @@ class Acl extends Kwf_Acl
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_power', 'power'), 'edit_role');
 
         //$this->add(new Kwf_Acl_Resource_EditRole('edit_role_guest', 'guest'), 'edit_role');
-        $this->allow(array('admin', 'power'), 'edit_role_user');
-        $this->allow(array('admin', 'power'), 'edit_role_plan');
-        $this->allow(array('admin', 'power'), 'edit_role_power');
+        $this->allow('admin', 'edit_role_user');
+        $this->allow('admin', 'edit_role_plan');
+        $this->allow('admin', 'edit_role_power');
 
         //$this->allow(array('admin', 'power'), 'edit_role_guest');
         
