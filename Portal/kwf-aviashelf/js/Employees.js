@@ -132,6 +132,10 @@ Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, fiel
 
 Ext.util.Format.docCheckDate = function(val)
 {
+    if ((val == null) || (val == '')) {
+        return val;
+    }
+
     var month = val.getUTCMonth() + 1;
     var monthStr = month < 10 ? '0' + month : month;
     var day = val.getUTCDate() + 1;
@@ -157,7 +161,11 @@ Ext.util.Format.docCheckDate = function(val)
 };
 
 Ext.util.Format.checkGrade = function(val)
-{    
+{
+    if ((val == null) || (val == '')) {
+        return val;
+    }
+
     if (val == 'зачет' || val == 'пять' || val == 'четыре' || val == 'допущен')
     {
         return '<span style="color:green;">' + val + '</span>';
