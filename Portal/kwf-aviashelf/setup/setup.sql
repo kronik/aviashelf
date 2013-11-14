@@ -819,6 +819,7 @@ CREATE TABLE IF NOT EXISTS `flightSets` (
     `flightsCount` int NOT NULL DEFAULT 0,
     `setsCount` int NOT NULL DEFAULT 0,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `finished` tinyint(3) unsigned DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

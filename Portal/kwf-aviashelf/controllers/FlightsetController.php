@@ -60,7 +60,9 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
 
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
-        ->setWidth(400);        
+        ->setWidth(400);
+        
+        $this->_form->add(new Kwf_Form_Field_Checkbox('finished', 'Выполнено'));
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)

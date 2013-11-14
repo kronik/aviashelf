@@ -11,6 +11,7 @@ class ChecksetsController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('employeeName' => array('type' => 'TextField'), 'setEndDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('employeeName', 'wsTypeName', 'setName', 'setTypeName', 'setMeteoTypeName', 'comment');
         
+        $this->_columns->add(new Kwf_Grid_Column_Checkbox('finished', ''));
         $this->_columns->add(new Kwf_Grid_Column('employeeName', 'ФИО'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('setsCheckDate');
@@ -27,6 +28,7 @@ class ChecksetsController extends Kwf_Controller_Action_Auto_Grid
     {
         $ret = parent::_getWhere();
         $ret['setsCount > ?'] = '0';
+        $ret['finished = ?'] = '0';
         return $ret;
     }
 }
