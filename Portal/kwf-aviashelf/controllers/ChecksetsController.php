@@ -11,11 +11,10 @@ class ChecksetsController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('employeeName' => array('type' => 'TextField'), 'setEndDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('employeeName', 'wsTypeName', 'setName', 'setTypeName', 'setMeteoTypeName', 'comment');
         
-        $this->_columns->add(new Kwf_Grid_Column_Checkbox('finished', ''));
         $this->_columns->add(new Kwf_Grid_Column('employeeName', 'ФИО'))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('setsCheckDate');
-        $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('flightsCount', 'Кол-во полетов'))->setWidth(100)->setProperty('summaryType', 'totalFlightsCount');
         $this->_columns->add(new Kwf_Grid_Column('setsCount', 'Кол-во заходов'))->setWidth(100)->setProperty('summaryType', 'totalSetsCount');;
         $this->_columns->add(new Kwf_Grid_Column('setName', 'Тип захода'))->setWidth(100);

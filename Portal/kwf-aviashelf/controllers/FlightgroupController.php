@@ -82,6 +82,10 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         {
             $flightRow->secondPilotName = (string)$prow;
         }
+        else if (($this->isContain('Пилот', $row->positionName)) && ($row->mainCrew == TRUE))
+        {
+            $flightRow->secondPilotName = (string)$prow;
+        }
         else if (($this->isContain(trlKwf('Technic'), $row->positionName)) && ($row->mainCrew == TRUE))
         {
             $flightRow->technicName = (string)$prow;
@@ -104,7 +108,6 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             {
                 $this->addFlightResult($flightRow, $row, 'Налет КВС');
                 $this->addFlightSet($flightRow, $row);
-
             }
 
             if ($this->isContain(trlKwf('Second pilot'), $row->positionName) || $this->isContain('Пилот', $row->positionName))
@@ -121,8 +124,6 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
 
             $this->addFlightResult($flightRow, $row, 'Налет');
             $this->addFlightResult($flightRow, $row, 'Время работы');
-            
-            //p ($row);
         }
     }
     
