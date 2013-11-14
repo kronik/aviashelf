@@ -107,7 +107,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
 
             }
 
-            if ($this->isContain(trlKwf('Second pilot'), $row->positionName))
+            if ($this->isContain(trlKwf('Second pilot'), $row->positionName) || $this->isContain('Пилот', $row->positionName))
             {
                 $this->addFlightSet($flightRow, $row);
             }
