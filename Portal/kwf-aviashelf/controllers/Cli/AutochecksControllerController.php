@@ -107,5 +107,8 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
 //        echo "Message sent!\n";
         
         //TODO: send SMS to $employeeRow->privatePhone
+                                                  
+        $employeeRow->isAllowed = 0;
+        $employeeRow->save();
     }
 }
