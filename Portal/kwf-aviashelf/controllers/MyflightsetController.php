@@ -7,14 +7,14 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
+        $landpointsModel = Kwf_Model_Abstract::getInstance('Airports');
+        $landpointsSelect = $landpointsModel->select()->order('Name');
+
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select();
         
         $setTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $setTypeSelect = $setTypeModel->select()->whereEquals('name', 'Тип захода')->order('value');
-
-        $accessTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $accessTypeSelect = $accessTypeModel->select()->whereEquals('name', 'Типы допусков')->order('value');
         
         $this->_form->add(new Kwf_Form_Field_Select('wsTypeId', trlKwf('WsType')))
         ->setValues($wstypeModel)
@@ -32,9 +32,9 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_Select('setTypeId', 'Тип допуска'))
-        ->setValues($accessTypeModel)
-        ->setSelect($accessTypeSelect)
+        $this->_form->add(new Kwf_Form_Field_Select('setTypeId', 'Аэропорт'))
+        ->setValues($landpointsModel)
+        ->setSelect($landpointsSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
         
@@ -57,8 +57,8 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
-        $m4 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
+        $m3 = Kwf_Model_Abstract::getInstance('Airports');
 
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select()->whereEquals('id', $row->wsTypeId);
@@ -71,16 +71,16 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
         $row->setName = $prow->value;
         
         $row->setMeteoTypeId = 0;
-
-        $s = $m4->select()->whereEquals('id', $row->setTypeId);
-        $prow = $m4->getRow($s);
-        $row->setTypeName = $prow->value;
         
         $s = $m2->select()->whereEquals('id', $this->_getParam('ownerId'));
         $prow = $m2->getRow($s);
         
         $row->employeeId = $this->_getParam('ownerId');
         $row->employeeName = (string)$prow;
+        
+        $landpointSelect = $m3->select()->whereEquals('id', $row->setTypeId);
+        $prow = $m3->getRow($landpointSelect);
+        $row->setTypeName = $prow->Name;
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
