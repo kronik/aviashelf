@@ -106,7 +106,11 @@ Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, fiel
     }
     
     if ((v == null) || (v == '')) {
-        return val;
+        return '00:00';
+    }
+    
+    if ((record.data.flightTime == null) || (record.data.flightTime == '')) {
+        return '00:00';
     }
 
     var totalTimeValue = v.split(':');
