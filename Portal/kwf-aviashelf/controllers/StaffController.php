@@ -46,6 +46,10 @@ class StaffController extends Kwf_Controller_Action_Auto_Form
         ->setHeight(70)
         ->setWidth(400);
         
+        $tab->fields->add(new Kwf_Form_Field_TextField('listPosition', '№ в списках'))
+        ->setWidth(400)
+        ->setAllowBlank(true);
+        
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Permissions'));
         
