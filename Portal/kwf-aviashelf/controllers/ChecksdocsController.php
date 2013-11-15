@@ -20,4 +20,13 @@ class ChecksdocsController extends ChecksController
         $this->_columns->add(new Kwf_Grid_Column('gradeName', 'Оценка'))->setWidth(100)->setRenderer('documentsCheckGrade');
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(800);
     }
+    
+    protected function _getWhere()
+    {
+        $ret = parent::_getWhere();
+        $ret['ownerName <> ?'] = 'NULL';
+        $ret['isDocument = ?'] = '0';
+        return $ret;
+    }
+
 }

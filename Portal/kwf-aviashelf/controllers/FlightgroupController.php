@@ -141,7 +141,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $typeRow = $typeModel->getRow($typeSelect);
 
         if ($typeRow == NULL) {
-            throw new Kwf_Exception_Client('Тип налета: ' . $typeStr . ' не найден в словаре.');
+            throw new Kwf_Exception_Client('Тип налета: <' . $typeStr . '> не найден в словаре.');
         }
         
         $result = Kwf_Model_Abstract::getInstance('Flightresults');

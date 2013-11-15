@@ -670,6 +670,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `value` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     `picture_id` int(11) DEFAULT NULL,
+    `isCheck` tinyint(3) unsigned DEFAULT '0',
     `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
     KEY `typeId` (`typeId`),

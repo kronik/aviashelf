@@ -71,8 +71,8 @@ class StaffdocumentController extends Kwf_Controller_Action_Auto_Form
         
         $tab->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
     }
-
-    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
+    
+    protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m = Kwf_Model_Abstract::getInstance('Linkdata');
         
@@ -82,28 +82,34 @@ class StaffdocumentController extends Kwf_Controller_Action_Auto_Form
         $row->ownerId = $this->_getParam('ownerId');
         $row->typeName = $prow->value;
         
-        if ($row->gradeId != NULL)
+        if ($row->gradeId != NULL && $row->gradeId != 0)
         {
             $s = $m->select()->whereEquals('id', $row->gradeId);
             $prow = $m->getRow($s);
             $row->gradeName = $prow->value;
         }
+        
+//        if ($row->ownerId != NULL)
+//        {
+//            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+//            $employeesSelect = $employeesModel->select()->whereEquals('id', $row->ownerId);
+//            
+//            $prow = $employeesModel->getRow($employeesSelect);
+//            $row->ownerName = (string)$prow;
+//        }
+        
+        $row->isDocument = 1;
+        
+        return $row;
+    }
+    
+    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateReferences($row);
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
-        $m = Kwf_Model_Abstract::getInstance('Linkdata');
-        
-        $s = $m->select()->whereEquals('id', $row->typeId);
-        $prow = $m->getRow($s);
-        
-        $row->typeName = $prow->value;
-        
-        if ($row->gradeId != NULL)
-        {
-            $s = $m->select()->whereEquals('id', $row->gradeId);
-            $prow = $m->getRow($s);
-            $row->gradeName = $prow->value;
-        }
+        $this->updateReferences($row);
     }
 }

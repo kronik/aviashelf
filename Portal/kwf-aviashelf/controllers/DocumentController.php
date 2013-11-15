@@ -103,6 +103,8 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
             $row->ownerName = (string)$prow;
         }
         
+        $row->isDocument = 0;
+        
         return $row;
     }
     

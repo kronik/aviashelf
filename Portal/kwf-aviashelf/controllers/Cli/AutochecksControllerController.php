@@ -13,7 +13,7 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         $accessesSelect = $accessesModel->select();
 
         $docsModel = Kwf_Model_Abstract::getInstance('Documents');
-        $docsSelect = $docsModel->select();
+        $docsSelect = $docsModel->select()->where(new Kwf_Model_Select_Expr_Sql('ownerName <> NULL AND isDocument = 0');
 
         $rows = $setsModel->getRows($setsSelect);
         
