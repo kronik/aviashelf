@@ -122,7 +122,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                 $this->addFlightResult($flightRow, $row, 'Инструктор');
             }
 
-            $this->addFlightResult($flightRow, $row, 'Налет');
+            $this->addFlightResult($flightRow, $row, 'Налет общ.');
             $this->addFlightResult($flightRow, $row, 'Время работы');
         }
     }
