@@ -22,7 +22,7 @@ class MyflightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
-        $this->_columns->add(new Kwf_Grid_Column('setEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('docCheckDate');
+        $this->_columns->add(new Kwf_Grid_Column('setEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('exCheckDate');
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('finished', ''));
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setName', 'Тип захода'))->setWidth(200);

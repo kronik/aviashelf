@@ -30,6 +30,8 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
 
     protected function _getWhere()
     {
+        $ret = parent::_getWhere();
+
         $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
         $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
         $flight = $flightsModel->getRow($flightsSelect);
@@ -42,9 +44,26 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $wstypeSelect = $wstypeModel->select()->whereEquals('id', $plane->twsId);
         $planeType = $wstypeModel->getRow($wstypeSelect);
 
-        $ret = parent::_getWhere();
         $ret['wsTypeId = ?'] = $planeType->id;
         $ret['finished = ?'] = '0';
+        
+        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $this->_getParam('flightId'))->whereEquals('mainCrew', TRUE);
+        
+        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+
+        if (count($flightMembers) > 0) {
+            $crew = '(';
+            
+            foreach ($flightMembers as $flightMember) {
+                $crew = $crew . $flightMember->employeeId . ',';
+            }
+            
+            $crew = $crew . '0)';
+
+            $ret[] = 'employeeId IN ' . $crew;
+        }
+        
         return $ret;
     }
 }

@@ -20,4 +20,11 @@ class CheckaccessesController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('accessName', 'Метеоминимум'))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(800);
     }
+    
+    protected function _getWhere()
+    {
+        $ret = parent::_getWhere();
+        $ret['finished = ?'] = '0';
+        return $ret;
+    }
 }

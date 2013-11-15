@@ -104,6 +104,10 @@ Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, fiel
     {
         return record.data.flightTime;
     }
+    
+    if ((v == null) || (v == '')) {
+        return val;
+    }
 
     var totalTimeValue = v.split(':');
     var addTimeValue = record.data.flightTime.split(':');
@@ -149,6 +153,36 @@ Ext.util.Format.docCheckDate = function(val)
     
     dateToCheck.setDate(dateToCheck.getDate() - 7);
         
+    if ((val > today) && (val > dateToCheck))
+    {
+        return '<span style="color:green;">' + newdate + '</span>';
+    }
+    else
+    {
+        return '<span style="color:red;">' + newdate + '</span>';
+    }
+    return val;
+};
+
+Ext.util.Format.exCheckDate = function(val, record, field)
+{
+    if ((val == null) || (val == '')) {
+        return val;
+    }
+        
+    var month = val.getUTCMonth() + 1;
+    var monthStr = month < 10 ? '0' + month : month;
+    var day = val.getUTCDate() + 1;
+    var dayStr = day < 10 ? '0' + day : day;
+    var year = val.getUTCFullYear();
+    
+    var newdate = dayStr + "-" + monthStr + "-" + year;
+    
+    var dateToCheck = new Date();
+    var today = new Date();
+    
+    dateToCheck.setDate(dateToCheck.getDate() - 7);
+    
     if ((val > today) && (val > dateToCheck))
     {
         return '<span style="color:green;">' + newdate + '</span>';

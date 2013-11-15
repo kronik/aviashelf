@@ -1060,7 +1060,7 @@ class Reporter
         $rowNumber += 1;
         
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id));
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0"));
         $accesses = $accessesModel->getRows($accessesSelect);
         
         foreach ($accesses as $access)

@@ -10,7 +10,7 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         //$setsSelect = $setsModel->select()->where(new Kwf_Model_Select_Expr_Sql('setsCount > 0');
 
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select();
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql('finished = 0');
 
         $docsModel = Kwf_Model_Abstract::getInstance('Documents');
         $docsSelect = $docsModel->select()->where(new Kwf_Model_Select_Expr_Sql('ownerName <> NULL AND isDocument = 0');
@@ -107,8 +107,10 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
 //        echo "Message sent!\n";
         
         //TODO: send SMS to $employeeRow->privatePhone
-                                                  
-        $employeeRow->isAllowed = 0;
-        $employeeRow->save();
+                                
+        if ($isWarning == FALSE) {
+            $employeeRow->isAllowed = 0;
+            $employeeRow->save();
+        }
     }
 }
