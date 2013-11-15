@@ -772,6 +772,16 @@ CREATE TABLE IF NOT EXISTS `flightGroups` (
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `flightResultDefaults` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `positionId` int NOT NULL,
+    `positionName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+    `resultId` int NOT NULL,
+    `resultName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `flightLandpoints` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `pos` tinyint(3) unsigned NOT NULL,

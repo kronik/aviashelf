@@ -104,44 +104,25 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         
         if ($row->mainCrew == TRUE)
         {
-            if ($this->isContain(trlKwf('KWS'), $row->positionName))
-            {
-                $this->addFlightResult($flightRow, $row, 'Налет КВС');
-                $this->addFlightSet($flightRow, $row);
-            }
+            $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
+            $positionSelect = $positionModel->select()->whereEquals('positionId', $row->positionId);
 
-            if ($this->isContain(trlKwf('Second pilot'), $row->positionName) || $this->isContain('Пилот', $row->positionName))
-            {
-                $this->addFlightSet($flightRow, $row);
+            $positionRows = $positionModel->getRows($positionSelect);
+            
+            foreach ($positionRows as $positionRow) {
+                $this->addFlightResult($flightRow, $row, $positionRow->resultId);
             }
-
-            if (($this->isContain(trlKwf('Instructor'), $row->positionName)) ||
-                ($this->isContain(trlKwf('Checker'), $row->positionName)))
-            {
-                $this->addFlightResult($flightRow, $row, 'Налет КВС');
-                $this->addFlightResult($flightRow, $row, 'Инструктор');
-            }
-
-            $this->addFlightResult($flightRow, $row, 'Налет общ.');
-            $this->addFlightResult($flightRow, $row, 'Время работы');
         }
     }
     
-    protected function addFlightResult($flight, $groupRow, $typeStr)
+    protected function addFlightResult($flight, $groupRow, $typeId)
     {
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        //$typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Типы налета' and value = '" . $type . "'"));
-        $typeSelect = $typeModel->select()->whereEquals('name', 'Типы налета')->whereEquals('value', $typeStr);
-        //$typeSelect = $typeModel->select()->where('name=?', 'Типы налета')->where('value=?', $typeStr);
-
-//        $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_And(array(
-//                                                                                      new Kwf_Model_Select_Expr_Equals('name', 'Типы налета'),
-//                                                                                      new Kwf_Model_Select_Expr_Equals('value', $typeStr))));
-//        p($typeStr);
+        $typeSelect = $typeModel->select()->whereEquals('id', $typeId);
         $typeRow = $typeModel->getRow($typeSelect);
 
         if ($typeRow == NULL) {
-            throw new Kwf_Exception_Client('Тип налета: <' . $typeStr . '> не найден в словаре.');
+            throw new Kwf_Exception_Client('Тип налета: <' . $typeId . '> не найден в словаре.');
         }
         
         $result = Kwf_Model_Abstract::getInstance('Flightresults');
@@ -158,7 +139,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             $resultRow->typeName = $typeRow->value;
             $resultRow->planeId = $flight->planeId;
             $resultRow->planeName = $flight->planeName;
-            $resultRow->flightsCount = 0;
+            $resultRow->flightsCount = 1;
             $resultRow->flightDate = $flight->flightStartDate;
             $resultRow->flightId = $flight->id;
             $resultRow->flightTime = '00:00';
