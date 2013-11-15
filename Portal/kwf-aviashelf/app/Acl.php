@@ -13,7 +13,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_staffmenuitem', array('text'=>trlKwfStatic('Employees'), 'icon'=>'user.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwfStatic('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
          $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwfStatic('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
-        
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flighttotalresults', array('text'=>'Общий налет', 'icon'=>'calculator.png'), '/flighttotalresults'), 'default_staffmenuitem');
+
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwfStatic('Flights'), 'icon'=>'calendar.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwfStatic('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myflights', array('text'=>trlKwfStatic('My flights'), 'icon'=>'book_open.png'), '/myflights'), 'default_flightsmenuitem');
@@ -184,6 +185,7 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_tasks');
         $this->allow(array('admin', 'power'), 'default_employees');
         $this->allow(array('admin', 'power'), 'default_staffs');
+        $this->allow(array('admin', 'power'), 'default_flighttotalresults');
         $this->allow(array('admin', 'power'), 'default_airplanes');
         $this->allow(array('admin', 'power'), 'default_wstypes');
         $this->allow(array('admin', 'power'), 'default_companies');
