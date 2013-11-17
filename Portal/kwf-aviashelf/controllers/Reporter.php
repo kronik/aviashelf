@@ -663,6 +663,335 @@ class Reporter
     
     public function exportFlightTaskToXls($xls, $firstSheet, $row, $progressBar)
     {        
+//        foreach($firstSheet->getRowDimensions() as $rd)
+//        {
+//            $rd->setRowHeight(-1);
+//        }
+        
+        $xls->getProperties()->setCreator(Kwf_Config::getValue('application.name'));
+        $xls->getProperties()->setLastModifiedBy(Kwf_Config::getValue('application.name'));
+        $xls->getProperties()->setTitle("Полетное Задание");
+        $xls->getProperties()->setSubject("Полетное Задание");
+        $xls->getProperties()->setDescription("Полетное Задание на сегодня");
+        $xls->getProperties()->setKeywords("");
+        $xls->getProperties()->setCategory("");
+        
+        $progressBar->update(10);
+        
+//        $firstSheet->getPageSetup()->setFitToPage(true);
+        $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $firstSheet->setTitle('Титульный лист');
+
+//        $pageMargins = $firstSheet->getPageMargins();
+//        
+//        $margin = 0.42;
+//        
+//        $pageMargins->setTop($margin * 2);
+//        $pageMargins->setBottom($margin);
+//        $pageMargins->setLeft($margin);
+//        $pageMargins->setRight($margin);
+        
+        $styleThinBlackBorderOutline = array(
+                                             'borders' => array(
+                                                                'outline' => array(
+                                                                                   'style' => PHPExcel_Style_Border::BORDER_THIN,
+                                                                                   'color' => array('argb' => 'FF000000'),
+                                                                                   ),
+                                                                ),
+                                             );
+//        $totalLeftColumns = 28;
+//        
+//        for ($i = 0; $i <= $totalLeftColumns-1; $i++)
+//        {
+//            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('2.0pt');
+//        }
+//        
+//        $tableColumn = $this->_getColumnLetterByIndex($totalLeftColumns - 1);
+//        $tableHeaderColumnt = $this->_getColumnLetterByIndex($totalLeftColumns);
+//        
+//        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($totalLeftColumns + 1))->setWidth('10pt');
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($totalLeftColumns + 1) . '1:' . $this->_getColumnLetterByIndex($totalLeftColumns + 1) . '39');
+//        
+//        $firstSheet->getStyle('A1:' . $tableColumn . '13')->applyFromArray($styleThinBlackBorderOutline);
+//        $firstSheet->mergeCells('A1:' . $tableColumn . '13');
+//        
+//        $firstSheet->getStyle($tableHeaderColumnt . '1:' . $tableHeaderColumnt . '13')->applyFromArray($styleThinBlackBorderOutline);
+//        $firstSheet->mergeCells($tableHeaderColumnt . '1:' . $tableHeaderColumnt . '13');
+//        $firstSheet->setCellValue($tableHeaderColumnt . '1', 'Предполётный медосмотр');
+//        $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setWrapText(true);
+//        $firstSheet->getStyle($tableHeaderColumnt . '1')->getFont()->setBold(true);
+//        $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+//        $firstSheet->getStyle($tableHeaderColumnt . '1')->getAlignment()->setTextRotation(-90);
+//        
+//        $firstSheet->getStyle('A14:' . $tableColumn . '26')->applyFromArray($styleThinBlackBorderOutline);
+//        $firstSheet->mergeCells('A14:' . $tableColumn . '26');
+//        
+//        $firstSheet->getStyle($tableHeaderColumnt . '14:' . $tableHeaderColumnt . '26')->applyFromArray($styleThinBlackBorderOutline);
+//        $firstSheet->mergeCells($tableHeaderColumnt . '14:' . $tableHeaderColumnt . '26');
+//        
+//        $firstSheet->setCellValue($tableHeaderColumnt . '14', 'Спецконроль в аэропортах');
+//        $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setWrapText(true);
+//        $firstSheet->getStyle($tableHeaderColumnt . '14')->getFont()->setBold(true);
+//        $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+//        $firstSheet->getStyle($tableHeaderColumnt . '14')->getAlignment()->setTextRotation(-90);
+//        
+//        $firstSheet->getStyle('A27:' . $tableColumn . '39')->applyFromArray($styleThinBlackBorderOutline);
+//        $firstSheet->mergeCells('A27:B39');
+//        
+//        $firstSheet->getStyle($tableHeaderColumnt . '27:' . $tableHeaderColumnt . '39')->applyFromArray($styleThinBlackBorderOutline);
+//        $firstSheet->mergeCells($tableHeaderColumnt . '27:' . $tableHeaderColumnt . '39');
+//        
+//        $firstSheet->setCellValue($tableHeaderColumnt . '27', 'Результаты послеполётного разбора');
+//        $firstSheet->getStyle($tableHeaderColumnt . '27')->getFont()->setBold(true);
+//        $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setWrapText(true);
+//        $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+//        $firstSheet->getStyle($tableHeaderColumnt . '27')->getAlignment()->setTextRotation(-90);
+//        
+//        $progressBar->update(10);
+//        
+//        for ($i = 2; $i <= $totalLeftColumns-1; $i++)
+//        {
+//            $col = $this->_getColumnLetterByIndex($i);
+//            $firstSheet->mergeCells($col . '27:' . $col . '39');
+//        }
+//        
+//        $rightColumn = $totalLeftColumns + 2;
+//        $rowNumber = 1;
+//        
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+//        $rowNumber += 1;
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+//        
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setSize(10);
+//        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('Дальневосточное межрегиональное территориальное управление'));
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        
+//        $rowNumber += 1;
+//        
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+//        
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setSize(10);
+//        $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, trlKwf('воздушного транспорта ФАВТ'));
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        
+//        $rowNumber += 1;
+//        
+//        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn))->setWidth('15pt');
+//        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 1))->setWidth('15pt');
+//        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 2))->setWidth('10pt');
+//        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 3))->setWidth('10pt');
+//        $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 4))->setWidth('15pt');
+//
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+//        $rowNumber += 1;
+//        
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . ($rowNumber + 3));
+//        
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        
+//        $objDrawing = new PHPExcel_Worksheet_Drawing();
+//        $objDrawing->setName('Logo');
+//        $objDrawing->setDescription('Logo');
+//        $objDrawing->setPath('./images/doc_logo.png');
+//        $objDrawing->setCoordinates($this->_getColumnLetterByIndex($rightColumn) . $rowNumber);
+//        $objDrawing->setWidth('360px');
+//        $objDrawing->setOffsetX(50);
+//        $objDrawing->setWorksheet($firstSheet);
+//        
+//        $rowNumber += 4;
+//        
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
+//        $rowNumber += 1;
+//        
+//        $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 2) . $rowNumber);
+//        $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn) . $rowNumber)->getFont()->setBold(true);
+//        
+//        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+//        $flightsSelect = $flightsModel->select()->whereEquals('planId', $row->planId)->order(array('subCompanyId', 'flightStartTime'));
+//        
+//        $flights = $flightsModel->getRows($flightsSelect);
+//        $flightSequenceNumber = 1;
+//        $lastSubcompanyId = 0;
+//        
+//        foreach ($flights as $flight)
+//        {
+//            if ($lastSubcompanyId != $flight->subCompanyId)
+//            {
+//                $flightSequenceNumber = 0;
+//            }
+//            
+//            $lastSubcompanyId = $flight->subCompanyId;
+//            $flightSequenceNumber += 1;
+//            
+//            if ($flight->id == $row->id)
+//            {
+//                break;
+//            }
+//        }
+        
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setName('Logo');
+        $objDrawing->setDescription('Logo');
+        $objDrawing->setPath('./images/doc_logo.png');
+        $objDrawing->setCoordinates('AK5');
+        $objDrawing->setWidth('360px');
+        $objDrawing->setOffsetX(50);
+        $objDrawing->setWorksheet($firstSheet);
+        
+        $progressBar->update(20);
+        
+        $firstSheet->getStyle('AW9')->getAlignment()->setWrapText(true);
+
+        $firstSheet->getCell('AW9')->setValueExplicit($row->number, PHPExcel_Cell_DataType::TYPE_STRING);
+        
+        //$firstSheet->setCellValue('AW9', $row->number);
+        $firstSheet->setCellValue('BI9', $row->requestNumber);
+        
+        $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
+        $planesSelect = $planesModel->select()->whereEquals('id', $row->planeId);
+        $plane = $planesModel->getRow($planesSelect);
+        
+        $typeModel = Kwf_Model_Abstract::getInstance('Wstypes');
+        $typeSelect = $typeModel->select()->whereEquals('id', $plane->twsId);
+        $planeType = $typeModel->getRow($typeSelect);
+        
+        $firstSheet->setCellValue('AW11', $planeType->Name);
+        $firstSheet->setCellValue('BG11', $row->planeName);
+        //$firstSheet->setCellValue('AJ12', $row->firstPilotName);
+
+        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->id)->whereEquals('mainCrew', TRUE)->order('id');
+        
+        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+        
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        
+        $kwsId = 0;
+        
+        $progressBar->update(30);
+
+        $rowNumber = 15;
+        
+        foreach ($flightMembers as $flightMember)
+        {
+            $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
+            $employeeRow = $employeesModel->getRow($employeesSelect);
+            
+            if ($employeeRow == NULL)
+            {
+                continue;
+            }
+            
+            $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
+            $subSpecRow = $subSpecModel->getRow($subSpecSelect);
+            
+            $position = $flightMember->positionName;
+            
+            if ($position == 'КВС')
+            {
+                $kwsId = $flightMember->employeeId;
+            }
+            
+            $firstSheet->setCellValue('AJ' . $rowNumber, $position);
+            $firstSheet->setCellValue('AS' . $rowNumber, (string)$employeeRow);
+
+            $rowNumber += 1;
+        }
+        
+        $progressBar->update(60);
+        
+        $flightDate = new DateTime ($row->flightStartDate);
+        
+        $flightStartTime = new DateTime($row->flightStartTime);
+        $flightStartTime = $flightStartTime->format("H:i");
+        
+        $firstSheet->setCellValue('AS21', $this->russianDate($flightDate->format('d-m-Y')));
+        $firstSheet->setCellValue('BJ21', $flightStartTime);
+        
+        $objectiveModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $objectiveSelect = $objectiveModel->select()->whereEquals('id', $row->objectiveId);
+        $objective = $objectiveModel->getRow($objectiveSelect);
+        
+        $firstSheet->setCellValue('AS22', $row->routeName);
+        $firstSheet->setCellValue('AS24', $objective->desc);
+        $firstSheet->setCellValue('AS26', $row->routeName);
+
+        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->id)->whereEquals('mainCrew', FALSE)->order('id');
+        
+        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+        
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        
+        $progressBar->update(70);
+
+        $rowNumber = 28;
+
+        foreach ($flightMembers as $flightMember)
+        {
+            $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
+            $employeeRow = $employeesModel->getRow($employeesSelect);
+            
+            $position = $flightMember->positionName;
+            
+            if ($position == 'По специальности')
+            {
+                if ($employeeRow->positionId == NULL) {
+                    $position = '';
+                } else {
+                    $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
+                    $subSpecRow = $subSpecModel->getRow($subSpecSelect);
+
+                    $position = $subSpecRow->value;
+                }
+            }
+            
+            if ($employeeRow != NULL)
+            {
+                $firstSheet->setCellValue('AJ' . $rowNumber, $position);
+                $firstSheet->setCellValue('AS' . $rowNumber, (string)$employeeRow);
+                
+                $rowNumber += 1;
+            }
+        }
+        
+        $progressBar->update(90);
+        
+        $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0"));
+        $accesses = $accessesModel->getRows($accessesSelect);
+        
+        $accessStr = "";
+        $lineCounter = 0;
+        
+        foreach ($accesses as $access)
+        {
+            $delimiter = "\n";
+            
+            if ($lineCounter % 2 == 0) {
+                $delimiter = "        ";
+            }
+            
+            $accessStr = $accessStr . $access->accessName . $delimiter;
+            
+            $lineCounter++;
+        }
+        
+        $firstSheet->setCellValue('AJ35', $accessStr);
+        
+        $progressBar->update(100);
+    }
+    
+    public function exportFlightTaskToXlsOld($xls, $firstSheet, $row, $progressBar)
+    {
         foreach($firstSheet->getRowDimensions() as $rd)
         {
             $rd->setRowHeight(-1);
@@ -784,7 +1113,7 @@ class Reporter
         $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 2))->setWidth('10pt');
         $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 3))->setWidth('10pt');
         $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($rightColumn + 4))->setWidth('15pt');
-
+        
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
@@ -896,7 +1225,7 @@ class Reporter
         $kwsId = 0;
         
         $progressBar->update(50);
-
+        
         foreach ($flightMembers as $flightMember)
         {
             $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
@@ -1013,7 +1342,7 @@ class Reporter
         $subSpecModel = Kwf_Model_Abstract::getInstance('Linkdata');
         
         $progressBar->update(70);
-
+        
         foreach ($flightMembers as $flightMember)
         {
             $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
@@ -1028,7 +1357,7 @@ class Reporter
                 } else {
                     $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
                     $subSpecRow = $subSpecModel->getRow($subSpecSelect);
-
+                    
                     $position = $subSpecRow->value;
                 }
             }
@@ -1038,7 +1367,7 @@ class Reporter
                 $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, $position);
                 $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, (string)$employeeRow);
                 $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber)->getFont()->setBold(true);
-
+                
                 $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
                 
                 $rowNumber += 1;
@@ -1046,7 +1375,7 @@ class Reporter
         }
         
         $progressBar->update(80);
-
+        
         $firstSheet->mergeCells($this->_getColumnLetterByIndex($rightColumn) . $rowNumber . ':' . $this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber);
         $rowNumber += 1;
         
@@ -1099,9 +1428,9 @@ class Reporter
         }
         
         $secondSheet->getPageSetup()->setFitToPage(true);
-
+        
         $xls->setActiveSheetIndex(0);
-
+        
         $progressBar->update(100);
     }
     

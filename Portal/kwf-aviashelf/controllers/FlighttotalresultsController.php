@@ -26,4 +26,14 @@ class FlighttotalresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('showInTotal', trlKwf('Show in total')))->setWidth(60);
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(500);
     }
+    
+    protected function _getWhere()
+    {
+        $ret = parent::_getWhere();
+        
+        $ret['flightsCount > ?'] = 0;
+        $ret['flightTime <> ?'] = '00:00';
+        
+        return $ret;
+    }
 }

@@ -269,15 +269,15 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
 
         $reporter = new Reporter ();
         
-        $xls = PHPExcel_IOFactory::load("./templates/flight_task_template (old).xls");
+        $xls = PHPExcel_IOFactory::load("./templates/flight_task_template.xls");
         
         #$xls->setActiveSheetIndex();
         
         $xls->setActiveSheetIndex(0);
         $firstSheet = $xls->getActiveSheet();
         
-        $sheetId = 0;
-        $firstSheet = $xls->createSheet($sheetId);
+//        $sheetId = 0;
+//        $firstSheet = $xls->createSheet($sheetId);
 
         $reporter->exportFlightTaskToXls($xls, $firstSheet, $row, $this->_progressBar);
         
