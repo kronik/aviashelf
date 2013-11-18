@@ -685,7 +685,7 @@ class Reporter
 
         $pageMargins = $firstSheet->getPageMargins();
         
-        $margin = 0.42;
+        $margin = 0.3 / 2.54;
         
         $pageMargins->setTop($margin);
         $pageMargins->setBottom($margin);
@@ -702,11 +702,11 @@ class Reporter
                                              );
 //        $totalLeftColumns = 28;
 //        
-//        for ($i = 0; $i <= $totalLeftColumns-1; $i++)
-//        {
-//            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('2.0pt');
-//        }
-//        
+        for ($i = 0; $i <= 100; $i++)
+        {
+            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('1.9pt');
+        }
+//
 //        $tableColumn = $this->_getColumnLetterByIndex($totalLeftColumns - 1);
 //        $tableHeaderColumnt = $this->_getColumnLetterByIndex($totalLeftColumns);
 //        
@@ -991,9 +991,9 @@ class Reporter
         {
             $delimiter = "\n";
             
-            if ($lineCounter % 2 == 0) {
-                $delimiter = ", ";
-            }
+//            if ($lineCounter % 2 == 0) {
+//                $delimiter = ", ";
+//            }
             
             $accessStr = $accessStr . $access->accessName . $delimiter;
             
