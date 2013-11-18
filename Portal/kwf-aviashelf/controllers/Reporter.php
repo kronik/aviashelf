@@ -683,14 +683,14 @@ class Reporter
         $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
         $firstSheet->setTitle('Титульный лист');
 
-//        $pageMargins = $firstSheet->getPageMargins();
-//        
-//        $margin = 0.42;
-//        
-//        $pageMargins->setTop($margin * 2);
-//        $pageMargins->setBottom($margin);
-//        $pageMargins->setLeft($margin);
-//        $pageMargins->setRight($margin);
+        $pageMargins = $firstSheet->getPageMargins();
+        
+        $margin = 0.42;
+        
+        $pageMargins->setTop($margin);
+        $pageMargins->setBottom($margin);
+        $pageMargins->setLeft($margin);
+        $pageMargins->setRight($margin);
         
         $styleThinBlackBorderOutline = array(
                                              'borders' => array(
@@ -835,6 +835,21 @@ class Reporter
 //            }
 //        }
         
+        $firstSheet->getStyle('AD1')->getAlignment()->setWrapText(true);
+        $firstSheet->getStyle('AD1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('AD1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('AD1')->getAlignment()->setTextRotation(-90);
+
+        $firstSheet->getStyle('AD14')->getAlignment()->setWrapText(true);
+        $firstSheet->getStyle('AD14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('AD14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('AD14')->getAlignment()->setTextRotation(-90);
+
+        $firstSheet->getStyle('AD26')->getAlignment()->setWrapText(true);
+        $firstSheet->getStyle('AD26')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('AD26')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $firstSheet->getStyle('AD26')->getAlignment()->setTextRotation(-90);
+        
         $objDrawing = new PHPExcel_Worksheet_Drawing();
         $objDrawing->setName('Logo');
         $objDrawing->setDescription('Logo');
@@ -977,7 +992,7 @@ class Reporter
             $delimiter = "\n";
             
             if ($lineCounter % 2 == 0) {
-                $delimiter = "        ";
+                $delimiter = ", ";
             }
             
             $accessStr = $accessStr . $access->accessName . $delimiter;

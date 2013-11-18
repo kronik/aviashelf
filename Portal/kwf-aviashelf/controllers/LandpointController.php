@@ -16,13 +16,14 @@ class LandpointController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->order('lastname');
+        $companyModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $companySelect = $companyModel->select()->whereEquals('name', 'Компании для ПЗ')->order('name');
         
-        $this->_form->add(new Kwf_Form_Field_Select('responsibleId', trlKwf('Responsible')))
-        ->setValues($employeesModel)
-        ->setSelect($employeesSelect)
-        ->setWidth(400);
+        $this->_form->add(new Kwf_Form_Field_Select('responsibleId', 'Владелец'))
+        ->setValues($companyModel)
+        ->setSelect($companySelect)
+        ->setWidth(400)
+        ->setAllowBlank(false);
    
         $this->_form->add(new Kwf_Form_Field_TextField('phone', trlKwf('Phone')))
         ->setWidth(400);
@@ -43,12 +44,12 @@ class LandpointController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
-        $m2 = Kwf_Model_Abstract::getInstance('Employees');
+        $m2 = Kwf_Model_Abstract::getInstance('Linkdata');
         
         $s = $m2->select()->whereEquals('id', $row->responsibleId);
         $prow = $m2->getRow($s);
         
-        $row->responsibleName = (string)$prow;
+        $row->responsibleName = $prow->value;
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
