@@ -51,8 +51,8 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('secondPilotName', trlKwf('Second pilot'), 100));
         $this->_columns->add(new Kwf_Grid_Column('technicName', trlKwf('Technic'), 100));
         $this->_columns->add(new Kwf_Grid_Column('resquerName', trlKwf('Resquer'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('objectiveName', trlKwf('Objective'), 100));
-        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Customer'), 100));
+        $this->_columns->add(new Kwf_Grid_Column('objectiveName', trlKwf('Objective'), 200));
+        $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Customer'), 150));
         $this->_columns->add(new Kwf_Grid_Column('comments', trlKwf('Comments')))->setWidth(500);
     }
     

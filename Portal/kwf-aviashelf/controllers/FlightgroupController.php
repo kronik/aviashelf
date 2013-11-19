@@ -54,54 +54,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $row->employeeName = (string)$prow;
 
         $flightRow = $flightsModel->getRow($flightsSelect);
-
-        if (($this->isContain(trlKwf('KWS'), $row->positionName)) && ($row->mainCrew == TRUE))
-        {
-            $flightRow->firstPilotName = (string)$prow;
-         
-            $users = Kwf_Model_Abstract::getInstance('Employees');
-            $userSelect = $users->select()->whereEquals('id', $row->employeeId);
-            $employee = $users->getRow($userSelect);
-            
-            if ($employee->userId != NULL)
-            {
-                $tasks = Kwf_Model_Abstract::getInstance('Tasks');
                 
-                $taskRow = $tasks->createRow();
-                
-                $taskRow->title = 'Выполнить полет: ' . $flightRow->number;
-                $taskRow->description = 'Выполнить полет: ' . $flightRow->number . ' ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
-                $taskRow->startDate = $flightRow->flightStartDate;
-                $taskRow->userId = $employee->userId;
-                $taskRow->status = 0;
-                
-                $taskRow->save();
-            }
-        }
-        else if (($this->isContain(trlKwf('Second pilot'), $row->positionName)) && ($row->mainCrew == TRUE))
-        {
-            $flightRow->secondPilotName = (string)$prow;
-        }
-        else if (($this->isContain('Пилот', $row->positionName)) && ($row->mainCrew == TRUE))
-        {
-            $flightRow->secondPilotName = (string)$prow;
-        }
-        else if (($this->isContain(trlKwf('Technic'), $row->positionName)) && ($row->mainCrew == TRUE))
-        {
-            $flightRow->technicName = (string)$prow;
-        }
-        else if ($this->isContain(trlKwf('Resquer'), $row->positionName))
-        {
-            $flightRow->resquerName = (string)$prow;
-        }
-        else if (($this->isContain(trlKwf('Instructor'), $row->positionName)) ||
-                 ($this->isContain(trlKwf('Checker'), $row->positionName)))
-        {
-            $flightRow->checkPilotName = (string)$prow;
-        }
-        
-        $flightRow->save();
-        
         if ($row->mainCrew == TRUE)
         {
             $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
@@ -201,5 +154,75 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {        
         $this->updateReferences($row);
+    }
+    
+    protected function _afterSave(Kwf_Model_Row_Interface $row)
+    {
+        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->flightId)->whereEquals('mainCrew', TRUE)->order('id');
+        
+        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+
+        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+        $flightsSelect = $flightsModel->select()->whereEquals('id', $row->flightId);
+
+        $users = Kwf_Model_Abstract::getInstance('Employees');
+
+        $flightRow = $flightsModel->getRow($flightsSelect);
+
+        $flightRow->firstPilotName = '';
+        $flightRow->secondPilotName = '';
+        $flightRow->technicName = '';
+        $flightRow->resquerName = '';
+        $flightRow->checkPilotName = '';
+        
+        foreach ($flightMembers as $flightMember) {
+
+            $userSelect = $users->select()->whereEquals('id', $flightMember->employeeId);
+            $employee = $users->getRow($userSelect);
+
+            if (($this->isContain('КВС', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
+            {
+                $flightRow->firstPilotName = (string)$employee;
+
+                if ($employee->userId != NULL)
+                {
+                    $tasks = Kwf_Model_Abstract::getInstance('Tasks');
+                    
+                    $taskRow = $tasks->createRow();
+                    
+                    $taskRow->title = 'Выполнить полет: ' . $flightRow->number;
+                    $taskRow->description = 'Выполнить полет: ' . $flightRow->number . ' ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
+                    $taskRow->startDate = $flightRow->flightStartDate;
+                    $taskRow->userId = $employee->userId;
+                    $taskRow->status = 0;
+                    
+                    $taskRow->save();
+                }
+            }
+            else if (($this->isContain('Второй пилот', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
+            {
+                $flightRow->secondPilotName = (string)$employee;
+            }
+            else if (($this->isContain('Пилот', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
+            {
+                $flightRow->secondPilotName = (string)$employee;
+            }
+            else if (($this->isContain(trlKwf('Technic'), $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
+            {
+                $flightRow->technicName = (string)$employee;
+            }
+            else if ($this->isContain('Спасатель', $flightMember->positionName))
+            {
+                $flightRow->resquerName = (string)$employee;
+            }
+            else if (($this->isContain('Проверяющий', $flightMember->positionName)) ||
+                     ($this->isContain('Инструктор', $flightMember->positionName)))
+            {
+                $flightRow->checkPilotName = (string)$employee;
+            }
+        }
+        
+        $flightRow->save();
     }
 }
