@@ -792,6 +792,16 @@ CREATE TABLE IF NOT EXISTS `flightLandpoints` (
     KEY `flightId` (`flightId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `flightObjectives` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `pos` tinyint(3) unsigned NOT NULL,
+    `objectiveId` int(8) unsigned DEFAULT NULL,
+    `flightId` int(8) unsigned NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `objectiveId` (`objectiveId`),
+    KEY `flightId` (`flightId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `flightAccesses` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `docId` int NOT NULL,

@@ -938,12 +938,12 @@ class Reporter
         $firstSheet->setCellValue('AS21', $this->russianDate($flightDate->format('d-m-Y')));
         $firstSheet->setCellValue('BJ21', $flightStartTime);
         
-        $objectiveModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $objectiveSelect = $objectiveModel->select()->whereEquals('id', $row->objectiveId);
-        $objective = $objectiveModel->getRow($objectiveSelect);
+//        $objectiveModel = Kwf_Model_Abstract::getInstance('Linkdata');
+//        $objectiveSelect = $objectiveModel->select()->whereEquals('id', $row->objectiveId);
+//        $objective = $objectiveModel->getRow($objectiveSelect);
         
         $firstSheet->setCellValue('AS22', $row->routeName);
-        $firstSheet->setCellValue('AS24', $objective->desc);
+        $firstSheet->setCellValue('AS24', $row->objectiveName);
         $firstSheet->setCellValue('AS26', $row->routeName);
 
         $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');

@@ -11,6 +11,7 @@ class Flights extends Kwf_Model_Db
                                      );
     
     protected $_dependentModels = array(
+                                        'FlightObjectives' => 'FlightObjectives',
                                         'FlightLandpoints' => 'FlightLandpoints',
                                         'Flightgroups' => 'Flightgroups',
                                         'Flightresults' => 'Flightresults'

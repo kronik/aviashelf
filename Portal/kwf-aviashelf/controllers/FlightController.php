@@ -19,6 +19,9 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('General Info'));
         
+        $tab->fields->add(new Kwf_Form_Field_ShowField('number', 'Номер'))
+        ->setWidth(400);
+
         $tab->fields->add(new Kwf_Form_Field_TextField('requestNumber', trlKwf('Task number')))
         ->setWidth(400)
         ->setAllowBlank(false);
@@ -43,13 +46,13 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $objModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $objSelect = $objModel->select()->whereEquals('name', 'Цели');
-        
-        $tab->fields->add(new Kwf_Form_Field_Select('objectiveId', trlKwf('Objective')))
-        ->setValues($objModel)
-        ->setSelect($objSelect)
-        ->setWidth(400);
+//        $objModel = Kwf_Model_Abstract::getInstance('Linkdata');
+//        $objSelect = $objModel->select()->whereEquals('name', 'Цели');
+//        
+//        $tab->fields->add(new Kwf_Form_Field_Select('objectiveId', trlKwf('Objective')))
+//        ->setValues($objModel)
+//        ->setSelect($objSelect)
+//        ->setWidth(400);
 
         $groupModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $groupSelect = $groupModel->select()->whereEquals('name', 'Тип экипажа');
@@ -65,7 +68,21 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         ->setWidth(400);
         
         $tab->fields->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
+
+        $tab = $tabs->add();
+        $tab->setTitle('Цели');
         
+        $objectivesModel = Kwf_Model_Abstract::getInstance('Objectives');
+        $objectivesSelect = $objectivesModel->select()->whereEquals('name', 'Цели')->order('value');
+        
+        $multifields = new Kwf_Form_Field_MultiFields('FlightObjectives');
+        $multifields->setMinEntries(0);
+        $multifields->fields->add(new Kwf_Form_Field_Select('objectiveId', 'Цель'))
+        ->setValues($objectivesModel)
+        ->setSelect($objectivesSelect)
+        ->setAllowBlank(false);
+        $tab->fields->add($multifields);
+
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Landpoints'));
         
@@ -92,9 +109,9 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         $prow = $companyModel->getRow($companySelect);
         $row->subCompanyName = $prow->value;
         
-        $s = $m1->select()->whereEquals('id', $row->objectiveId);
-        $prow = $m1->getRow($s);
-        $row->objectiveName = $prow->value;
+//        $s = $m1->select()->whereEquals('id', $row->objectiveId);
+//        $prow = $m1->getRow($s);
+//        $row->objectiveName = $prow->value;
         
         $row->routeId = 0;
         $row->routeName = '';
@@ -153,6 +170,20 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         if (strlen($row->routeName) < 2)
         {
             $row->routeName = 'Обеспечение ПСО/АСР';
+        }
+        
+        $flightObjectiveSelect = new Kwf_Model_Select();
+        $flightObjectiveSelect->whereEquals('flightId', $row->id)->order('pos');
+
+        $objectivesModel = Kwf_Model_Abstract::getInstance('Objectives');
+        $objectivesSelect = $objectivesModel->select()->where(new Kwf_Model_Select_Expr_Child_Contains('FlightObjectives', $flightObjectiveSelect));
+        
+        $objectives = $objectivesModel->getRows($objectivesSelect);
+        $row->objectiveName = '';
+        
+        foreach ($objectives as $objective)
+        {
+            $row->objectiveName = $row->objectiveName . $objective->value . '. ';
         }
         
         $row->save();
