@@ -909,11 +909,19 @@ class Reporter
             
             $position = $flightMember->positionName;
             
-            if ($position == 'КВС')
+            if (($position == 'КВС') && ($kwsId == 0))
             {
                 $kwsId = $flightMember->employeeId;
             }
             
+            if ($position == 'Инструктор') {
+                $kwsId = $flightMember->employeeId;
+            }
+                    
+            if ($position == 'Проверяющий') {
+                $kwsId = $flightMember->employeeId;
+            }
+
             $firstSheet->setCellValue('AJ' . $rowNumber, $position);
             $firstSheet->setCellValue('AS' . $rowNumber, (string)$employeeRow);
 
@@ -1000,6 +1008,10 @@ class Reporter
             $lineCounter++;
         }
         
+        if (($accessStr == "") || (count($accesses) == 0)) {
+            throw new Kwf_Exception_Client('Нет доступа по метеоминимумам.');
+        }
+
         $firstSheet->setCellValue('AJ35', $accessStr);
         
         $progressBar->update(100);
@@ -1256,11 +1268,18 @@ class Reporter
             
             $position = $flightMember->positionName;
             
-            if ($position == 'КВС')
-            {
+            if (($position == 'КВС') && ($kwsId == 0)) {
                 $kwsId = $flightMember->employeeId;
             }
-            
+
+            if ($position == 'Инструктор') {
+                $kwsId = $flightMember->employeeId;
+            }
+
+            if ($position == 'Проверяющий') {
+                $kwsId = $flightMember->employeeId;
+            }
+
             $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn) . $rowNumber, $position);
             $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 1) . $rowNumber, (string)$employeeRow);
             
