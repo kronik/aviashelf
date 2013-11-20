@@ -1013,6 +1013,8 @@ class Reporter
         }
 
         $firstSheet->getStyle('AJ35')->getAlignment()->setWrapText(true);
+        $firstSheet->getStyle('AJ35')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $firstSheet->getStyle('AJ35')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getCell('AJ35')->setValueExplicit($accessStr, PHPExcel_Cell_DataType::TYPE_STRING);
         
         $progressBar->update(100);
