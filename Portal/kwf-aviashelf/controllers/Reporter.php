@@ -1012,7 +1012,8 @@ class Reporter
             throw new Kwf_Exception_Client('Нет доступа по метеоминимумам.');
         }
 
-        $firstSheet->setCellValue('AJ35', $accessStr);
+        $firstSheet->getStyle('AJ35')->getAlignment()->setWrapText(true);
+        $firstSheet->getCell('AJ35')->setValueExplicit($accessStr, PHPExcel_Cell_DataType::TYPE_STRING);
         
         $progressBar->update(100);
     }
