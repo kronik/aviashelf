@@ -23,9 +23,11 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mytrainings', array('text'=>trlKwfStatic('My trainings'), 'icon'=>'user.png'), '/mytrainings'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mygroups', array('text'=>trlKwfStatic('My groups'), 'icon'=>'group.png'), '/mygroups'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myresults', array('text'=>trlKwfStatic('My results'), 'icon'=>'user.png'), '/myresults'), 'default_edumenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_mytrialgroups', array('text'=>'Моя самоподготовка', 'icon'=>'user.png'), '/mytrialgroups'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainings', array('text'=>trlKwfStatic('Trainings'), 'icon'=>'database.png'), '/trainings'), 'default_edumenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_traininggroups', array('text'=>trlKwfStatic('Groups'), 'icon'=>'database.png'), '/traininggroups'), 'default_edumenuitem');
-        
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_trainingtrialgroups', array('text'=>'Самоподготовка', 'icon'=>'database.png'), '/trainingtrialgroups'), 'default_edumenuitem');
+
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_checksmenuitem', array('text'=>trlKwfStatic('Checks'), 'icon'=>'calculator.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkaccesses', array('text'=>'Летные проверки', 'icon'=>'calculator.png'), '/checkaccesses'), 'default_checksmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checksdocs', array('text'=>'Периодическая подготовка', 'icon'=>'calculator.png'), '/checksdocs'), 'default_checksmenuitem');
@@ -96,6 +98,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_training'), 'default_trainings');
         $this->addResource(new Zend_Acl_Resource('default_mytraining'), 'default_mytrainings');
         $this->addResource(new Zend_Acl_Resource('default_mygroup'), 'default_mygroups');
+        $this->addResource(new Zend_Acl_Resource('default_mytrialgroup'), 'default_mytrialgroups');
         $this->addResource(new Zend_Acl_Resource('default_myquestions'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_myquestion'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_myanswers'), 'default_mygroups');
@@ -104,6 +107,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_traininganswers'), 'default_trainingquestion');
         $this->addResource(new Zend_Acl_Resource('default_traininganswer'), 'default_traininganswers');
         $this->addResource(new Zend_Acl_Resource('default_traininggroup'), 'default_traininggroups');
+        $this->addResource(new Zend_Acl_Resource('default_trainingtrialgroup'), 'default_trainingtrialgroups');
         $this->addResource(new Zend_Acl_Resource('default_trainingresults'), 'default_trainings');
         $this->addResource(new Zend_Acl_Resource('default_trainingresult'), 'default_trainingresults');
 
@@ -138,6 +142,7 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_tasks');
         $this->allow('user', 'default_mytrainings');
         $this->allow('user', 'default_mygroups');
+        $this->allow('user', 'default_mytrialgroups');
         $this->allow('user', 'default_myquestions');
         $this->allow('user', 'default_myanswers');
         $this->allow('user', 'default_myresults');
@@ -175,9 +180,11 @@ class Acl extends Kwf_Acl
 //        $this->allow(array('admin', 'power'), 'default_checkstrainings');
         $this->allow(array('admin', 'power'), 'default_mytrainings');
         $this->allow(array('admin', 'power'), 'default_mygroups');
+        $this->allow(array('admin', 'power'), 'default_mytrialgroups');
         $this->allow(array('admin', 'power'), 'default_trainings');
         $this->allow(array('admin', 'power'), 'default_trainingquestions');
         $this->allow(array('admin', 'power'), 'default_traininggroups');
+        $this->allow(array('admin', 'power'), 'default_trainingtrialgroups');
         $this->allow(array('admin', 'power'), 'default_traininganswers');
         $this->allow(array('admin', 'power'), 'default_trainingresults');
         $this->allow(array('admin', 'power'), 'default_myresults');

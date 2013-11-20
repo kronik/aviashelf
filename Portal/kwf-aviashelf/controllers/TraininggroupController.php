@@ -23,20 +23,36 @@ class TraininggroupController extends Kwf_Controller_Action_Auto_Form
         
         $this->_form->add(new Kwf_Form_Field_NumberField('questions', trlKwf('Questions in session')))
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
         
         $this->_form->add(new Kwf_Form_Field_Checkbox('isDifGrade', trlKwf('Grade')));
     }
     
-    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
-    {
+    protected function updateReferences(Kwf_Model_Row_Interface $row) {
         $m = Kwf_Model_Abstract::getInstance('Trainings');
-
-        $row->trainingId = $this->_getParam('trainingId');
         
         $s = $m->select()->whereEquals('id', $row->trainingId);
         $prow = $m->getRow($s);
         
         $row->trainingName = (string)$prow;
+        
+        if ($row->questions == NULL) {
+            $row->questions = 0;
+        }
+        
+        $row->isTrial = false;
     }
+    
+    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
+    {
+        $row->trainingId = $this->_getParam('trainingId');
+
+        $this->updateReferences($row);
+    }
+    
+    protected function _beforeSave(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateReferences($row);
+    }
+
 }

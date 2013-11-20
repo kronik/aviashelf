@@ -49,7 +49,7 @@ class MygroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $s = new Kwf_Model_Select();
         $s->where(new Kwf_Model_Select_Expr_Sql("employeeId = " . $employeeId . " AND currentScore = 0 "));
-        $ret->where(new Kwf_Model_Select_Expr_Child_Contains('TrainingResults', $s))->where(new Kwf_Model_Select_Expr_Sql("startDate <= NOW() and endDate >= NOW()"));
+        $ret->where(new Kwf_Model_Select_Expr_Child_Contains('TrainingResults', $s))->where(new Kwf_Model_Select_Expr_Sql("startDate <= NOW() and endDate >= NOW() and isTrial = false"));
         
         return $ret;
     }

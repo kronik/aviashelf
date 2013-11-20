@@ -904,6 +904,7 @@ CREATE TABLE IF NOT EXISTS `trainingGroups` (
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     `isDifGrade` tinyint(3) unsigned DEFAULT '0',
     `Hidden` char DEFAULT '0',
+    `isTrial` BOOL DEFAULT '0' NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
     KEY `trainingId` (`trainingId`)

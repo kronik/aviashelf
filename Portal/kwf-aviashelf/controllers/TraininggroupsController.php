@@ -49,6 +49,9 @@ class TraininggroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
         {
             $ret['trainingId = ?'] = $this->_getParam('trainingId');
         }
+        
+        $ret['isTrial = ?'] = false;
+
         return $ret;
     }
 }

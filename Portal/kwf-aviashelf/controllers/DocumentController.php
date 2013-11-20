@@ -47,7 +47,7 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         
         $fs = new Kwf_Form_Container_FieldSet(trlKwf('Grade'));
         $fs->setCheckboxToggle(true);
-        $fs->setCheckboxName('gradeVisible');        
+        $fs->setCheckboxName('gradeVisible');
         #$fs->setCollapsed(true);
         #$fs->setCollapsible(true);
         #$fs->setAutoHeight(true);

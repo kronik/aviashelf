@@ -151,7 +151,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                 
                 $typeSelect = NULL;
                 
-                if (($training != NULL) && ($training->docTypeId != 0))
+                if (($training != NULL) && ($training->docTypeId != 0) && ($result->isTrial == false))
                 {
                     $typeSelect = $typeModel->select()->whereEquals('id', $training->docTypeId); 
                 }

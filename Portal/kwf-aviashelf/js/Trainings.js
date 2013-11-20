@@ -11,7 +11,17 @@ var Trainings = Ext.extend(Ext.Panel,
                                             collapsible     : true,
                                             title           : trlKwf('Employees')
                                             });
-                           
+
+       var trialresults = new Kwf.Auto.GridPanel({
+                                            controllerUrl   : '/trainingresults',
+                                            region          : 'east',
+                                            width           : 500,
+                                            stripeRows      : true,
+                                            split           : true,
+                                            collapsible     : true,
+                                            title           : trlKwf('Employees')
+                                            });
+
        var answers = new Kwf.Auto.GridPanel({
                                               controllerUrl   : '/traininganswers',
                                               region          : 'east',
@@ -42,7 +52,18 @@ var Trainings = Ext.extend(Ext.Panel,
                                                          item: results
                                                          }]
                                               });
-                           
+
+       var trialgroups = new Kwf.Auto.GridPanel({
+                                           controllerUrl   : '/trainingtrialgroups',
+                                           region          : 'center',
+                                           stripeRows      : true,
+                                           title           : 'Самоподготовка',
+                                           bindings: [{
+                                                      queryParam: 'groupId',
+                                                      item: trialresults
+                                                      }]
+                                           });
+
        var form = new Kwf.Auto.FormPanel({
                                          controllerUrl   : '/training',
                                          region          : 'center',
@@ -58,16 +79,20 @@ var Trainings = Ext.extend(Ext.Panel,
                                          collapsible     : true,
                                          title           : trlKwf('Trainings'),
                                          bindings: [{
-                                                    queryParam: 'trainingId',
-                                                    item: questions
+                                                        queryParam: 'trainingId',
+                                                        item: questions
                                                     },
                                                     {
-                                                    queryParam: 'trainingId',
-                                                    item: groups
+                                                        queryParam: 'trainingId',
+                                                        item: groups
                                                     },
                                                     {
-                                                    queryParam: 'id',
-                                                    item: form
+                                                        queryParam: 'trainingId',
+                                                        item: trialgroups
+                                                    },
+                                                    {
+                                                        queryParam: 'id',
+                                                        item: form
                                                     }]
        });
     
@@ -83,13 +108,19 @@ var Trainings = Ext.extend(Ext.Panel,
                                     layout:'border',
                                     items: [groups, results]
        });
-                           
+
+       var trialprocess = new Ext.Panel({
+                                   title: 'Самоподготовка',
+                                   layout:'border',
+                                   items: [trialgroups, trialresults]
+                                   });
+
        var tabs = new Ext.TabPanel({
                                        border    : true,
                                        activeTab : 0,
                                        region    : 'center',
                                        tabPosition:'top',
-                                       items:[form, practice, process]
+                                       items:[form, practice, process, trialprocess]
        });
        
        this.layout = 'border';
