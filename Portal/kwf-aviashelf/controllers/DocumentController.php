@@ -71,10 +71,10 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         $tab->setTitle(trlKwf('File'));
         
         $tab->fields->add(new Kwf_Form_Field_File('Picture', trlKwf('File')))
-        ->setShowPreview(false)
-        ->setAllowOnlyImages(true);
+        ->setShowPreview(true)
+        ->setAllowOnlyImages(false);
         
-        $tab->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
+//        $tab->fields->add(new Kwf_Form_Field_ImageViewer('picture_id', trlKwf('Image'), 'Picture'));
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
