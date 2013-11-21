@@ -151,23 +151,32 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         $correctScore = 0;
         
         $selectedQuestions = array();
+        
+        if (($groupRow->questions > count($questions)) || ($groupRow->questions == 0) || ($groupRow->questions == NULL)) {
+            $groupRow->questions = count($questions);
+            $groupRow->save();
+        }
+        
+        if ($groupRow->questions < count($questions)) {
+            do {
+                $nextQuestionIdx = rand(0, count($questions) - 1);
                 
-        do
-        {            
-            $nextQuestionIdx = rand(0, count($questions) - 1);
-            
-            if (in_array($nextQuestionIdx, $selectedQuestions))
-            {
-                continue;
+                if (in_array($nextQuestionIdx, $selectedQuestions)) {
+                    continue;
+                }
+     
+                $question = $questions[$nextQuestionIdx];
+                
+                $count += 1;
+                array_push($selectedQuestions, $nextQuestionIdx);
+                
+                $correctScore += $this->addQuestion($row, $question, $count);
+            } while ((count($selectedQuestions) < $groupRow->questions) && (count($questions) > $groupRow->questions));
+        } else {
+            for ($index = 0; $index < count($questions) - 1; $index++) {
+                $correctScore += $this->addQuestion($row, $questions[$index], $index + 1);
             }
- 
-            $question = $questions[$nextQuestionIdx];
-            
-            $count += 1;
-            array_push($selectedQuestions, $nextQuestionIdx);
-            
-            $correctScore += $this->addQuestion($row, $question, $count);
-        }while ((count($selectedQuestions) < $groupRow->questions) && (count($questions) > $groupRow->questions));
+        }
         
         $this->addTask($row, $groupRow);
         
