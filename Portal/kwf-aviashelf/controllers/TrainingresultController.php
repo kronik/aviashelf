@@ -32,6 +32,13 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         
         $row->trainingGroupName = (string)$prow;
         
+        if ($prow->isTrial == true) {
+            
+            if ($this->isContain('Самоподготовка', $row->comment) == false) {
+                $row->comment = $row->comment . ' (Самоподготовка)';
+            }
+        }
+        
         $row->trainingId = $prow->trainingId;
         
         $s = $m2->select()->whereEquals('id', $row->trainingId);
@@ -43,6 +50,11 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         $prow = $m3->getRow($s);
         
         $row->employeeName = (string)$prow;
+    }
+    
+    protected function isContain($what, $where)
+    {
+        return stripos($where, $what) !== false;
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
