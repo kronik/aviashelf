@@ -2394,6 +2394,7 @@
         <id>476</id>
         <ro>Încarcă</ro>
         <sl>Naloži</sl>
+        <ru>Загрузка</ru>
     </text>
     <text>
         <en>Add {0}</en>
@@ -2463,6 +2464,7 @@
         <id>487</id>
         <ro>Se încarcă fişierul</ro>
         <sl>Datoteka se nalaga.</sl>
+        <ru>Загрузка файла</ru>
     </text>
     <text>
         <en>Edit Styles</en>
@@ -2484,6 +2486,7 @@
         <id>490</id>
         <ro>Încarcă fişierul</ro>
         <sl>Naloži datoteko</sl>
+        <ru>Загрузка файла</ru>
     </text>
     <text>
         <en>Info</en>
@@ -4783,6 +4786,7 @@
         <id>965</id>
         <ro>Eroare la încărcare</ro>
         <sl>Napaka pri nalaganju</sl>
+        <ru>Ошибка Загрузки</ru>
     </text>
     <text>
         <en>None</en>
@@ -5511,12 +5515,14 @@
         <id>1111</id>
         <de>Datei Upload unterbrochen.</de>
         <ro>Încărcarea fişierului a fost întreruptă.</ro>
+        <ru>Загрузка файла Отмена.</ru>
     </text>
     <text>
         <en>Upload Stopped</en>
         <id>1112</id>
         <de>Upload unterbrochen</de>
         <ro>Încărcare întreruptă</ro>
+        <ru>Загрузка Остановлена</ru>
     </text>
     <text>
         <en>File is zero bytes or cannot be accessed and cannot be uploaded.</en>
@@ -7839,6 +7845,7 @@
         <id>1553</id>
         <ro>Încarcă fişiere</ro>
         <sl>Nalaganje datotek</sl>
+        <ru>Загрузка Файлов</ru>
     </text>
     <text>
         <en>Uploading files</en>
@@ -7846,6 +7853,7 @@
         <id>1554</id>
         <ro>Încarcă fişiere</ro>
         <sl>Naloži datoteke</sl>
+        <ru>Загрузка файлов</ru>
     </text>
     <text>
         <en>E-Mail Recipient</en>
