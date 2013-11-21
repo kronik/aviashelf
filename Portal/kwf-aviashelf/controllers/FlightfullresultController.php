@@ -41,7 +41,8 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
         $m3 = Kwf_Model_Abstract::getInstance('Flights');
-        
+        $m4 = Kwf_Model_Abstract::getInstance('Wstypes');
+
         $s = $m1->select()->whereEquals('id', $row->typeId);
         $prow = $m1->getRow($s);
         $row->typeName = $prow->value;
@@ -51,8 +52,12 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         
         $row->flightDate = $prow->flightStartDate;
         $row->planeId = $prow->planeId;
-        $row->planeName = $prow->planeName;
         
+        $s = $m4->select()->whereEquals('id', $prow->planeId);
+        $prow = $m4->getRow($s);
+        
+        $row->planeName = $prow->Name;
+
         $s = $m2->select()->whereEquals('id', $row->ownerId);
         $prow = $m2->getRow($s);
         
