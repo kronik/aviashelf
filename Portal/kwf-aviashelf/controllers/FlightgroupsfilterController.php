@@ -17,7 +17,9 @@ class FlightgroupsfilterController extends Kwf_Controller_Action_Auto_Grid
         {
             $s = new Kwf_Model_Select();
             $s->whereEquals('groupId', $this->_getParam('positionId'));
-            $ret->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeFlightRoles', $s))->whereEquals('groupType', '1')->whereEquals('isAllowed', '1');
+            $ret->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeFlightRoles', $s))->whereEquals('groupType', '1')
+            ->whereEquals('isOOO', false)
+            ->whereEquals('isAllowed', '1');
         }
         
         return $ret;

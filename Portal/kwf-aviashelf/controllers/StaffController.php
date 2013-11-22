@@ -50,6 +50,8 @@ class StaffController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(true);
         
+        $tab->fields->add(new Kwf_Form_Field_Checkbox('isOOO', 'Отсутствует'));
+
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Permissions'));
         

@@ -98,7 +98,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `enPassportNumber` VARCHAR(20) DEFAULT NULL,
     `enPassportDate` DATE DEFAULT NULL,
     `enPassportCompany` VARCHAR(500) DEFAULT NULL,
-    `listPosition` VARCHAR (10) DEFAULT '0'
+    `listPosition` VARCHAR (10) DEFAULT '0',
+    `isOOO` BOOL DEFAULT false NOT NULL,
     PRIMARY KEY (`id`),
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

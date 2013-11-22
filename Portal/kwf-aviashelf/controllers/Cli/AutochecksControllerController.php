@@ -6,14 +6,13 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         set_time_limit(600);
         
         $setsModel = Kwf_Model_Abstract::getInstance('Flightset');
-        $setsSelect = $setsModel->select()->where(new Kwf_Model_Select_Expr_Sql('setsCount > 0 AND finished = 0');
-        //$setsSelect = $setsModel->select()->where(new Kwf_Model_Select_Expr_Sql('setsCount > 0');
+        $setsSelect = $setsModel->select()->where(new Kwf_Model_Select_Expr_Sql('setsCount > 0 AND finished = 0'));
 
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql('finished = 0');
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql('finished = 0'));
 
         $docsModel = Kwf_Model_Abstract::getInstance('Documents');
-        $docsSelect = $docsModel->select()->where(new Kwf_Model_Select_Expr_Sql('ownerName <> NULL AND isDocument = 0');
+        $docsSelect = $docsModel->select()->where(new Kwf_Model_Select_Expr_Sql('ownerName <> NULL AND isDocument = 0'));
 
         $rows = $setsModel->getRows($setsSelect);
         
@@ -81,7 +80,8 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
 
         $employeeRow = $employeesModel->getRow($employeesSelect);
 
-        if (($employeeRow == NULL) || ($employeeRow->userId == NULL) || ($employeeRow->userId <= 0)) {
+        if (($employeeRow == NULL) || ($employeeRow->userId == NULL) ||
+            ($employeeRow->userId <= 0) || ($employeeRow->isOOO == true)) {
             return;
         }
         
@@ -94,19 +94,52 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
             return;
         }
         
+        $phoneNumber = $employeeRow->privatePhone;
+        $phoneEmail = NULL;
+        
+        if ($phoneNumber != NULL) {
+            $symbols = array ("+", "-", " ", "/");
+            $phoneNumber = str_replace ($symbols, "", $phoneNumber);
+            $phoneOperator = '';
+            
+            if ((strpos($phoneNumber, "7914") === 0) || (strpos($phoneNumber, "8914") === 0)) {
+                $phoneOperator = "@sms.mtsdv.ru";
+            } else if (((strpos($phoneNumber, "7924") === 0) || (strpos($phoneNumber, "8924") === 0)) ||
+                       ((strpos($phoneNumber, "7929") === 0) || (strpos($phoneNumber, "8929") === 0))) {
+                $phoneOperator = "@sms.megafondv.ru";
+            } else {
+                $phoneOperator = "@sms.beemail.ru";
+            }
+            
+            $phoneEmail = $phoneNumber . $phoneOperator;
+        }
+        
+        $needToSend = 0;
+
         $mail = new Kwf_Mail_Template($isWarning ? 'CheckWarningTemplate' : 'CheckFailedTemplate');
         $mail->fullname = (string)$employeeRow;
         $mail->checkname = $checkTypeName;
         $mail->checkdescription = $description;
-        //$mail->addTo($userRow->email);
-        $mail->addTo('dmitry.klimkin@gmail.com');
-        $mail->setFrom('admin@aviashelf.com', 'Авиашельф Пульс');
+        
+        if ($userRow->email != NULL) {
+            $mail->addTo($userRow->email);
+            $needToSend ++;
+        }
+        
+        if ($phoneEmail != NULL) {
+            $mail->addTo($phoneEmail);
+            $needToSend ++;
+        }
+        
+        //$mail->addTo('dmitry.klimkin@gmail.com');
+        $mail->setFrom('notify@aviashelf.com', 'Авиашельф Пульс');
         $mail->setSubject($checkTypeName);
-        $mail->send();
+        
+        if ($needToSend > 0) {
+            $mail->send();
+        }
         
 //        echo "Message sent!\n";
-        
-        //TODO: send SMS to $employeeRow->privatePhone
                                 
         if ($isWarning == FALSE) {
             $employeeRow->isAllowed = 0;

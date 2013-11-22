@@ -32,6 +32,7 @@ class EmployeesController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('firstname', trlKwf('Firstname'), 80));
         $this->_columns->add(new Kwf_Grid_Column('middlename', trlKwf('Middlename'), 90));
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('isAllowed', trlKwf('Allowed'), 60));
+        $this->_columns->add(new Kwf_Grid_Column_Checkbox('isOOO', 'Нет', 60));
         $this->_columns->add(new Kwf_Grid_Column('subCompanyName', 'Подразделение', 100));
     }
     

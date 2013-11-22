@@ -191,8 +191,80 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         }
         
         $this->addTask($row, $groupRow);
-        
+        $this->sendMessage($row->employeeId, $groupRow);
+
         $row->totalScore = $correctScore;
         $row->save();
+    }
+    
+    public function sendMessage ($employeeId, $groupRow) {
+        
+        if ($employeeId == NULL) {
+            return;
+        }
+        
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeesSelect = $employeesModel->select()->whereEquals('id', $employeeId);
+        
+        $employeeRow = $employeesModel->getRow($employeesSelect);
+        
+        if (($employeeRow == NULL) || ($employeeRow->userId == NULL) || ($employeeRow->userId <= 0)) {
+            return;
+        }
+        
+        $userModel = Kwf_Model_Abstract::getInstance('Kwf_User_Model');
+        $userSelect = $userModel->select()->whereEquals('id', $employeeRow->userId);
+        
+        $userRow = $userModel->getRow($userSelect);
+        
+        if (($userRow == NULL)) {
+            return;
+        }
+        
+        $phoneNumber = $employeeRow->privatePhone;
+        $phoneEmail = NULL;
+        
+        if ($phoneNumber != NULL) {
+            $symbols = array ("+", "-", " ", "/");
+            $phoneNumber = str_replace ($symbols, "", $phoneNumber);
+            $phoneOperator = '';
+            
+            if ((strpos($phoneNumber, "7914") === 0) || (strpos($phoneNumber, "8914") === 0)) {
+                $phoneOperator = "@sms.mtsdv.ru";
+            } else if (((strpos($phoneNumber, "7924") === 0) || (strpos($phoneNumber, "8924") === 0)) ||
+                       ((strpos($phoneNumber, "7929") === 0) || (strpos($phoneNumber, "8929") === 0))) {
+                $phoneOperator = "@sms.megafondv.ru";
+            } else {
+                $phoneOperator = "@sms.beemail.ru";
+            }
+            
+            $phoneEmail = $phoneNumber . $phoneOperator;
+        }
+        
+        $needToSend = 0;
+        
+        $mail = new Kwf_Mail_Template('NewTrainingTemplate');
+        
+        $mail->fullname = (string)$employeeRow;
+        $mail->training = $groupRow->trainingName;
+        $mail->trainingdescription = "Курс в группе: " . $groupRow->title . ' c ' . $groupRow->startDate . ' по ' . $groupRow->endDate;
+        
+        if ($userRow->email != NULL) {
+            $mail->addTo($userRow->email);
+            $needToSend ++;
+        }
+        
+        if ($phoneEmail != NULL) {
+            $mail->addTo($phoneEmail);
+            $needToSend ++;
+        }
+        
+        //$mail->addTo('dmitry.klimkin@gmail.com');
+        $mail->setFrom('notify@aviashelf.com', 'Авиашельф Пульс');
+        $mail->setSubject('Курс: ' . $groupRow->trainingName);
+        
+        if ($needToSend > 0) {
+            $mail->send();
+        }
     }
 }
