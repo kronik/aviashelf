@@ -5,7 +5,7 @@ class FlightfullresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Flightresults';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
-    protected $_paging = 10;
+    protected $_paging = 100;
     protected $_grouping = array('groupField' => 'ownerName');
     protected $_buttons = array('add', 'xls');
     protected $_editDialog = NULL;
