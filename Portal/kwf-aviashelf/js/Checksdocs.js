@@ -35,11 +35,11 @@ Ext.util.Format.documentsCheckDate = function(val)
     
     if ((val > today) && (val > dateToCheck))
     {
-        return '<span style="color:green;">' + newdate + '</span>';
+        return '<span style="color:green;">' + val + '</span>';
     }
     else
     {
-        return '<span style="color:red;">' + newdate + '</span>';
+        return '<span style="color:red;">' + val + '</span>';
     }
     return val;
 };
