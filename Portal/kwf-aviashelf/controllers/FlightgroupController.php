@@ -191,9 +191,13 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                     
                     $taskRow = $tasks->createRow();
                     
+                    $dateLimit = new DateTime($flightRow->flightStartDate);
+                    $dateLimit->add( new DateInterval('P1D') );
+
                     $taskRow->title = 'Выполнить полет: ' . $flightRow->number;
                     $taskRow->description = 'Выполнить полет: ' . $flightRow->number . ' ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
                     $taskRow->startDate = $flightRow->flightStartDate;
+                    $taskRow->endDate = $dateLimit->format('Y-m-d') . ' 23:59';
                     $taskRow->userId = $employee->userId;
                     $taskRow->status = 0;
                     

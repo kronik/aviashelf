@@ -33,6 +33,10 @@ var Tasks = Ext.extend(Ext.Panel,
 
 Ext.util.Format.taskCheckDate = function(val)
 {
+    if ((val == null) || (val == '')) {
+        return val;
+    }
+
     var month = val.getUTCMonth() + 1;
     var monthStr = month < 10 ? '0' + month : month;
     var day = val.getUTCDate() + 1;
