@@ -140,13 +140,7 @@ Ext.util.Format.flightTimeCorrect = function(val)
 
 Ext.util.Format.dateCorrect = function(val)
 {
-    var month = val.getUTCMonth() + 1;
-    var monthStr = month < 10 ? '0' + month : month;
-    var day = val.getUTCDate() + 1;
-    var dayStr = day < 10 ? '0' + day : day;
-    var year = val.getUTCFullYear();
-    
-    return dayStr + "-" + monthStr + "-" + year;
+    return val.format('d-m-Y');
 };
 
 Ext.util.Format.planerStateColorer = function(val)

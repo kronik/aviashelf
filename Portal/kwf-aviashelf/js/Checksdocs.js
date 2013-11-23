@@ -20,11 +20,11 @@ Ext.util.Format.documentsCheckDate = function(val)
         return val;
     }
     
-    var month = val.getUTCMonth() + 1;
+    var month = val.getMonth();
     var monthStr = month < 10 ? '0' + month : month;
-    var day = val.getUTCDate() + 1;
+    var day = val.getDay();
     var dayStr = day < 10 ? '0' + day : day;
-    var year = val.getUTCFullYear();
+    var year = val.getYear();
     
     var newdate = dayStr + "-" + monthStr + "-" + year;
     
@@ -35,11 +35,11 @@ Ext.util.Format.documentsCheckDate = function(val)
     
     if ((val > today) && (val > dateToCheck))
     {
-        return '<span style="color:green;">' + val + '</span>';
+        return '<span style="color:green;">' + val.format('d-m-Y') + '</span>';
     }
     else
     {
-        return '<span style="color:red;">' + val + '</span>';
+        return '<span style="color:red;">' + val.format('d-m-Y') + '</span>';
     }
     return val;
 };
