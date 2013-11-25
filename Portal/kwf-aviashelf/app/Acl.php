@@ -119,7 +119,7 @@ class Acl extends Kwf_Acl
         $this->add(new Zend_Acl_Resource('kwf_user_log'), 'kwf_user_users');
         $this->add(new Zend_Acl_Resource('kwf_user_comments'), 'kwf_user_users');
 
-        $this->addRole(new Kwf_Acl_Role('user', trlStatic('User')));
+        $this->addRole(new Kwf_Acl_Role('user', 'Пользователь'));
         $this->addRole(new Kwf_Acl_Role('plan', 'Планирование'));
         $this->addRole(new Kwf_Acl_Role('power', 'Опытный пользователь'));
         $this->addRole(new Kwf_Acl_Role('kws', 'Командир'));
