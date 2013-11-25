@@ -17,7 +17,7 @@ class MygroupController extends Kwf_Controller_Action_Auto_Form
         
         $this->_form->add(new Kwf_Form_Field_ShowField('endDate', trlKwf('End Date')));
         
-        $this->_form->add(new Kwf_Form_Field_ShowField('questions', trlKwf('Questions in session')))
-        ->setWidth(400);
+//        $this->_form->add(new Kwf_Form_Field_ShowField('questions', trlKwf('Questions in session')))
+//        ->setWidth(400);
     }
 }

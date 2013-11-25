@@ -10,7 +10,7 @@ var Mytrainings = Ext.extend(Ext.Panel,
        var grid = new Kwf.Auto.GridPanel({
                                          controllerUrl   : '/mytrainings',
                                          region          : 'west',
-                                         width           : 300,
+                                         width           : 400,
                                          resizable       : true,
                                          split           : true,
                                          collapsible     : true,

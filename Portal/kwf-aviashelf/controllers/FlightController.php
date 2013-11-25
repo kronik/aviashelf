@@ -87,7 +87,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         $tab->setTitle(trlKwf('Landpoints'));
         
         $landpointsModel = Kwf_Model_Abstract::getInstance('Landpoints');
-        $landpointsSelect = $landpointsModel->select()->order('description');
+        $landpointsSelect = $landpointsModel->select()->order('listPosition');
         
         $multifields = new Kwf_Form_Field_MultiFields('FlightLandpoints');
         $multifields->setMinEntries(0);

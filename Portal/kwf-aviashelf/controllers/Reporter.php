@@ -660,6 +660,58 @@ class Reporter
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
         $rowNumber += 1;
     }
+
+    public function exportTrainingResultsToXls($xls, $firstSheet, $row, $progressBar)
+    {
+        $xls->getProperties()->setCreator(Kwf_Config::getValue('application.name'));
+        $xls->getProperties()->setLastModifiedBy(Kwf_Config::getValue('application.name'));
+        $xls->getProperties()->setTitle("Экзаменационный лист");
+        $xls->getProperties()->setSubject("Экзаменационный лист");
+        $xls->getProperties()->setDescription("Экзаменационный лист на сегодня");
+        $xls->getProperties()->setKeywords("");
+        $xls->getProperties()->setCategory("");
+        
+        $progressBar->update(10);
+
+        $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $firstSheet->setTitle('Титульный лист');
+        
+        $pageMargins = $firstSheet->getPageMargins();
+        
+        $margin = 0.3 / 2.54;
+        
+        $pageMargins->setTop($margin);
+        $pageMargins->setBottom($margin);
+        $pageMargins->setLeft($margin);
+        $pageMargins->setRight($margin);
+        
+        $styleThinBlackBorderOutline = array(
+                                             'borders' => array(
+                                                                'outline' => array(
+                                                                                   'style' => PHPExcel_Style_Border::BORDER_THIN,
+                                                                                   'color' => array('argb' => 'FF000000'),
+                                                                                   ),
+                                                                ),
+                                             );
+        
+        for ($i = 0; $i <= 100; $i++)
+        {
+            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('1.9pt');
+        }
+
+        $trainingsModel = Kwf_Model_Abstract::getInstance('Trainings');
+        
+        $s = new Kwf_Model_Select();
+        $s->whereEquals('groupId', $row->trainingGroupId);
+        $trainingsSelect = $trainingsModel->select()->where(new Kwf_Model_Select_Expr_Child_Contains('GroupTopics', $s));
+        $trainings = $trainingsModel->getRows($trainingsSelect);
+        
+        foreach ($trainings as $training) {
+        }
+
+        $progressBar->update(100);
+    }
     
     public function exportFlightTaskToXls($xls, $firstSheet, $row, $progressBar)
     {        

@@ -7,6 +7,7 @@ class MyresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 30;
     protected $_buttons = array('xls');
+//    protected $_grouping = array('groupField' => 'trainingGroupName');
 
     public function indexAction()
     {
@@ -18,7 +19,7 @@ class MyresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::_initColumns();
         
-        $this->_columns->add(new Kwf_Grid_Column('trainingName', trlKwf('Training')))->setWidth(200);
+//        $this->_columns->add(new Kwf_Grid_Column('trainingName', trlKwf('Training')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('trainingGroupName', trlKwf('Group')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('currentScore', trlKwf('Score')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('totalScore', trlKwf('Total Score')))->setWidth(100);

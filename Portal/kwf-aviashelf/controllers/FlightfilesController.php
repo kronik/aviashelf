@@ -6,11 +6,7 @@ class FlightfilesController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
     protected $_paging = 0;
     protected $_buttons = array('add', 'delete');
-    protected $_editDialog = array(
-        'controllerUrl' => '/flightfile',
-        'width' => 550,
-        'height' => 250
-    );
+    protected $_editDialog = NULL;
 
     protected function _initColumns()
     {
@@ -18,7 +14,22 @@ class FlightfilesController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' ||
+            $users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
+            
+            $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+            
+            $this->_editDialog = array(
+                                       'controllerUrl' => '/flightfile',
+                                       'width' => 550,
+                                       'height' => 250
+                                       );
+        } else {
+            $this->_buttons = array();
+        }
+
         $this->_columns->add(new Kwf_Grid_Column('title', 'Наименование'));
         $this->_columns->add(new Kwf_Grid_Column('comment', 'Примечание'))->setWidth(500);
     }

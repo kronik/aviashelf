@@ -37,7 +37,7 @@ var Mygroups = Ext.extend(Ext.Panel,
        var answers = new Kwf.Auto.GridPanel({
                                            controllerUrl   : '/myanswers',
                                            region          : 'south',
-                                           height          : 200,
+                                           height          : 300,
                                            stripeRows      : true,
                                            split           : true,
                                            collapsible     : false,

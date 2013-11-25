@@ -2,6 +2,7 @@ var Trainings = Ext.extend(Ext.Panel,
 {
        initComponent : function(test)
        {
+/*
        var results = new Kwf.Auto.GridPanel({
                                             controllerUrl   : '/trainingresults',
                                             region          : 'east',
@@ -21,7 +22,7 @@ var Trainings = Ext.extend(Ext.Panel,
                                             collapsible     : true,
                                             title           : trlKwf('Employees')
                                             });
-
+*/
        var answers = new Kwf.Auto.GridPanel({
                                               controllerUrl   : '/traininganswers',
                                               region          : 'east',
@@ -41,7 +42,7 @@ var Trainings = Ext.extend(Ext.Panel,
                                                          item: answers
                                                          }]
                                               });
-                           
+/*
        var groups = new Kwf.Auto.GridPanel({
                                               controllerUrl   : '/traininggroups',
                                               region          : 'center',
@@ -63,7 +64,7 @@ var Trainings = Ext.extend(Ext.Panel,
                                                       item: trialresults
                                                       }]
                                            });
-
+*/
        var form = new Kwf.Auto.FormPanel({
                                          controllerUrl   : '/training',
                                          region          : 'center',
@@ -81,7 +82,7 @@ var Trainings = Ext.extend(Ext.Panel,
                                          bindings: [{
                                                         queryParam: 'trainingId',
                                                         item: questions
-                                                    },
+                                                    },/*
                                                     {
                                                         queryParam: 'trainingId',
                                                         item: groups
@@ -89,20 +90,20 @@ var Trainings = Ext.extend(Ext.Panel,
                                                     {
                                                         queryParam: 'trainingId',
                                                         item: trialgroups
-                                                    },
+                                                    },*/
                                                     {
                                                         queryParam: 'id',
                                                         item: form
                                                     }]
        });
-    
+
        var practice = new Ext.Panel({
                            title: trlKwf('Practice'),
                            layout:'border',
                            items: [questions, answers]
        
        });
-                           
+/*
        var process = new Ext.Panel({
                                     title: trlKwf('Groups'),
                                     layout:'border',
@@ -114,13 +115,13 @@ var Trainings = Ext.extend(Ext.Panel,
                                    layout:'border',
                                    items: [trialgroups, trialresults]
                                    });
-
+*/
        var tabs = new Ext.TabPanel({
                                        border    : true,
                                        activeTab : 0,
                                        region    : 'center',
                                        tabPosition:'top',
-                                       items:[form, practice, process, trialprocess]
+                                       items:[form, practice/*, process, trialprocess*/]
        });
        
        this.layout = 'border';

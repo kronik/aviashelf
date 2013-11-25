@@ -31,22 +31,22 @@ class MytrainingsController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         $ret = parent::_getSelect();
 
-        $users = Kwf_Registry::get('userModel');
-        
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
-
-        $employee = $employeesModel->getRow($employeesSelect);
-        $employeeId = -1;
-        
-        if ($employee != NULL)
-        {
-            $employeeId = $employee->id;
-        }
-
-        $s = new Kwf_Model_Select();
-        $s->whereEquals('employeeId', $employeeId);
-        $ret->where(new Kwf_Model_Select_Expr_Child_Contains('TrainingResults', $s));
+//        $users = Kwf_Registry::get('userModel');
+//        
+//        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+//        $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
+//
+//        $employee = $employeesModel->getRow($employeesSelect);
+//        $employeeId = -1;
+//        
+//        if ($employee != NULL)
+//        {
+//            $employeeId = $employee->id;
+//        }
+//
+//        $s = new Kwf_Model_Select();
+//        $s->whereEquals('employeeId', $employeeId);
+//        $ret->where(new Kwf_Model_Select_Expr_Child_Contains('TrainingResults', $s));
         
         return $ret;
     }

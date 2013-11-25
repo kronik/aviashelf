@@ -6,17 +6,25 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected $_defaultOrder = array('field' => 'employeeName', 'direction' => 'ASC');
     protected $_buttons = array('add', 'delete');
     protected $_grouping = array('groupField' => 'employeeName');
-    protected $_editDialog = array(
-        'controllerUrl' => '/flightset',
-        'width' => 550,
-        'height' => 440
-    );
+    protected $_editDialog = NULL;
 
     protected function _initColumns()
     {
         parent::_initColumns();
-                
-        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        
+        $users = Kwf_Registry::get('userModel');
+
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' || $users->getAuthedUserRole() == 'power') {
+            $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+            
+            $this->_editDialog = array(
+                                    'controllerUrl' => '/flightset',
+                                    'width' => 550,
+                                    'height' => 440
+                                );
+        } else {
+            $this->_buttons = array();
+        }
         
         $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);

@@ -122,23 +122,24 @@ class Acl extends Kwf_Acl
         $this->addRole(new Kwf_Acl_Role('user', trlStatic('User')));
         $this->addRole(new Kwf_Acl_Role('plan', 'Планирование'));
         $this->addRole(new Kwf_Acl_Role('power', 'Опытный пользователь'));
+        $this->addRole(new Kwf_Acl_Role('kws', 'Командир'));
 
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_user', 'user'), 'edit_role');
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_plan', 'plan'), 'edit_role');
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_power', 'power'), 'edit_role');
+        $this->add(new Kwf_Acl_Resource_EditRole('edit_role_kws', 'kws'), 'edit_role');
 
         //$this->add(new Kwf_Acl_Resource_EditRole('edit_role_guest', 'guest'), 'edit_role');
         $this->allow('admin', 'edit_role_user');
         $this->allow('admin', 'edit_role_plan');
         $this->allow('admin', 'edit_role_power');
+        $this->allow('admin', 'edit_role_kws');
 
         //$this->allow(array('admin', 'power'), 'edit_role_guest');
         
         //$this->allow('user', 'default_links');
         $this->allow('user', 'default_index');
-        //$this->allow('user', 'default_employees');
         $this->allow('user', 'default_flightplans');
-        //$this->allow('user', 'default_landpoints');
         $this->allow('user', 'default_tasks');
         $this->allow('user', 'default_mytrainings');
         $this->allow('user', 'default_mygroups');
@@ -163,6 +164,18 @@ class Acl extends Kwf_Acl
         $this->deny('plan', 'default_flightsets');
         $this->deny('plan', 'default_myflights');
         $this->deny('guest', 'default_myflights');
+        
+        $this->allow('kws', 'default_index');
+        $this->allow('kws', 'default_flightsmenuitem');
+        $this->allow('kws', 'default_flightplans');
+        $this->allow('kws', 'default_tasks');
+        $this->allow('kws', 'default_mytrainings');
+        $this->allow('kws', 'default_mygroups');
+        $this->allow('kws', 'default_mytrialgroups');
+        $this->allow('kws', 'default_myquestions');
+        $this->allow('kws', 'default_myanswers');
+        $this->allow('kws', 'default_myresults');
+        $this->allow('kws', 'default_myflights');
         
         $this->allow(array('admin', 'power'), 'default_menuitem');
         $this->allow(array('admin', 'power'), 'default_settingsmenuitem');

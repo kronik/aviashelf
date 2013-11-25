@@ -38,6 +38,11 @@ class MyquestionsController extends Kwf_Controller_Action_Auto_Grid_Ex
                                                   . " AND currentScore = 0 AND trainingGroupId = " . $this->_getParam('groupId')));
             
             $result = $resultsModel->getRow($resultsSelect);
+            
+            if ($result == NULL) {
+                //Kwf_Util_Redirect::redirect('/myresults');
+                throw new Kwf_Exception_Client('Тест окончен.');
+            }
         }
         
         $ret = parent::_getWhere();
@@ -46,7 +51,7 @@ class MyquestionsController extends Kwf_Controller_Action_Auto_Grid_Ex
         {
             $ret['resultId = ?'] = $result->id;
         }
-                
+        
         return $ret;
     }
 }

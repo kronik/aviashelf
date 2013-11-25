@@ -21,6 +21,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         $ret = parent::_getWhere();
         $ret['contentQuestionId = ?'] = $this->_getParam('questionId');
+        
         return $ret;
     }
     
@@ -133,7 +134,7 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                 else
                 {
                     $result->gradeId = 0;
-                    $result->gradeName = trlKwf('Too bad');
+                    $result->gradeName = 'Два';
                 }
             }
             
@@ -147,38 +148,55 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
             
             if ($result->gradeId != 0)
             {
-                $training = $group->getParentRow('Training');
-                
-                $typeSelect = NULL;
-                
-                if (($training != NULL) && ($training->docTypeId != 0) && ($result->isTrial == false))
-                {
-                    $typeSelect = $typeModel->select()->whereEquals('id', $training->docTypeId); 
-                }
+                $trainingsModel = Kwf_Model_Abstract::getInstance('Trainings');
 
-                if ($typeSelect != NULL)
-                {
-                    $typeRow = $typeModel->getRow($typeSelect);
+                $s = new Kwf_Model_Select();
+                $s->whereEquals('groupId', $result->trainingGroupId);
+                $trainingsSelect = $trainingsModel->select()->where(new Kwf_Model_Select_Expr_Child_Contains('GroupTopics', $s));
+                $trainings = $trainingsModel->getRows($trainingsSelect);
+                
+                foreach ($trainings as $training) {
+                    $typeSelect = NULL;
+                    
+                    if (($training->docTypeId != 0) && ($group->isTrial == false))
+                    {
+                        $typeSelect = $typeModel->select()->whereEquals('id', $training->docTypeId); 
+                    }
 
-                    $m = Kwf_Model_Abstract::getInstance('Documents');
-                    
-                    $row = $m->createRow();
-                    
-                    $row->typeId = $typeRow->id;
-                    $row->typeName = $typeRow->value;
-                    $row->gradeId = $result->gradeId;
-                    $row->gradeName = $result->gradeName;
-                    $row->gradeVisible = 1;
-                    $row->comment = $result->trainingName . ': ' . $result->trainingGroupName;
-                    $row->companyId = 0;
-                    $row->startDate = date('d-m-Y H:i:s');
-                    
-                    $row->save();
+                    if ($typeSelect != NULL)
+                    {
+                        $typeRow = $typeModel->getRow($typeSelect);
+                        
+                        $m = Kwf_Model_Abstract::getInstance('Documents');
+                        
+                        $docRow = $m->createRow();
+                        
+                        $today = new DateTime('NOW');
+
+                        $docRow->typeId = $typeRow->id;
+                        $docRow->typeName = $typeRow->value;
+                        $docRow->gradeId = $result->gradeId;
+                        $docRow->gradeName = $result->gradeName;
+                        $docRow->gradeVisible = 1;
+                        $docRow->comment = $training->title . ': ' . $result->trainingGroupName;
+                        $docRow->companyId = 0;
+                        $docRow->startDate = $today->format('d-m-Y');
+                        $docRow->ownerId = $result->employeeId;
+                        $docRow->ownerName = $result->employeeName;
+
+                        $docRow->save();
+                    }
                 }
             }
             
             $result->currentScore = $totalScore;
             $result->save();
+        }
+        
+        if ($numberOfPassedQuestions == count($questions)) {
+            //throw new Kwf_Exception_Client('Тест окончен.');
+
+            //Kwf_Util_Redirect::redirect('/myresults');
         }
     }
 }

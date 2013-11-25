@@ -19,7 +19,7 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_filters = array('typeName' => array('type' => 'TextField'), 'flightDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('typeName');
         
-        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan')
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' || $users->getAuthedUserRole() == 'power')
         {
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
             

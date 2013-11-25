@@ -22,8 +22,9 @@ class MyflightsController extends Kwf_Controller_Action_Auto_Grid
 
         $this->_filters = array('text' => array('type' => 'TextField'));
         
-        if ($users->getAuthedUserRole() == 'admin')
-        {
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' ||
+            $users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
+            
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
             
             $this->_editDialog = array(

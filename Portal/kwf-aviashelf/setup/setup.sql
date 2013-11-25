@@ -788,6 +788,7 @@ CREATE TABLE IF NOT EXISTS `flightLandpoints` (
     `pos` tinyint(3) unsigned NOT NULL,
     `landpointId` int(8) unsigned DEFAULT NULL,
     `flightId` int(8) unsigned NOT NULL,
+    `listPosition` VARCHAR (10) DEFAULT '0',
     PRIMARY KEY (`id`),
     KEY `landpointId` (`landpointId`),
     KEY `flightId` (`flightId`)
@@ -910,6 +911,17 @@ CREATE TABLE IF NOT EXISTS `trainingGroups` (
     INDEX `id` (`id` ASC),
     KEY `trainingId` (`trainingId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `groupTopics` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `pos` tinyint(3) unsigned NOT NULL,
+    `groupId` int(8) unsigned DEFAULT NULL,
+    `topicId` int(8) unsigned NOT NULL,
+    `questions` int NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    KEY `groupId` (`groupId`),
+    KEY `flightId` (`topicId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `trainingResults` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

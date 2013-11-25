@@ -1,9 +1,12 @@
 <?php
-class TrainingresultController extends Kwf_Controller_Action_Auto_Form
+    require_once 'FormEx.php';
+
+class TrainingresultController extends Kwf_Controller_Action_Auto_Form_Ex
 {
     protected $_modelName = 'TrainingResults';
-    protected $_permissions = array('add');
+    protected $_permissions = array('add', 'xls', 'save');
     protected $_paging = 0;
+    protected $_buttons = array ('xls');
 
     protected function _initFields()
     {        
@@ -22,10 +25,7 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m1 = Kwf_Model_Abstract::getInstance('TrainingGroups');
-        $m2 = Kwf_Model_Abstract::getInstance('Trainings');
         $m3 = Kwf_Model_Abstract::getInstance('Employees');
-        
-        $row->trainingGroupId = $this->_getParam('groupId');
         
         $s = $m1->select()->whereEquals('id', $row->trainingGroupId);
         $prow = $m1->getRow($s);
@@ -39,12 +39,8 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
             }
         }
         
-        $row->trainingId = $prow->trainingId;
-        
-        $s = $m2->select()->whereEquals('id', $row->trainingId);
-        $prow = $m2->getRow($s);
-        
-        $row->trainingName = (string)$prow;
+        $row->trainingId = 0;
+        $row->trainingName = '';
         
         $s = $m3->select()->whereEquals('id', $row->employeeId);
         $prow = $m3->getRow($s);
@@ -59,11 +55,14 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
+        $row->trainingGroupId = $this->_getParam('groupId');
+
         $this->updateReferences($row);
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
+        $this->updateReferences($row);
     }
     
     protected function _afterInsert(Kwf_Model_Row_Interface $row)
@@ -149,44 +148,57 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         ini_set('memory_limit', "768M");
         set_time_limit(600);
         
-        $questionsModel = Kwf_Model_Abstract::getInstance('TrainingQuestions');
-        $questionsSelect = $questionsModel->select()->whereEquals('trainingId', $row->trainingId);
-
         $groupModel = Kwf_Model_Abstract::getInstance('TrainingGroups');
         $groupSelect = $groupModel->select()->whereEquals('id', $row->trainingGroupId);
-
         $groupRow = $groupModel->getRow($groupSelect);
 
-        $questions = $questionsModel->getRows($questionsSelect);
+        $groupTopicsModel = Kwf_Model_Abstract::getInstance('GroupTopics');
+        $groupTopicsSelect = $groupTopicsModel->select()->whereEquals('groupId', $row->trainingGroupId);
+        $groupTopicRows = $groupTopicsModel->getRows($groupTopicsSelect);
 
-        $count = 0;
+        $topicsModel = Kwf_Model_Abstract::getInstance('Trainings');
+        $questionsModel = Kwf_Model_Abstract::getInstance('TrainingQuestions');
+        
         $correctScore = 0;
+        $count = 0;
+
+        foreach ($groupTopicRows as $groupTopicRow) {
         
-        $selectedQuestions = array();
-        
-        if (($groupRow->questions > count($questions)) || ($groupRow->questions == 0) || ($groupRow->questions == NULL)) {
-            $groupRow->questions = count($questions);
-            $groupRow->save();
-        }
-        
-        if ($groupRow->questions < count($questions)) {
-            do {
-                $nextQuestionIdx = rand(0, count($questions) - 1);
+//            $topicsSelect = $topicsModel->select()->whereEquals('id', $groupTopicRow->topicId);
+//            $topicsRow = $topicsModel->getRow($topicsSelect);
+
+            $questionsSelect = $questionsModel->select()->whereEquals('trainingId', $groupTopicRow->topicId);
+            $questions = $questionsModel->getRows($questionsSelect);
+            
+            $selectedQuestions = array();
+            
+            if (($groupTopicRow->questions > count($questions)) || ($groupTopicRow->questions == 0) ||
+                ($groupTopicRow->questions == NULL)) {
                 
-                if (in_array($nextQuestionIdx, $selectedQuestions)) {
-                    continue;
+                $groupTopicRow->questions = count($questions);
+                $groupTopicRow->save();
+            }
+        
+            if ($groupTopicRow->questions < count($questions)) {
+                do {
+                    $nextQuestionIdx = rand(0, count($questions) - 1);
+                    
+                    if (in_array($nextQuestionIdx, $selectedQuestions)) {
+                        continue;
+                    }
+         
+                    $question = $questions[$nextQuestionIdx];
+                    
+                    $count += 1;
+                    array_push($selectedQuestions, $nextQuestionIdx);
+                    
+                    $correctScore += $this->addQuestion($row, $question, $count);
+                } while ((count($selectedQuestions) < $groupTopicRow->questions) && (count($questions) > $groupTopicRow->questions));
+            } else {
+                for ($index = 0; $index < count($questions) - 1; $index++) {
+                    $count += 1;
+                    $correctScore += $this->addQuestion($row, $questions[$index], $count);
                 }
-     
-                $question = $questions[$nextQuestionIdx];
-                
-                $count += 1;
-                array_push($selectedQuestions, $nextQuestionIdx);
-                
-                $correctScore += $this->addQuestion($row, $question, $count);
-            } while ((count($selectedQuestions) < $groupRow->questions) && (count($questions) > $groupRow->questions));
-        } else {
-            for ($index = 0; $index < count($questions) - 1; $index++) {
-                $correctScore += $this->addQuestion($row, $questions[$index], $index + 1);
             }
         }
         
@@ -246,7 +258,7 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         $mail = new Kwf_Mail_Template('NewTrainingTemplate');
         
         $mail->fullname = (string)$employeeRow;
-        $mail->training = $groupRow->trainingName;
+        $mail->training = $groupRow->title;
         $mail->trainingdescription = "Курс в группе: " . $groupRow->title . ' c ' . $groupRow->startDate . ' по ' . $groupRow->endDate;
         
         if ($userRow->email != NULL) {
@@ -266,5 +278,25 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form
         if ($needToSend > 0) {
             $mail->send();
         }
+    }
+    
+    protected function _fillTheXlsFile($xls, $firstSheet)
+    {
+        $row = $this->_form->getRow();
+        
+        $this->_progressBar = new Zend_ProgressBar(new Kwf_Util_ProgressBar_Adapter_Cache($this->_getParam('progressNum')),
+                                                   0, 100);
+        $reporter = new Reporter ();
+        
+        $xls = PHPExcel_IOFactory::load("./templates/training_result_template.xls");
+        
+        $xls->setActiveSheetIndex(0);
+        $firstSheet = $xls->getActiveSheet();
+        
+        $reporter->exportTrainingResultsToXls($xls, $firstSheet, $row, $this->_progressBar);
+        
+        $this->_progressBar->finish();
+        
+        return $xls;
     }
 }
