@@ -79,7 +79,7 @@ var Myflights = Ext.extend(Ext.Panel,
            collapsible     : true,
            tabPosition     : 'top',
            split           : true,
-           items:[flight, flightfiles, flightgroups, staffgroups, flightresults, flightsets]
+           items:[flight, flightgroups, staffgroups, flightresults, flightsets, flightfiles]
         });
 
         this.layout = 'border';

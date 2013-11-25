@@ -974,6 +974,7 @@ CREATE TABLE IF NOT EXISTS `trainingContentQuestions` (
     `id` int unsigned NOT NULL AUTO_INCREMENT,
     `number` int NOT NULL,
     `resultId` int NOT NULL,
+    `topicId` int NOT NULL,
     `question` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
     `picture_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),

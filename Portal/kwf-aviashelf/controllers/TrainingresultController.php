@@ -53,9 +53,29 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form_Ex
         return stripos($where, $what) !== false;
     }
     
+    public function jsonDeleteAction()
+    {
+        $row = $this->_form->getRow();
+        
+        if ($row->currentScore != NULL && $row->currentScore > 0) {
+            throw new Kwf_Exception_Client('Нельзя удалить сотрудника, который уже прошел тест.');
+        }
+        
+        parent::jsonDeleteAction();
+    }
+    
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
         $row->trainingGroupId = $this->_getParam('groupId');
+        
+        $resultsModel = Kwf_Model_Abstract::getInstance('TrainingResults');
+        $resultsSelect = $resultsModel->select()->whereEquals('trainingGroupId', $row->trainingGroupId)->whereEquals('employeeId', $row->employeeId);
+
+        $prow = $resultsModel->getRow($resultsSelect);
+        
+        if ($prow != NULL) {
+            throw new Kwf_Exception_Client('Этот сотрудник уже включен в группу.');
+        }
 
         $this->updateReferences($row);
     }
@@ -202,8 +222,8 @@ class TrainingresultController extends Kwf_Controller_Action_Auto_Form_Ex
             }
         }
         
-        $this->addTask($row, $groupRow);
-        $this->sendMessage($row->employeeId, $groupRow);
+//        $this->addTask($row, $groupRow);
+//        $this->sendMessage($row->employeeId, $groupRow);
 
         $row->totalScore = $correctScore;
         $row->save();

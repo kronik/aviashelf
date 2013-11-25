@@ -102,7 +102,7 @@ var Flightplans = Ext.extend(Ext.Panel,
              resizable   : true,
              split       : true,
              collapsible : true,
-             items:[flightfiles, flightgroups, staffgroups, flightresults, flightsets]
+             items:[flightgroups, staffgroups, flightresults, flightsets, flightfiles]
         });
                              
         var panel = new Ext.Panel({
