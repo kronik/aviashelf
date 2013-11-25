@@ -107,6 +107,10 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_traininganswers'), 'default_trainingquestion');
         $this->addResource(new Zend_Acl_Resource('default_traininganswer'), 'default_traininganswers');
         $this->addResource(new Zend_Acl_Resource('default_traininggroup'), 'default_traininggroups');
+        $this->addResource(new Zend_Acl_Resource('default_grouppersons'), 'default_traininggroups');
+        $this->addResource(new Zend_Acl_Resource('default_groupperson'), 'default_grouppersons');
+        $this->addResource(new Zend_Acl_Resource('default_personresults'), 'default_grouppersons');
+        $this->addResource(new Zend_Acl_Resource('default_personresult'), 'default_personresults');
         $this->addResource(new Zend_Acl_Resource('default_trainingtrialgroup'), 'default_trainingtrialgroups');
         $this->addResource(new Zend_Acl_Resource('default_trainingresults'), 'default_trainings');
         $this->addResource(new Zend_Acl_Resource('default_trainingresult'), 'default_trainingresults');
@@ -200,6 +204,8 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_trainingtrialgroups');
         $this->allow(array('admin', 'power'), 'default_traininganswers');
         $this->allow(array('admin', 'power'), 'default_trainingresults');
+        $this->allow(array('admin', 'power'), 'default_grouppersons');
+        $this->allow(array('admin', 'power'), 'default_personresults');
         $this->allow(array('admin', 'power'), 'default_myresults');
         $this->allow(array('admin', 'power'), 'default_myquestions');
         $this->allow(array('admin', 'power'), 'default_myanswers');

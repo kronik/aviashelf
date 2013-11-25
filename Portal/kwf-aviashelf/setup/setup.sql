@@ -918,13 +918,28 @@ CREATE TABLE IF NOT EXISTS `groupTopics` (
     `groupId` int(8) unsigned DEFAULT NULL,
     `topicId` int(8) unsigned NOT NULL,
     `questions` int NOT NULL DEFAULT 0,
+    `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
     PRIMARY KEY (`id`),
     KEY `groupId` (`groupId`),
     KEY `flightId` (`topicId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `trainingResults` (
+CREATE TABLE IF NOT EXISTS `groupPersons` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `trainingGroupId` int NOT NULL,
+    `trainingGroupName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `taskId` int unsigned NOT NULL DEFAULT 0,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC),
+    KEY `trainingGroupId` (`trainingGroupId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `personResults` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `groupPersonId` int NOT NULL,
     `trainingId` int NOT NULL,
     `trainingName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `trainingGroupId` int NOT NULL,
@@ -935,11 +950,10 @@ CREATE TABLE IF NOT EXISTS `trainingResults` (
     `currentScore` int DEFAULT '0',
     `gradeId` int DEFAULT '0',
     `gradeName` varchar(20) COLLATE utf8_unicode_ci,
-    `taskId` int unsigned NOT NULL DEFAULT 0,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
-    `Hidden` char DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),
+    KEY `groupPersonId` (`groupPersonId`),
     KEY `trainingId` (`trainingId`),
     KEY `trainingGroupId` (`trainingGroupId`),
     KEY `gradeId` (`gradeId`)
