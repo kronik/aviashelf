@@ -168,6 +168,7 @@ class Acl extends Kwf_Acl
 
         $this->deny('plan', 'default_flightfullresults');
         $this->deny('plan', 'default_flightsets');
+        $this->deny('plan', 'default_flightfiles');
         $this->deny('plan', 'default_myflights');
         $this->deny('guest', 'default_myflights');
         
