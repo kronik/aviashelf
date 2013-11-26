@@ -67,7 +67,6 @@ var Mytrialgroups = Ext.extend(Ext.Panel,
                                                             item: answers
                                                         }]
        });
-
               
        var grid = new Mygroupsgrid({
                                          controllerUrl   : '/mytrialgroups',
@@ -78,7 +77,7 @@ var Mytrialgroups = Ext.extend(Ext.Panel,
                                          collapsible     : false,
                                          title           : 'Мои группы самоподготовки',
                                          bindings: [{
-                                                        queryParam: 'groupId',
+                                                        queryParam: 'personResultId',
                                                         item: questions
                                                     }]
        });

@@ -17,5 +17,9 @@ class GroupPersons extends Kwf_Model_Db
                                                          'column'           => 'taskId',
                                                          'refModelClass'     => 'Tasks',
                                                          )
-    );    
+    );
+    
+    protected $_dependentModels = array(
+                                        'PersonResults' => 'PersonResults'
+                                        );
 }

@@ -95,16 +95,16 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
     {
         $m = Kwf_Model_Abstract::getInstance('TrainingContentQuestions');
         
-        $row = $m->createRow();
+        $questionRow = $m->createRow();
         
-        $row->resultId = $resultRow->id;
-        $row->number = $seqNumber;
-        $row->question = $question->question;
-        $row->picture_id = $question->picture_id;
-        $row->topicId = $topicId;
+        $questionRow->resultId = $resultRow->id;
+        $questionRow->number = $seqNumber;
+        $questionRow->question = $question->question;
+        $questionRow->picture_id = $question->picture_id;
+        $questionRow->topicId = $topicId;
         
-        $row->save();
-        
+        $questionRow->save();
+                
         $answersModel = Kwf_Model_Abstract::getInstance('TrainingAnswers');
         $answersSelect = $answersModel->select()->whereEquals('questionId', $question->id);
 
@@ -114,7 +114,7 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
 
         foreach ($answers as $answer)
         {
-            $this->addAnswer($row, $answer);
+            $this->addAnswer($questionRow, $answer);
             
             if ($answer->isCorrect)
             {
@@ -129,14 +129,14 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
     {
         $m = Kwf_Model_Abstract::getInstance('TrainingContentAnswers');
         
-        $row = $m->createRow();
+        $newAnswerRow = $m->createRow();
         
-        $row->contentQuestionId = $questionContentRow->id;
-        $row->isSelected = false;
-        $row->answer = $answerRow->answer;
-        $row->isCorrect = $answerRow->isCorrect;
+        $newAnswerRow->contentQuestionId = $questionContentRow->id;
+        $newAnswerRow->isSelected = false;
+        $newAnswerRow->answer = $answerRow->answer;
+        $newAnswerRow->isCorrect = $answerRow->isCorrect;
         
-        $row->save();
+        $newAnswerRow->save();
     }
     
     protected function addTask($currentRow, $groupRow)
@@ -212,11 +212,14 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
             $resultRow->employeeName = $row->employeeName;
             $resultRow->currentScore = 0;
             $resultRow->totalScore = 0;
+            $resultRow->startDate = $groupRow->startDate;
+            $resultRow->endDate = $groupRow->endDate;
+            $resultRow->isTrial = $groupRow->isTrial;
             
             $resultRow->save();
             
             $selectedQuestions = array();
-        
+            
             if ($groupTopicRow->questions < count($questions)) {
                 do {
                     $nextQuestionIdx = rand(0, count($questions) - 1);
@@ -233,7 +236,7 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
                     $correctScore += $this->addQuestion($resultRow, $question, $topicsRow->id, $count);
                 } while ((count($selectedQuestions) < $groupTopicRow->questions) && (count($questions) > $groupTopicRow->questions));
             } else {
-                for ($index = 0; $index < count($questions) - 1; $index++) {
+                for ($index = 0; $index < count($questions); $index++) {
                     $count += 1;
                     $correctScore += $this->addQuestion($resultRow, $questions[$index], $topicsRow->id, $count);
                 }
@@ -245,8 +248,6 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
         
 //        $this->addTask($row, $groupRow);
 //        $this->sendMessage($row->employeeId, $groupRow);
-        
-        $row->save();
     }
     
     public function sendMessage ($employeeId, $groupRow) {

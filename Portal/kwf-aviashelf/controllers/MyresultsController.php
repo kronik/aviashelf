@@ -21,8 +21,11 @@ class MyresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
      
         $this->_filters = array('text' => array('type' => 'TextField'));
 
-        $this->_columns->add(new Kwf_Grid_Column('trainingGroupName', 'Группа'))->setWidth(300);
-        $this->_columns->add(new Kwf_Grid_Column('trainingName', 'Дисциплина'))->setWidth(400)->setRenderer('checkResultScore');
+        $this->_columns->add(new Kwf_Grid_Column('trainingGroupName', 'Группа'))->setWidth(200);
+        $this->_columns->add(new Kwf_Grid_Column('trainingName', 'Дисциплина'))->setWidth(300)->setRenderer('checkResultScore');
+        $this->_columns->add(new Kwf_Grid_Column('startDate', trlKwf('Start Date')))->setWidth(80)->setRenderer('taskCheckDate');
+        $this->_columns->add(new Kwf_Grid_Column('endDate', trlKwf('End Date')))->setWidth(90)->setRenderer('taskCheckDate');
+        $this->_columns->add(new Kwf_Grid_Column('recordDate', 'Пройден'))->setWidth(90);
         $this->_columns->add(new Kwf_Grid_Column('currentScore', trlKwf('Score')))->setWidth(80)->setRenderer('highlightScore');
         $this->_columns->add(new Kwf_Grid_Column('totalScore', trlKwf('Total Score')))->setWidth(80);
         $this->_columns->add(new Kwf_Grid_Column('gradeName', trlKwf('Grade')))->setWidth(100);

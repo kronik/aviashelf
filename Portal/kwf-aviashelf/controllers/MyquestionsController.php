@@ -22,35 +22,33 @@ class MyquestionsController extends Kwf_Controller_Action_Auto_Grid_Ex
     
     protected function _getWhere()
     {
-        $users = Kwf_Registry::get('userModel');
-        
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
-        
-        $employee = $employeesModel->getRow($employeesSelect);
-        
-        $resultsModel = Kwf_Model_Abstract::getInstance('TrainingResults');
-        
-        if ($employee != NULL)
-        {
-            $resultsSelect = $resultsModel->select()
-            ->where(new Kwf_Model_Select_Expr_Sql("employeeId = " . $employee->id
-                                                  . " AND currentScore = 0 AND trainingGroupId = " . $this->_getParam('groupId')));
-            
-            $result = $resultsModel->getRow($resultsSelect);
-            
-            if ($result == NULL) {
-                //Kwf_Util_Redirect::redirect('/myresults');
-                throw new Kwf_Exception_Client('Тест окончен.');
-            }
-        }
+//        $users = Kwf_Registry::get('userModel');
+//        
+//        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+//        $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
+//        
+//        $employee = $employeesModel->getRow($employeesSelect);
+//        
+//        $resultsModel = Kwf_Model_Abstract::getInstance('TrainingResults');
+//        
+//        if ($employee != NULL)
+//        {
+//            $resultsSelect = $resultsModel->select()
+//            ->where(new Kwf_Model_Select_Expr_Sql("employeeId = " . $employee->id
+//                                                  . " AND currentScore = 0 AND trainingGroupId = " . $this->_getParam('groupId')));
+//            
+//            $result = $resultsModel->getRow($resultsSelect);
+//            
+//            if ($result == NULL) {
+//                //Kwf_Util_Redirect::redirect('/myresults');
+//                throw new Kwf_Exception_Client('Тест окончен.');
+//            }
+//        }
         
         $ret = parent::_getWhere();
 
-        if ($result != NULL)
-        {
-            $ret['resultId = ?'] = $result->id;
-        }
+        $ret['resultId = ?'] = $this->_getParam('personResultId');
+        $ret['topicId != ?'] = 0;
         
         return $ret;
     }

@@ -78,7 +78,7 @@ var Mygroups = Ext.extend(Ext.Panel,
                                          collapsible     : false,
                                          title           : trlKwf('My groups'),
                                          bindings: [{
-                                                        queryParam: 'groupId',
+                                                        queryParam: 'personResultId',
                                                         item: questions
                                                     }]
        });

@@ -98,6 +98,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_training'), 'default_trainings');
         $this->addResource(new Zend_Acl_Resource('default_mytraining'), 'default_mytrainings');
         $this->addResource(new Zend_Acl_Resource('default_mygroup'), 'default_mygroups');
+        $this->addResource(new Zend_Acl_Resource('default_mypersonresults'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_mytrialgroup'), 'default_mytrialgroups');
         $this->addResource(new Zend_Acl_Resource('default_myquestions'), 'default_mygroups');
         $this->addResource(new Zend_Acl_Resource('default_myquestion'), 'default_mygroups');
@@ -147,6 +148,7 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_tasks');
         $this->allow('user', 'default_mytrainings');
         $this->allow('user', 'default_mygroups');
+        $this->allow('user', 'default_mypersonresults');
         $this->allow('user', 'default_mytrialgroups');
         $this->allow('user', 'default_myquestions');
         $this->allow('user', 'default_myanswers');
@@ -175,6 +177,7 @@ class Acl extends Kwf_Acl
         $this->allow('kws', 'default_tasks');
         $this->allow('kws', 'default_mytrainings');
         $this->allow('kws', 'default_mygroups');
+        $this->allow('kws', 'default_mypersonresults');
         $this->allow('kws', 'default_mytrialgroups');
         $this->allow('kws', 'default_myquestions');
         $this->allow('kws', 'default_myanswers');
@@ -197,6 +200,7 @@ class Acl extends Kwf_Acl
 //        $this->allow(array('admin', 'power'), 'default_checkstrainings');
         $this->allow(array('admin', 'power'), 'default_mytrainings');
         $this->allow(array('admin', 'power'), 'default_mygroups');
+        $this->allow(array('admin', 'power'), 'default_mypersonresults');
         $this->allow(array('admin', 'power'), 'default_mytrialgroups');
         $this->allow(array('admin', 'power'), 'default_trainings');
         $this->allow(array('admin', 'power'), 'default_trainingquestions');

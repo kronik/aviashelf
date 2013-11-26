@@ -13,6 +13,6 @@ class TrainingGroups extends Kwf_Model_Db
     
     protected $_dependentModels = array(
                                         'GroupTopics' => 'GroupTopics',
-                                        'TrainingResults' => 'TrainingResults'
+                                        'GroupPersons' => 'GroupPersons'
                                         );
 }
