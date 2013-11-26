@@ -671,6 +671,8 @@ class Reporter
         $xls->getProperties()->setKeywords("");
         $xls->getProperties()->setCategory("");
         
+        $firstSheet->getPageSetup()->setFitToPage(true);
+
         $progressBar->update(10);
 
         $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
@@ -697,18 +699,63 @@ class Reporter
         
         for ($i = 0; $i <= 100; $i++)
         {
-            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('1.9pt');
+            $firstSheet->getColumnDimension($this->_getColumnLetterByIndex($i))->setWidth('3.0pt');
         }
 
+        
+        $personResultsModel = Kwf_Model_Abstract::getInstance('PersonResults');
+        $personSelect = $personResultsModel->select()
+        ->whereEquals('groupPersonId', $row->id)
+        ->whereEquals('isTrial', 0)
+        ->whereNotEquals('currentScore', 0);
+
+        $personResults = $personResultsModel->getRows($personSelect);
+
         $trainingsModel = Kwf_Model_Abstract::getInstance('Trainings');
+
+        $wsTypes = array();
         
-        $s = new Kwf_Model_Select();
-        $s->whereEquals('groupId', $row->trainingGroupId);
-        $trainingsSelect = $trainingsModel->select()->where(new Kwf_Model_Select_Expr_Child_Contains('GroupTopics', $s));
-        $trainings = $trainingsModel->getRows($trainingsSelect);
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeesSelect = $employeesModel->select()->whereEquals('id', $row->employeeId);
+        $employee = $employeesModel->getRow($employeesSelect);
+
+        $progressBar->update(20);
+
+        $counter = 1;
         
-        foreach ($trainings as $training) {
+        $fullName = $employee->lastname . ' ' . $employee->firstname . ' ' . $employee->middlename;
+        
+        $linkData = Kwf_Model_Abstract::getInstance('Linkdata');
+        $linkSelect = $linkData->select()->whereEquals('id', $employee->positionId);
+        $linkRow = $linkData->getRow($linkSelect);
+
+        $firstSheet->setCellValue('B5', $linkRow->value);
+        $firstSheet->setCellValue('H5', $fullName);
+
+        $startRow = 13;
+        
+        foreach ($personResults as $personResult) {
+            $trainingsSelect = $trainingsModel->select()->whereEquals('id', $personResult->trainingId);
+            $training = $trainingsModel->getRow($trainingsSelect);
+
+            if (in_array($training->type, $wsTypes) == false) {
+                array_push($wsTypes, $training->type);
+            }
+            
+            $recordDate = new DateTime ($personResult->recordDate);
+
+            $firstSheet->setCellValue('B' . $startRow, $counter);
+            $firstSheet->setCellValue('C' . $startRow, $training->title);
+            $firstSheet->setCellValue('M' . $startRow, $personResult->gradeName);
+            $firstSheet->setCellValue('P' . $startRow, $recordDate->format('d-m-Y'));
+            
+            $startRow ++;
+            $counter ++;
         }
+        
+        $wsTypesStr = implode(',', $wsTypes);
+        
+        $firstSheet->setCellValue('U5', $wsTypesStr);
 
         $progressBar->update(100);
     }

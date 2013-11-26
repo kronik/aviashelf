@@ -28,13 +28,7 @@ class TraininggroupController extends Kwf_Controller_Action_Auto_Form
         
         $tab->fields->add(new Kwf_Form_Field_DateField('endDate', trlKwf('End Date')))
         ->setAllowBlank(false);
-        
-//        $tab->fields->add(new Kwf_Form_Field_NumberField('questions', trlKwf('Questions in session')))
-//        ->setWidth(500)
-//        ->setAllowBlank(true);
-        
-        $tab->fields->add(new Kwf_Form_Field_Checkbox('isDifGrade', trlKwf('Grade')));
-        
+                
         $tab = $tabs->add();
         $tab->setTitle('Дисциплины');
 
@@ -52,6 +46,8 @@ class TraininggroupController extends Kwf_Controller_Action_Auto_Form
         $multifields->fields->add(new Kwf_Form_Field_NumberField('questions', 'Вопросов'))
         ->setWidth(150)
         ->setAllowBlank(false);
+        
+        $multifields->fields->add(new Kwf_Form_Field_Checkbox('isDifGrade', trlKwf('Grade')));
         
         $tab->fields->add($multifields);
     }

@@ -127,6 +127,10 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
     
     protected function addAnswer($questionContentRow, $answerRow)
     {
+        if (strlen($answerRow->answer) == 0) {
+            return;
+        }
+        
         $m = Kwf_Model_Abstract::getInstance('TrainingContentAnswers');
         
         $newAnswerRow = $m->createRow();
@@ -205,7 +209,7 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
             
             $resultRow->groupPersonId = $row->id;
             $resultRow->trainingId = $topicsRow->id;
-            $resultRow->trainingName = $topicsRow->title;
+            $resultRow->trainingName = $topicsRow->title . '(' . $topicsRow->typeName . ')';
             $resultRow->trainingGroupId = $groupRow->id;
             $resultRow->trainingGroupName = $groupRow->title;
             $resultRow->employeeId = $row->employeeId;

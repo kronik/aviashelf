@@ -28,13 +28,18 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function _afterSave(Kwf_Model_Row_Interface $row, $submitRow)
     {
         $question = $row->getParentRow('TrainingContentQuestion');
-        $result = $question->getParentRow('TrainingResult');
-        $group = $result->getParentRow('TrainingGroup');
+        $result = $question->getParentRow('PersonResult');
+        $groupPerson = $result->getParentRow('GroupPerson');
         
         $questionsModel = Kwf_Model_Abstract::getInstance('TrainingContentQuestions');
-        $questionsSelect = $questionsModel->select()->whereEquals('resultId', $result->id);
+        $questionsSelect = $questionsModel->select()->whereEquals('resultId', $result->id)->whereNotEquals('topicId', 0);
         
         $questions = $questionsModel->getRows($questionsSelect);
+        
+        $groupModel = Kwf_Model_Abstract::getInstance('GroupTopics');
+        $groupSelect = $groupModel->select()->whereEquals('groupId', $result->trainingGroupId)->whereEquals('topicId', $result->trainingId);
+        
+        $groupInfo = $groupModel->getRow($groupSelect);
         
         $totalScore = 0;
         $numberOfPassedQuestions = 0;
@@ -82,9 +87,9 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
             
             $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
 
-            if ($group->isDifGrade == 0)
+            if ($groupInfo->isDifGrade == false)
             {
-                if ($scoreInPercents >= 51)
+                if ($scoreInPercents >= 80)
                 {
                     $typeSelect = $typeModel->select()->where(new Kwf_Model_Select_Expr_Sql("name = 'Оценки' AND value = 'зачет'"));
                     $gradeRow = $typeModel->getRow($typeSelect);
@@ -92,8 +97,12 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                     if ($gradeRow != NULL)
                     {
                         $result->gradeId = $gradeRow->id;
-                        $result->gradeName = $gradeRow->value;
                     }
+                    
+                    $result->gradeName = 'зачет';
+
+                } else {
+                    $result->gradeName = 'незачет';
                 }
             }
             else
@@ -106,8 +115,8 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                     if ($gradeRow != NULL)
                     {
                         $result->gradeId = $gradeRow->id;
-                        $result->gradeName = $gradeRow->value;
                     }
+                    $result->gradeName = 'пять';
                 }
                 else if ($scoreInPercents >= 80)
                 {
@@ -117,8 +126,10 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                     if ($gradeRow != NULL)
                     {
                         $result->gradeId = $gradeRow->id;
-                        $result->gradeName = $gradeRow->value;
                     }
+                    
+                    $result->gradeName = 'четыре';
+
                 }
                 else if ($scoreInPercents >= 75)
                 {
@@ -128,69 +139,67 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                     if ($gradeRow != NULL)
                     {
                         $result->gradeId = $gradeRow->id;
-                        $result->gradeName = $gradeRow->value;
                     }
+                    
+                    $result->gradeName = 'три';
                 }
                 else
                 {
                     $result->gradeId = 0;
-                    $result->gradeName = 'Два';
+                    $result->gradeName = 'два';
                 }
             }
             
-            $task = $result->getParentRow('Task');
-            
-            if ($task != NULL)
-            {
-                $task->status = 1;
-                $task->save();
-            }
+            $today = new DateTime('NOW');
+
+            $result->recordDate = $today->format('Y-m-d');
+            $result->currentScore = $totalScore;
+            $result->save();
+
+//
+//            $task = $result->getParentRow('Task');
+//            
+//            if ($task != NULL)
+//            {
+//                $task->status = 1;
+//                $task->save();
+//            }
             
             if ($result->gradeId != 0)
             {
                 $trainingsModel = Kwf_Model_Abstract::getInstance('Trainings');
-
-                $s = new Kwf_Model_Select();
-                $s->whereEquals('groupId', $result->trainingGroupId);
-                $trainingsSelect = $trainingsModel->select()->where(new Kwf_Model_Select_Expr_Child_Contains('GroupTopics', $s));
-                $trainings = $trainingsModel->getRows($trainingsSelect);
+                $trainingsSelect = $trainingsModel->select()->whereEquals('id', $result->trainingId);
+                $training = $trainingsModel->getRow($trainingsSelect);
                 
-                foreach ($trainings as $training) {
-                    $typeSelect = NULL;
+                $typeSelect = NULL;
+                
+                if (($training->docTypeId != 0) && ($result->isTrial == false))
+                {
+                    $typeSelect = $typeModel->select()->whereEquals('id', $training->docTypeId); 
+                }
+
+                if ($typeSelect != NULL)
+                {
+                    $typeRow = $typeModel->getRow($typeSelect);
                     
-                    if (($training->docTypeId != 0) && ($group->isTrial == false))
-                    {
-                        $typeSelect = $typeModel->select()->whereEquals('id', $training->docTypeId); 
-                    }
+                    $m = Kwf_Model_Abstract::getInstance('Documents');
+                    
+                    $docRow = $m->createRow();
+                    
+                    $docRow->typeId = $typeRow->id;
+                    $docRow->typeName = $typeRow->value;
+                    $docRow->gradeId = $result->gradeId;
+                    $docRow->gradeName = $result->gradeName;
+                    $docRow->gradeVisible = 1;
+                    $docRow->comment = $training->title . ': ' . $result->trainingGroupName;
+                    $docRow->companyId = 0;
+                    $docRow->startDate = $today->format('Y-m-d');
+                    $docRow->ownerId = $result->employeeId;
+                    $docRow->ownerName = $result->employeeName;
 
-                    if ($typeSelect != NULL)
-                    {
-                        $typeRow = $typeModel->getRow($typeSelect);
-                        
-                        $m = Kwf_Model_Abstract::getInstance('Documents');
-                        
-                        $docRow = $m->createRow();
-                        
-                        $today = new DateTime('NOW');
-
-                        $docRow->typeId = $typeRow->id;
-                        $docRow->typeName = $typeRow->value;
-                        $docRow->gradeId = $result->gradeId;
-                        $docRow->gradeName = $result->gradeName;
-                        $docRow->gradeVisible = 1;
-                        $docRow->comment = $training->title . ': ' . $result->trainingGroupName;
-                        $docRow->companyId = 0;
-                        $docRow->startDate = $today->format('d-m-Y');
-                        $docRow->ownerId = $result->employeeId;
-                        $docRow->ownerName = $result->employeeName;
-
-                        $docRow->save();
-                    }
+                    $docRow->save();
                 }
             }
-            
-            $result->currentScore = $totalScore;
-            $result->save();
         }
         
         if ($numberOfPassedQuestions == count($questions)) {

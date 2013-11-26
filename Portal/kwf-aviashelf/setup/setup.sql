@@ -917,6 +917,7 @@ CREATE TABLE IF NOT EXISTS `groupTopics` (
     `pos` tinyint(3) unsigned NOT NULL,
     `groupId` int(8) unsigned DEFAULT NULL,
     `topicId` int(8) unsigned NOT NULL,
+    `isDifGrade` BOOL DEFAULT '0' NOT NULL,
     `questions` int NOT NULL DEFAULT 0,
     `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
     PRIMARY KEY (`id`),
