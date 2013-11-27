@@ -250,8 +250,8 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
             $resultRow->save();
         }
         
-//        $this->addTask($row, $groupRow);
-//        $this->sendMessage($row->employeeId, $groupRow);
+        $this->addTask($row, $groupRow);
+        $this->sendMessage($row->employeeId, $groupRow);
     }
     
     public function sendMessage ($employeeId, $groupRow) {

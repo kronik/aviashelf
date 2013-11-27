@@ -24,7 +24,7 @@ class FlightfilesController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                        'controllerUrl' => '/flightfile',
                                        'width' => 550,
-                                       'height' => 250
+                                       'height' => 270
                                        );
         } else {
             $this->_buttons = array();
