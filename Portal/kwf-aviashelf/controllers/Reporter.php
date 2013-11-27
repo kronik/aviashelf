@@ -526,10 +526,7 @@ class Reporter
         $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('K' . $rowNumber)->getFont()->setBold(true);
         
-        $firstSheet->setCellValue('K' . $rowNumber, $row->techName);
-        $firstSheet->getStyle('K' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
-        $firstSheet->getStyle('K' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
-        $firstSheet->getStyle('K' . $rowNumber)->getFont()->getColor()->applyFromArray(array('rgb' => 'FF2200'));
+        $techResponsibleRow = $rowNumber;
         
         $rowNumber += 1;
         
@@ -614,6 +611,8 @@ class Reporter
         
         $progressBar->update(90);
 
+        $techResponsibleName = NULL;
+        
         foreach ($planerstates as $planerstate)
         {
             $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
@@ -650,8 +649,20 @@ class Reporter
             
             $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setWrapText(true);
             
+            if ($techResponsibleName == NULL) {
+                $techResponsibleName = $planerstate->responsibleName;
+            }
+            
             $rowNumber += 1;
         }
+        
+        if ($techResponsibleName != NULL) {
+            $firstSheet->setCellValue('K' . $techResponsibleRow, $techResponsibleName);
+        }
+        
+        $firstSheet->getStyle('K' . $techResponsibleRow)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
+        $firstSheet->getStyle('K' . $techResponsibleRow .':M'. $techResponsibleRow)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('K' . $techResponsibleRow)->getFont()->getColor()->applyFromArray(array('rgb' => 'FF2200'));
         
         $progressBar->update(100);
 

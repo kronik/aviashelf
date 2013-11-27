@@ -28,7 +28,7 @@ class PlanerstatesController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                        'controllerUrl' => '/planerstate',
                                        'width' => 550,
-                                       'height' => 420
+                                       'height' => 450
                                        );
             
         }
@@ -37,6 +37,7 @@ class PlanerstatesController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_buttons = array();
         }
         
+        $this->_columns->add(new Kwf_Grid_Column('responsibleName', 'Техник ПДО', 200));
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 70));
         $this->_columns->add(new Kwf_Grid_Column('landpointName', trlKwf('Base point'), 130));
         $this->_columns->add(new Kwf_Grid_Column('priority', trlKwf('Priority'), 70));

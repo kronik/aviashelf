@@ -153,20 +153,21 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
     
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
-        $flightLandpointSelect = new Kwf_Model_Select();
-        $flightLandpointSelect->whereEquals('flightId', $row->id)->order('pos');
-
+        $flightLandpointsModel = Kwf_Model_Abstract::getInstance('FlightLandpoints');
+        $flightLandpointsSelect = $flightLandpointsModel->select()->whereEquals('flightId', $row->id)->order('pos');
+        $flightLandpoints = $flightLandpointsModel->getRows($flightLandpointsSelect);
+        
         $landpointsModel = Kwf_Model_Abstract::getInstance('Landpoints');
-        $landpointsSelect = $landpointsModel->select()->where(new Kwf_Model_Select_Expr_Child_Contains('FlightLandpoints', $flightLandpointSelect));
-        
-        $landpoints = $landpointsModel->getRows($landpointsSelect);
+
         $row->routeName = '';
-        
-        foreach ($landpoints as $landpoint)
-        {
+
+        foreach ($flightLandpoints as $flightLandpoint) {
+            $landpointsSelect = $landpointsModel->select()->whereEquals('id', $flightLandpoint->landpointId);
+            $landpoint = $landpointsModel->getRow($landpointsSelect);
+            
             $row->routeName = $row->routeName . $landpoint->name . '. ';
         }
-        
+                
         if (strlen($row->routeName) < 2)
         {
             $row->routeName = 'Обеспечение ПСО/АСР';

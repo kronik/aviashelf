@@ -754,6 +754,8 @@ CREATE TABLE IF NOT EXISTS `flightTracks` (
     `employee5Name` varchar(300) COLLATE utf8_unicode_ci,
     `employee6Id` int,
     `employee6Name` varchar(300) COLLATE utf8_unicode_ci,
+    `employee7Id` int,
+    `employee7Name` varchar(300) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -1019,8 +1021,6 @@ CREATE TABLE IF NOT EXISTS `flightPlans` (
     `planDate` date NOT NULL,
     `employeeId` int,
     `employeeName` varchar(300) COLLATE utf8_unicode_ci,
-    `techId` int,
-    `techName` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC),

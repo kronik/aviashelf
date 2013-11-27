@@ -6,6 +6,16 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
+        $techModel = Kwf_Model_Abstract::getInstance('Employees');
+        $techSelect = $techModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 2'))->order('listPosition');
+        
+        $this->_form->add(new Kwf_Form_Field_Select('responsibleId', 'Техник ПДО'))
+        ->setValues($techModel)
+        ->setSelect($techSelect)
+        ->setWidth(400)
+        ->setShowNoSelection(true)
+        ->setAllowBlank(true);
+
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $airplanesSelect = $airplanesModel->select();
         
@@ -86,6 +96,15 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         $prow = $m2->getRow($s);
         
         $row->planeName = $prow->NBort;
+        
+        if ($row->responsibleId != NULL)
+        {
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('id', $row->responsibleId);
+            
+            $prow = $employeesModel->getRow($employeesSelect);
+            $row->responsibleName = (string)$prow;
+        }
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
