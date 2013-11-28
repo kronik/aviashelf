@@ -659,7 +659,7 @@ class Reporter
                 $techResponsibleName = $planerstate->responsibleName;
             }
             
-            $firstSheet->getRowDimension($rowNumber)->setAutoSize(true);
+            $firstSheet->getRowDimension($rowNumber)->setRowHeight(-1);//->setAutoSize(true);
             
             $rowNumber += 1;
         }
