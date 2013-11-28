@@ -358,28 +358,25 @@ class Reporter
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
         $rowNumber += 1;
         
-        $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
-        $firstSheet->mergeCells('C' . $rowNumber . ':D' . $rowNumber);
+        $firstSheet->mergeCells('A' . $rowNumber . ':D' . $rowNumber);
         
         $firstSheet->setCellValue('A' . $rowNumber, 'Базовый аэропорт');
-        $firstSheet->setCellValue('C' . $rowNumber, 'Дежурный КВС');
-        $firstSheet->setCellValue('E' . $rowNumber, 'Руководитель ПБ (СЭИК)');
-        $firstSheet->setCellValue('F' . $rowNumber, 'Руководитель ПБ (ЭНЛ)');
-        $firstSheet->setCellValue('G' . $rowNumber, 'Руководитель ЛС ИАС');
-        $firstSheet->setCellValue('H' . $rowNumber, 'Диспетчер ПДС по ОП');
-        $firstSheet->setCellValue('I' . $rowNumber, 'Дежурный по компании');
+        $firstSheet->setCellValue('E' . $rowNumber, 'Дежурный КВС');
+        $firstSheet->setCellValue('F' . $rowNumber, 'Руководитель ПБ (СЭИК)');
+        $firstSheet->setCellValue('G' . $rowNumber, 'Руководитель ПБ (ЭНЛ)');
+        $firstSheet->setCellValue('H' . $rowNumber, 'Руководитель ЛС ИАС');
+        $firstSheet->setCellValue('I' . $rowNumber, 'Диспетчер ПДС по ОП');
+        $firstSheet->setCellValue('J' . $rowNumber, 'Дежурный по компании');
         
         $firstSheet->getStyle('A' . $rowNumber)->getFont()->setBold(true);
-        $firstSheet->getStyle('C' . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle('E' . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle('F' . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle('G' . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle('H' . $rowNumber)->getFont()->setBold(true);
         $firstSheet->getStyle('I' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('J' . $rowNumber)->getFont()->setBold(true);
         
-        $firstSheet->getStyle('A' . $rowNumber .':B'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
-        $firstSheet->getStyle('B' . $rowNumber .':C'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
-        $firstSheet->getStyle('C' . $rowNumber .':D'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+        $firstSheet->getStyle('A' . $rowNumber .':D'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->getStyle('D' . $rowNumber .':E'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->getStyle('E' . $rowNumber .':F'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
         $firstSheet->getStyle('F' . $rowNumber .':G'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
@@ -391,7 +388,6 @@ class Reporter
         $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
         
         $firstSheet->getStyle('A' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
-        $firstSheet->getStyle('C' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
         $firstSheet->getStyle('E' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
         $firstSheet->getStyle('F' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
         $firstSheet->getStyle('G' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
@@ -403,15 +399,14 @@ class Reporter
         $firstSheet->getStyle('M' . $rowNumber)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'E0E0E0')));
         
         $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-        $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-        
+        $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
         $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -421,13 +416,13 @@ class Reporter
         $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $firstSheet->getStyle('M' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-        
         $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setWrapText(true);
         $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setWrapText(true);
         $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setWrapText(true);
         $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setWrapText(true);
         $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setWrapText(true);
-        
+        $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setWrapText(true);
+
         $rowNumber += 1;
         
         $flighttracksModel = Kwf_Model_Abstract::getInstance('Flighttracks');
@@ -439,16 +434,15 @@ class Reporter
 
         foreach ($flighttracks as $flighttrack)
         {
-            $firstSheet->mergeCells('A' . $rowNumber . ':B' . $rowNumber);
-            $firstSheet->mergeCells('C' . $rowNumber . ':D' . $rowNumber);
+            $firstSheet->mergeCells('A' . $rowNumber . ':D' . $rowNumber);
             
             $firstSheet->setCellValue('A' . $rowNumber, $flighttrack->airportName);
-            $firstSheet->setCellValue('C' . $rowNumber, $flighttrack->employee1Name);
-            $firstSheet->setCellValue('E' . $rowNumber, $flighttrack->employee2Name);
-            $firstSheet->setCellValue('F' . $rowNumber, $flighttrack->employee3Name);
-            $firstSheet->setCellValue('G' . $rowNumber, $flighttrack->employee4Name);
-            $firstSheet->setCellValue('H' . $rowNumber, $flighttrack->employee5Name);
-            $firstSheet->setCellValue('I' . $rowNumber, $flighttrack->employee6Name);
+            $firstSheet->setCellValue('E' . $rowNumber, $flighttrack->employee1Name);
+            $firstSheet->setCellValue('F' . $rowNumber, $flighttrack->employee2Name);
+            $firstSheet->setCellValue('G' . $rowNumber, $flighttrack->employee3Name);
+            $firstSheet->setCellValue('H' . $rowNumber, $flighttrack->employee4Name);
+            $firstSheet->setCellValue('I' . $rowNumber, $flighttrack->employee5Name);
+            $firstSheet->setCellValue('J' . $rowNumber, $flighttrack->employee6Name);
             
             $firstSheet->getStyle('A' . $rowNumber .':B'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
             $firstSheet->getStyle('B' . $rowNumber .':C'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
@@ -642,16 +636,30 @@ class Reporter
             $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
             $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
 
+            $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
             
+            $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setWrapText(true);
             $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setWrapText(true);
             
             if ($techResponsibleName == NULL) {
                 $techResponsibleName = $planerstate->responsibleName;
             }
+            
+            $firstSheet->getRowDimension($rowNumber)->setAutoSize(true);
             
             $rowNumber += 1;
         }
