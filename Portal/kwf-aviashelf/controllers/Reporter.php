@@ -654,7 +654,8 @@ class Reporter
             
             $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setWrapText(true);
             $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setWrapText(true);
-            
+            $firstSheet->getStyle('K' . $rowNumber . ':M' . $rowNumber)->getAlignment()->setWrapText(true);
+
             if ($techResponsibleName == NULL) {
                 $techResponsibleName = $planerstate->responsibleName;
             }
