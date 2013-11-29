@@ -651,7 +651,9 @@ class Reporter
             $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
             $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
             $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-            
+            $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
             $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setWrapText(true);
             $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setWrapText(true);
             $firstSheet->getStyle('K' . $rowNumber . ':M' . $rowNumber)->getAlignment()->setWrapText(true);
@@ -661,7 +663,11 @@ class Reporter
             }
             
             $firstSheet->getRowDimension($rowNumber)->setRowHeight(-1);//->setAutoSize(true);
-            
+
+            if (strlen($planerstate->comment) > 35) {
+                $firstSheet->getRowDimension($rowNumber)->setRowHeight($this->getRowSize($planerstate->comment, 35));
+            }
+
             $rowNumber += 1;
         }
         
@@ -679,6 +685,16 @@ class Reporter
         
         $firstSheet->mergeCells('A' . $rowNumber . ':M' . $rowNumber);
         $rowNumber += 1;
+    }
+    
+    function getRowSize($text, $width=35) {
+        $rc = 0;
+        $line = explode("\n", $text);
+        
+        foreach($line as $source) {
+            $rc += intval((strlen($source) / $width) +1);
+        }
+        return $rc * 10;//12.0;//75;// + 2.25;
     }
 
     public function exportTrainingResultsToXls($xls, $firstSheet, $row, $progressBar)
