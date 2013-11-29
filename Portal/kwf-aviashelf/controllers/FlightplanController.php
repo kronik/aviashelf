@@ -71,6 +71,63 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
         $this->updateReferences($row);
     }
     
+    protected function _afterInsert(Kwf_Model_Row_Interface $row)
+    {
+        $flightPlanModel = Kwf_Model_Abstract::getInstance('Flightplans');
+        $flightPlanSelect = $flightPlanModel->select()->whereNotEquals('id', $row->id);
+        
+        $flightPlans = $flightPlanModel->getRows($flightPlanSelect);
+
+        $maxPlanId = 0;
+        
+        foreach ($flightPlans as $flightPlan) {
+            if ($flightPlan->id > $maxPlanId) {
+                $maxPlanId = $flightPlan->id;
+            }
+        }
+        
+        if ($maxPlanId == 0) {
+            return;
+        }
+        
+        $planerstatesModel = Kwf_Model_Abstract::getInstance('Planerstates');
+        $planerstatesSelect = $planerstatesModel->select()->whereEquals('planId', $maxPlanId);
+        
+        $planerstates = $planerstatesModel->getRows($planerstatesSelect);
+        
+        $today = new DateTime('NOW');
+
+        foreach ($planerstates as $planerstate) {
+            
+            $resultRow = $planerstatesModel->createRow();
+            
+            $resultRow->planId = $row->id;
+            $resultRow->priority = $planerstate->priority;
+            $resultRow->statusDate = $today->format('Y-m-d');//$planerstate->statusDate;
+            $resultRow->expectedDate = $planerstate->expectedDate;
+            $resultRow->comment = $planerstate->comment;
+
+            $resultRow->comment = $planerstate->comment;
+
+            $resultRow->typeId = $planerstate->typeId;
+            $resultRow->typeName = $planerstate->typeName;
+
+            $resultRow->planeId = $planerstate->planeId;
+            $resultRow->planeName = $planerstate->planeName;
+
+            $resultRow->responsibleId = $planerstate->responsibleId;
+            $resultRow->responsibleName = $planerstate->responsibleName;
+
+            $resultRow->landpointId = $planerstate->landpointId;
+            $resultRow->landpointName = $planerstate->landpointName;
+
+            $resultRow->statusId = $planerstate->statusId;
+            $resultRow->statusName = $planerstate->statusName;
+
+            $resultRow->save();
+        }
+    }
+    
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
         $this->updateReferences($row);
