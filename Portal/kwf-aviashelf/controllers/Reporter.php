@@ -341,6 +341,9 @@ class Reporter
             $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
             $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
 
+            $firstSheet->getRowDimension($rowNumber)->setRowHeight(-1);
+            $firstSheet->getStyle('M' . $rowNumber)->getAlignment()->setWrapText(true);
+
             $rowNumber += 1;
         }
         
@@ -485,7 +488,10 @@ class Reporter
         $firstSheet->mergeCells('A' . $rowNumber . ':A' . ($rowNumber + 3));
 
         $firstSheet->setCellValue('B' . $rowNumber, $row->comment);
-        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        $firstSheet->getStyle('B' . $rowNumber)->getFont()->getColor()->applyFromArray(array('rgb' => 'FF2200'));
+        $firstSheet->getStyle('B' . $rowNumber)->getFont()->setBold(true);
+        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
         $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
         $rowNumber += 4;
