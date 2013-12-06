@@ -256,6 +256,8 @@ class GrouppersonController extends Kwf_Controller_Action_Auto_Form_Ex
     
     public function sendMessage ($employeeId, $groupRow) {
         
+        return;
+        
         if ($employeeId == NULL) {
             return;
         }

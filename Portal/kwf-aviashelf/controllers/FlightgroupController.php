@@ -237,6 +237,8 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
     
     public function sendMessage ($employeeId, $flightRow) {
         
+        return;
+        
         if ($employeeId == NULL) {
             return;
         }
@@ -300,6 +302,8 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         //$mail->addTo('dmitry.klimkin@gmail.com');
         $mail->setFrom('notify@aviashelf.com', 'Авиашельф Пульс');
         $mail->setSubject('ПЗ: ' . $flightRow->number);
+        
+        p($mail);
         
         if ($needToSend > 0) {
             $mail->send();
