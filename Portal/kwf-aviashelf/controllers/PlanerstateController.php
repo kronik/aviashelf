@@ -44,8 +44,7 @@ class PlanerstateController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
         
         $this->_form->add(new Kwf_Form_Field_TextField('priority', trlKwf('Priority')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setWidth(400);
         
         $objModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $objSelect = $objModel->select()->whereEquals('name', 'Статусы ВС');

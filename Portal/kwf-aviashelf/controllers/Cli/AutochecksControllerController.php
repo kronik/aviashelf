@@ -132,7 +132,7 @@ class Cli_AutochecksControllerController extends Kwf_Controller_Action {
         }
         
         //$mail->addTo('dmitry.klimkin@gmail.com');
-        $mail->setFrom('notify@aviashelf.com', 'Авиашельф Пульс');
+        $mail->setFrom('puls@aviashelf.com', 'Авиашельф Пульс');
         $mail->setSubject($checkTypeName);
         
         if ($needToSend > 0) {

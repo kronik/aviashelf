@@ -23,8 +23,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         ->setWidth(400);
 
         $tab->fields->add(new Kwf_Form_Field_TextField('requestNumber', trlKwf('Task number')))
-        ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setWidth(400);
         
         $companyModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $companySelect = $companyModel->select()->whereEquals('name', 'Компании для ПЗ')->order('name');

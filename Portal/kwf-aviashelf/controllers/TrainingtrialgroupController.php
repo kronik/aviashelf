@@ -73,6 +73,37 @@ class TrainingtrialgroupController extends Kwf_Controller_Action_Auto_Form
         $this->updateReferences($row);
     }
     
+    protected function _afterInsert(Kwf_Model_Row_Interface $row)
+    {
+        $groupPersonController = new TrainingHelper();
+        
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeesSelect = $employeesModel->select()
+        ->where(new Kwf_Model_Select_Expr_Sql("userId > 0 AND visible = 1 AND groupType = 1"));
+        
+        $employees = $employeesModel->getRows($employeesSelect);
+        
+        $groupPersonModel = Kwf_Model_Abstract::getInstance('GroupPersons');
+        
+        foreach ($employees as $employee) {
+            $groupPersonRow = $groupPersonModel->createRow();
+            
+            $groupPersonRow->employeeId = $employee->id;
+            $groupPersonRow->employeeName = (string)$employee;
+            
+            $groupPersonRow->trainingGroupId = $row->id;
+            $groupPersonRow->trainingGroupName = (string)$row;
+            
+            if ($row->isTrial == true) {
+                $groupPersonRow->comment = ' (Самоподготовка)';
+            }
+            
+            $groupPersonRow->save();
+            
+            $groupPersonController->createQuestionsSet($row, $groupPersonRow);
+        }
+    }
+    
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
         $this->updateReferences($row);
