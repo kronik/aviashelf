@@ -159,7 +159,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
         $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
-        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->flightId)->whereEquals('mainCrew', TRUE)->order('id');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $row->flightId)->order('id');
         
         $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
 
