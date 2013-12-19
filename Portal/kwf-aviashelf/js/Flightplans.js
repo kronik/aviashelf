@@ -134,7 +134,7 @@ var Flightplans = Ext.extend(Ext.Panel,
 Ext.util.Format.flightTimeCorrect = function(val)
 {
     if ((val == null) || (val == '')) {
-        return '';
+        return 'TBA';
     }
 
     var time = val.split(':');

@@ -303,8 +303,14 @@ class Reporter
             $lastSubcompanyId = $flight->subCompanyId;
             $flightSequenceNumber += 1;
             
-            $flightStartTime = new DateTime($flight->flightStartTime);
-            $flightStartTime = $flightStartTime->format("H:i");
+            $flightStartTime = '';
+            
+            if ($flight->flightStartTime == NULL) {
+                $flightStartTime = 'TBA';
+            } else {
+                $flightStartTime = new DateTime($flight->flightStartTime);
+                $flightStartTime = $flightStartTime->format("H:i");
+            }
             
             $plane = explode("-", $flight->planeName);
             
@@ -1072,9 +1078,14 @@ class Reporter
         $progressBar->update(60);
         
         $flightDate = new DateTime ($row->flightStartDate);
+        $flightStartTime = '';
         
-        $flightStartTime = new DateTime($row->flightStartTime);
-        $flightStartTime = $flightStartTime->format("H:i");
+        if ($row->flightStartTime == NULL) {
+            $flightStartTime = 'TBA';
+        } else {
+            $flightStartTime = new DateTime($row->flightStartTime);
+            $flightStartTime = $flightStartTime->format("H:i");
+        }
         
         $firstSheet->setCellValue('AS21', $this->russianDate($flightDate->format('d-m-Y')));
         $firstSheet->setCellValue('BJ21', $flightStartTime);
@@ -1452,8 +1463,14 @@ class Reporter
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 3) . $rowNumber, 'Время: ');
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 3) . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         
-        $flightStartTime = new DateTime($row->flightStartTime);
-        $flightStartTime = $flightStartTime->format("H:i");
+        $flightStartTime = '';
+        
+        if ($row->flightStartTime == NULL) {
+            $flightStartTime = 'TBA';
+        } else {
+            $flightStartTime = new DateTime($row->flightStartTime);
+            $flightStartTime = $flightStartTime->format("H:i");
+        }
         
         $firstSheet->setCellValue($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber, $flightStartTime);
         $firstSheet->getStyle($this->_getColumnLetterByIndex($rightColumn + 4) . $rowNumber)->getFont()->setBold(true);
