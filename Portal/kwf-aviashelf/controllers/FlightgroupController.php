@@ -181,10 +181,14 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             $userSelect = $users->select()->whereEquals('id', $flightMember->employeeId);
             $employee = $users->getRow($userSelect);
 
+            if ($employee == NULL) {
+                continue;
+            }
+            
             if (($this->isContain('КВС', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
             {
                 $flightRow->firstPilotName = (string)$employee;
-
+                
                 if ($employee->userId != NULL)
                 {
                     $tasks = Kwf_Model_Abstract::getInstance('Tasks');
