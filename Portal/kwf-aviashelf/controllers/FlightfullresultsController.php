@@ -7,7 +7,7 @@ class FlightfullresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
     protected $_paging = 100;
     protected $_grouping = array('groupField' => 'ownerName');
-    protected $_buttons = array('add', 'xls');
+    protected $_buttons = array('add', 'xls', 'delete');
     protected $_editDialog = NULL;
 
     protected function _initColumns()
@@ -45,7 +45,11 @@ class FlightfullresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function _getWhere()
     {
         $ret = parent::_getWhere();
-        $ret['flightId = ?'] = $this->_getParam('flightId');
+        
+        if ($this->_getParam('flightId') != NULL) {
+            $ret['flightId = ?'] = $this->_getParam('flightId');
+        }
+                
         return $ret;
     }
 }

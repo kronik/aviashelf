@@ -47,6 +47,7 @@ class FlightresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         $ret = parent::_getWhere();
         $ret['ownerId = ?'] = $this->_getParam('ownerId');
+        $ret['flightTime <> ?'] = '00:00';
 
         return $ret;
     }

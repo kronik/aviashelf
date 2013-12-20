@@ -53,19 +53,19 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         
         $row->employeeName = (string)$prow;
 
-        $flightRow = $flightsModel->getRow($flightsSelect);
-                
-        if ($row->mainCrew == TRUE)
-        {
-            $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
-            $positionSelect = $positionModel->select()->whereEquals('positionId', $row->positionId);
-
-            $positionRows = $positionModel->getRows($positionSelect);
-            
-            foreach ($positionRows as $positionRow) {
-                $this->addFlightResult($flightRow, $row, $positionRow->resultId);
-            }
-        }
+//        $flightRow = $flightsModel->getRow($flightsSelect);
+//        
+//        if ($row->mainCrew == TRUE)
+//        {
+//            $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
+//            $positionSelect = $positionModel->select()->whereEquals('positionId', $row->positionId);
+//
+//            $positionRows = $positionModel->getRows($positionSelect);
+//            
+//            foreach ($positionRows as $positionRow) {
+//                $this->addFlightResult($flightRow, $row, $positionRow->resultId);
+//            }
+//        }
     }
     
     protected function addFlightResult($flight, $groupRow, $typeId)
@@ -155,7 +155,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
     {        
         $this->updateReferences($row);
     }
-    
+        
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
         $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
@@ -169,7 +169,11 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $users = Kwf_Model_Abstract::getInstance('Employees');
 
         $flightRow = $flightsModel->getRow($flightsSelect);
-
+        
+        $db = Zend_Registry::get('db');
+        
+        $db->delete('flightresults', array('flightId = ?' => $flightRow->id));
+        
         $flightRow->firstPilotName = '';
         $flightRow->secondPilotName = '';
         $flightRow->technicName = '';
@@ -183,6 +187,18 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
 
             if ($employee == NULL) {
                 continue;
+            }
+            
+            if ($flightMember->mainCrew == TRUE)
+            {
+                $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
+                $positionSelect = $positionModel->select()->whereEquals('positionId', $flightMember->positionId);
+                
+                $positionRows = $positionModel->getRows($positionSelect);
+                
+                foreach ($positionRows as $positionRow) {
+                    $this->addFlightResult($flightRow, $flightMember, $positionRow->resultId);
+                }
             }
             
             if (($this->isContain('КВС', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
