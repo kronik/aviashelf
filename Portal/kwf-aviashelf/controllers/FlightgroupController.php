@@ -172,7 +172,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         
         $db = Zend_Registry::get('db');
         
-        $db->delete('flightresults', array('flightId = ?' => $flightRow->id));
+        $db->delete('flightResults', array('flightId = ?' => $flightRow->id));
         
         $flightRow->firstPilotName = '';
         $flightRow->secondPilotName = '';
