@@ -70,7 +70,10 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $flightRow->technicName = '';
         $flightRow->resquerName = '';
         $flightRow->checkPilotName = '';
+        $flightRow->comments = '';
         
+        $trained = array();
+
         foreach ($flightMembers as $flightMember) {
             
             if ($flightMember->id == $row->id) {
@@ -119,7 +122,15 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
                      ($this->isContain('Инструктор', $flightMember->positionName)))
             {
                 $flightRow->checkPilotName = (string)$employee;
+            } else if ($this->isContain('Тренируемый', $flightMember->positionName)) {
+                if (in_array((string)$employee, $trained) == false) {
+                    array_push($trained, (string)$employee);
+                }
             }
+        }
+        
+        if (count($trained) > 0) {
+            $flightRow->comments = 'Тр-ые: ' . implode(',', $trained);
         }
         
         $flightRow->save();

@@ -732,6 +732,7 @@ CREATE TABLE IF NOT EXISTS `flightTasks` (
     `technicName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `checkPilotName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `resquerName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `isPrinted` BOOL DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -781,6 +782,7 @@ CREATE TABLE IF NOT EXISTS `flightResultDefaults` (
     `positionName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     `resultId` int NOT NULL,
     `resultName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `inTotal` BOOL DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

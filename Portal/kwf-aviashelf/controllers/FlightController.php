@@ -261,29 +261,6 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         
         $row->flightStartDate = $prow->planDate;
         $row->status = 0;
-        
-        $db = Zend_Registry::get('db');
-        
-        $stmt = $db->query("CALL getNextId(0, @nextId)", array(25));
-        
-        while ($stmt->nextRowset()) { };
-        
-        $stmt = $db->query("SELECT @nextId");
-        $rows = $stmt->fetchAll();
-        $row->number = $rows[0]["@nextId"];
-        
-        if (strlen($row->number) == 1)
-        {
-            $row->number = '000' . $row->number;
-        }
-        else if (strlen($row->number) == 2)
-        {
-            $row->number = '00' . $row->number;
-        }
-        else if (strlen($row->number) == 3)
-        {
-            $row->number = '0' . $row->number;
-        }
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
@@ -295,6 +272,35 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
     {
         $row = $this->_form->getRow();
         
+        if ($row->isPrinted == false) {
+            $row->isPrinted = true;
+            
+            $db = Zend_Registry::get('db');
+            
+            $stmt = $db->query("CALL getNextId(0, @nextId)", array(25));
+            
+            while ($stmt->nextRowset()) { };
+            
+            $stmt = $db->query("SELECT @nextId");
+            $rows = $stmt->fetchAll();
+            $row->number = $rows[0]["@nextId"];
+            
+            if (strlen($row->number) == 1)
+            {
+                $row->number = '000' . $row->number;
+            }
+            else if (strlen($row->number) == 2)
+            {
+                $row->number = '00' . $row->number;
+            }
+            else if (strlen($row->number) == 3)
+            {
+                $row->number = '0' . $row->number;
+            }
+        }
+        
+        $row->save();
+                
         $this->_progressBar = new Zend_ProgressBar(new Kwf_Util_ProgressBar_Adapter_Cache($this->_getParam('progressNum')),
                                                    0, 100);
 

@@ -33,7 +33,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         ->setHeight(70)
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_Checkbox('showInTotal', trlKwf('Show in total')));
+//        $this->_form->add(new Kwf_Form_Field_Checkbox('showInTotal', trlKwf('Show in total')));
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row) {
@@ -50,7 +50,6 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $prow = $m3->getRow($s);
         
         $row->flightDate = $prow->flightStartDate;
-        $row->planeId = $prow->planeId;
         
         $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $planesSelect = $planesModel->select()->whereEquals('id', $row->planeId);
@@ -59,6 +58,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $typeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $typeSelect = $typeModel->select()->whereEquals('id', $plane->twsId);
         $planeType = $typeModel->getRow($typeSelect);
+        $row->planeId = $plane->twsId;
 
         $row->planeName = $planeType->Name;
 

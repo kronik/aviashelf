@@ -22,6 +22,7 @@ class FlightresultdefaultsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_filters = array('text' => array('type' => 'TextField'));
 
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        $this->_columns->add(new Kwf_Grid_Column_Checkbox('inTotal', trlKwf('Show in total')))->setWidth(50);
         $this->_columns->add(new Kwf_Grid_Column('positionName', 'Позиция на борту', 200));
         $this->_columns->add(new Kwf_Grid_Column('resultName', 'Тип налета', 200));
     }

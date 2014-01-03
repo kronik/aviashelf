@@ -1041,6 +1041,8 @@ class Reporter
 
         $rowNumber = 15;
         
+        $positionsMap = array();
+        
         foreach ($flightMembers as $flightMember)
         {
             $employeesSelect = $employeesModel->select()->whereEquals('id', $flightMember->employeeId);
@@ -1068,11 +1070,36 @@ class Reporter
             if ($position == 'Проверяющий') {
                 $kwsId = $flightMember->employeeId;
             }
+            
+            $sameRow = NULL;
+            
+            if (array_key_exists($position, $positionsMap)) {
+                $sameRow = $positionsMap [$position];
+            }
+            
+            if ($sameRow == NULL) {
+                $firstSheet->setCellValue('AJ' . $rowNumber, $position);
+                $firstSheet->setCellValue('AS' . $rowNumber, (string)$employeeRow);
 
-            $firstSheet->setCellValue('AJ' . $rowNumber, $position);
-            $firstSheet->setCellValue('AS' . $rowNumber, (string)$employeeRow);
-
-            $rowNumber += 1;
+                $positionsMap [$position] = $rowNumber;
+                
+                $rowNumber += 1;
+            } else {
+                
+                $cellValue = $firstSheet->getCell('AS' . $sameRow)->getValue();
+                
+                if (strlen($cellValue . (string)$employeeRow) >= 50) {
+                    $firstSheet->setCellValue('AJ' . $rowNumber, $position);
+                    $firstSheet->setCellValue('AS' . $rowNumber, (string)$employeeRow);
+                    
+                    $positionsMap [$position] = $rowNumber;
+                    
+                    $rowNumber += 1;
+                } else {
+                    $cellValue = $cellValue . ', ' . (string)$employeeRow;
+                    $firstSheet->setCellValue('AS' . $sameRow, $cellValue);
+                }
+            }
         }
         
         $progressBar->update(60);

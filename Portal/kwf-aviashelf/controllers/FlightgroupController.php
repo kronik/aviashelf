@@ -68,11 +68,21 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
 //        }
     }
     
-    protected function addFlightResult($flight, $groupRow, $typeId)
+    protected function addFlightResult($flight, $groupRow, $positionRow)
     {
+        $typeId = $positionRow->resultId;
+        
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('id', $typeId);
         $typeRow = $typeModel->getRow($typeSelect);
+        
+        $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
+        $planesSelect = $planesModel->select()->whereEquals('id', $flight->planeId);
+        $plane = $planesModel->getRow($planesSelect);
+        
+        $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
+        $wstypeSelect = $wstypeModel->select()->whereEquals('id', $plane->twsId);
+        $planeType = $wstypeModel->getRow($wstypeSelect);
 
         if ($typeRow == NULL) {
             throw new Kwf_Exception_Client('Тип налета: <' . $typeId . '> не найден в словаре.');
@@ -90,15 +100,15 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             
             $resultRow->typeId = $typeRow->id;
             $resultRow->typeName = $typeRow->value;
-            $resultRow->planeId = $flight->planeId;
-            $resultRow->planeName = $flight->planeName;
+            $resultRow->planeId = $planeType->id;
+            $resultRow->planeName = $planeType->Name;
             $resultRow->flightsCount = 1;
             $resultRow->flightDate = $flight->flightStartDate;
             $resultRow->flightId = $flight->id;
             $resultRow->flightTime = '00:00';
             $resultRow->ownerId = $groupRow->employeeId;
             $resultRow->ownerName = $groupRow->employeeName;
-            $resultRow->showInTotal = 0;
+            $resultRow->showInTotal = $positionRow->inTotal;
             
             $resultRow->save();
         }
@@ -179,6 +189,9 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $flightRow->technicName = '';
         $flightRow->resquerName = '';
         $flightRow->checkPilotName = '';
+        $flightRow->comments = '';
+        
+        $trained = array();
         
         foreach ($flightMembers as $flightMember) {
 
@@ -197,7 +210,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                 $positionRows = $positionModel->getRows($positionSelect);
                 
                 foreach ($positionRows as $positionRow) {
-                    $this->addFlightResult($flightRow, $flightMember, $positionRow->resultId);
+                    $this->addFlightResult($flightRow, $flightMember, $positionRow);
                 }
             }
             
@@ -249,7 +262,15 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             {
                 $flightRow->checkPilotName = (string)$employee;
                 $this->sendMessage($flightMember->employeeId, $flightRow);
+            } else if ($this->isContain('Тренируемый', $flightMember->positionName)) {
+                if (in_array((string)$employee, $trained) == false) {
+                    array_push($trained, (string)$employee);
+                }
             }
+        }
+        
+        if (count($trained) > 0) {
+            $flightRow->comments = 'Тр-ые: ' . implode(',', $trained);
         }
         
         $flightRow->save();

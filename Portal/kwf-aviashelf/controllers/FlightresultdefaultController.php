@@ -27,8 +27,10 @@ class FlightresultdefaultController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($typeSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
+        
+        $this->_form->add(new Kwf_Form_Field_Checkbox('inTotal', trlKwf('Show in total')));
     }
-                                                    
+    
     protected function updateReferences(Kwf_Model_Row_Interface $row) {
     
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
