@@ -52,7 +52,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $row->flightDate = $prow->flightStartDate;
         
         $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
-        $planesSelect = $planesModel->select()->whereEquals('id', $row->planeId);
+        $planesSelect = $planesModel->select()->whereEquals('id', $prow->planeId);
         $plane = $planesModel->getRow($planesSelect);
         
         $typeModel = Kwf_Model_Abstract::getInstance('Wstypes');
@@ -70,6 +70,11 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
     
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
+        if (($row->flightTime == '00:00') || ($row->flightTime == '00:00:00')) {
+            $row->flightTime = '07:12';
+            $row->save();            
+        }
+        
         if (($row->flightTime != NULL) && ($row->flightTime != '00:00') && ($row->flightTime != '00:00:00')) {
             $resultsModel = Kwf_Model_Abstract::getInstance('Flightresults');
             
@@ -94,6 +99,8 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
         $row->flightId = $this->_getParam('flightId');
+        $row->showInTotal = false;
+
         $this->updateReferences($row);
     }
     
