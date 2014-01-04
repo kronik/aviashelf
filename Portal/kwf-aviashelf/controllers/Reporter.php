@@ -1088,7 +1088,7 @@ class Reporter
                 
                 $cellValue = $firstSheet->getCell('AS' . $sameRow)->getValue();
                 
-                if (strlen($cellValue . (string)$employeeRow) >= 50) {
+                if (mb_strlen($cellValue . ', ' . (string)$employeeRow) >= 55) {
                     $firstSheet->setCellValue('AJ' . $rowNumber, $position);
                     $firstSheet->setCellValue('AS' . $rowNumber, (string)$employeeRow);
                     
