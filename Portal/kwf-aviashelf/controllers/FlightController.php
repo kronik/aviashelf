@@ -72,7 +72,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         $tab->setTitle('Цели');
         
         $objectivesModel = Kwf_Model_Abstract::getInstance('Objectives');
-        $objectivesSelect = $objectivesModel->select()->whereEquals('name', 'Цели')->order('value');
+        $objectivesSelect = $objectivesModel->select()->whereEquals('name', 'Цель полета')->order('value');
         
         $multifields = new Kwf_Form_Field_MultiFields('FlightObjectives');
         $multifields->setMinEntries(0);
