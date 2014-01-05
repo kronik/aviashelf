@@ -12,6 +12,13 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::_initColumns();
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() != 'admin') {
+            
+            unset($this->_buttons ['delete']);
+        }
+
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('isSelected', trlKwf('Correct')))->setWidth(100)
         ->setEditor(new Kwf_Form_Field_Checkbox());
         $this->_columns->add(new Kwf_Grid_Column('answer', trlKwf('Answer')))->setWidth(1500);

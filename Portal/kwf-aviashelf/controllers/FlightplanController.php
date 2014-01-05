@@ -71,6 +71,13 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
         $this->updateReferences($row);
     }
     
+    
+    protected function _beforeDelete(Kwf_Model_Row_Interface $row) {
+        $db = Zend_Registry::get('db');
+        
+        $db->delete('planerStates', array('planId = ?' => $row->id));
+    }
+    
     protected function _afterInsert(Kwf_Model_Row_Interface $row)
     {
         $flightPlanModel = Kwf_Model_Abstract::getInstance('Flightplans');
@@ -96,6 +103,10 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
         $planerstates = $planerstatesModel->getRows($planerstatesSelect);
         
         $today = new DateTime('NOW');
+        
+        $db = Zend_Registry::get('db');
+        
+        $db->delete('planerStates', array('planId = ?' => $row->id));
 
         foreach ($planerstates as $planerstate) {
             
@@ -105,8 +116,6 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
             $resultRow->priority = $planerstate->priority;
             $resultRow->statusDate = $today->format('Y-m-d');//$planerstate->statusDate;
             $resultRow->expectedDate = $planerstate->expectedDate;
-            $resultRow->comment = $planerstate->comment;
-
             $resultRow->comment = $planerstate->comment;
 
             $resultRow->typeId = $planerstate->typeId;

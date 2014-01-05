@@ -155,10 +155,10 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_myresults');
         $this->allow('user', 'default_myflights');
 
-        $this->allow('guest', 'default_flightsmenuitem');
-        $this->allow('guest', 'default_flightplans');
-        $this->allow('guest', 'default_flights');
-        $this->allow('guest', 'default_index');
+//        $this->allow('guest', 'default_flightsmenuitem');
+//        $this->allow('guest', 'default_flightplans');
+//        $this->allow('guest', 'default_flights');
+//        $this->allow('guest', 'default_index');
 
         $this->allow('plan', 'default_flightsmenuitem');
         $this->allow('plan', 'default_flightplans');
@@ -170,7 +170,7 @@ class Acl extends Kwf_Acl
         $this->deny('plan', 'default_flightsets');
         $this->deny('plan', 'default_flightfiles');
         $this->deny('plan', 'default_myflights');
-        $this->deny('guest', 'default_myflights');
+//        $this->deny('guest', 'default_myflights');
         
         $this->allow('kws', 'default_index');
         $this->allow('kws', 'default_flightsmenuitem');

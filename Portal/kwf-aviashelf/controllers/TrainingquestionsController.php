@@ -16,6 +16,14 @@ class TrainingquestionsController extends Kwf_Controller_Action_Auto_Grid_Ex
     public function indexAction()
     {
         parent::indexAction();
+        
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() != 'admin') {
+            
+            unset($this->_buttons ['delete']);
+        }
+
         $this->view->ext('Trainingquestions');
     }
     

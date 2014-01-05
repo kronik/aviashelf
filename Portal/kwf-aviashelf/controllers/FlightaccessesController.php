@@ -18,6 +18,11 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
         parent::_initColumns();
         $this->_filters = array('text' => array('type' => 'TextField'));
         
+        if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws' || $users->getAuthedUserRole() == 'user') {
+            
+            unset($this->_buttons ['delete']);
+        }
+
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('accessDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('exCheckDate');

@@ -19,6 +19,11 @@ class FlightfilesController extends Kwf_Controller_Action_Auto_Grid_Ex
         if ($users->getAuthedUserRole() == 'admin' ||
             $users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
             
+            if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
+                
+                unset($this->_buttons ['delete']);
+            }
+
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
             
             $this->_editDialog = array(

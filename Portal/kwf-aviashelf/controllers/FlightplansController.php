@@ -17,6 +17,11 @@ class FlightplansController extends Kwf_Controller_Action_Auto_Grid_Ex
     public function indexAction()
     {
         parent::indexAction();
+        
+        if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws' || $users->getAuthedUserRole() == 'user') {
+            unset($this->_buttons ['delete']);
+        }
+
         $this->view->ext('Flightplans');
     }
     
