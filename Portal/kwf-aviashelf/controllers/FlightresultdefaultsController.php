@@ -33,4 +33,11 @@ class FlightresultdefaultsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('positionName', 'Позиция на борту', 200));
         $this->_columns->add(new Kwf_Grid_Column('resultName', 'Тип налета', 200));
     }
+    
+    protected function _getWhere()
+    {
+        $ret = parent::_getWhere();
+        $ret['typeName = ?'] = 'position';
+        return $ret;
+    }
 }

@@ -43,6 +43,8 @@ class FlightresultdefaultController extends Kwf_Controller_Action_Auto_Form
         $s = $m2->select()->whereEquals('id', $row->resultId);
         $prow = $m2->getRow($s);
         $row->resultName = $prow->value;
+        
+        $row->typeName = 'position';
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

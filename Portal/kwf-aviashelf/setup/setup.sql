@@ -782,6 +782,7 @@ CREATE TABLE IF NOT EXISTS `flightResultDefaults` (
     `positionName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     `resultId` int NOT NULL,
     `resultName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `typeName` varchar(30) COLLATE utf8_unicode_ci NOT NULL default 'position',
     `inTotal` BOOL DEFAULT '0',
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)

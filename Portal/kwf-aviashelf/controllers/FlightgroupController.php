@@ -211,7 +211,9 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             if ($flightMember->mainCrew == TRUE)
             {
                 $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
-                $positionSelect = $positionModel->select()->whereEquals('positionId', $flightMember->positionId);
+                $positionSelect = $positionModel->select()
+                ->whereEquals('positionId', $flightMember->positionId)
+                ->whereEquals('typeName', 'position');
                 
                 $positionRows = $positionModel->getRows($positionSelect);
                 
