@@ -44,6 +44,22 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
         $flightsSelect = $flightsModel->select()->whereEquals('id', $row->flightId);
         
+        $flightRow = $flightsModel->getRow($flightsSelect);
+        
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'kws') {
+            
+            $flightDate = new DateTime ($flightRow->flightStartDate);
+            
+            $dateLimit = new DateTime('NOW');
+            $dateLimit->sub( new DateInterval('P2D') );
+            
+            if ($flightDate < $dateLimit) {
+                throw new Kwf_Exception_Client('ПЗ закрыто для изменений.');
+            }
+        }
+        
         $s = $m1->select()->whereEquals('id', $row->positionId);
         $prow = $m1->getRow($s);
         $row->positionName = $prow->value;
@@ -52,9 +68,8 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $prow = $m2->getRow($s);
         
         $row->employeeName = (string)$prow;
-
-//        $flightRow = $flightsModel->getRow($flightsSelect);
-//        
+        
+//
 //        if ($row->mainCrew == TRUE)
 //        {
 //            $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
@@ -208,6 +223,9 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                 continue;
             }
             
+            $resultsToAdd = array();
+            $existingResults = array();
+
             if ($flightMember->mainCrew == TRUE)
             {
                 $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
@@ -217,8 +235,36 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                 
                 $positionRows = $positionModel->getRows($positionSelect);
                 
+                $positionSelect = $positionModel->select()
+                ->whereEquals('positionId', $flightMember->positionId)
+                ->whereEquals('typeName', 'objective');
+                
+                $positionExtraRows = $positionModel->getRows($positionSelect);
+                
+                foreach ($positionExtraRows as $positionExtraRow) {
+                    array_push($resultsToAdd, $positionExtraRow);
+                }
+                
                 foreach ($positionRows as $positionRow) {
+                    
+                    if (in_array($positionRow->resultId, $existingResults) == true) {
+                        continue;
+                    }
+                        
                     $this->addFlightResult($flightRow, $flightMember, $positionRow);
+                    
+                    array_push($existingResults, $positionRow->resultId);
+                }
+                
+                foreach ($positionExtraRows as $positionExtraRow) {
+                    
+                    if (in_array($positionExtraRow->resultId, $existingResults) == true) {
+                        continue;
+                    }
+                    
+                    $this->addFlightResult($flightRow, $flightMember, $positionExtraRow);
+                    
+                    array_push($existingResults, $positionExtraRow->resultId);
                 }
             }
             

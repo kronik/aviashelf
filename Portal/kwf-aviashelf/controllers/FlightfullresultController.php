@@ -57,6 +57,20 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         
         $row->flightDate = $prow->flightStartDate;
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'kws') {
+            
+            $flightDate = new DateTime ($prow->flightStartDate);
+            
+            $dateLimit = new DateTime('NOW');
+            $dateLimit->sub( new DateInterval('P2D') );
+            
+            if ($flightDate < $dateLimit) {
+                throw new Kwf_Exception_Client('ПЗ закрыто для изменений.');
+            }
+        }
+        
         $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $planesSelect = $planesModel->select()->whereEquals('id', $prow->planeId);
         $plane = $planesModel->getRow($planesSelect);

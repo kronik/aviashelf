@@ -4,7 +4,7 @@ class MyflightsController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Flights';
     protected $_defaultOrder = array('field' => 'flightStartDate', 'direction' => 'DESC');
-    protected $_grouping = array('groupField' => 'flightStartDate');
+//    protected $_grouping = array('groupField' => 'flightStartDate');
     protected $_buttons = array('xls');
     protected $_editDialog = NULL;
     protected $_paging = 50;
@@ -79,7 +79,7 @@ class MyflightsController extends Kwf_Controller_Action_Auto_Grid
         
         $s = new Kwf_Model_Select();
         $s->where(new Kwf_Model_Select_Expr_Sql("employeeId = " . $employeeId . " AND Hidden = 0"));
-        $ret->where(new Kwf_Model_Select_Expr_Child_Contains('Flightgroups', $s))->order('flightStartTime');
+        $ret->where(new Kwf_Model_Select_Expr_Child_Contains('Flightgroups', $s));//->order('flightStartTime');
         
         return $ret;
     }

@@ -99,6 +99,20 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'kws') {
+            
+            $flightDate = new DateTime ($row->flightStartDate);
+            
+            $dateLimit = new DateTime('NOW');
+            $dateLimit->sub( new DateInterval('P2D') );
+
+            if ($flightDate < $dateLimit) {
+                throw new Kwf_Exception_Client('ПЗ закрыто для изменений.');
+            }
+        }
+        
         $companyModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $companySelect = $companyModel->select()->whereEquals('id', $row->subCompanyId);
         

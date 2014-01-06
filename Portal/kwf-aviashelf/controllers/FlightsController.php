@@ -24,7 +24,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $users = Kwf_Registry::get('userModel');
 
         $this->_filters = array('text' => array('type' => 'TextField'));
-                
+                        
         if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan'  || $users->getAuthedUserRole() == 'power')
         {
             if ($users->getAuthedUserRole() == 'power') {
