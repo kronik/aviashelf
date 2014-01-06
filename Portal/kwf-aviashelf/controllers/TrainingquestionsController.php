@@ -5,7 +5,7 @@ class TrainingquestionsController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'TrainingQuestions';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
-    protected $_paging = 0;
+    protected $_paging = 100;
     protected $_buttons = array('add', 'delete', 'xls');
     protected $_editDialog = array(
         'controllerUrl' => '/trainingquestion',

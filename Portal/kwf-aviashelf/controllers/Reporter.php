@@ -126,7 +126,7 @@ class Reporter
         
         $xls->getDefaultStyle()->getFont()->setSize(7);
         
-        $firstSheet->getPageSetup()->setFitToPage(true);
+//        $firstSheet->getPageSetup()->setFitToPage(true);
         $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
         $firstSheet->setTitle('План полетов');
@@ -189,13 +189,14 @@ class Reporter
         $firstSheet->getColumnDimension('A')->setWidth('3pt');
         $firstSheet->getColumnDimension('C')->setWidth('7pt');
         $firstSheet->getColumnDimension('D')->setWidth('10pt');
-        $firstSheet->getColumnDimension('E')->setWidth('40pt');
+        $firstSheet->getColumnDimension('E')->setWidth('30pt');
         $firstSheet->getColumnDimension('F')->setWidth('15pt');
         $firstSheet->getColumnDimension('G')->setWidth('15pt');
         $firstSheet->getColumnDimension('H')->setWidth('15pt');
         $firstSheet->getColumnDimension('I')->setWidth('15pt');
         $firstSheet->getColumnDimension('J')->setWidth('15pt');
-        $firstSheet->getColumnDimension('M')->setWidth('15pt');
+        $firstSheet->getColumnDimension('K')->setWidth('20pt');
+        $firstSheet->getColumnDimension('M')->setWidth('30pt');
         
         $firstSheet->setCellValue('A6', trlKwf('№'));
         $firstSheet->setCellValue('B6', trlKwf('Customer'));
@@ -346,8 +347,38 @@ class Reporter
             $firstSheet->getStyle('J' . $rowNumber .':K'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
             $firstSheet->getStyle('K' . $rowNumber .':L'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
             $firstSheet->getStyle('L' . $rowNumber .':M'. $rowNumber)->applyFromArray($styleThinBlackBorderOutline);
+            
+            $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('D' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('L' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $firstSheet->getStyle('M' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            
+            $firstSheet->getStyle('A' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('C' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('D' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('F' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('G' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('H' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('I' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('J' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('L' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            $firstSheet->getStyle('M' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
             $firstSheet->getRowDimension($rowNumber)->setRowHeight(-1);
+            $firstSheet->getStyle('E' . $rowNumber)->getAlignment()->setWrapText(true);
+            $firstSheet->getStyle('K' . $rowNumber)->getAlignment()->setWrapText(true);
             $firstSheet->getStyle('M' . $rowNumber)->getAlignment()->setWrapText(true);
 
             $rowNumber += 1;
