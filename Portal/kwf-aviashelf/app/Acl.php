@@ -128,17 +128,20 @@ class Acl extends Kwf_Acl
         $this->addRole(new Kwf_Acl_Role('plan', 'Планирование'));
         $this->addRole(new Kwf_Acl_Role('power', 'Опытный пользователь'));
         $this->addRole(new Kwf_Acl_Role('kws', 'Командир'));
+        $this->addRole(new Kwf_Acl_Role('viewer', 'Гость'));
 
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_user', 'user'), 'edit_role');
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_plan', 'plan'), 'edit_role');
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_power', 'power'), 'edit_role');
         $this->add(new Kwf_Acl_Resource_EditRole('edit_role_kws', 'kws'), 'edit_role');
+        $this->add(new Kwf_Acl_Resource_EditRole('edit_role_viewer', 'viewer'), 'edit_role');
 
         //$this->add(new Kwf_Acl_Resource_EditRole('edit_role_guest', 'guest'), 'edit_role');
         $this->allow('admin', 'edit_role_user');
         $this->allow('admin', 'edit_role_plan');
         $this->allow('admin', 'edit_role_power');
         $this->allow('admin', 'edit_role_kws');
+        $this->allow('admin', 'edit_role_viewer');
 
         //$this->allow(array('admin', 'power'), 'edit_role_guest');
         
@@ -155,10 +158,10 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_myresults');
         $this->allow('user', 'default_myflights');
 
-//        $this->allow('guest', 'default_flightsmenuitem');
-//        $this->allow('guest', 'default_flightplans');
-//        $this->allow('guest', 'default_flights');
-//        $this->allow('guest', 'default_index');
+        $this->allow('viewer', 'default_flightsmenuitem');
+        $this->allow('viewer', 'default_flightplans');
+        $this->allow('viewer', 'default_flights');
+        $this->allow('viewer', 'default_index');
 
         $this->allow('plan', 'default_flightsmenuitem');
         $this->allow('plan', 'default_flightplans');
@@ -170,7 +173,10 @@ class Acl extends Kwf_Acl
         $this->deny('plan', 'default_flightsets');
         $this->deny('plan', 'default_flightfiles');
         $this->deny('plan', 'default_myflights');
-//        $this->deny('guest', 'default_myflights');
+        $this->deny('viewer', 'default_myflights');
+        $this->deny('viewer', 'default_flightfullresults');
+        $this->deny('viewer', 'default_flightsets');
+        $this->deny('viewer', 'default_flightfiles');
         
         $this->allow('kws', 'default_index');
         $this->allow('kws', 'default_flightsmenuitem');

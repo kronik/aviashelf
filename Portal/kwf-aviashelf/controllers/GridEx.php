@@ -10,6 +10,7 @@ abstract class Kwf_Controller_Action_Auto_Grid_Ex extends Kwf_Controller_Action_
         $users = Kwf_Registry::get('userModel');
         
         if (($users->getAuthedUserRole() == 'guest') ||
+            ($users->getAuthedUserRole() == 'viewer') ||
             ($users->getAuthedUserRole() == 'user')) {
             unset($this->_buttons ['add']);
             unset($this->_buttons ['edit']);
