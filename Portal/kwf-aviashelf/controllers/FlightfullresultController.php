@@ -25,7 +25,9 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
 
-        $this->_form->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Time')))->setIncrement(5);
+        $this->_form->add(new Kwf_Form_Field_TimeField('flightTime', trlKwf('Time')))
+        ->setDefaultValue('07:12')
+        ->setIncrement(5);
         
         $this->_form->add(new Kwf_Form_Field_NumberField('flightsCount', 'Кол-во полетов'))->setWidth(400);
 
@@ -70,11 +72,6 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
     
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
-        if (($row->flightTime == '00:00') || ($row->flightTime == '00:00:00')) {
-            $row->flightTime = '07:12';
-            $row->save();            
-        }
-        
         if (($row->flightTime != NULL) && ($row->flightTime != '00:00') && ($row->flightTime != '00:00:00')) {
             $resultsModel = Kwf_Model_Abstract::getInstance('Flightresults');
             
