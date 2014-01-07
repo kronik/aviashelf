@@ -10,11 +10,37 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         $landpointsModel = Kwf_Model_Abstract::getInstance('Airports');
         $landpointsSelect = $landpointsModel->select()->order('Name');
 
+        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+        $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
+        
+        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $this->_getParam('flightId'))->whereEquals('mainCrew', TRUE);
+        
+        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+        
+        $memberIds = array();
+        
+        foreach ($flightMembers as $flightMember) {
+            array_push($memberIds, $flightMember->employeeId);
+        }
+        
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 1'))->order('lastname');
-
-        $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
-        $wstypeSelect = $wstypeModel->select();
+        
+        if (count($memberIds) > 0) {
+            $employeesSelect = $employeesModel->select()
+            ->whereEquals('visible', '1')
+            ->whereEquals('groupType', '1')
+            ->whereEquals('isOOO', false)
+            ->whereEquals('isAllowed', '1')
+            ->where('id IN (?)', $memberIds)->order('lastname');
+        } else {
+            $employeesSelect = $employeesModel->select()
+            ->whereEquals('visible', '1')
+            ->whereEquals('groupType', '1')
+            ->whereEquals('isOOO', false)
+            ->whereEquals('isAllowed', '1')
+            ->order('lastname');
+        }
         
         $setTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $setTypeSelect = $setTypeModel->select()->whereEquals('name', 'Тип захода')->order('value');
@@ -22,12 +48,6 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
         ->setValues($employeesModel)
         ->setSelect($employeesSelect)
-        ->setWidth(400)
-        ->setAllowBlank(false);
-
-        $this->_form->add(new Kwf_Form_Field_Select('wsTypeId', trlKwf('WsType')))
-        ->setValues($wstypeModel)
-        ->setSelect($wstypeSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
         
@@ -71,7 +91,11 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         
         if ($users->getAuthedUserRole() == 'kws') {
             
-            $flightDate = new DateTime ($flightRow->flightStartDate);
+            $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+            $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
+            $flight = $flightsModel->getRow($flightsSelect);
+
+            $flightDate = new DateTime ($flight->flightStartDate);
             
             $dateLimit = new DateTime('NOW');
             $dateLimit->sub( new DateInterval('P2D') );
@@ -84,11 +108,6 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
         $m3 = Kwf_Model_Abstract::getInstance('Airports');
-
-        $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
-        $wstypeSelect = $wstypeModel->select()->whereEquals('id', $row->wsTypeId);
-        $prow = $wstypeModel->getRow($wstypeSelect);
-        $row->wsTypeName = $prow->Name;
 
         $s = $m1->select()->whereEquals('id', $row->setId);
         $prow = $m1->getRow($s);
@@ -109,7 +128,23 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
-        $row->flightId = $this->_getParam('flightId');
+        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+        $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
+        $flight = $flightsModel->getRow($flightsSelect);
+        
+        $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
+        $planesSelect = $planesModel->select()->whereEquals('id', $flight->planeId);
+        $plane = $planesModel->getRow($planesSelect);
+        
+        $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
+        $wstypeSelect = $wstypeModel->select()->whereEquals('id', $plane->twsId);
+        $planeType = $wstypeModel->getRow($wstypeSelect);
+        
+        if (($row->flightId == 0) || ($row->flightId == NULL)) {
+            $row->flightId = $this->_getParam('flightId');
+        }
+        
+        $row->wsTypeId = $planeType->id;
         
         $this->updateReferences($row);
     }

@@ -18,6 +18,8 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
         parent::_initColumns();
         $this->_filters = array('text' => array('type' => 'TextField'));
         
+        $users = Kwf_Registry::get('userModel');
+
         if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws' || $users->getAuthedUserRole() == 'user') {
             
             unset($this->_buttons ['delete']);

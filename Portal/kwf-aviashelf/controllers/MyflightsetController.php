@@ -10,44 +10,15 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
         $landpointsModel = Kwf_Model_Abstract::getInstance('Airports');
         $landpointsSelect = $landpointsModel->select()->order('Name');
         
+        $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
+        $wstypeSelect = $wstypeModel->select();
+        
         $setTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $setTypeSelect = $setTypeModel->select()->whereEquals('name', 'Тип захода')->order('value');
         
-        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
-        $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
-        
-        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
-        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $this->_getParam('flightId'))->whereEquals('mainCrew', TRUE);
-        
-        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
-        
-        $memberIds = array();
-        
-        foreach ($flightMembers as $flightMember) {
-            array_push($memberIds, $flightMember->employeeId);
-        }
-        
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        
-        if (count($memberIds) > 0) {
-            $employeesSelect = $employeesModel->select()
-                ->whereEquals('visible', '1')
-                ->whereEquals('groupType', '1')
-                ->whereEquals('isOOO', false)
-                ->whereEquals('isAllowed', '1')
-                ->where('id IN (?)', $memberIds)->order('lastname');
-        } else {
-            $employeesSelect = $employeesModel->select()
-            ->whereEquals('visible', '1')
-            ->whereEquals('groupType', '1')
-            ->whereEquals('isOOO', false)
-            ->whereEquals('isAllowed', '1')
-            ->order('lastname');            
-        }
-
-        $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
-        ->setValues($employeesModel)
-        ->setSelect($employeesSelect)
+        $this->_form->add(new Kwf_Form_Field_Select('wsTypeId', trlKwf('WsType')))
+        ->setValues($wstypeModel)
+        ->setSelect($wstypeSelect)
         ->setWidth(400)
         ->setAllowBlank(false);
         
@@ -87,18 +58,6 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
-        if ($users->getAuthedUserRole() == 'kws') {
-            
-            $flightDate = new DateTime ($flightRow->flightStartDate);
-            
-            $dateLimit = new DateTime('NOW');
-            $dateLimit->sub( new DateInterval('P2D') );
-            
-            if ($flightDate < $dateLimit) {
-                throw new Kwf_Exception_Client('ПЗ закрыто для изменений.');
-            }
-        }
-
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
         $m3 = Kwf_Model_Abstract::getInstance('Airports');
@@ -128,23 +87,7 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
-        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
-        $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
-        $flight = $flightsModel->getRow($flightsSelect);
-        
-        $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
-        $planesSelect = $planesModel->select()->whereEquals('id', $flight->planeId);
-        $plane = $planesModel->getRow($planesSelect);
-        
-        $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
-        $wstypeSelect = $wstypeModel->select()->whereEquals('id', $plane->twsId);
-        $planeType = $wstypeModel->getRow($wstypeSelect);
-
-        if (($row->flightId == 0) || ($row->flightId == NULL)) {
-            $row->flightId = $this->_getParam('flightId');
-        }
-        
-        $row->wsTypeId = $planeType->id;
+        $row->flightId = 0;
 
         $this->updateReferences($row);
     }

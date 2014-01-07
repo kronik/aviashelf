@@ -15,7 +15,7 @@ var Myflights = Ext.extend(Ext.Panel,
         });
 
         var flightsets = new Kwf.Auto.GridPanel({
-            controllerUrl   : '/myflightsets',
+            controllerUrl   : '/flightsets',
             collapsible     : true,
             title           : 'Заходы'
         });
