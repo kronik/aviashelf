@@ -4,7 +4,7 @@ class Acl extends Kwf_Acl
     public function __construct()
     {
         parent::__construct();
-        $this->remove('default_index');
+       // $this->remove('default_index');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwfStatic('Dictionaries'), 'icon'=>'book.png')));
         
@@ -16,7 +16,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flighttotalresults', array('text'=>'Общий налет', 'icon'=>'calculator.png'), '/flighttotalresults'), 'default_staffmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwfStatic('Flights'), 'icon'=>'calendar.png')));
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_index', array('text'=>trlKwfStatic('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightplans', array('text'=>trlKwfStatic('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_myflights', array('text'=>trlKwfStatic('My flights'), 'icon'=>'book_open.png'), '/myflights'), 'default_flightsmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_edumenuitem', array('text'=>trlKwfStatic('Education'), 'icon'=>'database.png')));
@@ -52,7 +52,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultobjdefaults', array('text'=>'Цели полета -> налет', 'icon'=>'book.png'), '/flightresultobjdefaults'), 'default_settingsmenuitem');
 
         //$this->addResource(new Zend_Acl_Resource('default_tasks'), 'default_index');
-        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
+//        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
+//        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
         $this->addResource(new Zend_Acl_Resource('default_link'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdata'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdataentry'), 'default_linkdata');

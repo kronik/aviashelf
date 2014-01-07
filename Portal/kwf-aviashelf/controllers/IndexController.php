@@ -16,7 +16,7 @@ class IndexController extends Kwf_Controller_Action
         }
         else
         {
-            $this->view->ext('Tasks');
+            $this->view->ext('Flightplans');
         }
     }
 }
