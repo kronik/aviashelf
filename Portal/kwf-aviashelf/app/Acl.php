@@ -194,8 +194,13 @@ class Acl extends Kwf_Acl
         $this->allow('kws', 'default_myanswers');
         $this->allow('kws', 'default_myresults');
         $this->allow('kws', 'default_myflights');
+        $this->allow('kws', 'default_flightgroups');
+        $this->allow('kws', 'default_staffgroups');
+        $this->allow('kws', 'default_flightsets');
+        $this->allow('kws', 'default_flightfiles');
         $this->allow('kws', 'default_myflightsets');
         $this->allow('kws', 'default_flightcrewfilter');
+        $this->allow('kws', 'default_flightfullresults');
         $this->deny('kws', 'default_flightplans');
 
         $this->allow(array('admin', 'power'), 'default_menuitem');
