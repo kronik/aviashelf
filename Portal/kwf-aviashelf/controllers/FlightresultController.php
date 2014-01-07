@@ -38,6 +38,11 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
 //        $this->_form->add(new Kwf_Form_Field_Checkbox('showInTotal', trlKwf('Show in total')));
     }
     
+    protected function isContain($what, $where)
+    {
+        return stripos($where, $what) !== false;
+    }
+    
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
@@ -57,6 +62,10 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         $prow = $m2->getRow($s);
         
         $row->planeName = $prow->Name;
+        
+        if ($this->isContain('Время работы', $row->typeName)) {
+            $row->flightsCount = 0;
+        }
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

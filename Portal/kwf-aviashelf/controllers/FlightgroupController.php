@@ -117,14 +117,15 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
             $resultRow->typeName = $typeRow->value;
             $resultRow->planeId = $planeType->id;
             $resultRow->planeName = $planeType->Name;
-            $resultRow->flightsCount = 1;
             $resultRow->flightDate = $flight->flightStartDate;
             $resultRow->flightId = $flight->id;
             
             if ($this->isContain('Время работы', $resultRow->typeName)) {
-                $resultRow->flightTime = '07:12';
+                $resultRow->flightTime = '00:00';
+                $resultRow->flightsCount = 0;
             } else {
                 $resultRow->flightTime = '00:00';
+                $resultRow->flightsCount = 1;
             }
             
             $resultRow->ownerId = $groupRow->employeeId;
