@@ -28,12 +28,22 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
         }
         
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()
+        
+        if (count($memberIds) > 0) {
+            $employeesSelect = $employeesModel->select()
+                ->whereEquals('visible', '1')
+                ->whereEquals('groupType', '1')
+                ->whereEquals('isOOO', false)
+                ->whereEquals('isAllowed', '1')
+                ->where('id IN (?)', $memberIds)->order('lastname');
+        } else {
+            $employeesSelect = $employeesModel->select()
             ->whereEquals('visible', '1')
             ->whereEquals('groupType', '1')
             ->whereEquals('isOOO', false)
             ->whereEquals('isAllowed', '1')
-            ->where('id IN (?)', $memberIds)->order('lastname');
+            ->order('lastname');            
+        }
 
         $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
         ->setValues($employeesModel)
