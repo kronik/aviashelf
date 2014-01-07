@@ -230,7 +230,11 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         ->where('positionId IN (?)', $objectiveIds)
         ->whereEquals('typeName', 'objective');
         
-        $positionExtraRows = $positionModel->getRows($positionSelect);
+        $positionExtraRows = array();
+        
+        if (count($objectiveIds) > 0) {
+            $positionExtraRows = $positionModel->getRows($positionSelect);
+        }
         
         foreach ($flightMembers as $flightMember) {
 
