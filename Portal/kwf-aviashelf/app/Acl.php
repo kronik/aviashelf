@@ -76,6 +76,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightresult'), 'default_flightresults');
         $this->addResource(new Zend_Acl_Resource('default_myflightsets'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_myflightset'), 'default_myflightsets');
+        $this->addResource(new Zend_Acl_Resource('default_flightcrewfilter'), 'default_myflightset');
         $this->addResource(new Zend_Acl_Resource('default_task'), 'default_tasks');
         $this->addResource(new Zend_Acl_Resource('default_flightplan'), 'default_flightplans');
         $this->addResource(new Zend_Acl_Resource('default_flights'), 'default_flightplans');
@@ -182,7 +183,7 @@ class Acl extends Kwf_Acl
         
         $this->allow('kws', 'default_index');
         $this->allow('kws', 'default_flightsmenuitem');
-        $this->allow('kws', 'default_flightplans');
+//        $this->allow('kws', 'default_flightplans');
         $this->allow('kws', 'default_tasks');
         $this->allow('kws', 'default_mytrainings');
         $this->allow('kws', 'default_mygroups');
@@ -192,13 +193,17 @@ class Acl extends Kwf_Acl
         $this->allow('kws', 'default_myanswers');
         $this->allow('kws', 'default_myresults');
         $this->allow('kws', 'default_myflights');
-        
+        $this->allow('kws', 'default_myflightsets');
+        $this->allow('kws', 'default_flightcrewfilter');
+        $this->deny('kws', 'default_flightplans');
+
         $this->allow(array('admin', 'power'), 'default_menuitem');
         $this->allow(array('admin', 'power'), 'default_settingsmenuitem');
         $this->allow(array('admin', 'power'), 'default_checksmenuitem');
         $this->allow(array('admin', 'power'), 'default_flightsmenuitem');
         $this->allow(array('admin', 'power'), 'default_flightgroupsfilter');
         $this->allow(array('admin', 'power'), 'default_staffgroupsfilter');
+        $this->allow(array('admin', 'power'), 'default_flightcrewfilter');
         $this->allow(array('admin', 'power'), 'default_flightplans');
         $this->allow(array('admin', 'power'), 'default_myflights');
 //        $this->allow(array('admin', 'power'), 'default_checkresults');

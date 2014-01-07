@@ -22,6 +22,23 @@ class FlightfileController extends Kwf_Controller_Action_Auto_Form
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
+        $users = Kwf_Registry::get('userModel');
+
+        if ($users->getAuthedUserRole() == 'kws') {
+            $m = Kwf_Model_Abstract::getInstance('Flights');
+            $s = $m->select()->whereEquals('id', $this->_getParam('flightId'));
+            $prow = $m->getRow($s);
+            
+            $flightDate = new DateTime ($prow->flightStartDate);
+            
+            $dateLimit = new DateTime('NOW');
+            $dateLimit->sub( new DateInterval('P2D') );
+            
+            if ($flightDate < $dateLimit) {
+                throw new Kwf_Exception_Client('ПЗ закрыто для изменений.');
+            }
+        }
+
         $row->flightId = $this->_getParam('flightId');
     }
     

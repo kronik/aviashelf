@@ -67,6 +67,20 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'kws') {
+            
+            $flightDate = new DateTime ($flightRow->flightStartDate);
+            
+            $dateLimit = new DateTime('NOW');
+            $dateLimit->sub( new DateInterval('P2D') );
+            
+            if ($flightDate < $dateLimit) {
+                throw new Kwf_Exception_Client('ПЗ закрыто для изменений.');
+            }
+        }
+
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
         $m3 = Kwf_Model_Abstract::getInstance('Airports');
@@ -96,7 +110,7 @@ class FlightsetController extends Kwf_Controller_Action_Auto_Form
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
         $row->flightId = $this->_getParam('flightId');
-
+        
         $this->updateReferences($row);
     }
     

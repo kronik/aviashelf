@@ -214,6 +214,24 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         
         $trained = array();
         
+        $objectivesModel = Kwf_Model_Abstract::getInstance('FlightObjectives');
+        $objectivesSelect = $objectivesModel->select()->whereEquals('flightId', $flightRow->id);
+        $objectiveRows = $objectivesModel->getRows($objectivesSelect);
+        
+        $objectiveIds = array();
+        
+        foreach ($objectiveRows as $objectiveRow) {
+            array_push($objectiveIds, $objectiveRow->objectiveId);
+        }
+        
+        $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
+
+        $positionSelect = $positionModel->select()
+        ->where('positionId IN (?)', $objectiveIds)
+        ->whereEquals('typeName', 'objective');
+        
+        $positionExtraRows = $positionModel->getRows($positionSelect);
+        
         foreach ($flightMembers as $flightMember) {
 
             $userSelect = $users->select()->whereEquals('id', $flightMember->employeeId);
@@ -228,18 +246,11 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
 
             if ($flightMember->mainCrew == TRUE)
             {
-                $positionModel = Kwf_Model_Abstract::getInstance('Flightresultdefaults');
                 $positionSelect = $positionModel->select()
                 ->whereEquals('positionId', $flightMember->positionId)
                 ->whereEquals('typeName', 'position');
                 
                 $positionRows = $positionModel->getRows($positionSelect);
-                
-                $positionSelect = $positionModel->select()
-                ->whereEquals('positionId', $flightMember->positionId)
-                ->whereEquals('typeName', 'objective');
-                
-                $positionExtraRows = $positionModel->getRows($positionSelect);
                 
                 foreach ($positionExtraRows as $positionExtraRow) {
                     array_push($resultsToAdd, $positionExtraRow);
