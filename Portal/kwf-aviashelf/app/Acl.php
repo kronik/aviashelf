@@ -265,6 +265,7 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_employees');
         $this->allow(array('admin', 'power'), 'default_staffs');
         $this->allow(array('admin', 'power'), 'default_flighttotalresults');
+        $this->allow(array('admin', 'power'), 'default_flightresults');
         $this->allow(array('admin', 'power'), 'default_airplanes');
         $this->allow(array('admin', 'power'), 'default_wstypes');
         $this->allow(array('admin', 'power'), 'default_companies');
