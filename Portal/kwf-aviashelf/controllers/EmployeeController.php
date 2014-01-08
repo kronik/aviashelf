@@ -89,7 +89,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->setTitle(trlKwf('Permissions'));
         
         $userModel = Kwf_Model_Abstract::getInstance('Kwf_User_Model');
-        $userSelect = $userModel->select();
+        $userSelect = $userModel->select()->whereEquals('deleted', '0')->order('lastname');
         
         $tab->fields->add(new Kwf_Form_Field_Select('userId', trlKwf('User')))
         ->setValues($userModel)
