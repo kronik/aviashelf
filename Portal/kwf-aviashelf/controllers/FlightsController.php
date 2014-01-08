@@ -59,17 +59,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('subCompanyName', trlKwf('Customer'), 150));
         $this->_columns->add(new Kwf_Grid_Column('comments', trlKwf('Comments')))->setWidth(500);
     }
-    
-//    protected function _fillTheXlsFile($xls, $firstSheet)
-//    {
-//        $flightPlansModel = Kwf_Model_Abstract::getInstance('Flightplans');
-//        $flightPlansSelect = $flightPlansModel->select()->whereEquals('id', $this->_getParam('planId'));
-//        $row = $flightPlansModel->getRow($flightPlansSelect);
-//        
-//        $reporter = new Reporter ();
-//        $reporter->exportFlightPlanToXls($xls, $firstSheet, $row);
-//    }
-    
+        
     protected function _getWhere()
     {
         $ret = parent::_getWhere();
