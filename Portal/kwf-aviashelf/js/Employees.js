@@ -68,7 +68,7 @@ var Employees = Ext.extend(Ext.Panel,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',
-               items:[user, documents, accesses, flightresults, flightsets]
+               items:[user, documents, flightresults, flightsets, accesses]
         });
 
         this.layout = 'border';
