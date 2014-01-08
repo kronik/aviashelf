@@ -35,7 +35,9 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         ->setHeight(70)
         ->setWidth(400);
         
-//        $this->_form->add(new Kwf_Form_Field_Checkbox('showInTotal', trlKwf('Show in total')));
+        if ($users->getAuthedUserRole() == 'admin') {
+            $this->_form->add(new Kwf_Form_Field_Checkbox('showInTotal', trlKwf('Show in total')));
+        }
     }
     
     protected function isContain($what, $where)
