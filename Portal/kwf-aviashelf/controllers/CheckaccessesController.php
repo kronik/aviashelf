@@ -12,6 +12,12 @@ class CheckaccessesController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('employeeName' => array('type' => 'TextField'), 'accessEndDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('employeeName', 'wsTypeName', 'accessTypeName', 'accessName', 'comment');
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            $this->_grouping = array('groupField' => 'wsTypeName');
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('employeeName', 'ФИО'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('accessDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('accessCheckDate');
@@ -24,6 +30,24 @@ class CheckaccessesController extends Kwf_Controller_Action_Auto_Grid
     protected function _getWhere()
     {
         $ret = parent::_getWhere();
+        
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
+            
+            $employee = $employeesModel->getRow($employeesSelect);
+            $employeeId = -1;
+            
+            if ($employee != NULL) {
+                $employeeId = $employee->id;
+            }
+            
+            $ret['employeeId = ?'] = $employeeId;
+        }
+        
         $ret['finished = ?'] = '0';
         return $ret;
     }

@@ -11,6 +11,12 @@ class ChecksetsController extends Kwf_Controller_Action_Auto_Grid
         $this->_filters = array('employeeName' => array('type' => 'TextField'), 'setEndDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('employeeName', 'wsTypeName', 'setName', 'setTypeName', 'setMeteoTypeName', 'comment');
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            $this->_grouping = array('groupField' => 'wsTypeName');
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('employeeName', 'ФИО'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
@@ -26,6 +32,24 @@ class ChecksetsController extends Kwf_Controller_Action_Auto_Grid
     protected function _getWhere()
     {
         $ret = parent::_getWhere();
+        
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
+            
+            $employee = $employeesModel->getRow($employeesSelect);
+            $employeeId = -1;
+            
+            if ($employee != NULL) {
+                $employeeId = $employee->id;
+            }
+            
+            $ret['employeeId = ?'] = $employeeId;
+        }
+        
         $ret['setsCount > ?'] = '0';
         $ret['finished = ?'] = '0';
         return $ret;

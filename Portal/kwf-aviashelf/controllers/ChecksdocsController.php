@@ -12,6 +12,12 @@ class ChecksdocsController extends ChecksController
         $this->_filters = array('ownerName' => array('type' => 'TextField'), 'endDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('ownerName', 'typeName', 'number', 'gradeName', 'comment');
         
+        $users = Kwf_Registry::get('userModel');
+
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            $this->_grouping = array('groupField' => 'typeName');
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('ownerName', 'ФИО'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('typeName', 'Тип проверки'))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('number', 'Номер документа'))->setWidth(200);
@@ -24,6 +30,24 @@ class ChecksdocsController extends ChecksController
     protected function _getWhere()
     {
         $ret = parent::_getWhere();
+        
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
+            
+            $employee = $employeesModel->getRow($employeesSelect);
+            $employeeId = -1;
+            
+            if ($employee != NULL) {
+                $employeeId = $employee->id;
+            }
+            
+            $ret['ownerId = ?'] = $employeeId;
+        }
+        
         $ret['ownerName <> ?'] = 'NULL';
         $ret['isDocument = ?'] = '0';
         return $ret;

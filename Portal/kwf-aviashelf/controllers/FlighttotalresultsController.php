@@ -17,6 +17,12 @@ class FlighttotalresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_filters = array('typeName' => array('type' => 'TextField'), 'flightDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('typeName', 'ownerName', 'planeName');
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            $this->_grouping = array('groupField' => 'planeName');
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('ownerName', trlKwf('Employee')))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column_Date('flightDate', trlKwf('Date')));
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type')))->setWidth(100);
@@ -30,6 +36,23 @@ class FlighttotalresultsController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function _getWhere()
     {
         $ret = parent::_getWhere();
+        
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() == 'user' || $users->getAuthedUserRole() == 'kws') {
+            
+            $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+            $employeesSelect = $employeesModel->select()->whereEquals('userId', $users->getAuthedUserId());
+            
+            $employee = $employeesModel->getRow($employeesSelect);
+            $employeeId = -1;
+            
+            if ($employee != NULL) {
+                $employeeId = $employee->id;
+            }
+            
+            $ret['ownerId = ?'] = $employeeId;
+        }
         
         $ret['flightsCount > ?'] = 0;
         $ret['flightTime <> ?'] = '00:00';
