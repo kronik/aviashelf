@@ -182,7 +182,8 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_flightfiles');
         $this->allow('user', 'default_myflightsets');
         $this->allow('user', 'default_flightfullresults');
-
+        $this->allow('user', 'default_flightaccesses');
+        
         $this->allow('viewer', 'default_flightsmenuitem');
         $this->allow('viewer', 'default_simpleflightplans');
         $this->allow('viewer', 'default_simpleflights');
@@ -241,6 +242,7 @@ class Acl extends Kwf_Acl
         $this->allow('kws', 'default_checkaccesses');
         $this->allow('kws', 'default_checksdocs');
         $this->allow('kws', 'default_checksets');
+        $this->allow('kws', 'default_flightaccesses');
 
         $this->deny('kws', 'default_flightplans');
 
@@ -292,7 +294,8 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_index');
         $this->allow(array('admin', 'power'), 'kwf_media_upload');
         $this->allow(array('admin', 'power'), 'kwf_user_users');
-        
+        $this->allow(array('admin', 'power'), 'default_flightaccesses');
+
         $this->allow('guest', 'kwf_media_upload');
         $this->allow('guest', 'kwf_user_login');
         $this->allow(null, 'kwf_error_error');
