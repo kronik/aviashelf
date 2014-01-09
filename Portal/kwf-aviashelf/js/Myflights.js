@@ -49,10 +49,6 @@ var Myflights = Ext.extend(Ext.Panel,
            region          : 'center',
            bindings: [
                          {
-                             queryParam: 'id',
-                             item: flight
-                         },
-                         {
                              queryParam: 'flightId',
                              item: flightfiles
                          },
@@ -83,13 +79,13 @@ var Myflights = Ext.extend(Ext.Panel,
            border          : true,
            activeTab       : 0,
            region          : 'east',
-           width           : '40%',
+           width           : '60%',
            resizable       : true,
            split           : true,
            collapsible     : true,
            tabPosition     : 'top',
            split           : true,
-           items:[flight, flightgroups, staffgroups, flightresults, flightsets, accesses, flightfiles]
+           items:[flightgroups, staffgroups, flightresults, flightsets, accesses, flightfiles]
         });
 
         this.layout = 'border';
