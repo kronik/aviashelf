@@ -20,12 +20,32 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $users = Kwf_Registry::get('userModel');
 
-        if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws' || $users->getAuthedUserRole() == 'user') {
+        
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' ||
+            $users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
             
-            unset($this->_buttons ['delete']);
+            $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+            
+            if ($users->getAuthedUserRole() != 'admin') {
+                
+                unset($this->_buttons ['delete']);
+            }
+            
+            $this->_editDialog = array(
+                                       'controllerUrl' => '/flightaccess',
+                                       'width' => 550,
+                                       'height' => 330
+                                       );
+        } else {
+            $this->_buttons = array();
+            $this->_editDialog = NULL;
         }
-
-        $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
+        
+        if ($this->_getParam('flightId') != NULL) {
+            $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(150);
+            $this->_grouping = array('groupField' => 'employeeName');
+        }
+        
         $this->_columns->add(new Kwf_Grid_Column('accessDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('exCheckDate');
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('finished', ''));
@@ -38,7 +58,47 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function _getWhere()
     {
         $ret = parent::_getWhere();
-        $ret['employeeId = ?'] = $this->_getParam('employeeId');
+        
+        if ($this->_getParam('employeeId') != NULL) {
+            $ret['employeeId = ?'] = $this->_getParam('employeeId');
+        } if ($this->_getParam('flightId') != NULL) {
+            
+            $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+            $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
+            $flight = $flightsModel->getRow($flightsSelect);
+            
+            $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
+            $planesSelect = $planesModel->select()->whereEquals('id', $flight->planeId);
+            $plane = $planesModel->getRow($planesSelect);
+            
+            $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
+            $wstypeSelect = $wstypeModel->select()->whereEquals('id', $plane->twsId);
+            $planeType = $wstypeModel->getRow($wstypeSelect);
+            
+            $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+            $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $this->_getParam('flightId'))->whereEquals('mainCrew', TRUE);
+            
+            $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+            
+            $memberIds = array();
+            
+            foreach ($flightMembers as $flightMember) {
+                array_push($memberIds, $flightMember->employeeId);
+            }
+            
+            if ($planeType != NULL) {
+                $ret['wsTypeId = ?'] = $planeType->id;
+            }
+            
+            if (count($memberIds) > 0) {
+                $ret['employeeId IN (?)'] = $memberIds;
+            } else {
+                $ret['employeeId = ?'] = '0';
+            }
+
+        } else {
+            $ret['employeeId = ?'] = '0';
+        }
         
         return $ret;
     }

@@ -197,13 +197,13 @@ class Acl extends Kwf_Acl
         $this->allow('plan', 'default_flights');
         $this->allow('plan', 'default_index');
         $this->allow('plan', 'default_tasks');
+        $this->allow('plan', 'default_flightfiles');
 
         $this->deny('power', 'default_simpleflightplans');
         $this->deny('admin', 'default_simpleflightplans');
         $this->deny('plan', 'default_simpleflightplans');
         $this->deny('plan', 'default_flightfullresults');
         $this->deny('plan', 'default_flightsets');
-        $this->deny('plan', 'default_flightfiles');
         $this->deny('plan', 'default_myflights');
         $this->deny('viewer', 'default_myflights');
         $this->deny('viewer', 'default_flightfullresults');
