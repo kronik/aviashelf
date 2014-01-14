@@ -7,7 +7,7 @@ class CheckflightController extends CheckController
         $flightsSelect = $flightsModel->select()->whereEquals('name', 'Типы налета');
         
         $flightTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $flightTypeSelect = $flightTypeModel->select()->whereEquals('name', 'Типы допусков');
+        $flightTypeSelect = $flightTypeModel->select()->whereEquals('name', 'Типы полетов');
         
         $this->_form->add(new Kwf_Form_Field_TextField('title', trlKwf('Title')))
         ->setWidth(400)

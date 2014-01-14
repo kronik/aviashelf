@@ -14,7 +14,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         $typeSelect = $typeModel->select()->whereEquals('name', 'Метеоминимумы')->order('value');
 
         $accessTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $accessTypeSelect = $accessTypeModel->select()->whereEquals('name', 'Типы допусков')->order('value');
+        $accessTypeSelect = $accessTypeModel->select()->whereEquals('name', 'Типы полетов')->order('value');
         
         $this->_form->add(new Kwf_Form_Field_Select('wsTypeId', trlKwf('WsType')))
         ->setValues($wstypeModel)
