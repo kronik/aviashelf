@@ -348,8 +348,6 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
     
     public function sendMessage ($employeeId, $flightRow) {
         
-        return;
-        
         if ($employeeId == NULL) {
             return;
         }
@@ -415,7 +413,10 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         $mail->setSubject('ПЗ: ' . $flightRow->number);
                 
         if ($needToSend > 0) {
-            $mail->send();
+            try {
+                $mail->send();
+            } catch (Exception $e) {
+            }
         }
     }
 }
