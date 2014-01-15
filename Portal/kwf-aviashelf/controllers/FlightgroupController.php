@@ -305,19 +305,15 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                     $taskRow->status = 0;
                     
                     $taskRow->save();
-                    
-                    $this->sendMessage($flightMember->employeeId, $flightRow);
                 }
             }
             else if (($this->isContain('Второй пилот', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
             {
                 $flightRow->secondPilotName = (string)$employee;
-                $this->sendMessage($flightMember->employeeId, $flightRow);
             }
             else if (($this->isContain('Пилот', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
             {
                 $flightRow->secondPilotName = (string)$employee;
-                $this->sendMessage($flightMember->employeeId, $flightRow);
             }
             else if (($this->isContain(trlKwf('Technic'), $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
             {
@@ -331,12 +327,13 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
                      ($this->isContain('Инструктор', $flightMember->positionName)))
             {
                 $flightRow->checkPilotName = (string)$employee;
-                $this->sendMessage($flightMember->employeeId, $flightRow);
             } else if ($this->isContain('Тренируемый', $flightMember->positionName)) {
                 if (in_array((string)$employee, $trained) == false) {
                     array_push($trained, (string)$employee);
                 }
             }
+            
+            $this->sendMessage($flightMember->employeeId, $flightRow);
         }
         
         if (count($trained) > 0) {
