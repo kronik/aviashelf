@@ -34,7 +34,7 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                        'controllerUrl' => '/flightaccess',
                                        'width' => 550,
-                                       'height' => 330
+                                       'height' => 370
                                        );
         } else {
             $this->_buttons = array();
