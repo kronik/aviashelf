@@ -393,7 +393,7 @@ class FlightgroupController extends Kwf_Controller_Action_Auto_Form
         
         $mail->fullname = (string)$employeeRow;
         $mail->flight = $flightRow->number;
-        $mail->flightdescription = 'ПЗ: ' . $flightRow->requestNumber . ' ' . $flightRow->number . ' ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
+        $mail->flightdescription = 'Маршрут: ' . $flightRow->routeName . ' (' . $flightRow->objectiveName . ') ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
         
         if ($userRow->email != NULL) {
             $mail->addTo($userRow->email);

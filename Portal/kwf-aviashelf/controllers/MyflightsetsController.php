@@ -20,8 +20,7 @@ class MyflightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
         if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' ||
             $users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
             
-            if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
-                
+            if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {                
                 unset($this->_buttons ['delete']);
             }
 

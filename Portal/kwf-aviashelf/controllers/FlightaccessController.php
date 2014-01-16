@@ -62,7 +62,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         ->setValues($typeModel)
         ->setSelect($typeSelect)
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
 
         $this->_form->add(new Kwf_Form_Field_Select('accessTypeId', 'Тип проверки'))
         ->setValues($accessTypeModel)
@@ -91,9 +91,14 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         $prow = $wstypeModel->getRow($wstypeSelect);
         $row->wsTypeName = $prow->Name;
 
-        $s = $m1->select()->whereEquals('id', $row->accessId);
-        $prow = $m1->getRow($s);
-        $row->accessName = $prow->value;
+        if ($row->accessId != NULL) {
+            $s = $m1->select()->whereEquals('id', $row->accessId);
+            $prow = $m1->getRow($s);
+            $row->accessName = $prow->value;
+        } else {
+            $row->accessId = 0;
+            $row->accessName = '';
+        }
         
         $s = $m2->select()->whereEquals('id', $row->employeeId);
         $prow = $m2->getRow($s);

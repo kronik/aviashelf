@@ -20,8 +20,12 @@ class FlightgroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
         if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' ||
             $users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws')
         {
-            if ($users->getAuthedUserRole() == 'power') {
+            if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
                 unset($this->_buttons ['delete']);
+            }
+
+            if ($users->getAuthedUserRole() == 'kws') {
+                unset($this->_buttons ['add']);
             }
 
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));

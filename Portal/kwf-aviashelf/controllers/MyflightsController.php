@@ -41,7 +41,7 @@ class MyflightsController extends Kwf_Controller_Action_Auto_Grid
         }
         else
         {
-            $this->_buttons = array();
+//            $this->_buttons = array();
         }
         
         $this->_columns->add(new Kwf_Grid_Column('flightStartDate', trlKwf('Date'), 80));
