@@ -61,7 +61,9 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         if ($this->_getParam('employeeId') != NULL) {
             $ret['employeeId = ?'] = $this->_getParam('employeeId');
-        } if ($this->_getParam('flightId') != NULL) {
+        }
+        
+        if ($this->_getParam('flightId') != NULL) {
             
             $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
             $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
@@ -95,9 +97,6 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
             } else {
                 $ret['employeeId = ?'] = '0';
             }
-
-        } else {
-            $ret['employeeId = ?'] = '0';
         }
         
         return $ret;

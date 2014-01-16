@@ -7,34 +7,51 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
 
     protected function _initFields()
     {
-        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
-        $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
-        $flight = $flightsModel->getRow($flightsSelect);
-        
-        $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
-        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $this->_getParam('flightId'))->whereEquals('mainCrew', TRUE);
-        
-        $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
-        
-        $memberIds = array();
-        
-        foreach ($flightMembers as $flightMember) {
-            array_push($memberIds, $flightMember->employeeId);
-        }
-        
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeesSelect = NULL;
         
-        if (count($memberIds) > 0) {
-            $employeesSelect = $employeesModel->select()
-            ->whereEquals('visible', 1)
-            ->whereEquals('groupType', 1)
-            ->where('id IN (?)', $memberIds)
-            ->order('lastname');
+        if ($this->_getParam('flightId') != NULL) {
+            $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+            $flightsSelect = $flightsModel->select()->whereEquals('id', $this->_getParam('flightId'));
+            $flight = $flightsModel->getRow($flightsSelect);
+            
+            $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
+            $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $this->_getParam('flightId'))->whereEquals('mainCrew', TRUE);
+            
+            $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
+            
+            $memberIds = array();
+            
+            foreach ($flightMembers as $flightMember) {
+                array_push($memberIds, $flightMember->employeeId);
+            }
+            
+            if (count($memberIds) > 0) {
+                $employeesSelect = $employeesModel->select()
+                ->whereEquals('visible', 1)
+                ->whereEquals('groupType', 1)
+                ->where('id IN (?)', $memberIds)
+                ->order('lastname');
+            } else {
+                $employeesSelect = $employeesModel->select()
+                ->whereEquals('visible', 1)
+                ->whereEquals('groupType', 1)
+                ->order('lastname');
+            }
         } else {
-            $employeesSelect = $employeesModel->select()
-            ->whereEquals('visible', 1)
-            ->whereEquals('groupType', 1)
-            ->order('lastname');
+            
+            if ($this->_getParam('employeeId') != NULL) {
+                $employeesSelect = $employeesModel->select()
+                ->whereEquals('visible', 1)
+                ->whereEquals('groupType', 1)
+                ->whereEquals('id', $this->_getParam('employeeId'))
+                ->order('lastname');
+            } else {
+                $employeesSelect = $employeesModel->select()
+                ->whereEquals('visible', 1)
+                ->whereEquals('groupType', 1)
+                ->order('lastname');
+            }
         }
         
         $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
