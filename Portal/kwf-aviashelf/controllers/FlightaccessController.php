@@ -90,6 +90,10 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_DateField('accessDate', 'Дата допуска'))->setAllowBlank(false);
         $this->_form->add(new Kwf_Form_Field_DateField('accessEndDate', 'Дата окончания'))->setAllowBlank(false);
 
+        $this->_form->add(new Kwf_Form_Field_TextField('docNumber', 'Номер приказа'))
+        ->setWidth(400)
+        ->setAllowBlank(true);
+
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);

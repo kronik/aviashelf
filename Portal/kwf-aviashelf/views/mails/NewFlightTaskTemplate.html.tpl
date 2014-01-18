@@ -1,3 +1,3 @@
-<p>Уважаемый <?=$this->fullname?>,</p>
-<p>На Вас назначено ПЗ "<?=$this->flight?>".</p>
-<p>Описание: <?=$this->flightdescription?>.</p>
+Уважаемый <?=$this->fullname?>,
+На Вас назначено ПЗ "<?=$this->flight?>".
+Описание: <?=$this->flightdescription?>.

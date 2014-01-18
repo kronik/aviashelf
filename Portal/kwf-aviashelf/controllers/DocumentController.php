@@ -17,8 +17,8 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
         $companyModel = Kwf_Model_Abstract::getInstance('Companies');
         $companySelect = $companyModel->select();
         
-        $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы проверок');
+        $docTypeModel = Kwf_Model_Abstract::getInstance('Flightchecks');
+        $docTypeSelect = $docTypeModel->select()->order('title');
         
         $docGradeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $docGradeSelect = $docGradeModel->select()->whereEquals('name', 'Оценки');
@@ -79,18 +79,19 @@ class DocumentController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
-        $m = Kwf_Model_Abstract::getInstance('Linkdata');
-        
-        $s = $m->select()->whereEquals('id', $row->typeId);
-        $prow = $m->getRow($s);
+        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
+        $m2 = Kwf_Model_Abstract::getInstance('Flightchecks');
+
+        $s = $m2->select()->whereEquals('id', $row->typeId);
+        $prow = $m2->getRow($s);
         
         $row->ownerId = $this->_getParam('ownerId');
-        $row->typeName = $prow->value;
+        $row->typeName = $prow->title;
                 
         if ($row->gradeId != NULL && $row->gradeId != 0)
         {
-            $s = $m->select()->whereEquals('id', $row->gradeId);
-            $prow = $m->getRow($s);
+            $s = $m1->select()->whereEquals('id', $row->gradeId);
+            $prow = $m1->getRow($s);
             $row->gradeName = $prow->value;
         }
 

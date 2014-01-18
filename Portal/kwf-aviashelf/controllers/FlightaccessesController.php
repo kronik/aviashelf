@@ -34,7 +34,7 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                        'controllerUrl' => '/flightaccess',
                                        'width' => 550,
-                                       'height' => 370
+                                       'height' => 400
                                        );
         } else {
             $this->_buttons = array();
@@ -52,6 +52,7 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessTypeName', 'Тип проверки'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('accessName', 'Метеоминимум'))->setWidth(200);
+        $this->_columns->add(new Kwf_Grid_Column('docNumber', 'Номер приказа'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(300);
     }
 

@@ -159,7 +159,8 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (23, 'Дополнительные позиции'),
 (24, 'Типы проверок'),
 (25, 'Типы курсов'),
-(26, 'Тип захода');
+(26, 'Тип захода'),
+(27, 'Состояния сотрудника');
 
 --
 -- Dumping data for table `link_data`
@@ -502,7 +503,10 @@ INSERT INTO `link_data` (`link_id`, `name`, `value`, `desc`) VALUES
 (24, 'Типы проверок', 'HUET', 'Подготовка по покиданию вертолета под водой'),
 (25, 'Типы курсов', 'Ми-8', 'Ми-8'),
 (25, 'Типы курсов', 'Ми-8МТВ', 'Ми-8МТВ'),
-(25, 'Типы курсов', 'Опрос', 'Опрос');
+(25, 'Типы курсов', 'Опрос', 'Опрос'),
+(27, 'Состояния сотрудника', 'ОТ', 'Отпуск'),
+(27, 'Состояния сотрудника', 'В', 'Выходной'),
+(27, 'Состояния сотрудника', 'К', 'Командировка');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL AUTO_INCREMENT,
@@ -823,9 +827,20 @@ CREATE TABLE IF NOT EXISTS `flightAccesses` (
     `accessTypeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `accessDate` date,
     `accessEndDate` date,
+    `docNumber` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     KEY `docId` (`docId`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `flightCheckTypes` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `times` int NOT NULL DEFAULT 1,
+    `months` int NOT NULL DEFAULT 1,
+    `description` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -848,6 +863,19 @@ CREATE TABLE IF NOT EXISTS `flightSets` (
     `setsCount` int NOT NULL DEFAULT 0,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     `finished` tinyint(3) unsigned DEFAULT '0',
+    PRIMARY KEY (`id`),
+    INDEX `id` (`id` ASC)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `calendar` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci,
+    `startDate` date NOT NULL,
+    `endDate` date NOT NULL,
+    `statusId` int NOT NULL,
+    `statusName` varchar(300) COLLATE utf8_unicode_ci,    
+    `description` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

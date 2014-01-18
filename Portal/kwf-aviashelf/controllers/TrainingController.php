@@ -27,8 +27,8 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
         ->setMaxLength(300)
         ->setAllowBlank(false);
         
-        $docTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $docTypeSelect = $docTypeModel->select()->whereEquals('name', 'Типы проверок');
+        $docTypeModel = Kwf_Model_Abstract::getInstance('Flightchecks');
+        $docTypeSelect = $docTypeModel->select()->order('title');
         
         $this->_form->add(new Kwf_Form_Field_Select('docTypeId', 'Тип проверки'))
         ->setValues($docTypeModel)
@@ -51,17 +51,18 @@ class TrainingController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
-        $m = Kwf_Model_Abstract::getInstance('Linkdata');
-        
+        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
+        $m2 = Kwf_Model_Abstract::getInstance('Flightchecks');
+
         if ($row->docTypeId != NULL)
         {
-            $s = $m->select()->whereEquals('id', $row->docTypeId);
-            $prow = $m->getRow($s);
+            $s = $m2->select()->whereEquals('id', $row->docTypeId);
+            $prow = $m2->getRow($s);
             
-            $row->docTypeName = $prow->value;
+            $row->docTypeName = $prow->title;
             
-            $s = $m->select()->whereEquals('id', $row->typeId);
-            $prow = $m->getRow($s);
+            $s = $m1->select()->whereEquals('id', $row->typeId);
+            $prow = $m1->getRow($s);
 
             $row->type = $prow->value;
         }

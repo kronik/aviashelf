@@ -178,29 +178,34 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                 $trainingsSelect = $trainingsModel->select()->whereEquals('id', $result->trainingId);
                 $training = $trainingsModel->getRow($trainingsSelect);
                 
+                $flightChecksModel = Kwf_Model_Abstract::getInstance('Flightchecks');
                 $typeSelect = NULL;
                 
                 if (($training->docTypeId != 0) && ($result->isTrial == false))
                 {
-                    $typeSelect = $typeModel->select()->whereEquals('id', $training->docTypeId); 
+                    $typeSelect = $flightChecksModel->select()->whereEquals('id', $training->docTypeId);
                 }
 
                 if ($typeSelect != NULL)
                 {
-                    $typeRow = $typeModel->getRow($typeSelect);
+                    $typeRow = $flightChecksModel->getRow($typeSelect);
+                    
+                    $dateLimit = new DateTime('NOW');
+                    $dateLimit->add( new DateInterval('P'. (string)$typeRow->months .'M') );
                     
                     $m = Kwf_Model_Abstract::getInstance('Documents');
                     
                     $docRow = $m->createRow();
                     
                     $docRow->typeId = $typeRow->id;
-                    $docRow->typeName = $typeRow->value;
+                    $docRow->typeName = $typeRow->title;
                     $docRow->gradeId = $result->gradeId;
                     $docRow->gradeName = $result->gradeName;
                     $docRow->gradeVisible = 1;
                     $docRow->comment = $training->title . ': ' . $result->trainingGroupName;
                     $docRow->companyId = 0;
                     $docRow->startDate = $today->format('Y-m-d');
+                    $docRow->endDate = $dateLimit->format('Y-m-d');
                     $docRow->ownerId = $result->employeeId;
                     $docRow->ownerName = $result->employeeName;
 

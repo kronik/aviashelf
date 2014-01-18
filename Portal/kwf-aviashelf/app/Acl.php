@@ -14,6 +14,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwfStatic('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
          $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwfStatic('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flighttotalresults', array('text'=>'Общий налет', 'icon'=>'calculator.png'), '/flighttotalresults'), 'default_staffmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_calendar', array('text'=>'Календарь', 'icon'=>'calendar.png'), '/calendar'), 'default_staffmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwfStatic('Flights'), 'icon'=>'calendar.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightplans', array('text'=>trlKwfStatic('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
@@ -39,6 +40,7 @@ class Acl extends Kwf_Acl
 //        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_checkresults', array('text'=>trlKwfStatic('Check Results'), 'icon'=>'database.png'), '/checkresults'), 'default_checksmenuitem');
         
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwfStatic('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightchecks', array('text'=>'Типы проверок', 'icon'=>'book.png'), '/flightchecks'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwfStatic('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airports', array('text'=>trlKwfStatic('Airports'), 'icon'=>'book.png'), '/airports'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_landpoints', array('text'=>trlKwfStatic('Landpoints'), 'icon'=>'book.png'), '/landpoints'), 'default_menuitem');
@@ -59,6 +61,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_linkdata'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdataentry'), 'default_linkdata');
         $this->addResource(new Zend_Acl_Resource('default_country'), 'default_countries');
+        $this->addResource(new Zend_Acl_Resource('default_flightcheck'), 'default_flightchecks');
         $this->addResource(new Zend_Acl_Resource('default_airport'), 'default_airports');
         $this->addResource(new Zend_Acl_Resource('default_landpoint'), 'default_landpoints');
         $this->addResource(new Zend_Acl_Resource('default_company'), 'default_companies');
@@ -80,6 +83,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_myflightset'), 'default_myflightsets');
         $this->addResource(new Zend_Acl_Resource('default_flightcrewfilter'), 'default_myflightset');
         $this->addResource(new Zend_Acl_Resource('default_task'), 'default_tasks');
+        $this->addResource(new Zend_Acl_Resource('default_calendarentry'), 'default_calendar');
         $this->addResource(new Zend_Acl_Resource('default_flightplan'), 'default_flightplans');
         $this->addResource(new Zend_Acl_Resource('default_simpleflightplan'), 'default_simpleflightplans');
         $this->addResource(new Zend_Acl_Resource('default_flights'), 'default_flightplans');
@@ -278,6 +282,7 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_myanswers');
         $this->allow(array('admin', 'power'), 'default_flights');
         $this->allow(array('admin', 'power'), 'default_tasks');
+        $this->allow(array('admin', 'power'), 'default_calendar');
         $this->allow(array('admin', 'power'), 'default_employees');
         $this->allow(array('admin', 'power'), 'default_staffs');
         $this->allow(array('admin', 'power'), 'default_flighttotalresults');
@@ -290,6 +295,7 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_airports');
         $this->allow(array('admin', 'power'), 'default_landpoints');
         $this->allow(array('admin', 'power'), 'default_countries');
+        $this->allow(array('admin', 'power'), 'default_flightchecks');
         $this->allow(array('admin', 'power'), 'default_links');
         $this->allow(array('admin', 'power'), 'default_index');
         $this->allow(array('admin', 'power'), 'kwf_media_upload');

@@ -1199,7 +1199,7 @@ class Reporter
         $progressBar->update(90);
         
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0"));
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0 AND `docNumber` = NULL"));
         $accesses = $accessesModel->getRows($accessesSelect);
         
         $accessStr = "";

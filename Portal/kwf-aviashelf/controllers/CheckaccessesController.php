@@ -24,6 +24,7 @@ class CheckaccessesController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessTypeName', 'Тип допуска'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('accessName', 'Метеоминимум'))->setWidth(200);
+        $this->_columns->add(new Kwf_Grid_Column('docNumber', 'Номер приказа'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comment')))->setWidth(800);
     }
     
