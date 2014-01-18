@@ -19,7 +19,7 @@ class LinkdataController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $users = Kwf_Registry::get('userModel');
         
-        if ($users->getAuthedUserRole() != 'admin') {
+        if ($users->getAuthedUserRole() != 'admin' && $users->getAuthedUserRole() != 'power') {
             
             unset($this->_buttons ['delete']);
         }

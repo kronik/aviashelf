@@ -13,13 +13,6 @@ class MytrialgroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::indexAction();
         
-        $users = Kwf_Registry::get('userModel');
-        
-        if ($users->getAuthedUserRole() != 'admin') {
-            
-            unset($this->_buttons ['delete']);
-        }
-
         $this->view->ext('Mytrialgroups');
     }
     
@@ -27,6 +20,13 @@ class MytrialgroupsController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::_initColumns();
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() != 'admin') {
+            
+            unset($this->_buttons ['delete']);
+        }
+
         $this->_columns->add(new Kwf_Grid_Column('trainingGroupName', 'Группа'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('trainingName', 'Дисциплина'))->setWidth(400)->setRenderer('checkResultScore');
         $this->_columns->add(new Kwf_Grid_Column('startDate', trlKwf('Start Date')))->setWidth(80)->setRenderer('taskCheckDate');

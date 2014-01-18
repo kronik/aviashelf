@@ -18,13 +18,6 @@ class GrouppersonsController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::indexAction();
         
-        $users = Kwf_Registry::get('userModel');
-        
-        if ($users->getAuthedUserRole() != 'admin') {
-            
-            unset($this->_buttons ['delete']);
-        }
-
         $this->view->ext('Grouppersons');
     }
     
@@ -32,6 +25,13 @@ class GrouppersonsController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::_initColumns();
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() != 'admin') {
+            
+            unset($this->_buttons ['delete']);
+        }
+
         $this->_filters = array('text' => array('type' => 'TextField'));
         
         $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(325);

@@ -18,10 +18,6 @@ class FlightplansController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::indexAction();
         
-        if ($users->getAuthedUserRole() != 'admin') {
-            unset($this->_buttons ['delete']);
-        }
-
         $this->view->ext('Flightplans');
     }
     

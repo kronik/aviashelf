@@ -201,6 +201,9 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         }
         
         $row->save();
+        
+        $helper = new Helper();
+        $helper->updateFlightResults ($row->id);
     }
     
     protected function _afterInsert(Kwf_Model_Row_Interface $row)
