@@ -1084,6 +1084,10 @@ class Reporter
                 continue;
             }
             
+            if ($employeeRow->positionId == NULL) {
+                throw new Kwf_Exception_Client('Не определена позиция на борту для ' . (string)$employeeRow);
+            }
+            
             $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
             $subSpecRow = $subSpecModel->getRow($subSpecSelect);
             
@@ -1199,7 +1203,7 @@ class Reporter
         $progressBar->update(90);
         
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0 AND `docNumber` = NULL"));
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0 AND ((`docNumber` IS NULL) OR (`docNumber` = ''))"));
         $accesses = $accessesModel->getRows($accessesSelect);
         
         $accessStr = "";
