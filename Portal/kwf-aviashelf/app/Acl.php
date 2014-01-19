@@ -250,7 +250,7 @@ class Acl extends Kwf_Acl
 
         $this->deny('kws', 'default_flightplans');
         
-        $this->deny(array('kwf', 'user', 'plan', 'viewer'), 'default_calendar');
+        $this->deny(array('kws', 'user', 'plan', 'viewer'), 'default_calendar');
 
         $this->allow(array('admin', 'power'), 'default_menuitem');
         $this->allow(array('admin', 'power'), 'default_settingsmenuitem');
