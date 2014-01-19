@@ -38,6 +38,13 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
                 ->whereEquals('groupType', 1)
                 ->order('lastname');
             }
+                        
+            $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
+            ->setValues($employeesModel)
+            ->setSelect($employeesSelect)
+            ->setWidth(400)
+            ->setAllowBlank(false);
+
         } else {
             
             if ($this->_getParam('employeeId') != NULL) {
@@ -53,12 +60,6 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
                 ->order('lastname');
             }
         }
-        
-        $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
-        ->setValues($employeesModel)
-        ->setSelect($employeesSelect)
-        ->setWidth(400)
-        ->setAllowBlank(false);
         
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select();
@@ -135,7 +136,9 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
-        $row->employeeId = $this->_getParam('employeeId');
+        if ($this->_getParam('employeeId') != NULL) {
+            $row->employeeId = $this->_getParam('employeeId');
+        }
 
         $this->updateReferences($row);
     }
