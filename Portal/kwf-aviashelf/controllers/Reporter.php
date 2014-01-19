@@ -1084,12 +1084,12 @@ class Reporter
                 continue;
             }
             
-            if ($employeeRow->positionId == NULL) {
-                throw new Kwf_Exception_Client('Не определена позиция на борту для ' . (string)$employeeRow);
-            }
-            
-            $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
-            $subSpecRow = $subSpecModel->getRow($subSpecSelect);
+//            if ($employeeRow->positionId == NULL) {
+//                throw new Kwf_Exception_Client('Не определена позиция на борту для ' . (string)$employeeRow);
+//            }
+//            
+//            $subSpecSelect = $subSpecModel->select()->whereEquals('id', $employeeRow->positionId);
+//            $subSpecRow = $subSpecModel->getRow($subSpecSelect);
             
             $position = $flightMember->positionName;
             
