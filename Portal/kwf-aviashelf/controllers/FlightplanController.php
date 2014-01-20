@@ -22,7 +22,11 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
         
         if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'plan' || $users->getAuthedUserRole() == 'power')
         {
-            $this->_form->add(new Kwf_Form_Field_DateField('planDate', trlKwf('Date')))->setAllowBlank(false);
+            $today = new DateTime('NOW');
+
+            $this->_form->add(new Kwf_Form_Field_DateField('planDate', trlKwf('Date')))
+            ->setAllowBlank(false)
+            ->setDefaultValue($today->format(trlKwf('Y-m-d')));
 
             $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
             $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 2'))->order('listPosition');
@@ -49,9 +53,9 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
             $this->_form->add(new Kwf_Form_Field_ShowField('comment', trlKwf('Additional info')))
             ->setHeight(70)
             ->setWidth(400);            
-        }
+        }        
     }
-        
+    
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {        
         if ($row->employeeId != NULL)
@@ -85,7 +89,7 @@ class FlightplanController extends Kwf_Controller_Action_Auto_Form_Ex
     protected function _fillTheXlsFile($xls, $firstSheet)
     {
         $row = $this->_form->getRow();
-        
+                
         $this->_progressBar = new Zend_ProgressBar(new Kwf_Util_ProgressBar_Adapter_Cache($this->_getParam('progressNum')),
                                                    0, 100);
         $reporter = new Reporter ();
