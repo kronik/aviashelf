@@ -37,9 +37,9 @@ class Helper {
         
         $maxPlanId = 0;
         
-        foreach ($flightPlans as $flightPlan) {
-            if ($flightPlan->id > $maxPlanId) {
-                $maxPlanId = $flightPlan->id;
+        foreach ($flightPlans as $oldFlightPlan) {
+            if ($oldFlightPlan->id > $maxPlanId) {
+                $maxPlanId = $oldFlightPlan->id;
             }
         }
         
@@ -61,7 +61,7 @@ class Helper {
             
             $resultRow->planId = $planId;
             $resultRow->priority = $planerstate->priority;
-            $resultRow->statusDate = $today->format('Y-m-d');
+            $resultRow->statusDate = $flightPlan->planDate;
             $resultRow->expectedDate = $planerstate->expectedDate;
             $resultRow->comment = $planerstate->comment;
             

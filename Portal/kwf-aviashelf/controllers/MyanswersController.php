@@ -197,8 +197,8 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                     
                     $docRow = $m->createRow();
                     
-                    $docRow->typeId = $typeRow->id;
-                    $docRow->typeName = $typeRow->title;
+//                    $docRow->typeId = $typeRow->id;
+//                    $docRow->typeName = $typeRow->title;
                     $docRow->gradeId = $result->gradeId;
                     $docRow->gradeName = $result->gradeName;
                     $docRow->gradeVisible = 1;

@@ -2,7 +2,7 @@
 class MyflightsetController extends Kwf_Controller_Action_Auto_Form
 {
     protected $_modelName = 'Flightset';
-    protected $_permissions = array('save', 'add', 'delete');
+    protected $_permissions = array('save', 'add');
     protected $_paging = 0;
 
     protected function _initFields()

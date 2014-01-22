@@ -18,7 +18,7 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
             $users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
             $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
             
-            if ($users->getAuthedUserRole() == 'power') {
+            if ($users->getAuthedUserRole() == 'power' || $users->getAuthedUserRole() == 'kws') {
                 
                 unset($this->_buttons ['delete']);
             }

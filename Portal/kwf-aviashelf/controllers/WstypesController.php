@@ -12,13 +12,6 @@ class WstypesController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::indexAction();
         
-        $users = Kwf_Registry::get('userModel');
-        
-        if ($users->getAuthedUserRole() != 'admin') {
-            
-            unset($this->_buttons ['delete']);
-        }
-
         $this->view->ext('Wstypes');
     }
     
@@ -26,6 +19,13 @@ class WstypesController extends Kwf_Controller_Action_Auto_Grid_Ex
     {
         parent::_initColumns();
         
+        $users = Kwf_Registry::get('userModel');
+        
+        if ($users->getAuthedUserRole() != 'admin') {
+            
+            unset($this->_buttons ['delete']);
+        }
+
         $this->_filters = array('text' => array('type' => 'TextField'));
         $this->_columns->add(new Kwf_Grid_Column('Name', trlKwf('Title'), 100));
         $this->_columns->add(new Kwf_Grid_Column('NameEn', trlKwf('English name'), 100));
