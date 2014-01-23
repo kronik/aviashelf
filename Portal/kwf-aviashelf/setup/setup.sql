@@ -160,7 +160,8 @@ INSERT INTO `links` (`id`, `name`) VALUES
 (24, 'Типы проверок'),
 (25, 'Типы курсов'),
 (26, 'Тип захода'),
-(27, 'Состояния сотрудника');
+(27, 'Состояния сотрудника'),
+(28, 'Типы наработки');
 
 --
 -- Dumping data for table `link_data`
@@ -506,7 +507,12 @@ INSERT INTO `link_data` (`link_id`, `name`, `value`, `desc`) VALUES
 (25, 'Типы курсов', 'Опрос', 'Опрос'),
 (27, 'Состояния сотрудника', 'ОТ', 'Отпуск'),
 (27, 'Состояния сотрудника', 'В', 'Выходной'),
-(27, 'Состояния сотрудника', 'К', 'Командировка');
+(27, 'Состояния сотрудника', 'К', 'Командировка'),
+(27, 'Состояния сотрудника', 'Я', 'Явка'),
+(28, 'Типы наработки', 'Фактическая наработка', 'Фактическая наработка'),
+(28, 'Типы наработки', 'Фактический налет', 'Фактический налет'),
+(28, 'Типы наработки', 'Налет ночью', 'Налет ночью'),
+(28, 'Типы наработки', 'Наработка ночью', 'Наработка ночью');
 
 CREATE TABLE IF NOT EXISTS `airports` (
     `id` int NOT NULL AUTO_INCREMENT,
@@ -1122,6 +1128,36 @@ CREATE TABLE IF NOT EXISTS `planerStates` (
     INDEX `id` (`id` ASC),
     KEY `planId` (`planId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `employeeWorks` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `workId` int NOT NULL,
+    `employeeId` int NOT NULL,
+    `employeeName` varchar(300) COLLATE utf8_unicode_ci,
+    `workDate` date NOT NULL,
+    `typeId` int NOT NULL,
+    `typeName` varchar(100) COLLATE utf8_unicode_ci,
+    `workTime1` time DEFAULT '00:00',
+    `workTime2` time DEFAULT '00:00',
+    `workTime3` time DEFAULT '00:00',
+    `workTime4` time DEFAULT '00:00',
+    `workTime5` time DEFAULT '00:00',
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    KEY `workId` (`workId`),
+    KEY `typeId` (`typeId`),
+    KEY `employeeId` (`employeeId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `works` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `month` int NOT NULL,
+    `monthName` varchar(20) COLLATE utf8_unicode_ci,
+    `year` int NOT NULL,
+    `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 delimiter $$
 CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`

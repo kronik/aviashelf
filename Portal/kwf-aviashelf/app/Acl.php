@@ -15,6 +15,7 @@ class Acl extends Kwf_Acl
          $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwfStatic('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flighttotalresults', array('text'=>'Общий налет', 'icon'=>'calculator.png'), '/flighttotalresults'), 'default_staffmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_calendar', array('text'=>'Календарь', 'icon'=>'calendar.png'), '/calendar'), 'default_staffmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_works', array('text'=>'Наработка', 'icon'=>'calendar.png'), '/works'), 'default_staffmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwfStatic('Flights'), 'icon'=>'calendar.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightplans', array('text'=>trlKwfStatic('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
@@ -84,6 +85,9 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_flightcrewfilter'), 'default_myflightset');
         $this->addResource(new Zend_Acl_Resource('default_task'), 'default_tasks');
         $this->addResource(new Zend_Acl_Resource('default_calendarentry'), 'default_calendar');
+        $this->addResource(new Zend_Acl_Resource('default_work'), 'default_works');
+        $this->addResource(new Zend_Acl_Resource('default_employeeworks'), 'default_works');
+        $this->addResource(new Zend_Acl_Resource('default_employeeworksentry'), 'default_employeeworks');
         $this->addResource(new Zend_Acl_Resource('default_flightplan'), 'default_flightplans');
         $this->addResource(new Zend_Acl_Resource('default_simpleflightplan'), 'default_simpleflightplans');
         $this->addResource(new Zend_Acl_Resource('default_flights'), 'default_flightplans');
@@ -250,7 +254,7 @@ class Acl extends Kwf_Acl
 
         $this->deny('kws', 'default_flightplans');
         
-        $this->deny(array('kws', 'user', 'plan', 'viewer'), 'default_calendar');
+        $this->deny(array('kws', 'user', 'plan', 'viewer'), 'default_calendar', 'default_works');
 
         $this->allow(array('admin', 'power'), 'default_menuitem');
         $this->allow(array('admin', 'power'), 'default_settingsmenuitem');
@@ -285,6 +289,8 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_flights');
         $this->allow(array('admin', 'power'), 'default_tasks');
         $this->allow(array('admin', 'power'), 'default_calendar');
+        $this->allow(array('admin', 'power'), 'default_works');
+        $this->allow(array('admin', 'power'), 'default_employeeworks');
         $this->allow(array('admin', 'power'), 'default_employees');
         $this->allow(array('admin', 'power'), 'default_staffs');
         $this->allow(array('admin', 'power'), 'default_flighttotalresults');
