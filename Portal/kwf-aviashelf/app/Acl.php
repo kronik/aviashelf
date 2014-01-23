@@ -14,7 +14,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwfStatic('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
          $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwfStatic('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flighttotalresults', array('text'=>'Общий налет', 'icon'=>'calculator.png'), '/flighttotalresults'), 'default_staffmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_calendar', array('text'=>'Календарь', 'icon'=>'calendar.png'), '/calendar'), 'default_staffmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_calendar', array('text'=>'Календарь', 'icon'=>'date.png'), '/calendar'), 'default_staffmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_works', array('text'=>'Наработка', 'icon'=>'calendar.png'), '/works'), 'default_staffmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwfStatic('Flights'), 'icon'=>'calendar.png')));

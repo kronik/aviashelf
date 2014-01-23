@@ -17,7 +17,7 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
         ->setValues($employeesModel)
         ->setSelect($employeesSelect)
         ->setWidth(400)
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
 
         $this->_form->add(new Kwf_Form_Field_DateField('startDate', trlKwf('Start Date')))->setAllowBlank(false);
         $this->_form->add(new Kwf_Form_Field_DateField('endDate', trlKwf('End Date')))->setAllowBlank(false);
@@ -38,10 +38,15 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m3 = Kwf_Model_Abstract::getInstance('Employees');
         
-        $s = $m3->select()->whereEquals('id', $row->employeeId);
-        $prow = $m3->getRow($s);
+        if ($row->employeeId != NULL) {
+            $s = $m3->select()->whereEquals('id', $row->employeeId);
+            $prow = $m3->getRow($s);
         
-        $row->employeeName = (string)$prow;
+            $row->employeeName = (string)$prow;
+        } else {
+            $row->employeeId = 0;
+            $row->employeeName = '';
+        }
 
         $s = $m1->select()->whereEquals('id', $row->statusId);
         $prow = $m1->getRow($s);

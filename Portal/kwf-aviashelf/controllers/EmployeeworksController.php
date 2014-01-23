@@ -62,9 +62,9 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function updateWorkEntries($workId) {
         $employeeworksModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
         $employeeworksSelect = $employeeworksModel->select()->whereEquals('workId', $workId);
-        $employeeworks = $employeeworksModel->getRows($employeeworksSelect);
+        $employeework = $employeeworksModel->getRow($employeeworksSelect);
 
-        if (count($employeeworks) > 0) {
+        if (count($employeework) > 0) {
             return;
         }
 
@@ -78,17 +78,35 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $statusModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'Я');
-        $status = $statusModel->getRow($statusSelect);
+        $workStatus = $statusModel->getRow($statusSelect);
+        
+        if ($workStatus == NULL) {
+            throw new Kwf_Exception_Client('Нет состояния сотрудника <Явка>.');
+        }
+
+        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'В');
+        $holidayStatus = $statusModel->getRow($statusSelect);
+        
+        if ($holidayStatus == NULL) {
+            throw new Kwf_Exception_Client('Нет состояния сотрудника <Выходной>.');
+        }
 
         $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
         $endDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
         $endDate->add( new DateInterval('P1M') );
+        
+        $calendarModel = Kwf_Model_Abstract::getInstance('Calendar');
+        $calendarSelect = $calendarModel->select()->where(new Kwf_Model_Select_Expr_Sql('startDate <= ' . $endDate->format('Y-m-d') . ' OR endDate >= ' . $startDate->format('Y-m-d')));
+        $calendar = $calendarModel->getRows($calendarSelect);
         
         foreach ($employees as $employee) {
 
             $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
 
             while ($startDate < $endDate) {
+                
+                $calendarRecord = $this->findCalendarRecordByEmployeeId($employee->id, $calendar, $startDate);
+                
                 $newRow = $employeeworksModel->createRow();
                 
                 $newRow->workId = $workId;
@@ -104,13 +122,41 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
                 $newRow->workTime4 = '00:00';
                 $newRow->workTime5 = '00:00';
                 
-                $newRow->typeId = $status->id;
-                $newRow->typeName = $status->value;
+                if ($calendarRecord == NULL) {
+                    
+                    if ($startDate->format('N') == 6 || $startDate->format('N') == 7) {
+                        $newRow->typeId = $holidayStatus->id;
+                        $newRow->typeName = $holidayStatus->value;
+                    } else {
+                        $newRow->typeId = $workStatus->id;
+                        $newRow->typeName = $workStatus->value;
+                    }
+                } else {
+                    $newRow->typeId = $calendarRecord->statusId;
+                    $newRow->typeName = $calendarRecord->statusName;
+                }
 
                 $newRow->save();
                 
                 $startDate->add( new DateInterval('P1D') );
             }
         }
+    }
+    
+    protected function findCalendarRecordByEmployeeId ($employeeId, $calendarRecords, $workDate) {
+        foreach ($calendarRecords as $calendarRecord) {
+            if (($calendarRecord->employeeId == $employeeId) || ($calendarRecord->employeeId == 0)) {
+                
+                $startDate = new DateTime($calendarRecord->startDate);
+                $endDate = new DateTime($calendarRecord->endDate);
+                $endDate->add( new DateInterval('P1D') );
+        
+                if (($startDate <= $workDate) && ($workDate <= $endDate)) {
+                    return $calendarRecord;
+                }
+            }
+        }
+        
+        return NULL;
     }
 }
