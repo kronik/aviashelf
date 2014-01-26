@@ -1142,11 +1142,24 @@ CREATE TABLE IF NOT EXISTS `employeeWorks` (
     `workTime3` time DEFAULT '00:00',
     `workTime4` time DEFAULT '00:00',
     `workTime5` time DEFAULT '00:00',
+    `timeInMinutes` int DEFAULT 0,
+    `timePerDay` time DEFAULT '00:00',
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     KEY `workId` (`workId`),
     KEY `typeId` (`typeId`),
     KEY `employeeId` (`employeeId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `flightResutWork` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `workId` int NOT NULL,
+    `workName` varchar(100) COLLATE utf8_unicode_ci,
+    `resultId` int NOT NULL,
+    `resultName` varchar(100) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`),
+    KEY `workId` (`workId`),
+    KEY `resultId` (`resultId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `works` (

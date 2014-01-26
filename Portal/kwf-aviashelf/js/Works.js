@@ -39,6 +39,71 @@ Ext.util.Format.dateCorrect = function(val)
     return val.format('d-m-Y');
 };
 
+Ext.util.Format.daysForTime = function(val)
+{
+    if (val == null) {
+        return 0;
+    }
+    
+    if (val == '00:00' || val == '00:00:00') {
+        return '';
+    }
+    
+    if (val == '7:12' || val == '07:12' || val == '07:12:00') {
+        return '1 день';
+    } else {
+        var totalTimeValue = val.split(':');
+        var hours = (totalTimeValue[0]) * 1;
+        minutes = (totalTimeValue[1]) * 1;
+    
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        
+        return hours + ':' + minutes;
+    }
+};
+
+Ext.grid.GroupSummary.Calculations['totalDays'] = function(v, record, field)
+{
+    if (v == 0)
+    {
+        return record.data.workTime1;
+    }
+    
+    if ((v == null) || (v == '')) {
+        return '00:00';
+    }
+    
+    if ((record.data.workTime1 == null) || (record.data.workTime1 == '')) {
+        return '00:00';
+    }
+    
+    var totalTimeValue = v.split(':');
+    var addTimeValue = record.data.workTime1.split(':');
+    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
+    var minutes = 0;
+    var hoursAddition = 0;
+    
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    {
+        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
+        hoursAddition = 1;
+    }
+    else
+    {
+        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
+    }
+    
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+    
+    hours = hours + hoursAddition;
+    
+    return hours + ':' + minutes + ':00';
+}
+
 Ext.util.Format.dateShrink = function(val)
 {
     if (val.getDay() == 0 || val.getDay() == 6)
@@ -49,7 +114,6 @@ Ext.util.Format.dateShrink = function(val)
     {
         return '<span style="color:black;">' + val.format('d') + '</span>';
     }
-
 };
 
 Ext.util.Format.dateClearEmpty = function(val)

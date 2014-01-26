@@ -34,7 +34,7 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $typeSelect = $typeModel->select()->whereEquals('name', 'Состояния сотрудника');
         
-        $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Где находился'))
+        $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Тип наработки'))
         ->setValues($typeModel)
         ->setSelect($typeSelect)
         ->setWidth(150)
@@ -78,6 +78,27 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         $prow = $m2->getRow($s);
         
         $row->employeeName = (string)$prow;
+        
+        $row->timeInMinutes = 0;
+        
+        if ($row->workTime1 != NULL) {
+            $workTime = DateTime::createFromFormat('H:i', $row->workTime1);
+                        
+            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
+            
+            if ($workTimeInMinutes < (3 * 60 + 36)) {
+                $row->timeInMinutes = $workTimeInMinutes;
+                $row->timePerDay = $row->workTime1;
+            } else {
+                $row->timeInMinutes = 7 * 60 + 12;
+                $row->timePerDay = '07:12';
+            }
+        }
+        
+        if ((($row->workTime2 != NULL) && ($row->workTime2 != '00:00')) || (($row->workTime3 != NULL) && ($row->workTime3 != '00:00'))) {
+            $row->timeInMinutes = 7 * 60 + 12;
+            $row->timePerDay = '07:12';
+        }
     }
     
     protected function _beforeDelete(Kwf_Model_Row_Interface $row) {

@@ -54,6 +54,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('kwf_user_users', array('text'=>trlKwfStatic('Users management'), 'icon'=>'user_suit.png'), '/kwf/user/users'), 'default_settingsmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultdefaults', array('text'=>'Позиции на борту -> налет', 'icon'=>'book.png'), '/flightresultdefaults'), 'default_settingsmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultobjdefaults', array('text'=>'Цели полета -> налет', 'icon'=>'book.png'), '/flightresultobjdefaults'), 'default_settingsmenuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultwork', array('text'=>'Налет -> наработка', 'icon'=>'book.png'), '/flightresultwork'), 'default_settingsmenuitem');
 
         //$this->addResource(new Zend_Acl_Resource('default_tasks'), 'default_index');
 //        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
@@ -68,6 +69,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_company'), 'default_companies');
         $this->addResource(new Zend_Acl_Resource('default_flightresultdefault'), 'default_flightresultdefaults');
         $this->addResource(new Zend_Acl_Resource('default_flightresultobjdefault'), 'default_flightresultobjdefaults');
+        $this->addResource(new Zend_Acl_Resource('default_flightresultworkentry'), 'default_flightresultwork');
         $this->addResource(new Zend_Acl_Resource('default_wstype'), 'default_wstypes');
         $this->addResource(new Zend_Acl_Resource('default_airplane'), 'default_airplanes');
         $this->addResource(new Zend_Acl_Resource('default_employee'), 'default_employees');
@@ -300,6 +302,7 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_companies');
         $this->allow(array('admin', 'power'), 'default_flightresultdefaults');
         $this->allow(array('admin', 'power'), 'default_flightresultobjdefaults');
+        $this->allow(array('admin', 'power'), 'default_flightresultwork');
         $this->allow(array('admin', 'power'), 'default_airports');
         $this->allow(array('admin', 'power'), 'default_landpoints');
         $this->allow(array('admin', 'power'), 'default_countries');
