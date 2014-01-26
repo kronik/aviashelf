@@ -134,19 +134,18 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         $flightResultWorks = $flightResultWorkModel->getRows($flightResultWorkSelect);
 
         $workModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
+        $workSelect = $workModel->select()
+        ->whereEquals('workDate', $result->flightDate)
+        ->whereEquals('employeeId', $employee->id);
+        
+        $work = $workModel->getRow($workSelect);
+        
+        if ($work == NULL) {
+            return;
+        }
 
         foreach ($flightResultWorks as $flightResultWork) {
-                        
-            $workSelect = $workModel->select()
-            ->whereEquals('workDate', $result->flightDate)
-            ->whereEquals('employeeId', $employee->id);
             
-            $work = $workModel->getRow($workSelect);
-            
-            if ($work == NULL) {
-                continue;
-            }
-
             switch ($flightResultWork->workId) {
                 case 'workTime1':
                     $work->workTime1 = $result->flightTime;
@@ -171,28 +170,28 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
                 default:
                     break;
             }
+        }
+        
+        if ($work->workTime1 != NULL) {
+            $workTime = DateTime::createFromFormat('H:i', $work->workTime1);
             
-            if ($work->workTime1 != NULL) {
-                $workTime = DateTime::createFromFormat('H:i', $work->workTime1);
-                
-                $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
-                
-                if ($workTimeInMinutes < (3 * 60 + 36)) {
-                    $work->timeInMinutes = $workTimeInMinutes;
-                    $work->timePerDay = $work->workTime1;
-                } else {
-                    $work->timeInMinutes = 7 * 60 + 12;
-                    $work->timePerDay = '07:12';
-                }
-            }
+            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
             
-            if ((($work->workTime2 != NULL) && ($work->workTime2 != '00:00')) || (($work->workTime3 != NULL) && ($work->workTime3 != '00:00'))) {
+            if ($workTimeInMinutes < (3 * 60 + 36)) {
+                $work->timeInMinutes = $workTimeInMinutes;
+                $work->timePerDay = $work->workTime1;
+            } else {
                 $work->timeInMinutes = 7 * 60 + 12;
                 $work->timePerDay = '07:12';
             }
-
-            $work->save();
         }
+        
+        if ((($work->workTime2 != NULL) && ($work->workTime2 != '00:00')) || (($work->workTime3 != NULL) && ($work->workTime3 != '00:00'))) {
+            $work->timeInMinutes = 7 * 60 + 12;
+            $work->timePerDay = '07:12';
+        }
+        
+        $work->save();
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

@@ -1151,9 +1151,9 @@ CREATE TABLE IF NOT EXISTS `employeeWorks` (
     KEY `employeeId` (`employeeId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `flightResutWork` (
+CREATE TABLE IF NOT EXISTS `flightResultWork` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `workId` int NOT NULL,
+    `workId` varchar(100) COLLATE utf8_unicode_ci,
     `workName` varchar(100) COLLATE utf8_unicode_ci,
     `resultId` int NOT NULL,
     `resultName` varchar(100) COLLATE utf8_unicode_ci,
