@@ -183,6 +183,7 @@ class Helper {
                 }
             }
             
+            
             if (($this->isContain('КВС', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
             {
                 $flightRow->firstPilotName = (string)$employee;
@@ -237,6 +238,8 @@ class Helper {
         
         if (count($trained) > 0) {
             $flightRow->comments = 'Тр-ые: ' . implode(',', $trained);
+        } else if ($this->isContain('Тр-ые:', $flightRow->comments)) {
+            $flightRow->comments = '';
         }
         
         $flightRow->save();
