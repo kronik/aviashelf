@@ -111,7 +111,6 @@ class Helper {
         $flightRow->technicName = '';
         $flightRow->resquerName = '';
         $flightRow->checkPilotName = '';
-        $flightRow->comments = '';
         
         $trained = array();
         
