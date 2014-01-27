@@ -13,9 +13,6 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_staffmenuitem', array('text'=>trlKwfStatic('Employees'), 'icon'=>'user.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwfStatic('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
          $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_staffs', array('text'=>trlKwfStatic('Staff groups'), 'icon'=>'user.png'), '/staffs'), 'default_staffmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flighttotalresults', array('text'=>'Общий налет', 'icon'=>'calculator.png'), '/flighttotalresults'), 'default_staffmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_calendar', array('text'=>'Календарь', 'icon'=>'date.png'), '/calendar'), 'default_staffmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_works', array('text'=>'Наработка', 'icon'=>'calendar.png'), '/works'), 'default_staffmenuitem');
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_flightsmenuitem', array('text'=>trlKwfStatic('Flights'), 'icon'=>'calendar.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightplans', array('text'=>trlKwfStatic('Flight plans'), 'icon'=>'calendar.png'), '/'), 'default_flightsmenuitem');
@@ -50,11 +47,16 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_wstypes', array('text'=>trlKwfStatic('WsTypes'), 'icon'=>'book.png'), '/wstypes'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airplanes', array('text'=>trlKwfStatic('Airplanes'), 'icon'=>'book.png'), '/airplanes'), 'default_menuitem');
         
+        $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_workmenu', array('text'=>'Наработка', 'icon'=>'calendar.png')));
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_calendar', array('text'=>'Календарь', 'icon'=>'date.png'), '/calendar'), 'default_workmenu');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_works', array('text'=>'Наработка', 'icon'=>'calendar.png'), '/works'), 'default_workmenu');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flighttotalresults', array('text'=>'Общий налет', 'icon'=>'calculator.png'), '/flighttotalresults'), 'default_workmenu');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultwork', array('text'=>'Налет -> наработка', 'icon'=>'book.png'), '/flightresultwork'), 'default_workmenu');
+        
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_settingsmenuitem', array('text'=>trlKwfStatic('Settings'), 'icon'=>'cog.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('kwf_user_users', array('text'=>trlKwfStatic('Users management'), 'icon'=>'user_suit.png'), '/kwf/user/users'), 'default_settingsmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultdefaults', array('text'=>'Позиции на борту -> налет', 'icon'=>'book.png'), '/flightresultdefaults'), 'default_settingsmenuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultobjdefaults', array('text'=>'Цели полета -> налет', 'icon'=>'book.png'), '/flightresultobjdefaults'), 'default_settingsmenuitem');
-        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightresultwork', array('text'=>'Налет -> наработка', 'icon'=>'book.png'), '/flightresultwork'), 'default_settingsmenuitem');
 
         //$this->addResource(new Zend_Acl_Resource('default_tasks'), 'default_index');
 //        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
@@ -256,9 +258,10 @@ class Acl extends Kwf_Acl
 
         $this->deny('kws', 'default_flightplans');
         
-        $this->deny(array('kws', 'user', 'plan', 'viewer'), 'default_calendar', 'default_works');
+        $this->deny(array('kws', 'user', 'plan', 'viewer'), 'default_workmenu');
 
         $this->allow(array('admin', 'power'), 'default_menuitem');
+        $this->allow(array('admin', 'power'), 'default_workmenu');
         $this->allow(array('admin', 'power'), 'default_settingsmenuitem');
         $this->allow(array('admin', 'power'), 'default_checksmenuitem');
         $this->allow(array('admin', 'power'), 'default_flightsmenuitem');
