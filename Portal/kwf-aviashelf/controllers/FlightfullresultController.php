@@ -174,7 +174,7 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         
         if ($work->workTime1 != NULL) {
             
-            $workTime = DateTime::createFromFormat('H:i:s', $work->workTime1);
+            $workTime = new DateTime ($work->workTime1);
             $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
 
             if ($workTimeInMinutes < (3 * 60 + 36)) {

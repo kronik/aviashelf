@@ -82,7 +82,7 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         $row->timeInMinutes = 0;
         
         if ($row->workTime1 != NULL) {
-            $workTime = DateTime::createFromFormat('H:i', $row->workTime1);
+            $workTime = new DateTime ($row->workTime1);
                         
             $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
             
