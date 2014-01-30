@@ -172,24 +172,24 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
             }
         }
         
-        if ($work->workTime1 != NULL) {
-            
-            $workTime = new DateTime ($work->workTime1);
-            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
-
-            if ($workTimeInMinutes < (3 * 60 + 36)) {
-                $work->timeInMinutes = $workTimeInMinutes;
-                $work->timePerDay = $work->workTime1;
-            } else {
-                $work->timeInMinutes = 7 * 60 + 12;
-                $work->timePerDay = '07:12';
-            }
-        }
-        
-        if ((($work->workTime2 != NULL) && ($work->workTime2 != '00:00')) || (($work->workTime3 != NULL) && ($work->workTime3 != '00:00'))) {
-            $work->timeInMinutes = 7 * 60 + 12;
-            $work->timePerDay = '07:12';
-        }
+//        if ($work->workTime1 != NULL) {
+//            
+//            $workTime = new DateTime ($work->workTime1);
+//            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
+//
+//            if ($workTimeInMinutes < (3 * 60 + 36)) {
+//                $work->timeInMinutes = $workTimeInMinutes;
+//                $work->timePerDay = $work->workTime1;
+//            } else {
+//                $work->timeInMinutes = 7 * 60 + 12;
+//                $work->timePerDay = '07:12';
+//            }
+//        }
+//        
+//        if ((($work->workTime2 != NULL) && ($work->workTime2 != '00:00')) || (($work->workTime3 != NULL) && ($work->workTime3 != '00:00'))) {
+//            $work->timeInMinutes = 7 * 60 + 12;
+//            $work->timePerDay = '07:12';
+//        }
         
         $work->save();
     }

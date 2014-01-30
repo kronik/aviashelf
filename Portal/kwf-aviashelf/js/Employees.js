@@ -99,7 +99,7 @@ function toDate(dStr,format)
 
 // define a custom summary function
 Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, field)
-{
+{    
     if (v == 0)
     {
         return record.data.flightTime;
@@ -119,7 +119,7 @@ Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, fiel
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;

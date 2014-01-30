@@ -81,24 +81,24 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         
         $row->timeInMinutes = 0;
         
-        if ($row->workTime1 != NULL) {
-            $workTime = new DateTime ($row->workTime1);
-                        
-            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
-            
-            if ($workTimeInMinutes < (3 * 60 + 36)) {
-                $row->timeInMinutes = $workTimeInMinutes;
-                $row->timePerDay = $row->workTime1;
-            } else {
-                $row->timeInMinutes = 7 * 60 + 12;
-                $row->timePerDay = '07:12';
-            }
-        }
-        
-        if ((($row->workTime2 != NULL) && ($row->workTime2 != '00:00')) || (($row->workTime3 != NULL) && ($row->workTime3 != '00:00'))) {
-            $row->timeInMinutes = 7 * 60 + 12;
-            $row->timePerDay = '07:12';
-        }
+//        if ($row->workTime1 != NULL) {
+//            $workTime = new DateTime ($row->workTime1);
+//                        
+//            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
+//            
+//            if ($workTimeInMinutes < (3 * 60 + 36)) {
+//                $row->timeInMinutes = $workTimeInMinutes;
+//                $row->timePerDay = $row->workTime1;
+//            } else {
+//                $row->timeInMinutes = 7 * 60 + 12;
+//                $row->timePerDay = '07:12';
+//            }
+//        }
+//        
+//        if ((($row->workTime2 != NULL) && ($row->workTime2 != '00:00')) || (($row->workTime3 != NULL) && ($row->workTime3 != '00:00'))) {
+//            $row->timeInMinutes = 7 * 60 + 12;
+//            $row->timePerDay = '07:12';
+//        }
     }
     
     protected function _beforeDelete(Kwf_Model_Row_Interface $row) {

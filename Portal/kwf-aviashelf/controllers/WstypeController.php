@@ -28,4 +28,13 @@ class WstypeController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($select)
         ->setWidth(400);
     }
+    
+    protected function _beforeInsert(Kwf_Model_Row_Interface $row)
+    {
+        $row->twsId = 0;
+        $row->Fixed = 1;
+        $row->ZCode = 0;
+        $row->ZMCode = 0;
+        $row->Hidden = 0;
+    }
 }

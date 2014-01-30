@@ -1203,7 +1203,7 @@ class Reporter
         $progressBar->update(90);
         
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0 AND ((`docNumber` IS NULL) OR (`docNumber` = ''))"));
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0 AND ((`docNumber` IS NULL) OR (`docNumber` = '')) AND `accessId` <> 0"));
         $accesses = $accessesModel->getRows($accessesSelect);
         
         $accessStr = "";
@@ -1211,11 +1211,15 @@ class Reporter
         
         foreach ($accesses as $access)
         {
+            if ($access->accessName == '') {
+                continue;
+            }
+            
             $delimiter = "\n";
             
-//            if ($lineCounter % 2 == 0) {
-//                $delimiter = ", ";
-//            }
+            if ($lineCounter == (count($accesses) - 1)) {
+                $delimiter = '';
+            }
             
             $accessStr = $accessStr . $access->accessName . $delimiter;
             
