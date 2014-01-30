@@ -197,7 +197,10 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
         $row->flightId = $this->_getParam('flightId');
-        $row->showInTotal = false;
+        
+        if ($row->showInTotal == NULL) {
+            $row->showInTotal = false;
+        }
 
         $this->updateReferences($row);
     }
