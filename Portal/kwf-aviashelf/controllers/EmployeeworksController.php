@@ -47,7 +47,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('workTime3', 'Налет ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime3');
         $this->_columns->add(new Kwf_Grid_Column('workTime4', 'Наработка ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime4');
         $this->_columns->add(new Kwf_Grid_Column('workTime5', 'Другая наработка', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime5');
-//        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Итого дни', 100))->setRenderer('daysForTime')->setProperty('summaryType', 'totalDays');
+        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 100));//->setRenderer('daysForTime')->setProperty('summaryType', 'totalDays');
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);
     }
         
@@ -63,7 +63,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function updateWorkEntries($workId) {
         $employeeworksModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
         $employeeworksSelect = $employeeworksModel->select()->whereEquals('workId', $workId);
-        $employeework = $employeeworksModel->getRow($employeeworksSelect);
+        $employeework = $employeeworksModel->getRows($employeeworksSelect);
 
         if (count($employeework) > 0) {
             return;
@@ -100,6 +100,8 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $calendarSelect = $calendarModel->select()->where(new Kwf_Model_Select_Expr_Sql('startDate <= ' . $endDate->format('Y-m-d') . ' OR endDate >= ' . $startDate->format('Y-m-d')));
         $calendar = $calendarModel->getRows($calendarSelect);
         
+        $helper = new Helper();
+        
         foreach ($employees as $employee) {
 
             $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
@@ -123,18 +125,28 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
                 $newRow->workTime4 = '00:00';
                 $newRow->workTime5 = '00:00';
                 
+                $isWorkingDay = $helper->isWorkingDay($startDate);
+                $isNextDayHoliday = $helper->isNextDayHoliday($startDate);
+                
                 if ($calendarRecord == NULL) {
-                    
-                    if ($startDate->format('N') == 6 || $startDate->format('N') == 7) {
-                        $newRow->typeId = $holidayStatus->id;
-                        $newRow->typeName = $holidayStatus->value;
-                    } else {
+                    if ($isWorkingDay) {
                         $newRow->typeId = $workStatus->id;
                         $newRow->typeName = $workStatus->value;
+                    } else {
+                        $newRow->typeId = $holidayStatus->id;
+                        $newRow->typeName = $holidayStatus->value;
                     }
                 } else {
                     $newRow->typeId = $calendarRecord->statusId;
                     $newRow->typeName = $calendarRecord->statusName;
+                }
+                
+                if ($isWorkingDay && $isNextDayHoliday) {
+                    $newRow->timePerDay = '06:12';
+                } else if ($isWorkingDay) {
+                    $newRow->timePerDay = '07:12';
+                } else {
+                    $newRow->timePerDay = '00:00';
                 }
 
                 $newRow->save();

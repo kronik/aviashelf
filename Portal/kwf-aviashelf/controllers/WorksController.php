@@ -45,5 +45,5 @@ class WorksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('monthName', 'Месяц', 100));
         $this->_columns->add(new Kwf_Grid_Column('year', 'Год', 100));
         $this->_columns->add(new Kwf_Grid_Column('comment', 'Комментарий', 200));
-    }
+    }    
 }

@@ -98,11 +98,15 @@ function toDate(dStr,format)
 }
 
 // define a custom summary function
-Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, field)
+Ext.grid.GroupSummary.Calculations['totalCommonFlightTime'] = function(v, record, field)
 {    
     if (v == 0)
     {
-        return record.data.flightTime;
+        if (record.data.typeName === "Налет общий") {
+            return record.data.flightTime;
+        } else {
+            return '00:00';
+        }
     }
     
     if ((v == null) || (v == '')) {
@@ -112,9 +116,14 @@ Ext.grid.GroupSummary.Calculations['totalFlightTime'] = function(v, record, fiel
     if ((record.data.flightTime == null) || (record.data.flightTime == '')) {
         return '00:00';
     }
-
+    
     var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.flightTime.split(':');
+    var addTimeValue = "00:00".split(':');
+    
+    if (record.data.typeName === "Налет общий") {
+        addTimeValue = record.data.flightTime.split(':');
+    }
+    
     var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
     var minutes = 0;
     var hoursAddition = 0;

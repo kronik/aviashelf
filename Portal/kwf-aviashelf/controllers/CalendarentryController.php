@@ -38,7 +38,7 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m3 = Kwf_Model_Abstract::getInstance('Employees');
         
-        if ($row->employeeId != NULL) {
+        if ($row->employeeId != NULL && $row->employeeId != 0) {
             $s = $m3->select()->whereEquals('id', $row->employeeId);
             $prow = $m3->getRow($s);
         

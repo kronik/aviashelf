@@ -55,8 +55,14 @@ class Helper {
         
         $db->delete('planerStates', array('planId = ?' => $planId));
         
+        $planes = array();
+
         foreach ($planerstates as $planerstate) {
             
+            if (in_array($planerstate->planeId, $planes) == true) {
+                continue;
+            }
+
             $resultRow = $planerstatesModel->createRow();
             
             $resultRow->planId = $planId;
@@ -80,6 +86,8 @@ class Helper {
             $resultRow->statusId = $planerstate->statusId;
             $resultRow->statusName = $planerstate->statusName;
             
+            array_push($planes, $planerstate->planeId);
+
             $resultRow->save();
         }
     }
@@ -243,6 +251,49 @@ class Helper {
         }
         
         $flightRow->save();
+    }
+    
+    public function isHoliday($date) {
+        $holidays = array(
+                          '01-01',
+                          '01-02',
+                          '01-03',
+                          '01-04',
+                          '01-05',
+                          '01-07',
+                          '02-23',
+                          '03-08',
+                          '05-01',
+                          '05-09',
+                          '06-12',
+                          '11-04'
+                          );
+        # 1, 2, 3, 4 и 5 января - Новогодние каникулы;
+        # 7 января - Рождество Христово;
+        # 23 февраля - День защитника Отечества;
+        # 8 марта - Международный женский день;
+        # 1 мая - Праздник Весны и Труда;
+        # 9 мая - День Победы;
+        # 12 июня - День России;
+        # 4 ноября - День народного единств
+        
+        $localDate = clone $date;
+
+        return in_array($localDate->format('m-d'), $holidays);
+    }
+    
+    public function isWorkingDay ($date) {
+        $localDate = clone $date;
+        
+        return (($this->isHoliday($localDate) == false) && ($localDate->format('N') != 6) && ($localDate->format('N') != 7));
+    }
+    
+    public function isNextDayHoliday($date) {
+        $localDate = clone $date;
+
+        $localDate->add( new DateInterval('P1D') );
+
+        return $this->isHoliday($localDate);
     }
     
     protected function addFlightResult($flight, $groupRow, $positionRow)

@@ -35,6 +35,28 @@ class CalendarController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('statusName', trlKwf('Type'), 50));
     }
     
+    protected function _getWhere() {
+        $this->updateCalendar();
+        
+        $ret = parent::_getWhere();
+        return $ret;
+    }
+    
+    protected function updateCalendar() {
+        
+//        $today = new DateTime('NOW');
+//        
+//        $calendarModel = Kwf_Model_Abstract::getInstance('Calendar');
+//        $calendarSelect = $calendarModel->select()->whereEquals('month', $today->format('m'))->whereEquals('year', $today->format('m'));
+//        $calendar = $calendarModel->getRows($calendarSelect);
+//        
+//        if (count($calendar) > 0) {
+//            return;
+//        }
+        
+    }
+
+    
 //    protected function _getWhere()
 //    {
 //        $users = Kwf_Registry::get('userModel');
