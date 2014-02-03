@@ -1741,15 +1741,15 @@ class Reporter
 
         $today = new DateTime('NOW');
 
-        $firstSheet->setCellValue('AA13', (string)row->month);
+        $firstSheet->setCellValue('AA13', (string)$row->month);
         $firstSheet->setCellValue('AB13', $today->format('m/d/Y'));
-        $firstSheet->setCellValue('AC13', row->month . '/01/' . row->year);
+        $firstSheet->setCellValue('AC13', $row->month . '/01/' . $row->year);
         
-        $endOfMonthDate = DateTime::createFromFormat('m/d/Y', row->month . '/01/' . row->year);
+        $endOfMonthDate = DateTime::createFromFormat('m/d/Y', $row->month . '/01/' . $row->year);
         
         $endOfMonthDate->add( new DateInterval('P'. (string)$typeRow->months .'M') );
 
-        $firstSheet->setCellValue('AD13', row->month . '01' . row->year);
+        $firstSheet->setCellValue('AD13', $row->month . '01' . $row->year);
 
         foreach ($employees as $employee) {
             
