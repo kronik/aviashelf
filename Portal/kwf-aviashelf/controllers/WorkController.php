@@ -95,7 +95,6 @@ class WorkController extends Kwf_Controller_Action_Auto_Form_Ex
             default:
                 $row->monthName = '';
                 break;
-                
         }
     }
     
@@ -118,12 +117,20 @@ class WorkController extends Kwf_Controller_Action_Auto_Form_Ex
     protected function _fillTheXlsFile($xls, $firstSheet)
     {
         $row = $this->_form->getRow();
-                
+        
         $this->_progressBar = new Zend_ProgressBar(new Kwf_Util_ProgressBar_Adapter_Cache($this->_getParam('progressNum')),
                                                    0, 100);
         $reporter = new Reporter ();
-//        $reporter->exportFlightPlanToXls($xls, $firstSheet, $row, $this->_progressBar);
+        
+        $xls = PHPExcel_IOFactory::load("./templates/work_template.xls");
+        
+        $xls->setActiveSheetIndex(0);
+        $firstSheet = $xls->getActiveSheet();
+        
+        $reporter->exportWorkToXls($xls, $firstSheet, $row, $this->_progressBar);
         
         $this->_progressBar->finish();
+        
+        return $xls;
     }
 }

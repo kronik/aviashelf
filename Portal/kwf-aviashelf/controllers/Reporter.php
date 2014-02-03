@@ -1695,6 +1695,139 @@ class Reporter
         $progressBar->update(100);
     }
     
+    public function exportWorkToXls($xls, $firstSheet, $row, $progressBar) {
+        
+        $xls->getProperties()->setCreator(Kwf_Config::getValue('application.name'));
+        $xls->getProperties()->setLastModifiedBy(Kwf_Config::getValue('application.name'));
+        $xls->getProperties()->setTitle("Табель ЛС");
+        $xls->getProperties()->setSubject("Табель ЛС");
+        $xls->getProperties()->setDescription("Табель ЛС на сегодня");
+        $xls->getProperties()->setKeywords("");
+        $xls->getProperties()->setCategory("");
+        
+        $firstSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $firstSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $firstSheet->setTitle('Табель ЛС');
+        
+        $pageMargins = $firstSheet->getPageMargins();
+        
+        $margin = 0.4;
+        
+        $pageMargins->setTop($margin);
+        $pageMargins->setBottom($margin);
+        $pageMargins->setLeft($margin);
+        $pageMargins->setRight($margin);
+        
+        $styleThinBlackBorderOutline = array(
+                                             'borders' => array(
+                                                                'outline' => array(
+                                                                                   'style' => PHPExcel_Style_Border::BORDER_THIN,
+                                                                                   'color' => array('argb' => 'FF000000'),
+                                                                                   ),
+                                                                ),
+                                             );
+        
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeesSelect = $employeesModel->select()->whereEquals('visible', '1')->whereEquals('groupType', '1')->order('lastname');
+        $employees = $employeesModel->getRows($employeesSelect);
+
+        $employeeWorkModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
+
+        $rowNumber = 24;
+        $employeeCounter = 1;
+        
+        $linkModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $specModel = Kwf_Model_Abstract::getInstance('Linkdata');
+
+        $today = new DateTime('NOW');
+
+        $firstSheet->setCellValue('AA13', (string)row->month);
+        $firstSheet->setCellValue('AB13', $today->format('m/d/Y'));
+        $firstSheet->setCellValue('AC13', row->month . '/01/' . row->year);
+        
+        $endOfMonthDate = DateTime::createFromFormat('m/d/Y', row->month . '/01/' . row->year);
+        
+        $endOfMonthDate->add( new DateInterval('P'. (string)$typeRow->months .'M') );
+
+        $firstSheet->setCellValue('AD13', row->month . '01' . row->year);
+
+        foreach ($employees as $employee) {
+            
+            $employeeWorkSelect = $employeeWorkModel->select()->whereEquals('workId', $row->id)->whereEquals('employeeId', $employee->id)->order('workDate');
+            $employeeWorks = $employeeWorkModel->getRows($employeeWorkSelect);
+
+            if (($employeeWorks == NULL) || (count($employeeWorks) == 0)) {
+                continue;
+            }
+            
+            $subCompany = '';
+            
+            if ($employee->subCompanyId != NULL) {
+                $linkSelect = $linkModel->select()->whereEquals('id', $employee->subCompanyId);
+                $selectedRow = $linkModel->getRow($linkSelect);
+                
+                $subCompany = $selectedRow->value;
+            }
+            
+            $speciality = '';
+            
+            if ($employee->positionId != NULL) {
+                $specSelect = $specModel->select()->whereEquals('id', $employee->positionId);
+                $selectedRow = $specModel->getRow($specSelect);
+                
+                $speciality = $selectedRow->value;
+            }
+            
+            $firstSheet->setCellValue('A' . $rowNumber, $subCompany);
+            $firstSheet->setCellValue('A' . ($rowNumber + 1), $subCompany);
+            $firstSheet->setCellValue('A' . ($rowNumber + 2), $subCompany);
+            $firstSheet->setCellValue('A' . ($rowNumber + 3), $subCompany);
+            $firstSheet->setCellValue('B' . $rowNumber, $employeeCounter);
+            $firstSheet->setCellValue('C' . $rowNumber, (string)$employee);
+            $firstSheet->setCellValue('C' . ($rowNumber + 2), $speciality);
+            
+            for ($i=0; $i<15; $i++) {
+                $employeeWork = $employeeWorks[$i];
+                
+                $workTimeStr = $employeeWork->workTime1;
+                $workTime = new DateTime ($workTimeStr);
+                $workTimeStr = $workTime->format('H:i');
+                
+                $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i) . $rowNumber, $employeeWork->typeName);
+                
+                if ($workTimeStr != '00:00') {
+                    $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i) . ($rowNumber + 1), $workTimeStr);
+                } else {
+                    $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i) . ($rowNumber + 1), '');
+                }
+            }
+            
+            for ($i=15; $i<count($employeeWorks); $i++) {
+                $employeeWork = $employeeWorks[$i];
+                $workTimeStr = $employeeWork->workTime1;
+                $workTime = new DateTime ($workTimeStr);
+                $workTimeStr = $workTime->format('H:i');
+
+                $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i - 15) . ($rowNumber + 2), $employeeWork->typeName);
+                
+                if ($workTimeStr != '00:00') {
+                    $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i - 15) . ($rowNumber + 3), $workTimeStr);
+                } else {
+                    $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i - 15) . ($rowNumber + 3), '');
+                }
+            }
+            
+            $progressBar->update($employeeCounter * 100 / count($employees));
+            
+            $rowNumber += 4;
+            $employeeCounter += 1;
+        }
+        
+        $firstSheet->removeRow($rowNumber, (100 - ($employeeCounter - 1)) * 4);
+        
+        $progressBar->update(100);
+    }
+    
     public function exportLastFlightPlanToXls()
     {
         ini_set('memory_limit', "768M");

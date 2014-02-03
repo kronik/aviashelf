@@ -19,7 +19,7 @@ class Helper {
         
         $planDate = new DateTime($flightPlan->planDate);
         
-        if ($flightPlan == NULL || $planDate <= $yesterday || $planDate > $tomorrow) {
+        if ($flightPlan == NULL || $planDate > $tomorrow) {
             return;
         }
         
@@ -31,23 +31,15 @@ class Helper {
             return;
         }
         
-        $flightPlanSelect = $flightPlanModel->select()->where('id < ?', $planId);
+        $flightPlanSelect = $flightPlanModel->select()->where('planDate < ?', $flightPlan->planDate)->order('planDate', 'DESC');
         
-        $flightPlans = $flightPlanModel->getRows($flightPlanSelect);
+        $lastFlightPlan = $flightPlanModel->getRow($flightPlanSelect);
         
-        $maxPlanId = 0;
-        
-        foreach ($flightPlans as $oldFlightPlan) {
-            if ($oldFlightPlan->id > $maxPlanId) {
-                $maxPlanId = $oldFlightPlan->id;
-            }
-        }
-        
-        if ($maxPlanId == 0) {
+        if ($lastFlightPlan == NULL) {
             return;
         }
         
-        $planerstatesSelect = $planerstatesModel->select()->whereEquals('planId', $maxPlanId);
+        $planerstatesSelect = $planerstatesModel->select()->whereEquals('planId', $lastFlightPlan->id);
         
         $planerstates = $planerstatesModel->getRows($planerstatesSelect);
         
