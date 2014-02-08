@@ -45,5 +45,11 @@ class WorksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('monthName', 'Месяц', 100));
         $this->_columns->add(new Kwf_Grid_Column('year', 'Год', 100));
         $this->_columns->add(new Kwf_Grid_Column('comment', 'Комментарий', 200));
-    }    
+    }
+    
+    protected function _beforeDelete(Kwf_Model_Row_Interface $row) {
+        $db = Zend_Registry::get('db');
+        
+        $db->delete('employeeWorks', array('workId = ?' => $row->id));
+    }
 }

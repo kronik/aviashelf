@@ -116,6 +116,18 @@ Ext.util.Format.dateShrink = function(val)
     }
 };
 
+Ext.util.Format.typeHighlight = function(val)
+{
+    if (val != null && val != '' && val == 'В')
+    {
+        return '<span style="color:red;">' + val + '</span>';
+    }
+    else
+    {
+        return '<span style="color:black;">' + val + '</span>';
+    }
+};
+
 Ext.util.Format.dateClearEmpty = function(val)
 {
     if (val == null || val == '00:00' || val == '00:00:00') {

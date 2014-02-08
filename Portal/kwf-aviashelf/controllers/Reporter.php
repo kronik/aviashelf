@@ -1738,28 +1738,75 @@ class Reporter
         
         $linkModel = Kwf_Model_Abstract::getInstance('Linkdata');
         $specModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $worksModel = Kwf_Model_Abstract::getInstance('Works');
 
         $today = new DateTime('NOW');
+        
+        $docNumber = (string)$row->month;
+        
+        if ($row->month < 10) {
+            $docNumber = '0' . $docNumber;
+        }
 
-        $firstSheet->setCellValue('AA13', (string)$row->month);
-        $firstSheet->setCellValue('AB13', $today->format('m/d/Y'));
-        $firstSheet->setCellValue('AC13', $row->month . '/01/' . $row->year);
+        $firstSheet->setCellValue('AA14', $docNumber);
+        $firstSheet->setCellValue('AB14', $today->format('m/d/Y'));
+        $firstSheet->setCellValue('AC14', $row->month . '/01/' . $row->year);
         
         $endOfMonthDate = DateTime::createFromFormat('m/d/Y', $row->month . '/01/' . $row->year);
         
-        $endOfMonthDate->add( new DateInterval('P'. (string)$typeRow->months .'M') );
+        $endOfMonthDate->add( new DateInterval('P1M') )->sub( new DateInterval('P1D') );
 
-        $firstSheet->setCellValue('AD13', $row->month . '01' . $row->year);
+        $firstSheet->setCellValue('AD14', $endOfMonthDate->format('m/d/Y'));
+        
+        $holidayTypes = array('ОТ', 'К', 'ОД');
+        
+        for ($i=1; $i<16; $i++) {
+            $workTime = DateTime::createFromFormat('m/d/Y', $row->month . '/' . $i . '/' . $row->year);
+
+            if (($workTime->format('N') == 6) || ($workTime->format('N') == 7)) {
+                
+                $firstSheet->getStyle($this->_getColumnLetterByIndex(2 + $i) . '18')->getFill()
+                ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                       'startcolor' => array('rgb' => 'EC5241')));
+            }
+        }
+        
+        $dayEndOfMonth = (int)$endOfMonthDate->format('d');
+
+        for ($i=16; $i<=$dayEndOfMonth; $i++) {
+            $workTime = DateTime::createFromFormat('m/d/Y', $row->month . '/' . $i . '/' . $row->year);
+            
+            if (($workTime->format('N') == 6) || ($workTime->format('N') == 7)) {
+                
+                $firstSheet->getStyle($this->_getColumnLetterByIndex(2 + $i - 15) . '21')->getFill()
+                ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                       'startcolor' => array('rgb' => 'EC5241')));
+            }
+        }
+        
+        $overtimes = array();
+        $workIds = array();
+
+        if (($row->month % 3) == 0) {
+            $worksSelect = $worksModel->select()->where(new Kwf_Model_Select_Expr_Sql('(`month` = ' . $row->month - 1 . ' OR `month` = ' . $row->month - 2 . ') AND year = ' . $row->year));
+            $works = $worksModel->getRows($worksSelect);
+
+            foreach ($works as $work) {
+                array_push($workIds, $work->id);
+            }
+        }
 
         foreach ($employees as $employee) {
-            
+
+            $overtimes [(string)$employee] = 0;
+
             $employeeWorkSelect = $employeeWorkModel->select()->whereEquals('workId', $row->id)->whereEquals('employeeId', $employee->id)->order('workDate');
             $employeeWorks = $employeeWorkModel->getRows($employeeWorkSelect);
 
             if (($employeeWorks == NULL) || (count($employeeWorks) == 0)) {
                 continue;
             }
-            
+
             $subCompany = '';
             
             if ($employee->subCompanyId != NULL) {
@@ -1786,6 +1833,19 @@ class Reporter
             $firstSheet->setCellValue('C' . $rowNumber, (string)$employee);
             $firstSheet->setCellValue('C' . ($rowNumber + 2), $speciality);
             
+            $firstHalfWorkMinutes = 0;
+            $secondHalfWorkMinutes = 0;
+            $normalWorkMinutes = 0;
+            $nightWorkMinutes = 0;
+
+            $firstHalfWorkDays = 0;
+            $secondHalfWorkDays = 0;
+            $normalWorkDays = 0;
+            $nightWorkDays = 0;
+            
+            $firstHalfHolidays = array('ОТ' => 0, 'К' => 0, 'ОД' => 0);
+            $secondHalfHolidays = array('ОТ' => 0, 'К' => 0, 'ОД' => 0);
+
             for ($i=0; $i<15; $i++) {
                 $employeeWork = $employeeWorks[$i];
                 
@@ -1793,12 +1853,26 @@ class Reporter
                 $workTime = new DateTime ($workTimeStr);
                 $workTimeStr = $workTime->format('H:i');
                 
+                $normalTimeStr = $employeeWork->timePerDay;
+                
                 $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i) . $rowNumber, $employeeWork->typeName);
                 
                 if ($workTimeStr != '00:00') {
                     $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i) . ($rowNumber + 1), $workTimeStr);
+                    $firstHalfWorkDays += 1;
                 } else {
                     $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i) . ($rowNumber + 1), '');
+                }
+                
+                $firstHalfWorkMinutes += $this->minutesFromDateTime($workTime);
+                
+                if ($normalTimeStr != '00:00' && $normalTimeStr != '00:00:00') {
+                    $normalWorkMinutes += $this->minutesFromDateTime(new DateTime ($normalTimeStr));
+                    $normalWorkDays += 1;
+                }
+                
+                if (in_array($employeeWork->typeName, $holidayTypes)) {
+                    $firstHalfHolidays [$employeeWork->typeName] += 1;
                 }
             }
             
@@ -1808,24 +1882,292 @@ class Reporter
                 $workTime = new DateTime ($workTimeStr);
                 $workTimeStr = $workTime->format('H:i');
 
+                $normalTimeStr = $employeeWork->timePerDay;
+
                 $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i - 15) . ($rowNumber + 2), $employeeWork->typeName);
                 
                 if ($workTimeStr != '00:00') {
                     $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i - 15) . ($rowNumber + 3), $workTimeStr);
+                    $secondHalfWorkDays += 1;
                 } else {
                     $firstSheet->setCellValue($this->_getColumnLetterByIndex(3 + $i - 15) . ($rowNumber + 3), '');
                 }
+                
+                $secondHalfWorkMinutes += $this->minutesFromDateTime($workTime);
+
+                if ($normalTimeStr != '00:00' && $normalTimeStr != '00:00:00') {
+                    $normalWorkMinutes += $this->minutesFromDateTime(new DateTime ($normalTimeStr));
+                    $normalWorkDays += 1;
+                }
+                
+                if (in_array($employeeWork->typeName, $holidayTypes)) {
+                    $secondHalfHolidays [$employeeWork->typeName] += 1;
+                }
             }
             
-            $progressBar->update($employeeCounter * 100 / count($employees));
+            for ($i=0; $i<count($employeeWorks); $i++) {
+                $employeeWork = $employeeWorks[$i];
+                
+                $workTimeStr = $employeeWork->workTime3;
+                $workTime = new DateTime ($workTimeStr);
+                $workTimeStr = $workTime->format('H:i');
+                
+                if ($workTimeStr != '00:00') {
+                    $nightWorkDays += 1;
+                    $nightWorkMinutes += $this->minutesFromDateTime($workTime);
+                } else {
+                    $workTimeStr = $employeeWork->workTime4;
+                    $workTime = new DateTime ($workTimeStr);
+                    $workTimeStr = $workTime->format('H:i');
+                    
+                    if ($workTimeStr != '00:00') {
+                        $nightWorkDays += 1;
+                        $nightWorkMinutes += $this->minutesFromDateTime($workTime);
+                    }
+                }
+            }
+            
+            $totalMinutes = $firstHalfWorkMinutes + $secondHalfWorkMinutes;
+            $overtimeMinutes = $totalMinutes - $normalWorkMinutes;
+            
+            $firstSheet->setCellValue('T' . ($rowNumber + 0), $firstHalfWorkDays);
+            $firstSheet->setCellValue('T' . ($rowNumber + 1), $this->timeFromMinutes($firstHalfWorkMinutes));
+
+            $firstSheet->setCellValue('T' . ($rowNumber + 2), $secondHalfWorkDays);
+            $firstSheet->setCellValue('T' . ($rowNumber + 3), $this->timeFromMinutes($secondHalfWorkMinutes));
+
+            $firstSheet->setCellValue('U' . ($rowNumber + 0), ($firstHalfWorkDays + $secondHalfWorkDays));
+            $firstSheet->setCellValue('U' . ($rowNumber + 2), $this->timeFromMinutes($totalMinutes));
+
+            if (($firstHalfWorkDays + $secondHalfWorkDays) <= $normalWorkDays) {
+                $firstSheet->setCellValue('V' . ($rowNumber + 0), ($firstHalfWorkDays + $secondHalfWorkDays));
+            } else {
+                $firstSheet->setCellValue('V' . ($rowNumber + 0), $normalWorkDays);
+                $firstSheet->setCellValue('X' . ($rowNumber + 0), ($firstHalfWorkDays + $secondHalfWorkDays) - $normalWorkDays);
+                
+                $overtimes [(string)$employee] = ($firstHalfWorkDays + $secondHalfWorkDays) - $normalWorkDays;
+            }
+            
+            if ($totalMinutes <= $normalWorkMinutes) {
+                $firstSheet->setCellValue('V' . ($rowNumber + 2), $this->timeFromMinutes($totalMinutes));
+            } else {
+                $firstSheet->setCellValue('V' . ($rowNumber + 2), $this->timeFromMinutes($normalWorkMinutes));
+                $firstSheet->setCellValue('X' . ($rowNumber + 2), $this->timeFromMinutes($overtimeMinutes));
+            }
+
+            $firstSheet->setCellValue('W' . ($rowNumber + 0), $nightWorkDays);
+            $firstSheet->setCellValue('W' . ($rowNumber + 2), $this->timeFromMinutes($nightWorkMinutes));
+
+            $holidaysCount = 0;
+            
+            for ($i=0; $i<count($holidayTypes); $i++) {
+                if ($holidaysCount >= 2) {
+                    break;
+                }
+                
+                if ($firstHalfHolidays [$holidayTypes[$i]] > 0) {
+                    
+                    if ($holidaysCount == 0) {
+                        $firstSheet->setCellValue('AA' . ($rowNumber + 0), $holidayTypes[$i]);
+                        $firstSheet->setCellValue('AB' . ($rowNumber + 0), $firstHalfHolidays [$holidayTypes[$i]]);
+                    } else {
+                        $firstSheet->setCellValue('AC' . ($rowNumber + 0), $holidayTypes[$i]);
+                        $firstSheet->setCellValue('AD' . ($rowNumber + 0), $firstHalfHolidays [$holidayTypes[$i]]);
+                    }
+                    
+                    $holidaysCount += 1;
+                }
+            }
+
+            $holidaysCount = 0;
+            
+            for ($i=0; $i<count($holidayTypes); $i++) {
+                if ($holidaysCount >= 2) {
+                    break;
+                }
+                
+                if ($secondHalfHolidays [$holidayTypes[$i]] > 0) {
+                    
+                    if ($holidaysCount == 0) {
+                        $firstSheet->setCellValue('AA' . ($rowNumber + 2), $holidayTypes[$i]);
+                        $firstSheet->setCellValue('AB' . ($rowNumber + 2), $secondHalfHolidays [$holidayTypes[$i]]);
+                    } else {
+                        $firstSheet->setCellValue('AC' . ($rowNumber + 2), $holidayTypes[$i]);
+                        $firstSheet->setCellValue('AD' . ($rowNumber + 2), $secondHalfHolidays [$holidayTypes[$i]]);
+                    }
+                    
+                    $holidaysCount += 1;
+                }
+            }
+
+            // Count overtime days for quater
+            
+            $workDays = 0;
+            $normalWorkDays = 0;
+            
+            if (count($workIds) > 0) {
+                $employeeWorkSelect = $employeeWorkModel->select()
+                ->where('workId IN (?)', $workIds)
+                ->whereEquals('employeeId', $employee->id);
+                
+                $employeeWorks = $employeeWorkModel->getRows($employeeWorkSelect);
+                
+                for ($i=0; $i<count($employeeWorks); $i++) {
+                    $employeeWork = $employeeWorks[$i];
+                    $workTimeStr = $employeeWork->workTime1;
+                    $normalTimeStr = $employeeWork->timePerDay;
+                    
+                    if ($workTimeStr != '00:00' && $workTimeStr != '00:00:00') {
+                        $workDays += 1;
+                    }
+                    
+                    if ($normalTimeStr != '00:00' && $normalTimeStr != '00:00:00') {
+                        $normalWorkDays += 1;
+                    }
+
+                    if ($workDays > $normalWorkDays) {
+                        $overtimes [(string)$employee] += ($workDays - $normalWorkDays);
+                    }
+                }
+            }
+            
+            if (count($workIds) > 0) {
+                $progressBar->update($employeeCounter * 90 / count($employees));
+            } else {
+                $progressBar->update($employeeCounter * 100 / count($employees));
+            }
             
             $rowNumber += 4;
             $employeeCounter += 1;
         }
+
+        for ($i = 0; $i<=(101 - ($employeeCounter - 1)) * 4; $i++) {
+//            $firstSheet->getRowDimension($rowNumber + $i)->setRowHeight(0.01);
+            
+            $firstSheet->getRowDimension($rowNumber + $i)->setOutlineLevel(0);
+            $firstSheet->getRowDimension($rowNumber + $i)->setVisible(false);
+            $firstSheet->getRowDimension($rowNumber + $i)->setCollapsed(true);
+            
+//            $firstSheet->removeRow($rowNumber + $i, 1);
+
+        }
         
-        $firstSheet->removeRow($rowNumber, (100 - ($employeeCounter - 1)) * 4);
+        
+        /* TEST DATA: */
+//        $employeeCounter = 0;
+//        
+//        foreach ($employees as $employee) {
+//            $overtimes[(string)$employee] = $employeeCounter + 10;
+//            
+//            $employeeCounter += 1;
+//            
+//            if ($employeeCounter > 30) {
+//                break;
+//            }
+//        }
+        
+        /* END OF TEST DATA */
+        
+        if (count($workIds) > 0) {
+            $progressBar->update(93);
+
+            // Need to fill quater report page
+            
+            $xls->setActiveSheetIndex(1);
+            $secondSheet = $xls->getActiveSheet();
+
+            $secondSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+            $secondSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+            $secondSheet->setTitle('Компенсация');
+            
+            $pageMargins = $secondSheet->getPageMargins();
+            
+            $margin = 0.4;
+            
+            $pageMargins->setTop($margin);
+            $pageMargins->setBottom($margin);
+            $pageMargins->setLeft($margin);
+            $pageMargins->setRight($margin);
+
+            $secondSheet->setCellValue('F7', $this->russianDate($today->format('d-m-Y')) .' г.');
+            $secondSheet->setCellValue('B39', $today->format('d/m/Y') .' г.');
+            $secondSheet->setCellValue('A8', 'Ведомость на компенсацию выходных дней в ' . (int)($endOfMonthDate->format('m') / 3) . ' квартале ' . $endOfMonthDate->format('Y') . ' года');
+
+            $rowNumber = 13;
+            $nameColumn = 'B';
+            $daysColumn = 'C';
+            $employeeCounter = 0;
+            
+            foreach ($employees as $employee) {
+                
+                if ($overtimes[(string)$employee] > 0) {
+                    
+                    $secondSheet->setCellValue($nameColumn . $rowNumber, (string)$employee);
+                    $secondSheet->setCellValue($daysColumn . $rowNumber, $overtimes[(string)$employee]);
+                    
+                    $employeeCounter += 1;
+                    $rowNumber += 1;
+                }
+                
+                if ($employeeCounter == 22) {
+                    $rowNumber = 13;
+                    $employeeCounter = 0;
+                    $nameColumn = 'F';
+                    $daysColumn = 'G';
+                }
+            }
+        }
+
+//        $firstSheet->removeRow($rowNumber, (101 - ($employeeCounter - 1)) * 4);
+//
+//        $rowNumber += 9;
+//        
+//        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+//
+//        $firstSheet->setCellValue('B' . $rowNumber, 'Ответственное лицо за ведение табеля');
+//        $firstSheet->mergeCells('U' . $rowNumber . ':W' . $rowNumber);
+//        
+//        $rowNumber += 2;
+//
+//        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+//        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setWrapText(true);
+//
+//        //$firstSheet->setCellValue('B' . $rowNumber, 'Ответственное лицо за контроль ведения табеля');
+//        $firstSheet->mergeCells('U' . $rowNumber . ':W' . $rowNumber);
+//
+//        $rowNumber += 3;
+//        
+//        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//        $firstSheet->getStyle('B' . $rowNumber)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+//
+//        $firstSheet->setCellValue('B' . $rowNumber, 'Работник административно-правовой службы');
+//        $firstSheet->mergeCells('U' . $rowNumber . ':W' . $rowNumber);
         
         $progressBar->update(100);
+    }
+    
+    public function timeFromMinutes($minutes) {
+        $hoursPart = (int)($minutes / 60);
+        $minutesPart = (int)($minutes % 60);
+        
+        $hoursStr = $hoursPart;
+        $minutesStr = $minutesPart;
+
+        if ($hoursPart < 10) {
+            $hoursStr = '0' . $hoursStr;
+        }
+        
+        if ($minutesPart < 10) {
+            $minutesStr = '0' . $minutesStr;
+        }
+        
+        return $hoursStr . ':' . $minutesStr;
+    }
+    
+    public function minutesFromDateTime($date) {
+        return $date->format('H') * 60 + $date->format('i');
     }
     
     public function exportLastFlightPlanToXls()

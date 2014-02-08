@@ -41,7 +41,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee'), 170))->setProperty('summaryType', 'totalTimeDescription');
         $this->_columns->add(new Kwf_Grid_Column('workDate', 'День', 50))->setRenderer('dateShrink');
-        $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type'), 50));
+        $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type'), 50))->setRenderer('typeHighlight');
         $this->_columns->add(new Kwf_Grid_Column('workTime1', 'Фактическая наработка', 130))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime1');
         $this->_columns->add(new Kwf_Grid_Column('workTime2', 'Фактический налет', 120))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime2');
         $this->_columns->add(new Kwf_Grid_Column('workTime3', 'Налет ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime3');
