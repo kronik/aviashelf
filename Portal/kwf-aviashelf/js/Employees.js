@@ -99,14 +99,10 @@ function toDate(dStr,format)
 
 // define a custom summary function
 Ext.grid.GroupSummary.Calculations['totalCommonFlightTime'] = function(v, record, field)
-{    
+{
     if (v == 0)
     {
-        if (record.data.typeName === "Налет общий") {
-            return record.data.flightTime;
-        } else {
-            return '00:00';
-        }
+        return record.data.flightTime;
     }
     
     if ((v == null) || (v == '')) {
@@ -118,12 +114,7 @@ Ext.grid.GroupSummary.Calculations['totalCommonFlightTime'] = function(v, record
     }
     
     var totalTimeValue = v.split(':');
-    var addTimeValue = "00:00".split(':');
-    
-    if (record.data.typeName === "Налет общий") {
-        addTimeValue = record.data.flightTime.split(':');
-    }
-    
+    var addTimeValue = record.data.flightTime.split(':');
     var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
     var minutes = 0;
     var hoursAddition = 0;
@@ -143,8 +134,54 @@ Ext.grid.GroupSummary.Calculations['totalCommonFlightTime'] = function(v, record
     }
     
     hours = hours + hoursAddition;
-
+    
     return hours + ':' + minutes + ':00';
+
+//    if (v == 0)
+//    {
+//        if (record.data.typeName === "Налет общий") {
+//            return record.data.flightTime;
+//        } else {
+//            return '00:00';
+//        }
+//    }
+//    
+//    if ((v == null) || (v == '')) {
+//        return '00:00';
+//    }
+//    
+//    if ((record.data.flightTime == null) || (record.data.flightTime == '')) {
+//        return '00:00';
+//    }
+//    
+//    var totalTimeValue = v.split(':');
+//    var addTimeValue = "00:00".split(':');
+//    
+//    if (record.data.typeName === "Налет общий") {
+//        addTimeValue = record.data.flightTime.split(':');
+//    }
+//    
+//    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
+//    var minutes = 0;
+//    var hoursAddition = 0;
+//    
+//    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
+//    {
+//        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
+//        hoursAddition = 1;
+//    }
+//    else
+//    {
+//        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
+//    }
+//    
+//    if (minutes < 10) {
+//        minutes = '0' + minutes;
+//    }
+//    
+//    hours = hours + hoursAddition;
+//
+//    return hours + ':' + minutes + ':00';
 }
 
 Ext.util.Format.docCheckDate = function(val)

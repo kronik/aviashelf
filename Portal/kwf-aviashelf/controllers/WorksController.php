@@ -4,8 +4,9 @@
 class WorksController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'Works';
-    protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
+    protected $_defaultOrder = array('field' => 'month', 'direction' => 'DESC');
     protected $_paging = 400;
+    protected $_grouping = array('groupField' => 'year');
     protected $_buttons = array('add', 'delete');
     protected $_editDialog = array(
                                      'controllerUrl' => '/work',
@@ -49,7 +50,7 @@ class WorksController extends Kwf_Controller_Action_Auto_Grid_Ex
     
     protected function _beforeDelete(Kwf_Model_Row_Interface $row) {
         $db = Zend_Registry::get('db');
-        
+                
         $db->delete('employeeWorks', array('workId = ?' => $row->id));
     }
 }

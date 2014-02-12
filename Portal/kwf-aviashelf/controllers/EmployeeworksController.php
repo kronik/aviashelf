@@ -5,11 +5,11 @@ require_once 'GridEx.php';
 class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'EmployeeWorks';
-    protected $_defaultOrder = array('field' => 'workDate', 'direction' => 'ASC');
+    protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
     protected $_grouping = array('groupField' => 'employeeName');
     protected $_buttons = array('add', 'delete', 'xls');
     protected $_editDialog = NULL;
-    protected $_paging = 5000;
+    protected $_paging = 3000;
     
     protected function _initColumns()
     {
@@ -50,7 +50,22 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 100));//->setRenderer('daysForTime')->setProperty('summaryType', 'totalDays');
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);
     }
-        
+    
+//    public function jsonDataAction()
+//    {
+//        $worksModel = Kwf_Model_Abstract::getInstance('Works');
+//        $worksSelect = $worksModel->select()->whereEquals('id', $this->_getParam('workId'));
+//        $work = $worksModel->getRow($worksSelect);
+//        
+//        $endDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
+//        $endDate->add( new DateInterval('P1M') );
+//        $endDate->sub( new DateInterval('P1D') );
+//        
+//        $this->_paging = $endDate->format('d') * 10;
+//        
+//        parent::jsonDataAction();
+//    }
+    
     protected function _getWhere()
     {
         $this->updateWorkEntries($this->_getParam('workId'));
@@ -61,18 +76,17 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
     }
     
     protected function updateWorkEntries($workId) {
+
+        ini_set('memory_limit', "768M");
+
         $employeeworksModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
         $employeeworksSelect = $employeeworksModel->select()->whereEquals('workId', $workId);
-        $employeework = $employeeworksModel->getRows($employeeworksSelect);
+        $employeework = $employeeworksModel->getRow($employeeworksSelect);
 
-        if (count($employeework) > 0) {
+        if ($employeework != NULL) {
             return;
         }
-
-        $worksModel = Kwf_Model_Abstract::getInstance('Works');
-        $worksSelect = $worksModel->select()->whereEquals('id', $workId);
-        $work = $worksModel->getRow($worksSelect);
-
+        
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
         $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 1'))->order('lastname');
         $employees = $employeesModel->getRows($employeesSelect);
@@ -91,11 +105,15 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         if ($holidayStatus == NULL) {
             throw new Kwf_Exception_Client('Нет состояния сотрудника <Выходной>.');
         }
+        
+        $worksModel = Kwf_Model_Abstract::getInstance('Works');
+        $worksSelect = $worksModel->select()->whereEquals('id', $workId);
+        $work = $worksModel->getRow($worksSelect);
 
         $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
         $endDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
         $endDate->add( new DateInterval('P1M') );
-        
+
         $calendarModel = Kwf_Model_Abstract::getInstance('Calendar');
         $calendarSelect = $calendarModel->select()->where(new Kwf_Model_Select_Expr_Sql('startDate <= ' . $endDate->format('Y-m-d') . ' OR endDate >= ' . $startDate->format('Y-m-d')));
         $calendar = $calendarModel->getRows($calendarSelect);
@@ -108,7 +126,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
 
             while ($startDate < $endDate) {
                 
-                $calendarRecord = $this->findCalendarRecordByEmployeeId($employee->id, $calendar, $startDate);
+                $calendarRecords = $this->findCalendarRecordByEmployeeId($employee->id, $calendar, $startDate);
                 
                 $newRow = $employeeworksModel->createRow();
                 
@@ -124,11 +142,11 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
                 $newRow->workTime3 = '00:00';
                 $newRow->workTime4 = '00:00';
                 $newRow->workTime5 = '00:00';
-                
+                                
                 $isWorkingDay = $helper->isWorkingDay($startDate);
                 $isNextDayHoliday = $helper->isNextDayHoliday($startDate);
                 
-                if ($calendarRecord == NULL) {
+                if (count($calendarRecords) == 0) {
                     if ($isWorkingDay) {
                         $newRow->typeId = $workStatus->id;
                         $newRow->typeName = $workStatus->value;
@@ -137,14 +155,32 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
                         $newRow->typeName = $holidayStatus->value;
                     }
                 } else {
-                    $newRow->typeId = $calendarRecord->statusId;
-                    $newRow->typeName = $calendarRecord->statusName;
+                    
+                    foreach ($calendarRecords as $calendarRecord) {
+                        if ($calendarRecord->employeeId == 0) {
+                            $newRow->typeId = $calendarRecord->statusId;
+                            $newRow->typeName = $calendarRecord->statusName;
+                            
+                            $isWorkingDay = ($calendarRecord->statusId == $workStatus->id);
+                        }
+                    }
+
+                    foreach ($calendarRecords as $calendarRecord) {
+                        if ($calendarRecord->employeeId == $employee->id) {
+                            $newRow->typeId = $calendarRecord->statusId;
+                            $newRow->typeName = $calendarRecord->statusName;
+                            
+                            $isWorkingDay = ($calendarRecord->statusId == $workStatus->id);
+                        }
+                    }
                 }
                 
-                if ($isWorkingDay && $isNextDayHoliday) {
+                $timeStr = $helper->timeForStatus($newRow->typeName);
+                
+                if ($isWorkingDay && $isNextDayHoliday && ($timeStr != '00:00')) {
                     $newRow->timePerDay = '06:12';
                 } else if ($isWorkingDay) {
-                    $newRow->timePerDay = '07:12';
+                    $newRow->timePerDay = $timeStr;
                 } else {
                     $newRow->timePerDay = '00:00';
                 }
@@ -157,6 +193,8 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
     }
     
     protected function findCalendarRecordByEmployeeId ($employeeId, $calendarRecords, $workDate) {
+        $records = array();
+
         foreach ($calendarRecords as $calendarRecord) {
             if (($calendarRecord->employeeId == $employeeId) || ($calendarRecord->employeeId == 0)) {
                 
@@ -165,11 +203,11 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
                 $endDate->add( new DateInterval('P1D') );
         
                 if (($startDate <= $workDate) && ($workDate <= $endDate)) {
-                    return $calendarRecord;
+                    array_push($records, $calendarRecord);
                 }
             }
         }
         
-        return NULL;
+        return $records;
     }
 }

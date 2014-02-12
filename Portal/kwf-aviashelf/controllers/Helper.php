@@ -245,6 +245,30 @@ class Helper {
         $flightRow->save();
     }
     
+    public function timeForStatus ($statusName) {
+        switch (strtoupper($statusName)) {
+            case 'Я':
+            case 'Н':
+            case 'РВ':
+            case 'С':
+            case 'ВМ':
+            case 'К':
+            case 'ПК':
+            case 'ПМ':
+            case 'КСЭ':
+            case 'У':
+            case 'УВ':
+            case 'ЛЧ':
+            case 'НС':
+            case 'НЗ':
+                return '07:12';
+                break;
+                
+            default:
+                return '00:00';
+        }
+    }
+    
     public function isHoliday($date) {
         $holidays = array(
                           '01-01',
@@ -267,7 +291,7 @@ class Helper {
         # 1 мая - Праздник Весны и Труда;
         # 9 мая - День Победы;
         # 12 июня - День России;
-        # 4 ноября - День народного единств
+        # 4 ноября - День народного единства
         
         $localDate = clone $date;
 

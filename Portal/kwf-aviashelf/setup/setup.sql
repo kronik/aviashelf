@@ -833,6 +833,7 @@ CREATE TABLE IF NOT EXISTS `flightAccesses` (
     `accessTypeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `accessDate` date,
     `accessEndDate` date,
+    `finished` tinyint(3) unsigned DEFAULT '0',
     `docNumber` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),

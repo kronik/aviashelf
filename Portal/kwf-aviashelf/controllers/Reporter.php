@@ -1203,7 +1203,7 @@ class Reporter
         $progressBar->update(90);
         
         $accessesModel = Kwf_Model_Abstract::getInstance('Flightaccesses');
-        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0 AND ((`docNumber` IS NULL) OR (`docNumber` = '')) AND `accessId` <> 0"));
+        $accessesSelect = $accessesModel->select()->where(new Kwf_Model_Select_Expr_Sql("`employeeId` = " . $kwsId . " AND `wsTypeId` = " . $planeType->id . "  AND `finished` = 0 AND ((`docNumber` IS NOT NULL) AND (LENGTH(`docNumber`) > 0)) AND `accessId` <> 0"));
         $accesses = $accessesModel->getRows($accessesSelect);
         
         $accessStr = "";
@@ -2000,7 +2000,7 @@ class Reporter
                 }
             }
 
-            // Count overtime days for quater
+            // Count overtime days for quarter
             
             $workDays = 0;
             $normalWorkDays = 0;
