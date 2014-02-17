@@ -63,8 +63,45 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
         $this->updateReferences($row);
     }
     
+    protected function updateWorkForMonth ($row, $startDate, $helper) {
+        
+        $worksModel = Kwf_Model_Abstract::getInstance('Works');
+        $worksSelect = $worksModel->select()->whereEquals('month', $startDate->format('m'))->whereEquals('year', $startDate->format('Y'));
+        $work = $worksModel->getRow($worksSelect);
+        
+        if ($work != NULL) {
+            if ($row->employeeId == 0) {
+                $helper->updateWorkEntries($work->id, NULL, true);
+            } else {
+                $helper->updateWorkEntries($work->id, $row->employeeId, true);
+            }
+        }
+    }
+    
+    protected function updateWork ($row) {
+        $helper = new Helper ();
+        
+        $startDate = new DateTime ($row->startDate);
+        $endDate = new DateTime ($row->endDate);
+        
+        if (($startDate->format('m') == $endDate->format('m')) &&
+            ($startDate->format('Y') == $endDate->format('Y'))) {
+            
+            $this->updateWorkForMonth ($row, $startDate, $helper);
+        } else {
+            
+            
+            while ($startDate->format('m-Y') <= $endDate->format('m-Y')) {
+                
+                $this->updateWorkForMonth ($row, $startDate, $helper);
+                
+                $startDate->add( new DateInterval('P1M') );
+            }
+        }
+    }
+    
     protected function _afterInsert(Kwf_Model_Row_Interface $row) {
-//        $this->updateWorkEntries($row);
+        $this->updateWork($row);
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
@@ -73,73 +110,6 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
     }
     
     protected function _afterSave(Kwf_Model_Row_Interface $row) {
-//        $this->updateWorkEntries($row);
-    }
-    
-    protected function updateWorkEntries($calendarRecord) {
-        
-        ini_set('memory_limit', "768M");
-        
-        $whereStmt = '(workDate >= \'' . $calendarRecord->startDate . '\' AND workDate <= \'' . $calendarRecord->endDate .'\')';
-        
-        if ($calendarRecord->employeeId != NULL) {
-            $whereStmt = $whereStmt . ' AND employeeId = ' . $calendarRecord->employeeId;
-        }
-        
-        $employeeworksModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
-        $employeeworksSelect = $employeeworksModel->select()->where(new Kwf_Model_Select_Expr_Sql($whereStmt));
-        $employeeworks = $employeeworksModel->getRows($employeeworksSelect);
-        
-        if (count($employeeworks) == 0) {
-            return;
-        }
-        
-        $statusModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'Я');
-        $workStatus = $statusModel->getRow($statusSelect);
-        
-        if ($workStatus == NULL) {
-            throw new Kwf_Exception_Client('Нет состояния сотрудника <Явка>.');
-        }
-        
-        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'В');
-        $holidayStatus = $statusModel->getRow($statusSelect);
-        
-        if ($holidayStatus == NULL) {
-            throw new Kwf_Exception_Client('Нет состояния сотрудника <Выходной>.');
-        }
-                
-        $startDate = new DateTime ($calendarRecord->startDate);
-        $endDate = new DateTime ($calendarRecord->endDate);
-        
-        $helper = new Helper();
-        
-        foreach ($employeeworks as $employeework) {
-            
-            $startDate = new DateTime ($calendarRecord->startDate);
-            
-            while ($startDate <= $endDate) {
-                
-                $employeework->typeId = $calendarRecord->statusId;
-                $employeework->typeName = $calendarRecord->statusName;
-                
-                $isWorkingDay = $helper->isWorkingDay($startDate);
-                $isNextDayHoliday = $helper->isNextDayHoliday($startDate);
-                
-                $timeStr = $helper->timeForStatus($calendarRecord->statusName);
-                
-                if ($isWorkingDay && $isNextDayHoliday && ($timeStr != '00:00')) {
-                    $employeework->timePerDay = '06:12';
-                } else if ($isWorkingDay) {
-                    $employeework->timePerDay = $timeStr;
-                } else {
-                    $employeework->timePerDay = '00:00';
-                }
-                
-                $employeework->save();
-                
-                $startDate->add( new DateInterval('P1D') );
-            }
-        }
+        $this->updateWork($row);
     }
 }

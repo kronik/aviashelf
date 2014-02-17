@@ -62,6 +62,7 @@ class Helper {
             $resultRow->statusDate = $flightPlan->planDate;
             $resultRow->expectedDate = $planerstate->expectedDate;
             $resultRow->comment = $planerstate->comment;
+            $resultRow->reason = $planerstate->reason;
             
             $resultRow->typeId = $planerstate->typeId;
             $resultRow->typeName = $planerstate->typeName;
@@ -481,5 +482,259 @@ class Helper {
     protected function isContain($what, $where)
     {
         return stripos($where, $what) !== false;
+    }
+    
+    public function updateWorkEntries($workId, $employeeId, $forced) {
+        
+        ini_set('memory_limit', "768M");
+        
+        $employeeworksModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
+        $employeeworksSelect = $employeeworksModel->select()->whereEquals('workId', $workId);
+        $employeework = $employeeworksModel->getRow($employeeworksSelect);
+        
+        if ($employeework != NULL && $forced == false) {
+            return;
+        }
+        
+        if ($forced) {
+            $db = Zend_Registry::get('db');
+            
+            if ($employeeId == NULL) {
+                $db->delete('employeeWorks', array('workId = ?' => $workId));
+            } else {
+                $db->delete('employeeWorks', array('workId = ?' => $workId, 'employeeId = ?' => $employeeId));
+            }
+        }
+        
+        $employeeSelectStmt = 'visible = 1 AND groupType = 1';
+        
+        if ($employeeId != NULL) {
+            $employeeSelectStmt = $employeeSelectStmt . ' AND id = ' . $employeeId;
+        }
+        
+        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql($employeeSelectStmt))->order('lastname');
+        $employees = $employeesModel->getRows($employeesSelect);
+        
+        if (($employeeId != NULL) && (count($employees) == 0)) {
+            return;
+        }
+        
+        $statusModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'Я');
+        $workStatus = $statusModel->getRow($statusSelect);
+        
+        if ($workStatus == NULL) {
+            throw new Kwf_Exception_Client('Нет состояния сотрудника <Явка>.');
+        }
+        
+        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'В');
+        $holidayStatus = $statusModel->getRow($statusSelect);
+        
+        if ($holidayStatus == NULL) {
+            throw new Kwf_Exception_Client('Нет состояния сотрудника <Выходной>.');
+        }
+        
+        $worksModel = Kwf_Model_Abstract::getInstance('Works');
+        $worksSelect = $worksModel->select()->whereEquals('id', $workId);
+        $work = $worksModel->getRow($worksSelect);
+        
+        $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
+        $endDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
+        $endDate->add( new DateInterval('P1M') );
+        
+        $calendarModel = Kwf_Model_Abstract::getInstance('Calendar');
+        $calendarSelect = $calendarModel->select()->where(new Kwf_Model_Select_Expr_Sql('startDate <= \'' . $endDate->format('Y-m-d') . '\' OR endDate >= \'' . $startDate->format('Y-m-d') . '\''));
+        $calendar = $calendarModel->getRows($calendarSelect);
+        
+        $flightResultWorkModel = Kwf_Model_Abstract::getInstance('Flightresultwork');
+        $flightResultWorkSelect = $flightResultWorkModel->select();
+        $flightResultWorks = $flightResultWorkModel->getRows($flightResultWorkSelect);
+        
+        foreach ($employees as $employee) {
+            
+            $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
+            
+            
+            $resultsSelectStmt = 'flightDate <= \'' . $endDate->format('Y-m-d') . '\' AND flightDate >= \'' . $startDate->format('Y-m-d') . '\'  AND ownerId = ' . $employee->id;
+            
+            //                if ($employeeId != NULL) {
+            //                    $resultsSelectStmt = $resultsSelectStmt . ' AND ownerId = ' . $employeeId;
+            //                }
+            
+            $resultsModel = Kwf_Model_Abstract::getInstance('Flightresults');
+            $resultsSelect = $resultsModel->select()->where(new Kwf_Model_Select_Expr_Sql($resultsSelectStmt));
+            $results = $resultsModel->getRows($resultsSelect);
+
+            
+            while ($startDate < $endDate) {
+                
+                $calendarRecords = $this->findCalendarRecordsByEmployeeId($employee->id, $calendar, $startDate);
+                $resultRecords = $this->findFlightResultRecordsByEmployeeId($employee->id, $results, $startDate);
+                
+                $newRow = $employeeworksModel->createRow();
+                
+                $newRow->workId = $workId;
+                
+                $newRow->employeeId = $employee->id;
+                $newRow->employeeName = (string)$employee;
+                
+                $newRow->workDate = $startDate->format('Y-m-d');
+                
+                $newRow->workTime1 = '00:00';
+                $newRow->workTime2 = '00:00';
+                $newRow->workTime3 = '00:00';
+                $newRow->workTime4 = '00:00';
+                $newRow->workTime5 = '00:00';
+                
+                foreach ($resultRecords as $resultRecord) {
+                    
+                    if (($resultRecord->flightTime != '00:00') && ($resultRecord->flightTime != '00:00:00')) {
+                        
+                        foreach ($flightResultWorks as $flightResultWork) {
+                            
+                            if ($resultRecord->typeId == $flightResultWork->resultId) {
+                        
+                                switch ($flightResultWork->workId) {
+                                    case 'workTime1':
+                                        $newRow->workTime1 = $this->addStrTime($resultRecord->flightTime, $newRow->workTime1);
+                                        break;
+                                        
+                                    case 'workTime2':
+                                        $newRow->workTime2 = $this->addStrTime($resultRecord->flightTime, $newRow->workTime2);
+                                        break;
+                                        
+                                    case 'workTime3':
+                                        $newRow->workTime3 = $this->addStrTime($resultRecord->flightTime, $newRow->workTime3);
+                                        break;
+                                        
+                                    case 'workTime4':
+                                        $newRow->workTime4 = $this->addStrTime($resultRecord->flightTime, $newRow->workTime4);
+                                        break;
+                                        
+                                    case 'workTime5':
+                                        $newRow->workTime5 = $this->addStrTime($resultRecord->flightTime, $newRow->workTime5);
+                                        break;
+                                        
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $isWorkingDay = $this->isWorkingDay($startDate);
+                $isNextDayHoliday = $this->isNextDayHoliday($startDate);
+                
+                if (count($calendarRecords) == 0) {
+                    if ($isWorkingDay) {
+                        $newRow->typeId = $workStatus->id;
+                        $newRow->typeName = $workStatus->value;
+                    } else {
+                        $newRow->typeId = $holidayStatus->id;
+                        $newRow->typeName = $holidayStatus->value;
+                    }
+                } else {
+                    
+                    foreach ($calendarRecords as $calendarRecord) {
+                        if ($calendarRecord->employeeId == 0) {
+                            $newRow->typeId = $calendarRecord->statusId;
+                            $newRow->typeName = $calendarRecord->statusName;
+                            
+                            $isWorkingDay = ($calendarRecord->statusId == $workStatus->id);
+                        }
+                    }
+                    
+                    foreach ($calendarRecords as $calendarRecord) {
+                        if ($calendarRecord->employeeId == $employee->id) {
+                            $newRow->typeId = $calendarRecord->statusId;
+                            $newRow->typeName = $calendarRecord->statusName;
+                            
+                            $isWorkingDay = ($calendarRecord->statusId == $workStatus->id);
+                        }
+                    }
+                }
+                
+                $timeStr = $this->timeForStatus($newRow->typeName);
+                
+                if ($isWorkingDay && $isNextDayHoliday && ($timeStr != '00:00')) {
+                    $newRow->timePerDay = '06:12';
+                } else if ($isWorkingDay) {
+                    $newRow->timePerDay = $timeStr;
+                } else {
+                    $newRow->timePerDay = '00:00';
+                }
+                
+                $newRow->save();
+                
+                $startDate->add( new DateInterval('P1D') );
+            }
+        }
+    }
+    
+    protected function findCalendarRecordsByEmployeeId ($employeeId, $calendarRecords, $workDate) {
+        $records = array();
+        
+        foreach ($calendarRecords as $calendarRecord) {
+            if (($calendarRecord->employeeId == $employeeId) || ($calendarRecord->employeeId == 0)) {
+                
+                $startDate = new DateTime($calendarRecord->startDate);
+                $endDate = new DateTime($calendarRecord->endDate);
+                $endDate->add( new DateInterval('P1D') );
+                
+                if (($startDate <= $workDate) && ($workDate <= $endDate)) {
+                    array_push($records, $calendarRecord);
+                }
+            }
+        }
+        
+        return $records;
+    }
+    
+    protected function findFlightResultRecordsByEmployeeId ($employeeId, $flightResults, $workDate) {
+        $records = array();
+        
+        $workDateStr = $workDate->format('Y-m-d');
+        
+        foreach ($flightResults as $flightResult) {
+            if (($flightResult->ownerId == $employeeId) && ($flightResult->flightDate == $workDateStr)) {
+                array_push($records, $flightResult);
+            }
+        }
+        
+        return $records;
+    }
+    
+    public function addStrTime($time1, $time2) {
+        
+        $minutes1 = $this->minutesFromDateTime ($time1);
+        $minutes2 = $this->minutesFromDateTime ($time2);
+
+        return $this->timeFromMinutes($minutes1 + $minutes2);
+    }
+    
+    public function timeFromMinutes($minutes) {
+        $hoursPart = (int)($minutes / 60);
+        $minutesPart = (int)($minutes % 60);
+        
+        $hoursStr = $hoursPart;
+        $minutesStr = $minutesPart;
+        
+        if ($hoursPart < 10) {
+            $hoursStr = '0' . $hoursStr;
+        }
+        
+        if ($minutesPart < 10) {
+            $minutesStr = '0' . $minutesStr;
+        }
+        
+        return $hoursStr . ':' . $minutesStr;
+    }
+    
+    public function minutesFromDateTime($date) {
+        
+        $timeParts = explode(":", $date);
+        return ((int)$timeParts[0] * 60) + (int)$timeParts[1];
     }
 }

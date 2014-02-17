@@ -95,12 +95,12 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         if ($this->isContain('Время работы', $row->typeName)) {
             $row->flightsCount = 0;
         }
-        
-        $this->updateWorkForResult($row);
     }
     
     protected function _afterSave(Kwf_Model_Row_Interface $row)
     {
+        $this->updateWorkForResult($row);
+
         if (($row->flightTime != NULL) && ($row->flightTime != '00:00') && ($row->flightTime != '00:00:00')) {
             $resultsModel = Kwf_Model_Abstract::getInstance('Flightresults');
             
@@ -125,73 +125,20 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
     }
     
     protected function updateWorkForResult ($result) {
-        $employeeModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeeSelect = $employeeModel->select()->whereEquals('id', $result->ownerId);
-        $employee = $employeeModel->getRow($employeeSelect);
 
-        $flightResultWorkModel = Kwf_Model_Abstract::getInstance('Flightresultwork');
-        $flightResultWorkSelect = $flightResultWorkModel->select()->whereEquals('resultId', $result->typeId);
-        $flightResultWorks = $flightResultWorkModel->getRows($flightResultWorkSelect);
-
-        $workModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
-        $workSelect = $workModel->select()
-        ->whereEquals('workDate', $result->flightDate)
-        ->whereEquals('employeeId', $employee->id);
+        $helper = new Helper ();
         
-        $work = $workModel->getRow($workSelect);
+        $resultDate = new DateTime ($result->flightDate);
+
+        $worksModel = Kwf_Model_Abstract::getInstance('Works');
+        $worksSelect = $worksModel->select()->whereEquals('month', $resultDate->format('m'))->whereEquals('year', $resultDate->format('Y'));
+        $work = $worksModel->getRow($worksSelect);
         
         if ($work == NULL) {
             return;
         }
 
-        foreach ($flightResultWorks as $flightResultWork) {
-            
-            switch ($flightResultWork->workId) {
-                case 'workTime1':
-                    $work->workTime1 = $result->flightTime;
-                    break;
-                    
-                case 'workTime2':
-                    $work->workTime2 = $result->flightTime;
-                    break;
-                    
-                case 'workTime3':
-                    $work->workTime3 = $result->flightTime;
-                    break;
-                    
-                case 'workTime4':
-                    $work->workTime4 = $result->flightTime;
-                    break;
-                    
-                case 'workTime5':
-                    $work->workTime5 = $result->flightTime;
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-        
-//        if ($work->workTime1 != NULL) {
-//            
-//            $workTime = new DateTime ($work->workTime1);
-//            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
-//
-//            if ($workTimeInMinutes < (3 * 60 + 36)) {
-//                $work->timeInMinutes = $workTimeInMinutes;
-//                $work->timePerDay = $work->workTime1;
-//            } else {
-//                $work->timeInMinutes = 7 * 60 + 12;
-//                $work->timePerDay = '07:12';
-//            }
-//        }
-//        
-//        if ((($work->workTime2 != NULL) && ($work->workTime2 != '00:00')) || (($work->workTime3 != NULL) && ($work->workTime3 != '00:00'))) {
-//            $work->timeInMinutes = 7 * 60 + 12;
-//            $work->timePerDay = '07:12';
-//        }
-        
-        $work->save();
+        $helper->updateWorkEntries($work->id, $result->ownerId, true);
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
@@ -201,8 +148,11 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form
         if ($row->showInTotal == NULL) {
             $row->showInTotal = false;
         }
-
-        $this->updateReferences($row);
+    }
+    
+    protected function _afterInsert(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateWorkForResult($row);
     }
     
     protected function _beforeSave(Kwf_Model_Row_Interface $row)

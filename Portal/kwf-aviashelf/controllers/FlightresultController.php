@@ -47,6 +47,23 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         return stripos($where, $what) !== false;
     }
     
+    protected function updateWorkForResult ($result) {
+        
+        $helper = new Helper ();
+        
+        $resultDate = new DateTime ($result->flightDate);
+        
+        $worksModel = Kwf_Model_Abstract::getInstance('Works');
+        $worksSelect = $worksModel->select()->whereEquals('month', $resultDate->format('m'))->whereEquals('year', $resultDate->format('Y'));
+        $work = $worksModel->getRow($worksSelect);
+        
+        if ($work == NULL) {
+            return;
+        }
+        
+        $helper->updateWorkEntries($work->id, $result->ownerId, true);
+    }
+    
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
@@ -82,7 +99,17 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
 
         $this->updateReferences($row);
     }
-    
+
+    protected function _afterInsert(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateWorkForResult($row);
+    }
+
+    protected function _afterSave(Kwf_Model_Row_Interface $row)
+    {
+        $this->updateWorkForResult($row);
+    }
+
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
         $this->updateReferences($row);

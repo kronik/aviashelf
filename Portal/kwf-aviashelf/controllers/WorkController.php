@@ -103,6 +103,11 @@ class WorkController extends Kwf_Controller_Action_Auto_Form_Ex
         $this->updateReferences($row);
     }
     
+    protected function _afterInsert(Kwf_Model_Row_Interface $row) {
+        $helper = new Helper ();
+        $helper->updateWorkEntries($row->id, NULL, false);
+    }
+    
     protected function _beforeDelete(Kwf_Model_Row_Interface $row) {
         $db = Zend_Registry::get('db');
         
