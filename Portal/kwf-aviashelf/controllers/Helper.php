@@ -246,30 +246,6 @@ class Helper {
         $flightRow->save();
     }
     
-    public function timeForStatus ($statusName) {
-        switch (strtoupper($statusName)) {
-            case 'Я':
-            case 'Н':
-            case 'РВ':
-            case 'С':
-            case 'ВМ':
-            case 'К':
-            case 'ПК':
-            case 'ПМ':
-            case 'КСЭ':
-            case 'У':
-            case 'УВ':
-            case 'ЛЧ':
-            case 'НС':
-            case 'НЗ':
-                return '07:12';
-                break;
-                
-            default:
-                return '00:00';
-        }
-    }
-    
     public function isHoliday($date) {
         $holidays = array(
                           '01-01',
@@ -658,12 +634,10 @@ class Helper {
                 
                 $timeStr = $this->timeForStatus($newRow->typeName);
                 
-                if ($isWorkingDay && $isNextDayHoliday && ($timeStr != '00:00')) {
+                if ($isNextDayHoliday && ($timeStr != '00:00')) {
                     $newRow->timePerDay = '06:12';
-                } else if ($isWorkingDay) {
-                    $newRow->timePerDay = $timeStr;
                 } else {
-                    $newRow->timePerDay = '00:00';
+                    $newRow->timePerDay = $timeStr;
                 }
                 
                 $newRow->save();
@@ -704,6 +678,30 @@ class Helper {
         }
         
         return $records;
+    }
+    
+    public function timeForStatus ($statusName) {
+        switch (strtoupper($statusName)) {
+            case 'Я':
+            case 'Н':
+            case 'РВ':
+            case 'С':
+            case 'ВМ':
+            case 'К':
+            case 'ПК':
+            case 'ПМ':
+            case 'КСЭ':
+            case 'У':
+            case 'УВ':
+            case 'ЛЧ':
+            case 'НС':
+            case 'НЗ':
+                return '07:12';
+                break;
+                
+            default:
+                return '00:00';
+        }
     }
     
     public function addStrTime($time1, $time2) {

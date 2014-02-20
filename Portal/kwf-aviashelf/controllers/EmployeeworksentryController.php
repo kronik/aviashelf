@@ -24,11 +24,11 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
         ->setValues($employeesModel)
         ->setSelect($employeesSelect)
-        ->setWidth(400)
+        ->setWidth(300)
         ->setAllowBlank(false);
                 
         $tab->fields->add(new Kwf_Form_Field_DateField('workDate', 'День'))
-        ->setWidth(150)
+        ->setWidth(300)
         ->setAllowBlank(false);
 
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
@@ -37,32 +37,44 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Тип наработки'))
         ->setValues($typeModel)
         ->setSelect($typeSelect)
-        ->setWidth(150)
+        ->setWidth(300)
         ->setAllowBlank(false);
         
         $tab->fields->add(new Kwf_Form_Field_TimeField('workTime1', 'Фактическая наработка'))
-        ->setWidth(150)
+        ->setWidth(300)
         ->setIncrement(1);
         
-        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime2', 'Фактический налет'))
-        ->setWidth(150)
-        ->setIncrement(1);
-        
-        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime3', 'Налет ночью'))
-        ->setWidth(150)
-        ->setIncrement(1);
-        
-        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime4', 'Наработка ночью'))
-        ->setWidth(150)
-        ->setIncrement(1);
+//        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime2', 'Фактический налет'))
+//        ->setWidth(150)
+//        ->setIncrement(1);
+//        
+//        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime3', 'Налет ночью'))
+//        ->setWidth(150)
+//        ->setIncrement(1);
+//        
+//        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime4', 'Наработка ночью'))
+//        ->setWidth(150)
+//        ->setIncrement(1);
         
         $tab->fields->add(new Kwf_Form_Field_TimeField('workTime5', 'Другая наработка'))
-        ->setWidth(150)
+        ->setWidth(300)
         ->setIncrement(1);
-        
+
+
+        $tab->fields->add(new Kwf_Form_Field_Select('timePerDay', 'Норма (ч)'))
+        ->setValues(array('00:00:00' => '00:00',
+                          '06:00:00' => '06:00',
+                          '06:12:00' => '06:12',
+                          '07:00:00' => '07:00',
+                          '07:12:00' => '07:12',
+                          '08:00:00' => '08:00'))
+        ->setWidth(300)
+        ->setDefaultValue('00:00:00')
+        ->setAllowBlank(false);
+
         $tab->fields->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
-        ->setWidth(400);        
+        ->setWidth(300);
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row) {

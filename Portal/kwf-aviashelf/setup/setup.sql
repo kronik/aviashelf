@@ -1183,6 +1183,15 @@ $$
 delimiter ;
 
 delimiter $$
+CREATE TRIGGER `updateFlightTimeOnDelete` BEFORE DELETE ON `flightResults`
+FOR EACH ROW 
+BEGIN
+    UPDATE `employee` SET `totalTimeInMinutes` = `totalTimeInMinutes` - (HOUR(OLD.flightTime) * 60 + MINUTE(OLD.flightTime)), `totalTimeDate` = NOW() WHERE id = OLD.ownerId AND OLD.showInTotal = 1;
+END
+$$
+delimiter ;
+
+delimiter $$
 CREATE TRIGGER `updateFlightTimeOnUpdate` BEFORE UPDATE ON `flightResults`
 FOR EACH ROW 
 BEGIN
