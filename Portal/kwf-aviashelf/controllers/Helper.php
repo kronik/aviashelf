@@ -462,7 +462,8 @@ class Helper {
     
     public function updateWorkEntries($workId, $employeeId, $forced) {
         
-        ini_set('memory_limit', "768M");
+        ini_set('memory_limit', "1024M");
+        set_time_limit(300); // 5 minutes
         
         $employeeworksModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
         $employeeworksSelect = $employeeworksModel->select()->whereEquals('workId', $workId);
@@ -633,7 +634,7 @@ class Helper {
                 }
                 
                 $timeStr = $this->timeForStatus($newRow->typeName);
-                
+                                
                 if ($isNextDayHoliday && ($timeStr != '00:00')) {
                     $newRow->timePerDay = '06:12';
                 } else {
@@ -681,7 +682,7 @@ class Helper {
     }
     
     public function timeForStatus ($statusName) {
-        switch (strtoupper($statusName)) {
+        switch (mb_strtoupper($statusName)) {
             case 'Я':
             case 'Н':
             case 'РВ':
