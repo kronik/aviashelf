@@ -68,19 +68,19 @@ Ext.grid.GroupSummary.Calculations['totalDays'] = function(v, record, field)
 {
     if (v == 0)
     {
-        return record.data.workTime1;
+        return record.data.timePerDay;
     }
     
     if ((v == null) || (v == '')) {
         return '00:00';
     }
     
-    if ((record.data.workTime1 == null) || (record.data.workTime1 == '')) {
+    if ((record.data.timePerDay == null) || (record.data.timePerDay == '')) {
         return '00:00';
     }
     
     var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.workTime1.split(':');
+    var addTimeValue = record.data.timePerDay.split(':');
     var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
     var minutes = 0;
     var hoursAddition = 0;
