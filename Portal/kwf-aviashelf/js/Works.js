@@ -85,7 +85,7 @@ Ext.grid.GroupSummary.Calculations['totalDays'] = function(v, record, field)
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;
@@ -163,7 +163,7 @@ Ext.grid.GroupSummary.Calculations['totalTime1'] = function(v, record, field)
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;
@@ -203,7 +203,7 @@ Ext.grid.GroupSummary.Calculations['totalTime2'] = function(v, record, field)
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;
@@ -243,7 +243,7 @@ Ext.grid.GroupSummary.Calculations['totalTime3'] = function(v, record, field)
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;
@@ -283,7 +283,7 @@ Ext.grid.GroupSummary.Calculations['totalTime4'] = function(v, record, field)
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;
@@ -323,7 +323,7 @@ Ext.grid.GroupSummary.Calculations['totalTime5'] = function(v, record, field)
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;

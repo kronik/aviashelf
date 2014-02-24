@@ -75,7 +75,7 @@ Ext.grid.GroupSummary.Calculations['totalTime'] = function(v, record, field)
     var minutes = 0;
     var hoursAddition = 0;
     
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 60)
+    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
     {
         minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
         hoursAddition = 1;

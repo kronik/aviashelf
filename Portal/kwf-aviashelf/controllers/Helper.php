@@ -619,7 +619,9 @@ class Helper {
                             $newRow->typeId = $calendarRecord->statusId;
                             $newRow->typeName = $calendarRecord->statusName;
                             
-                            $isWorkingDay = ($calendarRecord->statusId == $workStatus->id);
+                            if ($calendarRecord->statusId == $holidayStatus->id) {
+                                $isWorkingDay = false;
+                            }
                         }
                     }
                     
@@ -627,18 +629,18 @@ class Helper {
                         if ($calendarRecord->employeeId == $employee->id) {
                             $newRow->typeId = $calendarRecord->statusId;
                             $newRow->typeName = $calendarRecord->statusName;
-                            
-                            $isWorkingDay = ($calendarRecord->statusId == $workStatus->id);
                         }
                     }
                 }
                 
                 $timeStr = $this->timeForStatus($newRow->typeName);
-                                
-                if ($isNextDayHoliday && ($timeStr != '00:00')) {
+                
+                if ($isWorkingDay & $isNextDayHoliday && ($timeStr != '00:00')) {
                     $newRow->timePerDay = '06:12';
-                } else {
+                } else if ($isWorkingDay) {
                     $newRow->timePerDay = $timeStr;
+                } else {
+                    $newRow->timePerDay = '00:00';
                 }
                 
                 $newRow->save();

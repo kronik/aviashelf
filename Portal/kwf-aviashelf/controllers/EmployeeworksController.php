@@ -20,8 +20,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_filters = array('text' => array('type' => 'TextField'));
         $this->_queryFields = array('employeeName', 'typeName');
 
-        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'power')
-        {
+        if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'power') {
             if ($users->getAuthedUserRole() == 'power') {
                 unset($this->_buttons ['delete']);
             }
@@ -33,9 +32,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
                                            'width' => 350,
                                            'height' => 520
                                        );
-        }
-        else
-        {
+        } else {
             $this->_buttons = array();
         }
         
@@ -47,7 +44,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('workTime3', 'Налет ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime3');
         $this->_columns->add(new Kwf_Grid_Column('workTime4', 'Наработка ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime4');
         $this->_columns->add(new Kwf_Grid_Column('workTime5', 'Другая наработка', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime5');
-        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 100));//->setRenderer('daysForTime')->setProperty('summaryType', 'totalDays');
+        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 100))->setProperty('summaryType', 'totalDays');
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);
     }
     
