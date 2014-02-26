@@ -203,6 +203,33 @@ Ext.grid.GroupSummary.Calculations['totalDays'] = function(v, record, field)
     return hours + ':' + minutes + ':00';
 }
 
+Ext.util.Format.totalOvertimeDaysColorer = function(val) {
+    
+    days = parseInt(val);
+    
+    if (days == 0) {
+        return '<span style="color:black;">' + val + '</span>';
+    } else if (days == 1) {
+        return '<span style="color:red;">' + val + '</span>';
+    } else {
+        return '<span style="color:blue;">' + val + '</span>';
+    }
+};
+
+Ext.util.Format.totalOvertimeMinutesColorer = function(val) {
+    
+    minutes = timeToMinutes(val);
+    
+    if (minutes == 0) {
+        return '<span style="color:black;">' + val + '</span>';
+    } else if (minutes > 0) {
+        return '<span style="color:red;">' + val + '</span>';
+    } else {
+        return '<span style="color:blue;">' + val + '</span>';
+    }
+};
+
+
 Ext.util.Format.dateShrink = function(val)
 {
     if (val.getDay() == 0 || val.getDay() == 6)
