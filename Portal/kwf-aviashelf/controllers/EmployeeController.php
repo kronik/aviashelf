@@ -165,6 +165,19 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setSelect($specDocSelect)
         ->setWidth(400);
         
+        $tab->fields->add(new Kwf_Form_Field_Select('timePerDay', 'Наработка в день'))
+        ->setValues(array('00:00:00' => '00:00',
+                          '06:00:00' => '06:00',
+                          '06:12:00' => '06:12',
+                          '07:00:00' => '07:00',
+                          '07:12:00' => '07:12',
+                          '08:00:00' => '08:00',
+                          '09:00:00' => '09:00',
+                          '10:00:00' => '10:00'))
+        ->setWidth(400)
+        ->setDefaultValue('00:00:00')
+        ->setAllowBlank(false);
+        
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Onboard positions'));
         

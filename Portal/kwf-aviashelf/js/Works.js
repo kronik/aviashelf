@@ -64,6 +64,105 @@ Ext.util.Format.daysForTime = function(val)
     }
 };
 
+function timeToMinutes(timeStr) {
+    if (timeStr == null || timeStr == '' || timeStr == 0) {
+        return 0;
+    }
+
+    totalTimeValue = timeStr.split(':');
+    minutesInHours = (parseInt(totalTimeValue[0])) * 60;
+    minutes = parseInt(totalTimeValue[1]);
+    
+    if (minutesInHours < 0) {
+        minutes = -1 * minutes;
+    }
+
+    totalMinutes = minutesInHours + minutes;
+    
+//    console.log(timeStr + ' -> ' + totalMinutes);
+    
+    return totalMinutes;
+}
+
+function timeToString(minutes) {
+    
+    if (minutes == 0) {
+        return '00:00';
+    }
+    
+    mathSign = minutes / Math.abs(minutes);
+    minutes = Math.abs(minutes);
+    
+    minutesStr = (Math.floor(minutes) % 60);
+    hoursStr = ((minutes - minutesStr)  / 60) * mathSign;
+
+    if (hoursStr < 10 && hoursStr >= 0) {
+        hoursStr = '0' + hoursStr;
+    }
+
+    if (minutesStr < 10 && minutesStr >= 0) {
+        minutesStr = '0' + minutesStr;
+    }
+
+    return hoursStr + ':' + minutesStr + ':00';
+}
+
+function timeDiff(time1, time2) {
+    minutes1 = timeToMinutes(time1);
+    minutes2 = timeToMinutes(time2);
+
+    if (minutes1 > minutes2) {
+        return timeToString(minutes1 - minutes2);
+    } else {
+        return '00:00';
+    }
+}
+
+function timeSum(time1, time2) {
+    minutes1 = timeToMinutes(time1);
+    minutes2 = timeToMinutes(time2);
+    
+//    console.log('Minutes: ' + minutes1 + ' + ' + minutes2);
+    
+    return timeToString(minutes1 + minutes2);
+}
+
+Ext.grid.GroupSummary.Calculations['totalOvertime'] = function(v, record, field) {
+    timeDifference = timeDiff(record.data.workTime1, record.data.timePerDay);
+    timeSummary = timeSum(timeDifference, v);
+    
+    return timeSummary;
+}
+
+Ext.grid.GroupSummary.Calculations['totalOvertimeDaysSum'] = function(v, record, field) {
+    
+//    console.log(record.data.workDate + ': ' + record.data.totalOvertimeDays + ' + ' + v + ' = ' + (parseInt(record.data.totalOvertimeDays)+ parseInt(v)));
+    
+    if (v == 0)
+    {
+        return record.data.totalOvertimeDays;
+    }
+    
+    if ((v == null) || (v == '')) {
+        return 0;
+    }
+    
+    if ((record.data.totalOvertimeDays == null) || (record.data.totalOvertimeDays == '')) {
+        return v;
+    }
+
+    return parseInt(record.data.totalOvertimeDays) + parseInt(v);
+}
+
+Ext.grid.GroupSummary.Calculations['totalOvertimeMinutesSum'] = function(v, record, field) {
+   
+    timeSummary = timeSum(record.data.totalOvertimeMinutes, v);
+    
+//    console.log(record.data.workDate + ': ' + record.data.totalOvertimeMinutes + ' + ' + v);
+    
+    return timeSummary;
+}
+
 Ext.grid.GroupSummary.Calculations['totalDays'] = function(v, record, field)
 {
     if (v == 0)

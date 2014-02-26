@@ -36,7 +36,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_buttons = array();
         }
         
-        $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee'), 170))->setProperty('summaryType', 'totalTimeDescription');
+        $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee'), 130))->setProperty('summaryType', 'totalTimeDescription');
         $this->_columns->add(new Kwf_Grid_Column('workDate', 'День', 50))->setRenderer('dateShrink');
         $this->_columns->add(new Kwf_Grid_Column('typeName', trlKwf('Type'), 50))->setRenderer('typeHighlight');
         $this->_columns->add(new Kwf_Grid_Column('workTime1', 'Фактическая наработка', 130))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime1');
@@ -44,8 +44,12 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('workTime3', 'Налет ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime3');
         $this->_columns->add(new Kwf_Grid_Column('workTime4', 'Наработка ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime4');
         $this->_columns->add(new Kwf_Grid_Column('workTime5', 'Другая наработка', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime5');
-        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 100))->setProperty('summaryType', 'totalDays');
-        $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);
+        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 70))->setProperty('summaryType', 'totalDays');
+        
+        $this->_columns->add(new Kwf_Grid_Column('totalOvertimeMinutes', 'Переработка (ч)', 100))->setProperty('summaryType', 'totalOvertimeMinutesSum');
+        $this->_columns->add(new Kwf_Grid_Column('totalOvertimeDays', 'Переработка (д)', 100))->setProperty('summaryType', 'totalOvertimeDaysSum');
+        
+        $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);//->setProperty('summaryType', 'totalOvertime');
     }
     
 //    public function jsonDataAction()

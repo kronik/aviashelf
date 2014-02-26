@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `enPassportCompany` VARCHAR(500) DEFAULT NULL,
     `listPosition` VARCHAR (10) DEFAULT '0',
     `isOOO` BOOL DEFAULT false NOT NULL,
+    `timePerDay` time DEFAULT '07:12:00',
     PRIMARY KEY (`id`),
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

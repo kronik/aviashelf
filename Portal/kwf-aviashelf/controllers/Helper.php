@@ -633,12 +633,27 @@ class Helper {
                     }
                 }
                 
-                $timeStr = $this->timeForStatus($newRow->typeName);
+                $needTime = $this->needTimeForStatus($newRow->typeName);
+                $timePerDay = $employee->timePerDay;
                 
-                if ($isWorkingDay & $isNextDayHoliday && ($timeStr != '00:00')) {
-                    $newRow->timePerDay = '06:12';
+                if ($isWorkingDay && $isNextDayHoliday && $needTime) {
+                    
+                    $minutesPerDay = $this->minutesFromDateTime($timePerDay);
+                    
+                    if ($minutesPerDay > 59) {
+                        $minutesPerDay -= 60;
+                        
+                        $timePerDay = $this->timeFromMinutes($minutesPerDay);
+                    }
+                    
+                    $newRow->timePerDay = $minutesPerDay;
+                    
                 } else if ($isWorkingDay) {
-                    $newRow->timePerDay = $timeStr;
+                    if ($needTime) {
+                        $newRow->timePerDay = $timePerDay;
+                    } else {
+                        $newRow->timePerDay = '00:00';
+                    }
                 } else {
                     $newRow->timePerDay = '00:00';
                 }
@@ -683,7 +698,7 @@ class Helper {
         return $records;
     }
     
-    public function timeForStatus ($statusName) {
+    public function needTimeForStatus ($statusName) {
         switch (mb_strtoupper($statusName)) {
             case 'Я':
             case 'Н':
@@ -699,11 +714,11 @@ class Helper {
             case 'ЛЧ':
             case 'НС':
             case 'НЗ':
-                return '07:12';
+                return true;
                 break;
                 
             default:
-                return '00:00';
+                return false;
         }
     }
     
