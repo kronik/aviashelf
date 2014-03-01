@@ -11,7 +11,7 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
         $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 1'))->order('lastname');
 
         $statusModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->order('value');
+        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->order('pos');
 
         $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
         ->setValues($employeesModel)
@@ -44,7 +44,7 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
         
             $row->employeeName = (string)$prow;
         } else {
-            $row->employeeId = 0;
+            $row->employeeId = NULL;
             $row->employeeName = '';
         }
 
@@ -65,12 +65,15 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateWorkForMonth ($row, $startDate, $helper) {
         
+        ini_set('memory_limit', "1024M");
+        set_time_limit(300); // 5 minutes
+
         $worksModel = Kwf_Model_Abstract::getInstance('Works');
         $worksSelect = $worksModel->select()->whereEquals('month', $startDate->format('m'))->whereEquals('year', $startDate->format('Y'));
         $work = $worksModel->getRow($worksSelect);
         
         if ($work != NULL) {
-            if ($row->employeeId == 0) {
+            if ($row->employeeId == NULL) {
                 $helper->updateWorkEntries($work->id, NULL, true);
             } else {
                 $helper->updateWorkEntries($work->id, $row->employeeId, true);

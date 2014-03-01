@@ -32,7 +32,7 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
 
         $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $typeSelect = $typeModel->select()->whereEquals('name', 'Состояния сотрудника');
+        $typeSelect = $typeModel->select()->whereEquals('name', 'Состояния сотрудника')->order('pos');
         
         $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Тип наработки'))
         ->setValues($typeModel)

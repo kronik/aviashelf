@@ -532,7 +532,6 @@ class Helper {
             
             $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
             
-            
             $resultsSelectStmt = 'flightDate <= \'' . $endDate->format('Y-m-d') . '\' AND flightDate >= \'' . $startDate->format('Y-m-d') . '\'  AND ownerId = ' . $employee->id;
             
             //                if ($employeeId != NULL) {
@@ -542,7 +541,6 @@ class Helper {
             $resultsModel = Kwf_Model_Abstract::getInstance('Flightresults');
             $resultsSelect = $resultsModel->select()->where(new Kwf_Model_Select_Expr_Sql($resultsSelectStmt));
             $results = $resultsModel->getRows($resultsSelect);
-
             
             while ($startDate < $endDate) {
                 
@@ -615,7 +613,7 @@ class Helper {
                 } else {
                     
                     foreach ($calendarRecords as $calendarRecord) {
-                        if ($calendarRecord->employeeId == 0) {
+                        if ($calendarRecord->employeeId == NULL) {
                             $newRow->typeId = $calendarRecord->statusId;
                             $newRow->typeName = $calendarRecord->statusName;
                             
@@ -646,7 +644,7 @@ class Helper {
                         $timePerDay = $this->timeFromMinutes($minutesPerDay);
                     }
                     
-                    $newRow->timePerDay = $minutesPerDay;
+                    $newRow->timePerDay = $timePerDay;
                     
                 } else if ($isWorkingDay) {
                     if ($needTime) {
@@ -657,6 +655,8 @@ class Helper {
                 } else {
                     $newRow->timePerDay = '00:00';
                 }
+                
+//                p($   newRow);
                 
                 $newRow->save();
                 
@@ -669,7 +669,7 @@ class Helper {
         $records = array();
         
         foreach ($calendarRecords as $calendarRecord) {
-            if (($calendarRecord->employeeId == $employeeId) || ($calendarRecord->employeeId == 0)) {
+            if (($calendarRecord->employeeId == $employeeId) || ($calendarRecord->employeeId == NULL)) {
                 
                 $startDate = new DateTime($calendarRecord->startDate);
                 $endDate = new DateTime($calendarRecord->endDate);

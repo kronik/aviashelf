@@ -11,7 +11,11 @@ class LinkdataentryController extends Kwf_Controller_Action_Auto_Form
         ->setAllowBlank(false);
 
         $this->_form->add(new Kwf_Form_Field_TextArea('desc', trlKwf('Description')))
-            ->setWidth(450);
+        ->setWidth(450);
+        
+        $this->_form->add(new Kwf_Form_Field_NumberField('pos', '№ в списках'))
+        ->setWidth(450)
+        ->setAllowBlank(true);
     }
 
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)

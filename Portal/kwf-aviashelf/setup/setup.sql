@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `link_data` (
     `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
     `desc` varchar(1024) COLLATE utf8_unicode_ci NOT NULL,
+    `pos` smallint unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     KEY `link_id` (`link_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -912,7 +913,7 @@ CREATE TABLE IF NOT EXISTS `flightSets` (
 
 CREATE TABLE IF NOT EXISTS `calendar` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `employeeId` int NOT NULL,
+    `employeeId` int DEFAULT NULL,
     `employeeName` varchar(300) COLLATE utf8_unicode_ci,
     `startDate` date NOT NULL,
     `endDate` date NOT NULL,

@@ -10,7 +10,7 @@ class LinkdataController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected $_editDialog = array(
         'controllerUrl' => '/linkdataentry',
         'width' => 600,
-        'height' => 200
+        'height' => 230
     );
 
     protected function _initColumns()
@@ -25,6 +25,9 @@ class LinkdataController extends Kwf_Controller_Action_Auto_Grid_Ex
         }
 
         $this->_filters = array('text' => array('type' => 'TextField'));
+        
+        $this->_columns->add(new Kwf_Grid_Column('pos', '№ в списках'))
+        ->setWidth(80);
         $this->_columns->add(new Kwf_Grid_Column('value', trlKwf('Value')))
         ->setWidth(300);
         $this->_columns->add(new Kwf_Grid_Column('desc', trlKwf('Description')))
