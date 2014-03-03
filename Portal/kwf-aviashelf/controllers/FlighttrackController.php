@@ -173,9 +173,9 @@ class FlighttrackController extends Kwf_Controller_Action_Auto_Form
             
             $flightPlansModel = Kwf_Model_Abstract::getInstance('Flightplans');
             $flightPlansSelect = $flightPlansModel->select()->whereEquals('id', $this->_getParam('planId'));
-            $prow = $flightPlansModel->getRow($flightPlansSelect);
+            $planRow = $flightPlansModel->getRow($flightPlansSelect);
             
-            $this->sendMessage($prow, $prow->planDate, $row);
+            $this->sendMessage($prow, $planRow->planDate, $row);
         }
     }
 
