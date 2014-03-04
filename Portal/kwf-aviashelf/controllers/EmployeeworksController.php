@@ -44,7 +44,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('workTime3', 'Налет ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime3');
         $this->_columns->add(new Kwf_Grid_Column('workTime4', 'Наработка ночью', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime4');
         $this->_columns->add(new Kwf_Grid_Column('workTime5', 'Другая наработка', 100))->setRenderer('dateClearEmpty')->setProperty('summaryType', 'totalTime5');
-        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 70))->setProperty('summaryType', 'totalDays');
+        $this->_columns->add(new Kwf_Grid_Column('timePerDay', 'Норма (ч)', 70))->setRenderer('formatOvertime')->setProperty('summaryType', 'totalDays');
         
         $this->_columns->add(new Kwf_Grid_Column('totalOvertimeMinutes', 'Переработка (ч)', 100))
         ->setRenderer('totalOvertimeMinutesColorer')

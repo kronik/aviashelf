@@ -35,6 +35,13 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)
     {
+        $startDate = new DateTime($row->startDate);
+        $endDate = new DateTime($row->endDate);
+
+        if ($startDate > $endDate) {
+            throw new Kwf_Exception_Client('Дата начала не может быть больше даты окончания');
+        }
+        
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m3 = Kwf_Model_Abstract::getInstance('Employees');
         

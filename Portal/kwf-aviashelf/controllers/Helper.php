@@ -511,7 +511,14 @@ class Helper {
         if ($holidayStatus == NULL) {
             throw new Kwf_Exception_Client('Нет состояния сотрудника <Выходной>.');
         }
+
+        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'ЛЧ');
+        $shortdayStatus = $statusModel->getRow($statusSelect);
         
+        if ($shortdayStatus == NULL) {
+            throw new Kwf_Exception_Client('Нет состояния сотрудника <ЛЧ>.');
+        }
+
         $worksModel = Kwf_Model_Abstract::getInstance('Works');
         $worksSelect = $worksModel->select()->whereEquals('id', $workId);
         $work = $worksModel->getRow($worksSelect);
@@ -604,8 +611,13 @@ class Helper {
                 
                 if (count($calendarRecords) == 0) {
                     if ($isWorkingDay) {
-                        $newRow->typeId = $workStatus->id;
-                        $newRow->typeName = $workStatus->value;
+                        if ($isNextDayHoliday) {
+                            $newRow->typeId = $shortdayStatus->id;
+                            $newRow->typeName = $shortdayStatus->value;
+                        } else {
+                            $newRow->typeId = $workStatus->id;
+                            $newRow->typeName = $workStatus->value;
+                        }
                     } else {
                         $newRow->typeId = $holidayStatus->id;
                         $newRow->typeName = $holidayStatus->value;
@@ -615,11 +627,7 @@ class Helper {
                     foreach ($calendarRecords as $calendarRecord) {
                         if ($calendarRecord->employeeId == NULL) {
                             $newRow->typeId = $calendarRecord->statusId;
-                            $newRow->typeName = $calendarRecord->statusName;
-                            
-                            if ($calendarRecord->statusId == $holidayStatus->id) {
-                                $isWorkingDay = false;
-                            }
+                            $newRow->typeName = $calendarRecord->statusName;                            
                         }
                     }
                     
@@ -634,7 +642,14 @@ class Helper {
                 $needTime = $this->needTimeForStatus($newRow->typeName);
                 $timePerDay = $employee->timePerDay;
                 
-                if ($isWorkingDay && $isNextDayHoliday && $needTime) {
+                $isWorkingDay = $needTime && ($newRow->typeId != $holidayStatus->id);
+                
+//                if ($startDate->format('d') == 6) {
+//                    p('Work: ' . $isWorkingDay . ' Next day holiday: ' . $isNextDayHoliday . ' Status: ' . $newRow->typeName);
+//                    p($calendarRecords);
+//                }
+                
+                if ($isWorkingDay && ($isNextDayHoliday || ($newRow->typeId == $shortdayStatus->id)) && $needTime) {
                     
                     $minutesPerDay = $this->minutesFromDateTime($timePerDay);
                     
@@ -645,18 +660,36 @@ class Helper {
                     }
                     
                     $newRow->timePerDay = $timePerDay;
-                    
-                } else if ($isWorkingDay) {
+                } else {
                     if ($needTime) {
+                        if ($newRow->typeId == $shortdayStatus->id) {
+                            
+                            $minutesPerDay = $this->minutesFromDateTime($timePerDay);
+                            
+                            if ($minutesPerDay > 59) {
+                                $minutesPerDay -= 60;
+                                
+                                $timePerDay = $this->timeFromMinutes($minutesPerDay);
+                            }
+                        }
+                        
                         $newRow->timePerDay = $timePerDay;
+
                     } else {
                         $newRow->timePerDay = '00:00';
                     }
-                } else {
-                    $newRow->timePerDay = '00:00';
                 }
                 
-//                p($   newRow);
+                    
+//                } else if ($isWorkingDay) {
+//                    if ($needTime) {
+//                        $newRow->timePerDay = $timePerDay;
+//                    } else {
+//                        $newRow->timePerDay = '00:00';
+//                    }
+//                } else {
+//                    $newRow->timePerDay = '00:00';
+//                }
                 
                 $newRow->save();
                 
@@ -702,18 +735,18 @@ class Helper {
         switch (mb_strtoupper($statusName)) {
             case 'Я':
             case 'Н':
-            case 'РВ':
+//            case 'РВ':
             case 'С':
-            case 'ВМ':
-            case 'К':
-            case 'ПК':
-            case 'ПМ':
-            case 'КСЭ':
-            case 'У':
-            case 'УВ':
+//            case 'ВМ':
+//            case 'К':
+//            case 'ПК':
+//            case 'ПМ':
+//            case 'КСЭ':
+//            case 'У':
+//            case 'УВ':
             case 'ЛЧ':
-            case 'НС':
-            case 'НЗ':
+//            case 'НС':
+//            case 'НЗ':
                 return true;
                 break;
                 

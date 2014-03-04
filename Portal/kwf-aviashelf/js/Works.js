@@ -104,7 +104,7 @@ function timeToString(minutes) {
         minutesStr = '0' + minutesStr;
     }
 
-    return hoursStr + ':' + minutesStr + ':00';
+    return hoursStr + ':' + minutesStr;
 }
 
 function timeDiff(time1, time2) {
@@ -200,7 +200,7 @@ Ext.grid.GroupSummary.Calculations['totalDays'] = function(v, record, field)
     
     hours = hours + hoursAddition;
     
-    return hours + ':' + minutes + ':00';
+    return hours + ':' + minutes;
 }
 
 Ext.util.Format.totalOvertimeDaysColorer = function(val) {
@@ -244,7 +244,7 @@ Ext.util.Format.dateShrink = function(val)
 
 Ext.util.Format.typeHighlight = function(val)
 {
-    if (val != null && val != '' && val == 'В')
+    if (val != null && val != '' && (val == 'В' || val == 'РВ'))
     {
         return '<span style="color:red;">' + val + '</span>';
     }
@@ -259,7 +259,20 @@ Ext.util.Format.dateClearEmpty = function(val)
     if (val == null || val == '00:00' || val == '00:00:00') {
         return '';
     } else {
-        return val;
+        var totalTimeValue = val.split(':');
+
+        return totalTimeValue[0] + ':' + totalTimeValue[1];
+    }
+};
+
+Ext.util.Format.formatOvertime = function(val)
+{
+    if (val == null) {
+        return '';
+    } else {
+        var totalTimeValue = val.split(':');
+        
+        return totalTimeValue[0] + ':' + totalTimeValue[1];
     }
 };
 
