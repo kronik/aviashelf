@@ -93,6 +93,23 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         
         $row->timeInMinutes = 0;
         
+        $needTime = $this->needTimeForStatus($row->typeName);
+        
+        $totalMinutes = $this->minutesFromDateTime($row->timePerDay);
+        $totalMinutes += $this->minutesFromDateTime($row->workTime1);
+        $totalMinutes += $this->minutesFromDateTime($row->workTime2);
+        $totalMinutes += $this->minutesFromDateTime($row->workTime3);
+        $totalMinutes += $this->minutesFromDateTime($row->workTime4);
+        $totalMinutes += $this->minutesFromDateTime($row->workTime5);
+        
+        if (($needTime == false) && ($totalMinutes > 0)) {
+            throw new Kwf_Exception_Client('Указано время для типа <' . $row->typeName . '>');
+        }
+
+        if (($needTime == true) && ($totalMinutes == 0)) {
+            throw new Kwf_Exception_Client('Не указано время для типа <' . $row->typeName . '>');
+        }
+
 //        if ($row->workTime1 != NULL) {
 //            $workTime = new DateTime ($row->workTime1);
 //                        
@@ -111,6 +128,40 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
 //            $row->timeInMinutes = 7 * 60 + 12;
 //            $row->timePerDay = '07:12';
 //        }
+    }
+            
+    public function minutesFromDateTime($date) {
+
+        if ($date == NULL || $date == '') {
+            return 0;
+        }
+        
+        $timeParts = explode(":", $date);
+        return ((int)$timeParts[0] * 60) + (int)$timeParts[1];
+    }
+    
+    public function needTimeForStatus ($statusName) {
+        switch (mb_strtoupper($statusName)) {
+            case 'Я':
+            case 'Н':
+            case 'РВ':
+            case 'С':
+            case 'ВМ':
+            case 'К':
+            case 'ПК':
+            case 'ПМ':
+            case 'КСЭ':
+            case 'У':
+            case 'УВ':
+            case 'ЛЧ':
+            case 'НС':
+            case 'НЗ':
+                return true;
+                break;
+                
+            default:
+                return false;
+        }
     }
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
