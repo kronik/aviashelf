@@ -109,25 +109,6 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         if (($needTime == true) && ($totalMinutes == 0)) {
             throw new Kwf_Exception_Client('Не указано время для типа <' . $row->typeName . '>');
         }
-
-//        if ($row->workTime1 != NULL) {
-//            $workTime = new DateTime ($row->workTime1);
-//                        
-//            $workTimeInMinutes = $workTime->format('H') * 60 + $workTime->format('i');
-//            
-//            if ($workTimeInMinutes < (3 * 60 + 36)) {
-//                $row->timeInMinutes = $workTimeInMinutes;
-//                $row->timePerDay = $row->workTime1;
-//            } else {
-//                $row->timeInMinutes = 7 * 60 + 12;
-//                $row->timePerDay = '07:12';
-//            }
-//        }
-//        
-//        if ((($row->workTime2 != NULL) && ($row->workTime2 != '00:00')) || (($row->workTime3 != NULL) && ($row->workTime3 != '00:00'))) {
-//            $row->timeInMinutes = 7 * 60 + 12;
-//            $row->timePerDay = '07:12';
-//        }
     }
             
     public function minutesFromDateTime($date) {

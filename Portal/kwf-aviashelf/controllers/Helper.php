@@ -738,10 +738,10 @@ class Helper {
 //            case 'РВ':
             case 'С':
 //            case 'ВМ':
-//            case 'К':
+            case 'К':
 //            case 'ПК':
 //            case 'ПМ':
-//            case 'КСЭ':
+            case 'КСЭ':
 //            case 'У':
 //            case 'УВ':
             case 'ЛЧ':
