@@ -642,10 +642,10 @@ class Helper {
                 $needTime = $this->needTimeForStatus($newRow->typeName);
                 $timePerDay = $employee->timePerDay;
                 
-                $isWorkingDay = $needTime && ($newRow->typeId != $holidayStatus->id);
+                $isWorkingDay = $needTime && $isWorkingDay; //($newRow->typeId != $holidayStatus->id);
                 
-//                if ($startDate->format('d') == 6) {
-//                    p('Work: ' . $isWorkingDay . ' Next day holiday: ' . $isNextDayHoliday . ' Status: ' . $newRow->typeName);
+//                if ($startDate->format('d') == 11) {
+//                    p('Work: ' . ($isWorkingDay ? 'YES' : 'NO') . ' Next day holiday: ' . ($isNextDayHoliday ? 'YES' : 'NO') . ' Status: ' . $newRow->typeName);
 //                    p($calendarRecords);
 //                }
                 
@@ -671,12 +671,15 @@ class Helper {
                                 
                                 $timePerDay = $this->timeFromMinutes($minutesPerDay);
                             }
+                        } else {
+                            if ($isWorkingDay) {
+                                $newRow->timePerDay = $timePerDay;
+                            } else {
+                                $newRow->timePerDay = '00:00:00';
+                            }
                         }
-                        
-                        $newRow->timePerDay = $timePerDay;
-
                     } else {
-                        $newRow->timePerDay = '00:00';
+                        $newRow->timePerDay = '00:00:00';
                     }
                 }
                 
