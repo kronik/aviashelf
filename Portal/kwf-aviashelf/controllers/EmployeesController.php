@@ -33,7 +33,7 @@ class EmployeesController extends Kwf_Controller_Action_Auto_Grid_Ex
         }
         
         $this->_filters = array('text' => array('type' => 'TextField'));
-        
+
         $this->_columns->add(new Kwf_Grid_Column_Button('edit'));
         $this->_columns->add(new Kwf_Grid_Column('lastname', trlKwf('Lastname'), 80));
         $this->_columns->add(new Kwf_Grid_Column('firstname', trlKwf('Firstname'), 80));

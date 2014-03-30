@@ -244,7 +244,7 @@ Ext.util.Format.dateShrink = function(val)
 
 Ext.util.Format.typeHighlight = function(val)
 {
-    if (val != null && val != '' && (val == 'В' || val == 'РВ'))
+    if (val != null && val != '' && (val == 'В' || val == 'РВ'|| val == 'Врд'))
     {
         return '<span style="color:red;">' + val + '</span>';
     }

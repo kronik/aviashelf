@@ -674,6 +674,7 @@ class Helper {
                         } else {
                             if ($isWorkingDay) {
                                 $newRow->timePerDay = $timePerDay;
+                                p($timePerDay);
                             } else {
                                 $newRow->timePerDay = '00:00:00';
                             }
@@ -738,6 +739,7 @@ class Helper {
         switch (mb_strtoupper($statusName)) {
             case 'Я':
             case 'Н':
+            case 'ВРД' :
 //            case 'РВ':
             case 'С':
 //            case 'ВМ':

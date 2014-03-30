@@ -38,14 +38,6 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400)
         ->setAllowBlank(false);
         
-        $tab->fields->add(new Kwf_Form_Field_Select('sex', trlKwf('Sex')))
-            ->setValues(array('male' => trlKwf('Male'), 'female' => trlKwf('Female')))
-            ->setWidth(90)
-            ->setAllowBlank(false);
-        $tab->fields->add(new Kwf_Form_Field_DateField('birthDate', trlKwf('Birthdate')));
-        $tab->fields->add(new Kwf_Form_Field_TextField('birthPlace', trlKwf('Birthplace')))
-        ->setWidth(400);
-        
         $tab->fields->add(new Kwf_Form_Field_TextField('registerAddress', trlKwf('Reg Address')))
         ->setWidth(400);
         $tab->fields->add(new Kwf_Form_Field_TextField('privatePhone', trlKwf('Phone')))
@@ -66,7 +58,7 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         
         $tab = $tabs->add();
         $tab->setTitle('Паспорт');
-
+        
         $tab->fields->add(new Kwf_Form_Field_TextField('ruPassportNumber', 'Паспорт (RU) №'))
         ->setWidth(400)
         ->setAllowBlank(true);
@@ -85,6 +77,18 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_TextField('enPassportCompany', 'Кто выдал'))
         ->setWidth(400);
         
+        $tab->fields->add(new Kwf_Form_Field_Select('sex', trlKwf('Sex')))
+        ->setValues(array('male' => trlKwf('Male'), 'female' => trlKwf('Female')))
+        ->setWidth(90)
+        ->setAllowBlank(false);
+        $tab->fields->add(new Kwf_Form_Field_DateField('birthDate', trlKwf('Birthdate')));
+        $tab->fields->add(new Kwf_Form_Field_TextField('birthPlace', trlKwf('Birthplace')))
+        ->setWidth(400);
+
+        $tab->fields->add(new Kwf_Form_Field_TextField('citizenship', 'Гражданство'))
+        ->setWidth(400)
+        ->setAllowBlank(true);
+
         $tab = $tabs->add();
         $tab->setTitle(trlKwf('Permissions'));
         
@@ -171,9 +175,8 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
                           '06:12:00' => '06:12',
                           '07:00:00' => '07:00',
                           '07:12:00' => '07:12',
-                          '08:00:00' => '08:00',
-                          '09:00:00' => '09:00',
-                          '10:00:00' => '10:00'))
+                          '07:15:00' => '07:15',
+                          '08:00:00' => '08:00'))
         ->setWidth(400)
         ->setDefaultValue('00:00:00')
         ->setAllowBlank(false);

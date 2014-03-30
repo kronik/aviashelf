@@ -19,6 +19,10 @@ class TaskController extends Kwf_Controller_Action_Auto_Form
         ->setHeight(70)
         ->setWidth(400);
         
+        $this->_form->add(new Kwf_Form_Field_File('Picture', trlKwf('File')))
+        ->setShowPreview(true)
+        ->setAllowOnlyImages(false);
+        
         $this->_form->add(new Kwf_Form_Field_Checkbox('status', trlKwf('Done')));
     }
     

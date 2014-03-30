@@ -29,8 +29,10 @@ CREATE TABLE IF NOT EXISTS `tasks` (
     `startDate` date,
     `endDate` date,
     `status` int NOT NULL DEFAULT '0',
+    `picture_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
-    KEY `userId` (`userId`)
+    KEY `userId` (`userId`),
+    KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `speciality` (
@@ -99,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
     `enPassportDate` DATE DEFAULT NULL,
     `enPassportCompany` VARCHAR(500) DEFAULT NULL,
     `listPosition` VARCHAR (10) DEFAULT '0',
+    `citizenship` VARCHAR (100),
     `isOOO` BOOL DEFAULT false NOT NULL,
     `timePerDay` time DEFAULT '07:12:00',
     PRIMARY KEY (`id`),

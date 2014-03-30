@@ -1794,6 +1794,13 @@ class Reporter
             foreach ($works as $work) {
                 array_push($workIds, $work->id);
             }
+        } else if (($row->month % 2) == 0) {
+            $worksSelect = $worksModel->select()->where(new Kwf_Model_Select_Expr_Sql('(`month` = ' . $row->month - 1 ') AND year = ' . $row->year));
+            $works = $worksModel->getRows($worksSelect);
+            
+            foreach ($works as $work) {
+                array_push($workIds, $work->id);
+            }
         }
 
         foreach ($employees as $employee) {
@@ -2031,11 +2038,7 @@ class Reporter
                 }
             }
             
-            if (count($workIds) > 0) {
-                $progressBar->update($employeeCounter * 90 / count($employees));
-            } else {
-                $progressBar->update($employeeCounter * 100 / count($employees));
-            }
+            $progressBar->update($employeeCounter * 90 / count($employees));
             
             $rowNumber += 4;
             $employeeCounter += 1;
@@ -2068,53 +2071,51 @@ class Reporter
         
         /* END OF TEST DATA */
         
-        if (count($workIds) > 0) {
-            $progressBar->update(93);
+        $progressBar->update(93);
 
-            // Need to fill quater report page
-            
-            $xls->setActiveSheetIndex(1);
-            $secondSheet = $xls->getActiveSheet();
+        // Need to fill quater report page
+        
+        $xls->setActiveSheetIndex(1);
+        $secondSheet = $xls->getActiveSheet();
 
-            $secondSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
-            $secondSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-            $secondSheet->setTitle('Компенсация');
-            
-            $pageMargins = $secondSheet->getPageMargins();
-            
-            $margin = 0.4;
-            
-            $pageMargins->setTop($margin);
-            $pageMargins->setBottom($margin);
-            $pageMargins->setLeft($margin);
-            $pageMargins->setRight($margin);
+        $secondSheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $secondSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $secondSheet->setTitle('Компенсация');
+        
+        $pageMargins = $secondSheet->getPageMargins();
+        
+        $margin = 0.4;
+        
+        $pageMargins->setTop($margin);
+        $pageMargins->setBottom($margin);
+        $pageMargins->setLeft($margin);
+        $pageMargins->setRight($margin);
 
-            $secondSheet->setCellValue('F7', $this->russianDate($today->format('d-m-Y')) .' г.');
-            $secondSheet->setCellValue('B39', $today->format('d/m/Y') .' г.');
-            $secondSheet->setCellValue('A8', 'Ведомость на компенсацию выходных дней в ' . (int)($endOfMonthDate->format('m') / 3) . ' квартале ' . $endOfMonthDate->format('Y') . ' года');
+        $secondSheet->setCellValue('F7', $this->russianDate($today->format('d-m-Y')) .' г.');
+        $secondSheet->setCellValue('B39', $today->format('d/m/Y') .' г.');
+        $secondSheet->setCellValue('A8', 'Ведомость на компенсацию выходных дней в ' . (int)($endOfMonthDate->format('m') / 3) . ' квартале ' . $endOfMonthDate->format('Y') . ' года');
 
-            $rowNumber = 13;
-            $nameColumn = 'B';
-            $daysColumn = 'C';
-            $employeeCounter = 0;
+        $rowNumber = 13;
+        $nameColumn = 'B';
+        $daysColumn = 'C';
+        $employeeCounter = 0;
+        
+        foreach ($employees as $employee) {
             
-            foreach ($employees as $employee) {
+            if ($overtimes[(string)$employee] > 0) {
                 
-                if ($overtimes[(string)$employee] > 0) {
-                    
-                    $secondSheet->setCellValue($nameColumn . $rowNumber, (string)$employee);
-                    $secondSheet->setCellValue($daysColumn . $rowNumber, $overtimes[(string)$employee]);
-                    
-                    $employeeCounter += 1;
-                    $rowNumber += 1;
-                }
+                $secondSheet->setCellValue($nameColumn . $rowNumber, (string)$employee);
+                $secondSheet->setCellValue($daysColumn . $rowNumber, $overtimes[(string)$employee]);
                 
-                if ($employeeCounter == 22) {
-                    $rowNumber = 13;
-                    $employeeCounter = 0;
-                    $nameColumn = 'F';
-                    $daysColumn = 'G';
-                }
+                $employeeCounter += 1;
+                $rowNumber += 1;
+            }
+            
+            if ($employeeCounter == 22) {
+                $rowNumber = 13;
+                $employeeCounter = 0;
+                $nameColumn = 'F';
+                $daysColumn = 'G';
             }
         }
 
