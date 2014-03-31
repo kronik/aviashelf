@@ -674,7 +674,6 @@ class Helper {
                         } else {
                             if ($isWorkingDay) {
                                 $newRow->timePerDay = $timePerDay;
-                                p($timePerDay);
                             } else {
                                 $newRow->timePerDay = '00:00:00';
                             }
