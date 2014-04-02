@@ -787,7 +787,11 @@ class Helper {
     
     public function minutesFromDateTime($date) {
         
-        $timeParts = explode(":", $date);
-        return ((int)$timeParts[0] * 60) + (int)$timeParts[1];
+        if (($date != NULL) && (strpos($date, ":") !== false)) {
+            $timeParts = explode(":", $date);
+            return ((int)$timeParts[0] * 60) + (int)$timeParts[1];
+        } else {
+            return 0;
+        }
     }
 }
