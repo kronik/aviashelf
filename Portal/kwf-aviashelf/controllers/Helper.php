@@ -92,8 +92,7 @@ class Helper {
         }
         
         $flightGroupsModel = Kwf_Model_Abstract::getInstance('Flightgroups');
-        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $flightId)->order('id');
-        
+        $flightGroupsSelect = $flightGroupsModel->select()->whereEquals('flightId', $flightId)->order('id');        
         $flightMembers = $flightGroupsModel->getRows($flightGroupsSelect);
         
         $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
@@ -188,25 +187,6 @@ class Helper {
             if (($this->isContain('КВС', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
             {
                 $flightRow->firstPilotName = (string)$employee;
-                
-                if ($employee->userId != NULL)
-                {
-                    $tasks = Kwf_Model_Abstract::getInstance('Tasks');
-                    
-                    $taskRow = $tasks->createRow();
-                    
-                    $dateLimit = new DateTime($flightRow->flightStartDate);
-                    $dateLimit->add( new DateInterval('P1D') );
-                    
-                    $taskRow->title = 'Выполнить полет: ' . $flightRow->number;
-                    $taskRow->description = 'Выполнить полет: ' . $flightRow->number . ' ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
-                    $taskRow->startDate = $flightRow->flightStartDate;
-                    $taskRow->endDate = $dateLimit->format('Y-m-d') . ' 23:59';
-                    $taskRow->userId = $employee->userId;
-                    $taskRow->status = 0;
-                    
-                    $taskRow->save();
-                }
             }
             else if (($this->isContain('Второй пилот', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE))
             {
@@ -232,9 +212,7 @@ class Helper {
                 if (in_array((string)$employee, $trained) == false) {
                     array_push($trained, (string)$employee);
                 }
-            }
-            
-            $this->sendMessage($flightMember->employeeId, $flightRow);
+            }            
         }
         
         if (count($trained) > 0) {
@@ -378,80 +356,6 @@ class Helper {
             $resultRow->setEndDate = $flight->flightStartDate;
             
             $resultRow->save();
-        }
-    }
-
-    public function sendMessage ($employeeId, $flightRow) {
-                
-        if ($employeeId == NULL) {
-            return;
-        }
-        
-        $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
-        $employeesSelect = $employeesModel->select()->whereEquals('id', $employeeId);
-        
-        $employeeRow = $employeesModel->getRow($employeesSelect);
-        
-        if (($employeeRow == NULL) || ($employeeRow->userId == NULL) || ($employeeRow->userId <= 0)) {
-            return;
-        }
-        
-        $userModel = Kwf_Model_Abstract::getInstance('Kwf_User_Model');
-        $userSelect = $userModel->select()->whereEquals('id', $employeeRow->userId);
-        
-        $userRow = $userModel->getRow($userSelect);
-        
-        if (($userRow == NULL)) {
-            return;
-        }
-        
-        $phoneNumber = $employeeRow->privatePhone;
-        $phoneEmail = NULL;
-        
-        if ($phoneNumber != NULL) {
-            $symbols = array ("+", "-", " ", "/");
-            $phoneNumber = str_replace ($symbols, "", $phoneNumber);
-            $phoneOperator = '';
-            
-            if ((strpos($phoneNumber, "7914") === 0) || (strpos($phoneNumber, "8914") === 0)) {
-                $phoneOperator = "@sms.mtsdv.ru";
-            } else if (((strpos($phoneNumber, "7924") === 0) || (strpos($phoneNumber, "8924") === 0)) ||
-                       ((strpos($phoneNumber, "7929") === 0) || (strpos($phoneNumber, "8929") === 0))) {
-                $phoneOperator = "@sms.megafondv.ru";
-            } else {
-                $phoneOperator = "@sms.beemail.ru";
-            }
-            
-            $phoneEmail = $phoneNumber . $phoneOperator;
-        }
-        
-        $needToSend = 0;
-        
-        $mail = new Kwf_Mail_Template('NewFlightTaskTemplate');
-        
-        $mail->fullname = (string)$employeeRow;
-        $mail->flight = $flightRow->number;
-        $mail->flightdescription = 'Маршрут: ' . $flightRow->routeName . ' (' . $flightRow->objectiveName . ') ' . $flightRow->flightStartDate . ' ' . $flightRow->flightStartTime;
-        
-        if ($userRow->email != NULL) {
-            $mail->addTo($userRow->email);
-            $needToSend ++;
-        }
-        
-        if ($phoneEmail != NULL) {
-            $mail->addTo($phoneEmail);
-            $needToSend ++;
-        }
-        
-        //$mail->addTo('dmitry.klimkin@gmail.com');
-        $mail->setFrom('puls@aviashelf.com', 'Авиашельф Пульс');
-        $mail->setSubject('ПЗ: ' . $flightRow->number);
-        
-        if ($needToSend > 0) {
-            try {
-                $mail->send();
-            } catch (Exception $e) {
-            }
         }
     }
     
