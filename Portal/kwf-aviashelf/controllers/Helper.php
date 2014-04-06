@@ -639,8 +639,16 @@ class Helper {
                     }
                 }
                 
+                if (($startDate->format('N') == 5) &&
+                    (($employee->timePerDay == '07:15') || (($employee->timePerDay == '07:15:00'))) &&
+                    ($employee->sex == 'female')) {
+                    
+                    $timePerDay = '07:00';
+                } else {
+                    $timePerDay = $employee->timePerDay;
+                }
+                
                 $needTime = $this->needTimeForStatus($newRow->typeName);
-                $timePerDay = $employee->timePerDay;
                 
                 $isWorkingDay = $needTime && $isWorkingDay; //($newRow->typeId != $holidayStatus->id);
                 

@@ -73,7 +73,9 @@ function timeToMinutes(timeStr) {
     minutesInHours = (parseInt(totalTimeValue[0])) * 60;
     minutes = parseInt(totalTimeValue[1]);
     
-    if (minutesInHours < 0) {
+    var n = timeStr.indexOf("-");
+    
+    if ((minutesInHours < 0) || (n >= 0)) {
         minutes = -1 * minutes;
     }
 

@@ -82,6 +82,9 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_document'), 'default_documents');
         $this->addResource(new Zend_Acl_Resource('default_flightaccesses'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_flightaccess'), 'default_flightaccesses');
+        $this->addResource(new Zend_Acl_Resource('default_employeetasks'), 'default_employees');
+        $this->addResource(new Zend_Acl_Resource('default_employeetask'), 'default_employeetasks');
+        $this->addResource(new Zend_Acl_Resource('default_employeelogs'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_flightresults'), 'default_employees');
         $this->addResource(new Zend_Acl_Resource('default_flightresult'), 'default_flightresults');
         $this->addResource(new Zend_Acl_Resource('default_myflightsets'), 'default_employees');
@@ -195,6 +198,8 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_myflightsets');
         $this->allow('user', 'default_flightfullresults');
         $this->allow('user', 'default_flightaccesses');
+        $this->allow('user', 'default_employeetasks');
+        $this->allow('user', 'default_employeelogs');
         
         $this->allow('viewer', 'default_flightsmenuitem');
         $this->allow('viewer', 'default_simpleflightplans');
@@ -255,6 +260,8 @@ class Acl extends Kwf_Acl
         $this->allow('kws', 'default_checksdocs');
         $this->allow('kws', 'default_checksets');
         $this->allow('kws', 'default_flightaccesses');
+        $this->allow('kws', 'default_employeetasks');
+        $this->allow('kws', 'default_employeelogs');
 
         $this->deny('kws', 'default_flightplans');
         
@@ -315,6 +322,8 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'kwf_media_upload');
         $this->allow(array('admin', 'power'), 'kwf_user_users');
         $this->allow(array('admin', 'power'), 'default_flightaccesses');
+        $this->allow(array('admin', 'power'), 'default_employeetasks');
+        $this->allow(array('admin', 'power'), 'default_employeelogs');
 
         $this->allow('guest', 'kwf_media_upload');
         $this->allow('guest', 'kwf_user_login');

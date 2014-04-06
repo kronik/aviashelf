@@ -1212,6 +1212,13 @@ CREATE TABLE IF NOT EXISTS `works` (
     PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `employeeLogs` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `userId` int NOT NULL,
+    `loginDate` datetime NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `workId` (`userId`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 delimiter $$
 CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`
@@ -1270,3 +1277,24 @@ BEGIN
 END$$
 DELIMITER ;
 
+delimiter $$
+CREATE TRIGGER `updateEmployeeLogOnInsert` BEFORE INSERT ON `kwf_users`
+FOR EACH ROW 
+
+BEGIN
+    INSERT INTO `employeeLogs` (`userId`, `loginDate`)  VALUES (NEW.id, NEW.last_login);
+END
+$$
+delimiter ;
+
+delimiter $$
+CREATE TRIGGER `updateEmployeeLogOnUpdate` BEFORE UPDATE ON `kwf_users`
+FOR EACH ROW 
+
+BEGIN
+    IF NEW.last_login <> OLD.last_login THEN
+	    INSERT INTO `employeeLogs` (`userId`, `loginDate`)  VALUES (NEW.id, NEW.last_login);
+	END IF;
+END
+$$
+delimiter ;
