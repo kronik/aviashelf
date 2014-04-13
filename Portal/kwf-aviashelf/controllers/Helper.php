@@ -322,6 +322,12 @@ class Helper {
     
     protected function addFlightSet($flight, $groupRow)
     {
+        $specModel = Kwf_Model_Abstract::getInstance('Specialities');
+        $linksModel = Kwf_Model_Abstract::getInstance('Linkdata');
+        
+        $employeeModel = Kwf_Model_Abstract::getInstance('Employees');
+        $employeeSelect = $employeeModel->select()->whereEquals('id', $groupRow->employeeId);
+
         $planesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $planesSelect = $planesModel->select()->whereEquals('id', $flight->planeId);
         $plane = $planesModel->getRow($planesSelect);
@@ -339,11 +345,29 @@ class Helper {
         {
             $resultRow = $result->createRow();
             
+            $employeeRow = $employeeModel->getRow($employeeSelect);
+
+            $specSelect = $specModel->select()->whereEquals('id', $employeeRow->specId);
+            $specRow = $specModel->getRow($specSelect);
+            
+            $linksSelect = $linksModel->select()->whereEquals('id', $employeeRow->subCompanyId);
+            $linksRow = $linksModel->getRow($linksSelect);
+
+            $prow = $specModel->getRow($specSelect);
+            
+            $row->speciality = (string)$prow;
+            
+            $prow = $m1->getRow($s);
+            
+            $row->department = $prow->value;
+            
             $resultRow->flightId = $flight->id;
             $resultRow->flightsCount = 0;
             $resultRow->setsCount = 0;
             $resultRow->employeeId = $groupRow->employeeId;
             $resultRow->employeeName = $groupRow->employeeName;
+            $resultRow->speciality = (string)$specRow;
+            $resultRow->department = $linksRow->value;
             $resultRow->wsTypeId = $planeType->id;
             $resultRow->wsTypeName = $planeType->Name;
             $resultRow->setId = 0;
