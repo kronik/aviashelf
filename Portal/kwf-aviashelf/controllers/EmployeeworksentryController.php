@@ -31,16 +31,16 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(300)
         ->setAllowBlank(false);
 
-        $typeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $typeSelect = $typeModel->select()->whereEquals('name', 'Состояния сотрудника')->order('pos');
+        $typeModel = Kwf_Model_Abstract::getInstance('EmployeeWorkTypes');
+        $typeSelect = $typeModel->select()->order('pos');
         
-        $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Тип наработки'))
+        $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Код'))
         ->setValues($typeModel)
         ->setSelect($typeSelect)
         ->setWidth(300)
         ->setAllowBlank(false);
         
-        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime1', 'Фактическая наработка'))
+        $tab->fields->add(new Kwf_Form_Field_TimeField('workTime1', 'Отработано'))
         ->setWidth(300)
         ->setIncrement(1);
         

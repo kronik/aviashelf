@@ -387,7 +387,7 @@ class Helper {
             }
         }
         
-        $employeeSelectStmt = 'visible = 1 AND groupType = 1';
+        $employeeSelectStmt = 'visible = 1 AND groupType = 1 AND timePerDay > \'00:00:00\'';
         
         if ($employeeId != NULL) {
             $employeeSelectStmt = $employeeSelectStmt . ' AND id = ' . $employeeId;
@@ -401,22 +401,22 @@ class Helper {
             return;
         }
         
-        $statusModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'Я');
+        $statusModel = Kwf_Model_Abstract::getInstance('EmployeeWorkTypes');
+        $statusSelect = $statusModel->select()->whereEquals('value', 'Я');
         $workStatus = $statusModel->getRow($statusSelect);
         
         if ($workStatus == NULL) {
             throw new Kwf_Exception_Client('Нет состояния сотрудника <Явка>.');
         }
         
-        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'В');
+        $statusSelect = $statusModel->select()->whereEquals('value', 'В');
         $holidayStatus = $statusModel->getRow($statusSelect);
         
         if ($holidayStatus == NULL) {
             throw new Kwf_Exception_Client('Нет состояния сотрудника <Выходной>.');
         }
 
-        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->whereEquals('value', 'ЛЧ');
+        $statusSelect = $statusModel->select()->whereEquals('value', 'ЛЧ');
         $shortdayStatus = $statusModel->getRow($statusSelect);
         
         if ($shortdayStatus == NULL) {
@@ -531,7 +531,11 @@ class Helper {
                     foreach ($calendarRecords as $calendarRecord) {
                         if ($calendarRecord->employeeId == NULL) {
                             $newRow->typeId = $calendarRecord->statusId;
-                            $newRow->typeName = $calendarRecord->statusName;                            
+                            $newRow->typeName = $calendarRecord->statusName;
+                            
+                            if ($calendarRecord->statusId == $holidayStatus->id) {
+                                $isWorkingDay = false;
+                            }
                         }
                     }
                     
@@ -543,18 +547,28 @@ class Helper {
                     }
                 }
                 
-                if (($startDate->format('N') == 5) &&
+                $statusSelect = $statusModel->select()->whereEquals('id', $newRow->typeId);
+                $currentStatus = $statusModel->getRow($statusSelect);
+
+                $needTime = $currentStatus->needTime;
+                
+                if (($startDate->format('N') == 5) && ($needTime == true) &&
                     (($employee->timePerDay == '07:15') || (($employee->timePerDay == '07:15:00'))) &&
                     ($employee->sex == 'female')) {
                     
                     $timePerDay = '07:00';
                 } else {
-                    $timePerDay = $employee->timePerDay;
+                    
+                    if ($needTime == true) {
+                        $timePerDay = $employee->timePerDay;
+                    } else {
+                        $timePerDay = '00:00:00';
+                    }
                 }
                 
-                $needTime = $this->needTimeForStatus($newRow->typeName);
-                
-                $isWorkingDay = $needTime && $isWorkingDay; //($newRow->typeId != $holidayStatus->id);
+//                $needTime = $this->needTimeForStatus($newRow->typeName);
+//                
+//                $isWorkingDay = $needTime && $isWorkingDay; //($newRow->typeId != $holidayStatus->id);
                 
 //                if ($startDate->format('d') == 11) {
 //                    p('Work: ' . ($isWorkingDay ? 'YES' : 'NO') . ' Next day holiday: ' . ($isNextDayHoliday ? 'YES' : 'NO') . ' Status: ' . $newRow->typeName);

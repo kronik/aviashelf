@@ -1220,6 +1220,18 @@ CREATE TABLE IF NOT EXISTS `employeeLogs` (
     KEY `workId` (`userId`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+CREATE TABLE IF NOT EXISTS `employeeWorkTypes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `desc` varchar(1024) COLLATE utf8_unicode_ci NOT NULL,
+  `pos` smallint unsigned NOT NULL DEFAULT 0,
+  `needTime` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+insert into `employeeWorkTypes` (`value`, `desc`, `pos`) select `value`, `desc`, `pos` from `link_data` where name = 'Состояния сотрудника';
+
 delimiter $$
 CREATE TRIGGER `updateFlightTime` BEFORE INSERT ON `flightResults`
 FOR EACH ROW 
@@ -1282,7 +1294,7 @@ CREATE TRIGGER `updateEmployeeLogOnInsert` BEFORE INSERT ON `kwf_users`
 FOR EACH ROW 
 
 BEGIN
-    INSERT INTO `employeeLogs` (`userId`, `loginDate`)  VALUES (NEW.id, NEW.last_login);
+    INSERT INTO `employeeLogs` (`userId`, `loginDate`)  VALUES (NEW.id, NOW());
 END
 $$
 delimiter ;
@@ -1293,7 +1305,7 @@ FOR EACH ROW
 
 BEGIN
     IF NEW.last_login <> OLD.last_login THEN
-	    INSERT INTO `employeeLogs` (`userId`, `loginDate`)  VALUES (NEW.id, NEW.last_login);
+	    INSERT INTO `employeeLogs` (`userId`, `loginDate`)  VALUES (NEW.id, NOW());
 	END IF;
 END
 $$

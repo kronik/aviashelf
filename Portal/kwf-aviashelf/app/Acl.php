@@ -39,6 +39,7 @@ class Acl extends Kwf_Acl
         
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_links', array('text'=>trlKwfStatic('General'), 'icon'=>'book.png'), '/links'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_flightchecks', array('text'=>'Типы проверок', 'icon'=>'book.png'), '/flightchecks'), 'default_menuitem');
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employeeworktypes', array('text'=>'Состояния сотрудника', 'icon'=>'book.png'), '/employeeworktypes'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_countries', array('text'=>trlKwfStatic('Countries'), 'icon'=>'book.png'), '/countries'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_airports', array('text'=>trlKwfStatic('Airports'), 'icon'=>'book.png'), '/airports'), 'default_menuitem');
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_landpoints', array('text'=>trlKwfStatic('Landpoints'), 'icon'=>'book.png'), '/landpoints'), 'default_menuitem');
@@ -66,6 +67,7 @@ class Acl extends Kwf_Acl
         $this->addResource(new Zend_Acl_Resource('default_linkdataentry'), 'default_linkdata');
         $this->addResource(new Zend_Acl_Resource('default_country'), 'default_countries');
         $this->addResource(new Zend_Acl_Resource('default_flightcheck'), 'default_flightchecks');
+        $this->addResource(new Zend_Acl_Resource('default_employeeworktype'), 'default_employeeworktypes');
         $this->addResource(new Zend_Acl_Resource('default_airport'), 'default_airports');
         $this->addResource(new Zend_Acl_Resource('default_landpoint'), 'default_landpoints');
         $this->addResource(new Zend_Acl_Resource('default_company'), 'default_companies');
@@ -317,6 +319,7 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_landpoints');
         $this->allow(array('admin', 'power'), 'default_countries');
         $this->allow(array('admin', 'power'), 'default_flightchecks');
+        $this->allow(array('admin', 'power'), 'default_employeeworktypes');
         $this->allow(array('admin', 'power'), 'default_links');
         $this->allow(array('admin', 'power'), 'default_index');
         $this->allow(array('admin', 'power'), 'kwf_media_upload');

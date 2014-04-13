@@ -10,8 +10,8 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
         $employeesModel = Kwf_Model_Abstract::getInstance('Employees');
         $employeesSelect = $employeesModel->select()->where(new Kwf_Model_Select_Expr_Sql('visible = 1 AND groupType = 1'))->order('lastname');
 
-        $statusModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $statusSelect = $statusModel->select()->whereEquals('name', 'Состояния сотрудника')->order('pos');
+        $statusModel = Kwf_Model_Abstract::getInstance('EmployeeWorkTypes');
+        $statusSelect = $statusModel->select()->order('pos');
 
         $this->_form->add(new Kwf_Form_Field_Select('employeeId', trlKwf('Employee')))
         ->setValues($employeesModel)
@@ -42,7 +42,7 @@ class CalendarentryController extends Kwf_Controller_Action_Auto_Form
             throw new Kwf_Exception_Client('Дата начала не может быть больше даты окончания');
         }
         
-        $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
+        $m1 = Kwf_Model_Abstract::getInstance('EmployeeWorkTypes');
         $m3 = Kwf_Model_Abstract::getInstance('Employees');
         
         if ($row->employeeId != NULL && $row->employeeId != 0) {
