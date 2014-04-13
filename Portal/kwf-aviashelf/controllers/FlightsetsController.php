@@ -33,6 +33,8 @@ class FlightsetsController extends Kwf_Controller_Action_Auto_Grid_Ex
         }
         
         $this->_columns->add(new Kwf_Grid_Column('employeeName', trlKwf('Employee')))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('speciality', 'Специальность'))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('department', 'Подразделение'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('docCheckDate');
         $this->_columns->add(new Kwf_Grid_Column('setTypeName', 'Аэропорт'))->setWidth(100);

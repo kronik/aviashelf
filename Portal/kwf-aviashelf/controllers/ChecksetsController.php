@@ -18,6 +18,8 @@ class ChecksetsController extends Kwf_Controller_Action_Auto_Grid
         }
         
         $this->_columns->add(new Kwf_Grid_Column('employeeName', 'ФИО'))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('speciality', 'Специальность'))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('department', 'Подразделение'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setStartDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('setEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('setsCheckDate');

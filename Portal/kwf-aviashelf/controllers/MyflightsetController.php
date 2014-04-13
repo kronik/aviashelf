@@ -61,6 +61,7 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
         $m3 = Kwf_Model_Abstract::getInstance('Airports');
+        $specModel = Kwf_Model_Abstract::getInstance('Specialities');
 
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select()->whereEquals('id', $row->wsTypeId);
@@ -79,6 +80,17 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
         
         $row->employeeId = $this->_getParam('ownerId');
         $row->employeeName = (string)$prow;
+        
+        $specSelect = $specModel->select()->whereEquals('id', $prow->specId);
+        $s = $m1->select()->whereEquals('id', $prow->subCompanyId);
+
+        $prow = $specModel->getRow($specSelect);
+
+        $row->speciality = (string)$prow;
+        
+        $prow = $m1->getRow($s);
+
+        $row->department = $prow->value;
         
         $landpointSelect = $m3->select()->whereEquals('id', $row->setTypeId);
         $prow = $m3->getRow($landpointSelect);

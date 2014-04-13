@@ -896,6 +896,8 @@ CREATE TABLE IF NOT EXISTS `flightSets` (
     `flightId` int NOT NULL,
     `employeeId` int NOT NULL,
     `employeeName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `speciality` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    `department` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `setId` int NOT NULL,
     `setName` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `wsTypeId` int NOT NULL,
