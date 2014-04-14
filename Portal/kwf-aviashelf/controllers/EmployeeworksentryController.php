@@ -129,7 +129,9 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
     
     protected function _beforeInsert(Kwf_Model_Row_Interface $row)
     {
-        $row->workId = $this->_getParam('workId');        
+        if ($this->_getParam('workId') != NULL) {
+            $row->workId = $this->_getParam('workId');
+        }
         $this->updateReferences($row);
     }
     

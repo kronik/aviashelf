@@ -57,6 +57,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         ->setProperty('summaryType', 'totalOvertimeDaysSum');
         
         $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);
+        $this->_columns->add(new Kwf_Grid_Column('workMonthYear', 'Дата'))->setWidth(80);
     }
     
 //    public function jsonDataAction()
@@ -77,7 +78,25 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected function _getWhere()
     {        
         $ret = parent::_getWhere();
-        $ret['workId = ?'] = $this->_getParam('workId');
+        
+        if ($this->_getParam('workId') != NULL) {
+            $ret['workId = ?'] = $this->_getParam('workId');
+            $this->_grouping = array('groupField' => 'employeeName');
+        } else {
+            
+            $todayDate = new DateTime('NOW');
+            $startDate = DateTime::createFromFormat('m-d-Y', $todayDate->format('m') . '-01-' . $todayDate->format('Y'));
+            $startDate->sub( new DateInterval('P1D') );
+            $startDate->sub( new DateInterval('P6M') );
+            $startDate->sub( new DateInterval('P1D') );
+            
+            $ret['employeeId = ?'] = $this->_getParam('employeeId');
+            $ret['workDate > ?'] = $startDate->format('Y-m-d');
+            
+            $this->_grouping = array('groupField' => 'workMonthYear');
+            unset($this->_buttons ['delete']);
+            unset($this->_buttons ['add']);
+        }
         return $ret;
     }
 }

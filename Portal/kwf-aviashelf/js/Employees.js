@@ -23,6 +23,13 @@ var Employees = Ext.extend(Ext.Panel,
               title           : 'Статистика'
         });
 
+        var employeeworks = new Kwf.Auto.GridPanel({
+              controllerUrl   : '/employeeworks',
+              collapsible     : true,
+              stripeRows      : true,
+              title           : 'Наработка'
+        });
+
         var user = new Kwf.Auto.FormPanel({
              controllerUrl   : '/employee',
              collapsible     : true,
@@ -82,6 +89,10 @@ var Employees = Ext.extend(Ext.Panel,
             {
                 queryParam: 'employeeId',
                 item: logs
+            },
+            {
+                queryParam: 'employeeId',
+                item: employeeworks
             }]
         });
                            
@@ -90,7 +101,7 @@ var Employees = Ext.extend(Ext.Panel,
                activeTab : 0,
                region    : 'center',
                tabPosition:'top',
-               items:[user, documents, flightresults, flightsets, accesses, tasks, logs]
+               items:[user, documents, flightresults, flightsets, accesses, tasks, employeeworks, logs]
         });
 
         this.layout = 'border';

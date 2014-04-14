@@ -70,6 +70,11 @@ class Row_Employeework extends Kwf_Model_Db_Row {
                     return parent::__get('workTime5');
                 }
             }
+        } else if ($name === 'workMonthYear') {
+            
+            $workDate = new DateTime(parent::__get('workDate'));
+
+            return $workDate->format('m-Y');
             
         } else {
             return parent::__get($name);
@@ -78,7 +83,7 @@ class Row_Employeework extends Kwf_Model_Db_Row {
     
     public function __set($name, $value) {
         if (($name === 'totalOvertimeMinutes') || ($name === 'totalOvertimeDays') ||
-            ($name === 'subType') || ($name === 'holidayWork')) {
+            ($name === 'subType') || ($name === 'holidayWork') || ($name === 'workMonthYear')) {
             
         } else {
             return parent::__set($name, $value);
