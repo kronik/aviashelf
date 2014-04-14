@@ -188,6 +188,10 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
 
                 if ($typeSelect != NULL)
                 {
+                    $specModel = Kwf_Model_Abstract::getInstance('Specialities');
+                    $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
+                    $m2 = Kwf_Model_Abstract::getInstance('Employees');
+
                     $typeRow = $flightChecksModel->getRow($typeSelect);
                     
                     $dateLimit = new DateTime('NOW');
@@ -208,6 +212,20 @@ class MyanswersController extends Kwf_Controller_Action_Auto_Grid_Ex
                     $docRow->endDate = $dateLimit->format('Y-m-d');
                     $docRow->ownerId = $result->employeeId;
                     $docRow->ownerName = $result->employeeName;
+                    
+                    $s = $m2->select()->whereEquals('id', $result->employeeId);
+                    $prow = $m2->getRow($s);
+
+                    $specSelect = $specModel->select()->whereEquals('id', $prow->specId);
+                    $s = $m1->select()->whereEquals('id', $prow->subCompanyId);
+                    
+                    $prow = $specModel->getRow($specSelect);
+                    
+                    $row->speciality = (string)$prow;
+                    
+                    $prow = $m1->getRow($s);
+                    
+                    $row->department = $prow->value;
 
                     $docRow->save();
                 }

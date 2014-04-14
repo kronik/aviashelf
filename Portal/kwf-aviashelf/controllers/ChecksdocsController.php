@@ -19,6 +19,8 @@ class ChecksdocsController extends ChecksController
         }
         
         $this->_columns->add(new Kwf_Grid_Column('ownerName', 'ФИО'))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('speciality', 'Специальность'))->setWidth(150);
+        $this->_columns->add(new Kwf_Grid_Column('department', 'Подразделение'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('typeName', 'Тип проверки'))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column('number', 'Номер документа'))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column_Date('startDate', trlKwf('Doc Start Date')));

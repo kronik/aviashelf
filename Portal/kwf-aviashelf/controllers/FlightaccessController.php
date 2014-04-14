@@ -107,6 +107,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         $m1 = Kwf_Model_Abstract::getInstance('Linkdata');
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
         $m4 = Kwf_Model_Abstract::getInstance('Linkdata');
+        $specModel = Kwf_Model_Abstract::getInstance('Specialities');
 
         $wstypeModel = Kwf_Model_Abstract::getInstance('Wstypes');
         $wstypeSelect = $wstypeModel->select()->whereEquals('id', $row->wsTypeId);
@@ -125,6 +126,17 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         $s = $m2->select()->whereEquals('id', $row->employeeId);
         $prow = $m2->getRow($s);
         $row->employeeName = (string)$prow;
+        
+        $specSelect = $specModel->select()->whereEquals('id', $prow->specId);
+        $s = $m1->select()->whereEquals('id', $prow->subCompanyId);
+        
+        $prow = $specModel->getRow($specSelect);
+        
+        $row->speciality = (string)$prow;
+        
+        $prow = $m1->getRow($s);
+        
+        $row->department = $prow->value;
         
         $row->docId = 0;
         $row->docName = '';
