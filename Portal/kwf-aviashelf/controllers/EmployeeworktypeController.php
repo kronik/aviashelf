@@ -32,7 +32,7 @@ class EmployeeworktypeController extends Kwf_Controller_Action_Auto_Form
         
         $this->_form->add(new Kwf_Form_Field_TextArea('desc', trlKwf('Description')))
         ->setWidth(400)
-        ->setHeight(70);
+        ->setHeight(100);
         
         $this->_form->add(new Kwf_Form_Field_Checkbox('needTime', 'Учитывать время'));
     }

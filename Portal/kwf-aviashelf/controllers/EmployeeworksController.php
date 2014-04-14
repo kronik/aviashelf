@@ -54,7 +54,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         ->setRenderer('totalOvertimeDaysColorer')
         ->setProperty('summaryType', 'totalOvertimeDaysSum');
         
-        $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);//->setProperty('summaryType', 'totalOvertime');
+        $this->_columns->add(new Kwf_Grid_Column('comment', trlKwf('Comments')))->setWidth(500);
     }
     
 //    public function jsonDataAction()

@@ -96,7 +96,7 @@ function timeToString(minutes) {
     minutes = Math.abs(minutes);
     
     minutesStr = (Math.floor(minutes) % 60);
-    hoursStr = ((minutes - minutesStr)  / 60) * mathSign;
+    hoursStr = ((minutes - minutesStr)  / 60);
 
     if (hoursStr < 10 && hoursStr >= 0) {
         hoursStr = '0' + hoursStr;
@@ -106,7 +106,11 @@ function timeToString(minutes) {
         minutesStr = '0' + minutesStr;
     }
 
-    return hoursStr + ':' + minutesStr;
+    if (mathSign > 0) {
+        return hoursStr + ':' + minutesStr;
+    } else {
+        return '-' + hoursStr + ':' + minutesStr;
+    }
 }
 
 function timeDiff(time1, time2) {
@@ -124,7 +128,7 @@ function timeSum(time1, time2) {
     minutes1 = timeToMinutes(time1);
     minutes2 = timeToMinutes(time2);
     
-//    console.log('Minutes: ' + minutes1 + ' + ' + minutes2);
+//    console.log('Minutes: ' + minutes1 + ' + ' + minutes2 + ' = ' + timeToString(minutes1 + minutes2));
     
     return timeToString(minutes1 + minutes2);
 }
@@ -160,49 +164,16 @@ Ext.grid.GroupSummary.Calculations['totalOvertimeMinutesSum'] = function(v, reco
    
     timeSummary = timeSum(record.data.totalOvertimeMinutes, v);
     
-//    console.log(record.data.workDate + ': ' + record.data.totalOvertimeMinutes + ' + ' + v);
+//    console.log(record.data.workDate + ': ' + record.data.totalOvertimeMinutes + ' + ' + v + ' = ' + timeSummary);
     
     return timeSummary;
 }
 
 Ext.grid.GroupSummary.Calculations['totalDays'] = function(v, record, field)
 {
-    if (v == 0)
-    {
-        return record.data.timePerDay;
-    }
+    timeSummary = timeSum(record.data.timePerDay, v);
     
-    if ((v == null) || (v == '')) {
-        return '00:00';
-    }
-    
-    if ((record.data.timePerDay == null) || (record.data.timePerDay == '')) {
-        return '00:00';
-    }
-    
-    var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.timePerDay.split(':');
-    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
-    var minutes = 0;
-    var hoursAddition = 0;
-    
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
-        hoursAddition = 1;
-    }
-    else
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
-    }
-    
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-    
-    hours = hours + hoursAddition;
-    
-    return hours + ':' + minutes;
+    return timeSummary;
 }
 
 Ext.util.Format.totalOvertimeDaysColorer = function(val) {
@@ -285,201 +256,36 @@ Ext.grid.GroupSummary.Calculations['totalTimeDescription'] = function(v, record,
 
 Ext.grid.GroupSummary.Calculations['totalTime1'] = function(v, record, field)
 {
-    if (v == 0)
-    {
-        return record.data.workTime1;
-    }
-    
-    if ((v == null) || (v == '')) {
-        return '00:00';
-    }
-    
-    if ((record.data.workTime1 == null) || (record.data.workTime1 == '')) {
-        return '00:00';
-    }
-    
-    var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.workTime1.split(':');
-    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
-    var minutes = 0;
-    var hoursAddition = 0;
-    
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
-        hoursAddition = 1;
-    }
-    else
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
-    }
-    
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-    
-    hours = hours + hoursAddition;
-    
-    return hours + ':' + minutes + ':00';
+    timeSummary = timeSum(record.data.workTime1, v);
+
+    return timeSummary;
 }
 
 Ext.grid.GroupSummary.Calculations['totalTime2'] = function(v, record, field)
 {
-    if (v == 0)
-    {
-        return record.data.workTime2;
-    }
+    timeSummary = timeSum(record.data.workTime2, v);
     
-    if ((v == null) || (v == '')) {
-        return '00:00';
-    }
-    
-    if ((record.data.workTime2 == null) || (record.data.workTime2 == '')) {
-        return '00:00';
-    }
-    
-    var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.workTime2.split(':');
-    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
-    var minutes = 0;
-    var hoursAddition = 0;
-    
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
-        hoursAddition = 1;
-    }
-    else
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
-    }
-    
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-    
-    hours = hours + hoursAddition;
-    
-    return hours + ':' + minutes + ':00';
+    return timeSummary;
 }
 
 Ext.grid.GroupSummary.Calculations['totalTime3'] = function(v, record, field)
 {
-    if (v == 0)
-    {
-        return record.data.workTime3;
-    }
+    timeSummary = timeSum(record.data.workTime3, v);
     
-    if ((v == null) || (v == '')) {
-        return '00:00';
-    }
-    
-    if ((record.data.workTime3 == null) || (record.data.workTime3 == '')) {
-        return '00:00';
-    }
-    
-    var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.workTime3.split(':');
-    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
-    var minutes = 0;
-    var hoursAddition = 0;
-    
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
-        hoursAddition = 1;
-    }
-    else
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
-    }
-    
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-    
-    hours = hours + hoursAddition;
-    
-    return hours + ':' + minutes + ':00';
+    return timeSummary;
 }
 
 Ext.grid.GroupSummary.Calculations['totalTime4'] = function(v, record, field)
 {
-    if (v == 0)
-    {
-        return record.data.workTime4;
-    }
+    timeSummary = timeSum(record.data.workTime4, v);
     
-    if ((v == null) || (v == '')) {
-        return '00:00';
-    }
-    
-    if ((record.data.workTime4 == null) || (record.data.workTime4 == '')) {
-        return '00:00';
-    }
-    
-    var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.workTime4.split(':');
-    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
-    var minutes = 0;
-    var hoursAddition = 0;
-    
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
-        hoursAddition = 1;
-    }
-    else
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
-    }
-    
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-    
-    hours = hours + hoursAddition;
-    
-    return hours + ':' + minutes + ':00';
+    return timeSummary;
 }
 
 Ext.grid.GroupSummary.Calculations['totalTime5'] = function(v, record, field)
 {
-    if (v == 0)
-    {
-        return record.data.workTime5;
-    }
+    timeSummary = timeSum(record.data.workTime5, v);
     
-    if ((v == null) || (v == '')) {
-        return '00:00';
-    }
-    
-    if ((record.data.workTime5 == null) || (record.data.workTime5 == '')) {
-        return '00:00';
-    }
-    
-    var totalTimeValue = v.split(':');
-    var addTimeValue = record.data.workTime5.split(':');
-    var hours = (totalTimeValue[0]) * 1 + (addTimeValue[0]) * 1;
-    var minutes = 0;
-    var hoursAddition = 0;
-    
-    if ((totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 > 59)
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1 - 60;
-        hoursAddition = 1;
-    }
-    else
-    {
-        minutes = (totalTimeValue[1]) * 1 + (addTimeValue[1]) * 1;
-    }
-    
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-    
-    hours = hours + hoursAddition;
-    
-    return hours + ':' + minutes + ':00';
+    return timeSummary;
 }
 
