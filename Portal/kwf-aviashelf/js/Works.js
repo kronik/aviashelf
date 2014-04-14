@@ -289,3 +289,10 @@ Ext.grid.GroupSummary.Calculations['totalTime5'] = function(v, record, field)
     return timeSummary;
 }
 
+Ext.grid.GroupSummary.Calculations['totalTimeHoliday'] = function(v, record, field)
+{
+    timeSummary = timeSum(record.data.holidayWork, v);
+    
+    return timeSummary;
+}
+

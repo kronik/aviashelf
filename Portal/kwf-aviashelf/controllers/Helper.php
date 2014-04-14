@@ -447,6 +447,13 @@ class Helper {
             throw new Kwf_Exception_Client('Нет состояния сотрудника <ЛЧ>.');
         }
 
+        $statusSelect = $statusModel->select()->whereEquals('value', 'РВ');
+        $holidayworkStatus = $statusModel->getRow($statusSelect);
+        
+        if ($holidayworkStatus == NULL) {
+            throw new Kwf_Exception_Client('Нет состояния сотрудника <РВ>.');
+        }
+
         $worksModel = Kwf_Model_Abstract::getInstance('Works');
         $worksSelect = $worksModel->select()->whereEquals('id', $workId);
         $work = $worksModel->getRow($worksSelect);
@@ -565,8 +572,17 @@ class Helper {
                     
                     foreach ($calendarRecords as $calendarRecord) {
                         if ($calendarRecord->employeeId == $employee->id) {
-                            $newRow->typeId = $calendarRecord->statusId;
-                            $newRow->typeName = $calendarRecord->statusName;
+                            
+                            if ($calendarRecord->statusId == $holidayworkStatus->id) {
+                                if ($newRow->typeId == NULL) {
+                                    
+                                    $newRow->typeId = $calendarRecord->statusId;
+                                    $newRow->typeName = $calendarRecord->statusName;
+                                }
+                            } else {
+                                $newRow->typeId = $calendarRecord->statusId;
+                                $newRow->typeName = $calendarRecord->statusName;
+                            }
                         }
                     }
                 }
