@@ -489,6 +489,7 @@ Kwf.Auto.FormPanelEx = Ext.extend(Kwf.Auto.FormPanel, {
 */
 
 Kwf.Auto.FormPanelEx = Ext.extend(Kwf.Auto.FormPanel, {
+    timeout: 300000,
 
     initComponent: function()
     {

@@ -44,6 +44,7 @@ class Cli_NotificationsControllerController extends Kwf_Controller_Action {
                     continue;
                 }
 
+                /*
                 if (($this->isContain('КВС', $flightMember->positionName)) && ($flightMember->mainCrew == TRUE)) {
                     
                     if ($employee->userId != NULL) {
@@ -64,7 +65,7 @@ class Cli_NotificationsControllerController extends Kwf_Controller_Action {
                         
                         $taskRow->save();
                     }
-                }
+                } */
                 
                 echo "Sent flight notification to: " . (string)$employee . "\n";
                 

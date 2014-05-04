@@ -42,7 +42,9 @@ class Row_Employeework extends Kwf_Model_Db_Row {
 
             $work1Minutes = $work1Minutes + $work2Minutes + $work3Minutes + $work4Minutes + $work5Minutes;
             
-            return ($work1Minutes > 0 && $normMinutes == 0) ? 'РВ' : '';
+            $startDate = new DateTime(parent::__get('workDate'));
+            
+            return (($work1Minutes > 0) && ($normMinutes == 0) && ($startDate->format('N') > 5)) ? 'РВ' : '';
             
         } else if ($name === 'holidayWork') {
             

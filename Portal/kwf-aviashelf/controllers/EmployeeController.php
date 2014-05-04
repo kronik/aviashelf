@@ -237,5 +237,21 @@ class EmployeeController extends Kwf_Controller_Action_Auto_Form
     protected function _beforeSave(Kwf_Model_Row_Interface $row)
     {
         $this->updateReferences($row);
-    }    
+    }
+    
+    protected function _afterSave(Kwf_Model_Row_Interface $row) {
+        $db = Zend_Registry::get('db');
+        
+        $sql = 'update flightSets dest inner join employee e ON dest.employeeId = e.id SET dest.speciality = (select name from speciality where id = e.specId),dest.department = (select value from link_data where id = e.subCompanyId) WHERE e.Id = ' . $row->id;
+        
+        $result = $db->query($sql);
+
+        $sql = 'update flightAccesses dest inner join employee e ON dest.employeeId = e.id SET dest.speciality = (select name from speciality where id = e.specId),dest.department = (select value from link_data where id = e.subCompanyId) WHERE e.Id = ' . $row->id;
+        
+        $result = $db->query($sql);
+
+        $sql = 'update documents dest inner join employee e ON dest.ownerId = e.id SET dest.speciality = (select name from speciality where id = e.specId),dest.department = (select value from link_data where id = e.subCompanyId) WHERE e.Id = ' . $row->id;
+        
+        $result = $db->query($sql);
+    }
 }

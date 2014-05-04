@@ -3,7 +3,7 @@ class EmployeetasksController extends Kwf_Controller_Action_Auto_Grid
 {
     protected $_modelName = 'Tasks';
     protected $_defaultOrder = array('field' => 'id', 'direction' => 'DESC');
-    protected $_paging = 30;
+    protected $_paging = 300;
     protected $_buttons = array('add', 'delete');
 
     public function indexAction()
