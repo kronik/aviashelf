@@ -391,6 +391,7 @@ class Helper {
     public function updateWorkEntries($workId, $employeeId, $forced) {
         
         ini_set('memory_limit', "1024M");
+        ini_set('max_execution_time', '0');
         set_time_limit(300); // 5 minutes
         
         $employeeworksModel = Kwf_Model_Abstract::getInstance('EmployeeWorks');
@@ -426,33 +427,6 @@ class Helper {
         }
         
         $statusModel = Kwf_Model_Abstract::getInstance('EmployeeWorkTypes');
-        $statusSelect = $statusModel->select()->whereEquals('value', 'Я');
-        $workStatus = $statusModel->getRow($statusSelect);
-        
-        if ($workStatus == NULL) {
-            throw new Kwf_Exception_Client('Нет состояния сотрудника <Явка>.');
-        }
-        
-        $statusSelect = $statusModel->select()->whereEquals('value', 'В');
-        $holidayStatus = $statusModel->getRow($statusSelect);
-        
-        if ($holidayStatus == NULL) {
-            throw new Kwf_Exception_Client('Нет состояния сотрудника <Выходной>.');
-        }
-
-        $statusSelect = $statusModel->select()->whereEquals('value', 'ЛЧ');
-        $shortdayStatus = $statusModel->getRow($statusSelect);
-        
-        if ($shortdayStatus == NULL) {
-            throw new Kwf_Exception_Client('Нет состояния сотрудника <ЛЧ>.');
-        }
-
-        $statusSelect = $statusModel->select()->whereEquals('value', 'РВ');
-        $holidayworkStatus = $statusModel->getRow($statusSelect);
-        
-        if ($holidayworkStatus == NULL) {
-            throw new Kwf_Exception_Client('Нет состояния сотрудника <РВ>.');
-        }
 
         $worksModel = Kwf_Model_Abstract::getInstance('Works');
         $worksSelect = $worksModel->select()->whereEquals('id', $workId);
@@ -469,7 +443,11 @@ class Helper {
         $flightResultWorkModel = Kwf_Model_Abstract::getInstance('Flightresultwork');
         $flightResultWorkSelect = $flightResultWorkModel->select();
         $flightResultWorks = $flightResultWorkModel->getRows($flightResultWorkSelect);
-        
+
+        $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
+        $flightsSelect = $flightsModel->select()->where(new Kwf_Model_Select_Expr_Sql('flightStartDate <= \'' . $endDate->format('Y-m-d') . '\' AND flightStartDate >= \'' . $startDate->format('Y-m-d') . '\''));
+        $flights = $flightsModel->getRows($flightsSelect);
+
         foreach ($employees as $employee) {
             
             $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
@@ -486,6 +464,15 @@ class Helper {
             
             while ($startDate < $endDate) {
                 
+                $suggestedTypeName = '';
+                $suggestedTypeMask = 0;
+                
+                $typeMaskSEIK         = 1;
+                $typeMaskENL          = 2;
+                $typeMaskGeneralWork  = 4;
+                $typeMaskPSO          = 8;
+                $typeMaskOtherCompany = 16;
+                
                 $calendarRecords = $this->findCalendarRecordsByEmployeeId($employee->id, $calendar, $startDate);
                 $resultRecords = $this->findFlightResultRecordsByEmployeeId($employee->id, $results, $startDate);
                 
@@ -495,6 +482,8 @@ class Helper {
                 
                 $newRow->employeeId = $employee->id;
                 $newRow->employeeName = (string)$employee;
+                
+                $newRow->typeId = 0; //Unused field
                 
                 $newRow->workDate = $startDate->format('Y-m-d');
                 
@@ -508,6 +497,26 @@ class Helper {
                     
                     if (($resultRecord->flightTime != '00:00') && ($resultRecord->flightTime != '00:00:00')) {
                         
+                        $flight = $this->findFlightRecordsById($resultRecord->flightId, $flights);
+                        
+                        if ($flight != NULL) {
+                            if ($flight->subCompanyName == 'СЭИК') {
+                                $suggestedTypeMask |= $typeMaskSEIK;
+                            } else if ($flight->subCompanyName == 'ЭНЛ') {
+                                $suggestedTypeMask |= $typeMaskENL;
+                            } else {
+                                $suggestedTypeMask |= $typeMaskOtherCompany;
+                            }
+                            
+                            if ($resultRecord->typeName == 'Налет общий') {
+                                $suggestedTypeMask |= $typeMaskGeneralWork;
+                            }
+                            
+                            if ($flight->objectiveName == 'обеспеч. ПСО день' || $flight->objectiveName == 'обеспеч. ПСО ночь') {
+                                $suggestedTypeMask |= $typeMaskPSO;
+                            }
+                        }
+
                         foreach ($flightResultWorks as $flightResultWork) {
                             
                             if ($resultRecord->typeId == $flightResultWork->resultId) {
@@ -540,31 +549,67 @@ class Helper {
                         }
                     }
                 }
-
+                
+                switch ($suggestedTypeMask) {
+                    case $typeMaskOtherCompany:
+                        $suggestedTypeName = 'ЯДР';
+                        break;
+                    case $typeMaskOtherCompany | $typeMaskGeneralWork:
+                        $suggestedTypeName = 'ЯП';
+                        break;
+                    case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskGeneralWork:
+                    case $typeMaskSEIK | $typeMaskGeneralWork:
+                        $suggestedTypeName = 'КЯПс';
+                        break;
+                    case $typeMaskOtherCompany | $typeMaskENL | $typeMaskGeneralWork:
+                    case $typeMaskENL | $typeMaskGeneralWork:
+                        $suggestedTypeName = 'КЯПэ';
+                        break;
+                    case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskENL | $typeMaskGeneralWork:
+                    case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskENL | $typeMaskGeneralWork | $typeMaskPSO:
+                    case $typeMaskSEIK | $typeMaskENL | $typeMaskGeneralWork:
+                    case $typeMaskSEIK | $typeMaskENL | $typeMaskGeneralWork | $typeMaskPSO:
+                        $suggestedTypeName = 'КЯПсэ';
+                        break;
+                    case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskPSO:
+                    case $typeMaskSEIK | $typeMaskPSO:
+                        $suggestedTypeName = 'КДРЖс';
+                        break;
+                    case $typeMaskOtherCompany | $typeMaskENL | $typeMaskPSO:
+                    case $typeMaskENL | $typeMaskPSO:
+                        $suggestedTypeName = 'КДРЖэ';
+                        break;
+                    case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskENL | $typeMaskPSO:
+                    case $typeMaskSEIK | $typeMaskENL | $typeMaskPSO:
+                        $suggestedTypeName = 'КДРЖсэ';
+                        break;
+                        
+                    default:
+                        $suggestedTypeName = '';
+                        break;
+                }
+                
                 $isWorkingDay = $this->isWorkingDay($startDate);
                 $isNextDayHoliday = $this->isNextDayHoliday($startDate);
                 
                 if (count($calendarRecords) == 0) {
                     if ($isWorkingDay) {
                         if ($isNextDayHoliday) {
-                            $newRow->typeId = $shortdayStatus->id;
-                            $newRow->typeName = $shortdayStatus->value;
+                            $newRow->typeName = 'ЛЧ';
                         } else {
-                            $newRow->typeId = $workStatus->id;
-                            $newRow->typeName = $workStatus->value;
+                            $newRow->typeName = 'Я';
                         }
                     } else {
-                        $newRow->typeId = $holidayStatus->id;
-                        $newRow->typeName = $holidayStatus->value;
+                        $newRow->typeName = 'В';
                     }
                 } else {
                     
                     foreach ($calendarRecords as $calendarRecord) {
                         if ($calendarRecord->employeeId == NULL) {
-                            $newRow->typeId = $calendarRecord->statusId;
+
                             $newRow->typeName = $calendarRecord->statusName;
                             
-                            if ($calendarRecord->statusId == $holidayStatus->id) {
+                            if ($calendarRecord->statusName == 'В') {
                                 $isWorkingDay = false;
                             }
                         }
@@ -573,21 +618,18 @@ class Helper {
                     foreach ($calendarRecords as $calendarRecord) {
                         if ($calendarRecord->employeeId == $employee->id) {
                             
-                            if ($calendarRecord->statusId == $holidayworkStatus->id) {
-                                if ($newRow->typeId == NULL) {
-                                    
-                                    $newRow->typeId = $calendarRecord->statusId;
+                            if ($calendarRecord->statusName == 'РВ') {
+                                if ($newRow->typeName == NULL) {
                                     $newRow->typeName = $calendarRecord->statusName;
                                 }
                             } else {
-                                $newRow->typeId = $calendarRecord->statusId;
                                 $newRow->typeName = $calendarRecord->statusName;
                             }
                         }
                     }
                 }
                 
-                $statusSelect = $statusModel->select()->whereEquals('id', $newRow->typeId);
+                $statusSelect = $statusModel->select()->whereEquals('value', $newRow->typeName);
                 $currentStatus = $statusModel->getRow($statusSelect);
 
                 $needTime = $currentStatus->needTime;
@@ -615,7 +657,7 @@ class Helper {
 //                    p($calendarRecords);
 //                }
                 
-                if ($isWorkingDay && ($isNextDayHoliday || ($newRow->typeId == $shortdayStatus->id)) && $needTime) {
+                if ($isWorkingDay && ($isNextDayHoliday || ($newRow->typeName == 'ЛЧ')) && $needTime) {
                     
                     $minutesPerDay = $this->minutesFromDateTime($timePerDay);
                     
@@ -628,7 +670,7 @@ class Helper {
                     $newRow->timePerDay = $timePerDay;
                 } else {
                     if ($needTime) {
-                        if ($newRow->typeId == $shortdayStatus->id) {
+                        if ($newRow->typeName == 'ЛЧ') {
                             
                             $minutesPerDay = $this->minutesFromDateTime($timePerDay);
                             
@@ -649,22 +691,33 @@ class Helper {
                     }
                 }
                 
+
+                if (($newRow->timePerDay == '07:12:00' || $newRow->timePerDay == '07:12') &&
+                    $newRow->typeName == 'Я') {
                     
-//                } else if ($isWorkingDay) {
-//                    if ($needTime) {
-//                        $newRow->timePerDay = $timePerDay;
-//                    } else {
-//                        $newRow->timePerDay = '00:00';
-//                    }
-//                } else {
-//                    $newRow->timePerDay = '00:00';
-//                }
+                    $newRow->typeName = 'ЯУ';
+                }
+                
+                if ($suggestedTypeName != '') {
+                    $newRow->typeName = $suggestedTypeName;
+                }
                 
                 $newRow->save();
                 
                 $startDate->add( new DateInterval('P1D') );
             }
         }
+    }
+    
+    protected function findFlightRecordsById($flightId, $flights) {
+        foreach ($flights as $flight) {
+            if ($flight->id == $flightId) {
+
+                return $flight;
+            }
+        }
+        
+        return NULL;
     }
     
     protected function findCalendarRecordsByEmployeeId ($employeeId, $calendarRecords, $workDate) {

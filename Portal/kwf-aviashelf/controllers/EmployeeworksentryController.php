@@ -2,7 +2,7 @@
 
 require_once 'FormEx.php';
 
-class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form
+class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
 {
     protected $_permissions = array('save', 'add');
     protected $_modelName = 'EmployeeWorks';
