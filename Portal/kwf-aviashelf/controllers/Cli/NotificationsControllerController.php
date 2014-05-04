@@ -143,14 +143,17 @@ class Cli_NotificationsControllerController extends Kwf_Controller_Action {
             $needToSend ++;
         }
         
-//        $mail->addTo('dmitry.klimkin@gmail.com');
+        $mail->addTo('dmitry.klimkin@gmail.com');
         $mail->setFrom('puls@aviashelf.com', 'Авиашельф Пульс');
         $mail->setSubject('ПЗ: ' . $flightRow->number);
         
         if ($needToSend > 0) {
             try {
                 $mail->send();
+
+                echo "\nMessage sent to: " . $userRow->email . ' and ' . $phoneEmail . "\n";
             } catch (Exception $e) {
+                echo $e;
             }
         }
     }
