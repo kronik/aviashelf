@@ -569,13 +569,13 @@ class Helper {
                         $suggestedTypeName = 'ЯП';
                         break;
                     case $typeMaskSEIK:
-                        $suggestedTypeName = 'КДРс';
+                        $suggestedTypeName = 'КЯДРс';
                         break;
                     case $typeMaskENL:
-                        $suggestedTypeName = 'КДРэ';
+                        $suggestedTypeName = 'КЯДРэ';
                         break;
                     case $typeMaskSEIK | $typeMaskENL:
-                        $suggestedTypeName = 'КДРсэ';
+                        $suggestedTypeName = 'КЯДРсэ';
                         break;
                     case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskGeneralWork:
                     case $typeMaskSEIK | $typeMaskGeneralWork:
@@ -593,15 +593,15 @@ class Helper {
                         break;
                     case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskPSO:
                     case $typeMaskSEIK | $typeMaskPSO:
-                        $suggestedTypeName = 'КДРЖс';
+                        $suggestedTypeName = 'КЯДРЖс';
                         break;
                     case $typeMaskOtherCompany | $typeMaskENL | $typeMaskPSO:
                     case $typeMaskENL | $typeMaskPSO:
-                        $suggestedTypeName = 'КДРЖэ';
+                        $suggestedTypeName = 'КЯДРЖэ';
                         break;
                     case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskENL | $typeMaskPSO:
                     case $typeMaskSEIK | $typeMaskENL | $typeMaskPSO:
-                        $suggestedTypeName = 'КДРЖсэ';
+                        $suggestedTypeName = 'КЯДРЖсэ';
                         break;
                         
                     default:
