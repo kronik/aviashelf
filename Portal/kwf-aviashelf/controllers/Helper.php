@@ -445,10 +445,17 @@ class Helper {
         $flightResultWorks = $flightResultWorkModel->getRows($flightResultWorkSelect);
 
         $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
-        $flightsSelect = $flightsModel->select()->where(new Kwf_Model_Select_Expr_Sql('flightStartDate <= \'' . $endDate->format('Y-m-d') . '\' AND flightStartDate >= \'' . $startDate->format('Y-m-d') . '\''));
+        $flightsSelect = $flightsModel->select()->where(new Kwf_Model_Select_Expr_Sql('flightStartDate <= \'' . $endDate->format('Y-m-d') . '\' AND flightStartDate >= \'' . $startDate->format('Y-m-d') . '\''))->order('flightStartDate');
         $flights = $flightsModel->getRows($flightsSelect);
-
+        
         foreach ($employees as $employee) {
+            
+//            if ($employee->lastname != 'Генералов' &&
+//                $employee->lastname != 'Нартов' &&
+//                $employee->lastname != 'Улитин') {
+//                
+//                continue;
+//            }
             
             $startDate = DateTime::createFromFormat('m-d-Y', $work->month . '-01-' . $work->year);
             
@@ -512,9 +519,15 @@ class Helper {
                                 $suggestedTypeMask |= $typeMaskGeneralWork;
                             }
                             
-                            if ($flight->objectiveName == 'обеспеч. ПСО день' || $flight->objectiveName == 'обеспеч. ПСО ночь') {
+                            if ($flight->objectiveName == 'обеспеч. ПСО день.' || $flight->objectiveName == 'обеспеч. ПСО ночь.') {
                                 $suggestedTypeMask |= $typeMaskPSO;
                             }
+                            
+//                            p('Mask: ' . $suggestedTypeMask);
+//                            p($flight);
+//                            p($resultRecord);
+                            
+                        } else {
                         }
 
                         foreach ($flightResultWorks as $flightResultWork) {
@@ -556,6 +569,15 @@ class Helper {
                         break;
                     case $typeMaskOtherCompany | $typeMaskGeneralWork:
                         $suggestedTypeName = 'ЯП';
+                        break;
+                    case $typeMaskSEIK:
+                        $suggestedTypeName = 'КДРс';
+                        break;
+                    case $typeMaskENL:
+                        $suggestedTypeName = 'КДРэ';
+                        break;
+                    case $typeMaskSEIK | $typeMaskENL:
+                        $suggestedTypeName = 'КДРсэ';
                         break;
                     case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskGeneralWork:
                     case $typeMaskSEIK | $typeMaskGeneralWork:
@@ -702,8 +724,19 @@ class Helper {
                     $newRow->typeName = $suggestedTypeName;
                 }
                 
-                $newRow->save();
+//                if ($employee->lastname == 'Генералов' ||
+//                    $employee->lastname == 'Нартов' ||
+//                    $employee->lastname == 'Улитин') {
+//                    
+//                    p($suggestedTypeName);
+//                    p('Mask ' . $suggestedTypeMask);
+//                    p($newRow);
+//                    p($resultRecords);
+//                    
+//                    break;
+//                }
                 
+                $newRow->save();
                 $startDate->add( new DateInterval('P1D') );
             }
         }
