@@ -28,17 +28,17 @@ Ext.util.Format.documentsCheckDate = function(val)
     
     var newdate = dayStr + "-" + monthStr + "-" + year;
     
-    var dateToCheck = new Date();
+    var dateToCheck1 = new Date();
+    
     var today = new Date();
     
-    dateToCheck.setDate(dateToCheck.getDate() - 7);
+    dateToCheck1.setDate(dateToCheck1.getDate() + 30);
     
-    if ((val > today) && (val > dateToCheck))
-    {
+    if ((val > today) && (val > dateToCheck1)) {
         return '<span style="color:green;">' + val.format('d-m-Y') + '</span>';
-    }
-    else
-    {
+    } else if ((val > today) && (val < dateToCheck1)) {
+        return '<span style="color:orange;">' + val.format('d-m-Y') + '</span>';
+    } else {
         return '<span style="color:red;">' + val.format('d-m-Y') + '</span>';
     }
     return val;
