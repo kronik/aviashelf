@@ -445,9 +445,7 @@ class Helper {
         $flightResultWorks = $flightResultWorkModel->getRows($flightResultWorkSelect);
 
         $flightsModel = Kwf_Model_Abstract::getInstance('Flights');
-        $flightsSelect = $flightsModel->select()->where(new Kwf_Model_Select_Expr_Sql('flightStartDate <= \'' . $endDate->format('Y-m-d') . '\' AND flightStartDate >= \'' . $startDate->format('Y-m-d') . '\''))->order('flightStartDate');
-        $flights = $flightsModel->getRows($flightsSelect);
-        
+
         foreach ($employees as $employee) {
             
 //            if ($employee->lastname != 'Генералов' &&
@@ -483,6 +481,28 @@ class Helper {
                 $calendarRecords = $this->findCalendarRecordsByEmployeeId($employee->id, $calendar, $startDate);
                 $resultRecords = $this->findFlightResultRecordsByEmployeeId($employee->id, $results, $startDate);
                 
+                $s = new Kwf_Model_Select();
+                $s->where(new Kwf_Model_Select_Expr_Sql("employeeId = " . $employee->id . " AND Hidden = 0"));
+                
+                $flightsSelect = $flightsModel->select()->where(new Kwf_Model_Select_Expr_Sql('flightStartDate = \'' . $startDate->format('Y-m-d') . '\''))->where(new Kwf_Model_Select_Expr_Child_Contains('Flightgroups', $s));
+                
+                $flights = $flightsModel->getRows($flightsSelect);
+
+                foreach ($flights as $flight) {
+                    if ($flight->subCompanyName == 'СЭИК') {
+                        $suggestedTypeMask |= $typeMaskSEIK;
+                    } else if ($flight->subCompanyName == 'ЭНЛ') {
+                        $suggestedTypeMask |= $typeMaskENL;
+                    } else {
+                        $suggestedTypeMask |= $typeMaskOtherCompany;
+                    }
+                    
+                    if ($flight->objectiveName == 'обеспеч. ПСО день. ' || $flight->objectiveName == 'обеспеч. ПСО ночь. ') {
+                        $suggestedTypeMask |= $typeMaskPSO;
+                    } else {
+                    }
+                }
+                
                 $newRow = $employeeworksModel->createRow();
                 
                 $newRow->workId = $workId;
@@ -504,32 +524,10 @@ class Helper {
                     
                     if (($resultRecord->flightTime != '00:00') && ($resultRecord->flightTime != '00:00:00')) {
                         
-                        $flight = $this->findFlightRecordsById($resultRecord->flightId, $flights);
-                        
-                        if ($flight != NULL) {
-                            if ($flight->subCompanyName == 'СЭИК') {
-                                $suggestedTypeMask |= $typeMaskSEIK;
-                            } else if ($flight->subCompanyName == 'ЭНЛ') {
-                                $suggestedTypeMask |= $typeMaskENL;
-                            } else {
-                                $suggestedTypeMask |= $typeMaskOtherCompany;
-                            }
-                            
-                            if ($resultRecord->typeName == 'Налет общий') {
-                                $suggestedTypeMask |= $typeMaskGeneralWork;
-                            }
-                            
-                            if ($flight->objectiveName == 'обеспеч. ПСО день.' || $flight->objectiveName == 'обеспеч. ПСО ночь.') {
-                                $suggestedTypeMask |= $typeMaskPSO;
-                            }
-                            
-//                            p('Mask: ' . $suggestedTypeMask);
-//                            p($flight);
-//                            p($resultRecord);
-                            
-                        } else {
+                        if ($resultRecord->typeName == 'Налет общий') {
+                            $suggestedTypeMask |= $typeMaskGeneralWork;
                         }
-
+                        
                         foreach ($flightResultWorks as $flightResultWork) {
                             
                             if ($resultRecord->typeId == $flightResultWork->resultId) {
@@ -742,15 +740,19 @@ class Helper {
         }
     }
     
-    protected function findFlightRecordsById($flightId, $flights) {
-        foreach ($flights as $flight) {
-            if ($flight->id == $flightId) {
+    protected function findFlightRecordsByDate($workDate, $flights) {
+        
+        $records = array();
 
-                return $flight;
+        $workDateStr = $workDate->format('Y-m-d');
+
+        foreach ($flights as $flight) {
+            if ($flight->flightStartDate == $workDateStr) {
+                array_push($records, $flight);
             }
         }
         
-        return NULL;
+        return $records;
     }
     
     protected function findCalendarRecordsByEmployeeId ($employeeId, $calendarRecords, $workDate) {
