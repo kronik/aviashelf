@@ -57,7 +57,7 @@ class Row_Employeework extends Kwf_Model_Db_Row {
             
             $normMinutes = $helper->minutesFromDateTime(parent::__get('timePerDay'));
 
-            if ($normMinutes > 0) {
+            if (($normMinutes > 0) || (parent::__get('subTypeName') != 'РВ')) {
                 return '00:00:00';
             } else {
                 if ($work1Minutes > 0) {

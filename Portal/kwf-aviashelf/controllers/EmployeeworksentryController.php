@@ -107,11 +107,13 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
             $needTime = $prow->needTime;
         }
         
-        $s = $typeModel->select()->whereEquals('value', $row->subTypeName);
-        $prow = $typeModel->getRow($s);
+        if ($row->subTypeName != NULL) {
+            $s = $typeModel->select()->whereEquals('value', $row->subTypeName);
+            $prow = $typeModel->getRow($s);
 
-        if ($prow != NULL) {
-            $row->subTypeName = $prow->value;
+            if ($prow != NULL) {
+                $row->subTypeName = $prow->value;
+            }
         }
 
         $s = $m2->select()->whereEquals('id', $row->employeeId);
