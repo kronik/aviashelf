@@ -29,23 +29,23 @@ class Row_Employeework extends Kwf_Model_Db_Row {
                 return 0;
             }
             
-        } else if ($name === 'subType') {
-            
-            $helper = new Helper();
-            $work1Minutes = $helper->minutesFromDateTime(parent::__get('workTime1'));
-            $work2Minutes = $helper->minutesFromDateTime(parent::__get('workTime2'));
-            $work3Minutes = $helper->minutesFromDateTime(parent::__get('workTime3'));
-            $work4Minutes = $helper->minutesFromDateTime(parent::__get('workTime4'));
-            $work5Minutes = $helper->minutesFromDateTime(parent::__get('workTime5'));
-
-            $normMinutes = $helper->minutesFromDateTime(parent::__get('timePerDay'));
-
-            $work1Minutes = $work1Minutes + $work2Minutes + $work3Minutes + $work4Minutes + $work5Minutes;
-            
-            $startDate = new DateTime(parent::__get('workDate'));
-            
-            return (($work1Minutes > 0) && ($normMinutes == 0) && ($startDate->format('N') > 5)) ? 'РВ' : '';
-            
+//        } else if ($name === 'subType') {
+//            
+//            $helper = new Helper();
+//            $work1Minutes = $helper->minutesFromDateTime(parent::__get('workTime1'));
+//            $work2Minutes = $helper->minutesFromDateTime(parent::__get('workTime2'));
+//            $work3Minutes = $helper->minutesFromDateTime(parent::__get('workTime3'));
+//            $work4Minutes = $helper->minutesFromDateTime(parent::__get('workTime4'));
+//            $work5Minutes = $helper->minutesFromDateTime(parent::__get('workTime5'));
+//
+//            $normMinutes = $helper->minutesFromDateTime(parent::__get('timePerDay'));
+//
+//            $work1Minutes = $work1Minutes + $work2Minutes + $work3Minutes + $work4Minutes + $work5Minutes;
+//            
+//            $startDate = new DateTime(parent::__get('workDate'));
+//            
+//            return (($work1Minutes > 0) && ($normMinutes == 0) && ($startDate->format('N') > 5)) ? 'РВ' : '';
+//            
         } else if ($name === 'holidayWork') {
             
             $helper = new Helper();

@@ -1184,6 +1184,8 @@ CREATE TABLE IF NOT EXISTS `employeeWorks` (
     `workDate` date NOT NULL,
     `typeId` int NOT NULL,
     `typeName` varchar(100) COLLATE utf8_unicode_ci,
+    `subTypeId` int NOT NULL,
+    `subTypeName` varchar(100) COLLATE utf8_unicode_ci,
     `workTime1` time DEFAULT '00:00',
     `workTime2` time DEFAULT '00:00',
     `workTime3` time DEFAULT '00:00',

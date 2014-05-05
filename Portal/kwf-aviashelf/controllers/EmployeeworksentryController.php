@@ -33,12 +33,23 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
 
         $typeModel = Kwf_Model_Abstract::getInstance('EmployeeWorkTypes');
         $typeSelect = $typeModel->select()->order('pos');
+        $types = $typeModel->getRows($typeSelect);
         
-        $tab->fields->add(new Kwf_Form_Field_Select('typeId', 'Код'))
-        ->setValues($typeModel)
-        ->setSelect($typeSelect)
+        $records = array();
+        
+        foreach ($types as $type) {
+            $records[$type->value] = $type->value;
+        }
+        
+        $tab->fields->add(new Kwf_Form_Field_Select('typeName', 'Код'))
+        ->setValues($records)
         ->setWidth(300)
         ->setAllowBlank(false);
+
+        $tab->fields->add(new Kwf_Form_Field_Select('subTypeName', 'Код РВ'))
+        ->setValues($records)
+        ->setWidth(300)
+        ->setAllowBlank(true);
         
         $tab->fields->add(new Kwf_Form_Field_TimeField('workTime1', 'Отработано'))
         ->setWidth(300)
@@ -83,7 +94,7 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
         $m2 = Kwf_Model_Abstract::getInstance('Employees');
         $typeModel = Kwf_Model_Abstract::getInstance('EmployeeWorkTypes');
 
-        $s = $typeModel->select()->whereEquals('id', $row->typeId);
+        $s = $typeModel->select()->whereEquals('value', $row->typeName);
         $prow = $typeModel->getRow($s);
         
         $needTime = false;
@@ -94,6 +105,13 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
             $row->timeInMinutes = 0;
             
             $needTime = $prow->needTime;
+        }
+        
+        $s = $typeModel->select()->whereEquals('value', $row->subTypeName);
+        $prow = $typeModel->getRow($s);
+
+        if ($prow != NULL) {
+            $row->subTypeName = $prow->value;
         }
 
         $s = $m2->select()->whereEquals('id', $row->employeeId);
