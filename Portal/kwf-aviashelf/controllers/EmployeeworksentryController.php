@@ -76,6 +76,7 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
         ->setValues(array('00:00:00' => '00:00',
                           '06:00:00' => '06:00',
                           '06:12:00' => '06:12',
+                          '06:15:00' => '06:15',
                           '07:00:00' => '07:00',
                           '07:12:00' => '07:12',
                           '07:15:00' => '07:15',
