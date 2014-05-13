@@ -1,5 +1,8 @@
 <?php
-class FlightresultController extends Kwf_Controller_Action_Auto_Form
+    
+require_once 'FormEx.php';
+
+class FlightresultController extends Kwf_Controller_Action_Auto_Form_Ex
 {
     protected $_modelName = 'Flightresults';
     protected $_permissions = array('save', 'add');
@@ -40,6 +43,8 @@ class FlightresultController extends Kwf_Controller_Action_Auto_Form
         if ($users->getAuthedUserRole() == 'admin') {
             $this->_form->add(new Kwf_Form_Field_Checkbox('showInTotal', trlKwf('Show in total')));
         }
+        
+        $this->_form->add(new Kwf_Form_Field_Checkbox('workOnHoliday', 'Код РВ'));
     }
     
     protected function isContain($what, $where)

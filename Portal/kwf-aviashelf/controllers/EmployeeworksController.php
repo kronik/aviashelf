@@ -5,7 +5,7 @@ require_once 'GridEx.php';
 class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
 {
     protected $_modelName = 'EmployeeWorks';
-    protected $_defaultOrder = array('field' => 'id', 'direction' => 'ASC');
+    protected $_defaultOrder = array('field' => 'workDate', 'direction' => 'ASC');
     protected $_grouping = array('groupField' => 'employeeName');
     protected $_buttons = array('add', 'delete', 'xls');
     protected $_editDialog = NULL;
@@ -30,7 +30,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                            'controllerUrl' => '/employeeworksentry',
                                            'width' => 350,
-                                           'height' => 560,
+                                           'height' => 540,
                                            'type' => 'WindowFormEx'
                                        );
         } else {
