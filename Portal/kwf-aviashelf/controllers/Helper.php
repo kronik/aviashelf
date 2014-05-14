@@ -448,9 +448,7 @@ class Helper {
         
         foreach ($employees as $employee) {
             
-//            if ($employee->lastname != 'Генералов' &&
-//                $employee->lastname != 'Нартов' &&
-//                $employee->lastname != 'Улитин') {
+//            if ($employee->lastname != 'Афонин') {
 //                
 //                continue;
 //            }
@@ -475,6 +473,11 @@ class Helper {
             while ($startDate < $endDate) {
                 
                 $startDateStr = $startDate->format('Y-m-d');
+                
+//                if ($startDateStr != '2014-04-26') {
+//                    $startDate->add( new DateInterval('P1D') );
+//                    continue;
+//                }
                 
                 $skipThisDay = false;
                 
@@ -605,10 +608,14 @@ class Helper {
                         break;
                     case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskGeneralWork:
                     case $typeMaskSEIK | $typeMaskGeneralWork:
+                    case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskGeneralWork | $typeMaskPSO:
+                    case $typeMaskSEIK | $typeMaskGeneralWork | $typeMaskPSO:
                         $suggestedTypeName = 'КЯПс';
                         break;
                     case $typeMaskOtherCompany | $typeMaskENL | $typeMaskGeneralWork:
                     case $typeMaskENL | $typeMaskGeneralWork:
+                    case $typeMaskOtherCompany | $typeMaskENL | $typeMaskGeneralWork | $typeMaskPSO:
+                    case $typeMaskENL | $typeMaskGeneralWork | $typeMaskPSO:
                         $suggestedTypeName = 'КЯПэ';
                         break;
                     case $typeMaskOtherCompany | $typeMaskSEIK | $typeMaskENL | $typeMaskGeneralWork:
@@ -746,18 +753,18 @@ class Helper {
                 
                 if ($suggestedTypeName != '') {
                     $newRow->typeName = $suggestedTypeName;
+                } else {
+                    if ($suggestedTypeMask > 0) {
+                        throw new Kwf_Exception_Client('Нет типа для маски: <' . $suggestedTypeMask . '>.');
+                    }
                 }
                 
-//                if ($employee->lastname == 'Генералов' ||
-//                    $employee->lastname == 'Нартов' ||
-//                    $employee->lastname == 'Улитин') {
+//                if ($employee->lastname == 'Афонин') {
 //                    
 //                    p($suggestedTypeName);
 //                    p('Mask ' . $suggestedTypeMask);
 //                    p($newRow);
 //                    p($resultRecords);
-//                    
-//                    break;
 //                }
                 
                 $newRow->save();
