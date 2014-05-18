@@ -1788,14 +1788,14 @@ class Reporter
         $workIds = array();
 
         if (($row->month % 3) == 0) {
-            $worksSelect = $worksModel->select()->where(new Kwf_Model_Select_Expr_Sql('(`month` = ' . $row->month - 1 . ' OR `month` = ' . $row->month - 2 . ') AND year = ' . $row->year));
+            $worksSelect = $worksModel->select()->where(new Kwf_Model_Select_Expr_Sql('(month = ' . $row->month - 1 . ' OR month = ' . $row->month - 2 . ') AND year = ' . $row->year));
             $works = $worksModel->getRows($worksSelect);
 
             foreach ($works as $work) {
                 array_push($workIds, $work->id);
             }
         } else if (($row->month % 2) == 0) {
-            $worksSelect = $worksModel->select()->where(new Kwf_Model_Select_Expr_Sql('(`month` = ' . $row->month - 1 . ') AND year = ' . $row->year));
+            $worksSelect = $worksModel->select()->where(new Kwf_Model_Select_Expr_Sql('month = ' . $row->month - 1 . ' AND year = ' . $row->year));
             $works = $worksModel->getRows($worksSelect);
             
             foreach ($works as $work) {

@@ -597,12 +597,15 @@ class Helper {
                     case $typeMaskOtherCompany | $typeMaskGeneralWork:
                         $suggestedTypeName = 'ЯП';
                         break;
+                    case $typeMaskSEIK | $typeMaskOtherCompany:
                     case $typeMaskSEIK:
                         $suggestedTypeName = 'КЯДРс';
                         break;
+                    case $typeMaskENL | $typeMaskOtherCompany:
                     case $typeMaskENL:
                         $suggestedTypeName = 'КЯДРэ';
                         break;
+                    case $typeMaskSEIK | $typeMaskENL | $typeMaskOtherCompany:
                     case $typeMaskSEIK | $typeMaskENL:
                         $suggestedTypeName = 'КЯДРсэ';
                         break;

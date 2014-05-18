@@ -10,7 +10,7 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
     protected $_editDialog = array(
         'controllerUrl' => '/flightaccess',
         'width' => 550,
-        'height' => 330
+        'height' => 450
     );
 
     protected function _initColumns()
@@ -34,7 +34,7 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                        'controllerUrl' => '/flightaccess',
                                        'width' => 550,
-                                       'height' => 400
+                                       'height' => 450
                                        );
         } else {
             $this->_buttons = array();
@@ -48,6 +48,8 @@ class FlightaccessesController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $this->_columns->add(new Kwf_Grid_Column('accessDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('exCheckDate');
+        $this->_columns->add(new Kwf_Grid_Column('flightsCount', 'Кол-во полетов'))->setWidth(90);
+        $this->_columns->add(new Kwf_Grid_Column('setsCount', 'Кол-во сп/подъемов'))->setWidth(110);
         $this->_columns->add(new Kwf_Grid_Column_Checkbox('finished', ''));
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessTypeName', 'Тип проверки'))->setWidth(150);

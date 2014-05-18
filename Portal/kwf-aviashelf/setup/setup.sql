@@ -881,6 +881,8 @@ CREATE TABLE IF NOT EXISTS `flightAccesses` (
     `finished` tinyint(3) unsigned DEFAULT '0',
     `docNumber` varchar(300) COLLATE utf8_unicode_ci,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
+    `flightsCount` int NOT NULL DEFAULT 0,
+    `setsCount` int NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     KEY `docId` (`docId`),
     INDEX `id` (`id` ASC)

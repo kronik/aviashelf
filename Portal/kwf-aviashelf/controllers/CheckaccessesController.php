@@ -23,6 +23,8 @@ class CheckaccessesController extends Kwf_Controller_Action_Auto_Grid
         $this->_columns->add(new Kwf_Grid_Column('department', 'Подразделение'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('accessDate', 'Дата начала'))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessEndDate', 'Дата окончания'))->setWidth(100)->setRenderer('accessCheckDate');
+        $this->_columns->add(new Kwf_Grid_Column('flightsCount', 'Кол-во полетов'))->setWidth(90)->setProperty('summaryType', 'totalFlightsCount');
+        $this->_columns->add(new Kwf_Grid_Column('setsCount', 'Кол-во сп/подъемов'))->setWidth(110)->setProperty('summaryType', 'totalSetsCount');
         $this->_columns->add(new Kwf_Grid_Column('wsTypeName', trlKwf('WsType')))->setWidth(100);
         $this->_columns->add(new Kwf_Grid_Column('accessTypeName', 'Тип допуска'))->setWidth(150);
         $this->_columns->add(new Kwf_Grid_Column('accessName', 'Метеоминимум'))->setWidth(200);

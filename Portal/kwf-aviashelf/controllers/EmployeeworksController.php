@@ -30,7 +30,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                            'controllerUrl' => '/employeeworksentry',
                                            'width' => 350,
-                                           'height' => 540,
+                                           'height' => 560,
                                            'type' => 'WindowFormEx'
                                        );
         } else {
