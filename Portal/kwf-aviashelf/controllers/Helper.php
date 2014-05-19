@@ -684,11 +684,17 @@ class Helper {
                         }
                     }
                 }
-                
+
                 $statusSelect = $statusModel->select()->whereEquals('value', $newRow->typeName);
                 $currentStatus = $statusModel->getRow($statusSelect);
-
+                
                 $needTime = $currentStatus->needTime;
+
+                if ((0 === mb_strpos($newRow->typeName, 'В')) && ($newRow->typeName != 'В')) {
+                    if ($isWorkingDay == false) {
+                        $needTime = false;
+                    }
+                }
                 
                 if (($startDate->format('N') == 5) && ($needTime == true) &&
                     (($employee->timePerDay == '07:15') || (($employee->timePerDay == '07:15:00'))) &&

@@ -129,11 +129,17 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
         $totalMinutes += $this->minutesFromDateTime($row->workTime4);
         $totalMinutes += $this->minutesFromDateTime($row->workTime5);
         
-        if (($needTime == false) && ($totalMinutes > 0)) {
+        $validateTime = true;
+        
+        if ((0 === mb_strpos($newRow->typeName, 'В')) && ($newRow->typeName != 'В')) {
+            $validateTime = false;
+        }
+        
+        if (($needTime == false) && ($totalMinutes > 0) && $validateTime) {
             throw new Kwf_Exception_Client('Указано время для типа <' . $row->typeName . '>');
         }
 
-        if (($needTime == true) && ($totalMinutes == 0)) {
+        if (($needTime == true) && ($totalMinutes == 0) && $validateTime) {
             throw new Kwf_Exception_Client('Не указано время для типа <' . $row->typeName . '>');
         }
         
