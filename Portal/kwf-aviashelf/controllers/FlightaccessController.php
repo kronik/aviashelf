@@ -94,7 +94,7 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         
         $this->_form->add(new Kwf_Form_Field_Select('setsCount', 'Кол-во сп/подъемов'))
         ->setValues(array('0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20'))
-        ->setAllowBlank(false);
+        ->setAllowBlank(true);
 
         $this->_form->add(new Kwf_Form_Field_DateField('accessDate', 'Дата допуска'))->setAllowBlank(false);
         $this->_form->add(new Kwf_Form_Field_DateField('accessEndDate', 'Дата окончания'))->setAllowBlank(false);

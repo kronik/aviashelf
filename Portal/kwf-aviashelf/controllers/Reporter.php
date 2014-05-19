@@ -1749,19 +1749,19 @@ class Reporter
         }
 
         $firstSheet->setCellValue('AA14', $docNumber);
-        $firstSheet->setCellValue('AB14', $today->format('m/d/Y'));
-        $firstSheet->setCellValue('AC14', $row->month . '/01/' . $row->year);
+        $firstSheet->setCellValue('AB14', $today->format('d/m/Y'));
+        $firstSheet->setCellValue('AC14', '01/'. $row->month . '/' . $row->year);
         
-        $endOfMonthDate = DateTime::createFromFormat('m/d/Y', $row->month . '/01/' . $row->year);
+        $endOfMonthDate = DateTime::createFromFormat('d/m/Y', '01/' . $row->month . '/' .  $row->year);
         
         $endOfMonthDate->add( new DateInterval('P1M') )->sub( new DateInterval('P1D') );
 
-        $firstSheet->setCellValue('AD14', $endOfMonthDate->format('m/d/Y'));
+        $firstSheet->setCellValue('AD14', $endOfMonthDate->format('d/m/Y'));
         
         $holidayTypes = array('ОТ', 'К', 'ОД');
         
         for ($i=1; $i<16; $i++) {
-            $workTime = DateTime::createFromFormat('m/d/Y', $row->month . '/' . $i . '/' . $row->year);
+            $workTime = DateTime::createFromFormat('d/m/Y', $row->month . '/' . $i . '/' . $row->year);
 
             if (($workTime->format('N') == 6) || ($workTime->format('N') == 7)) {
                 
