@@ -131,7 +131,7 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
         
         $validateTime = true;
         
-        if ((0 === mb_strpos($newRow->typeName, 'В')) && ($newRow->typeName != 'В')) {
+        if ((0 === mb_strpos($row->typeName, 'В')) && ($row->typeName != 'В')) {
             $validateTime = false;
         }
         
