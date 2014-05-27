@@ -591,6 +591,9 @@ class Helper {
                 }
                 
                 switch ($suggestedTypeMask) {
+                    case $typeMaskGeneralWork:
+                        $suggestedTypeName = 'КЯДР';
+                        break;
                     case $typeMaskOtherCompany:
                         $suggestedTypeName = 'ЯДР';
                         break;
