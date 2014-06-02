@@ -53,6 +53,39 @@ class StaffController extends Kwf_Controller_Action_Auto_Form
         $tab->fields->add(new Kwf_Form_Field_Checkbox('isOOO', 'Отсутствует'));
 
         $tab = $tabs->add();
+        $tab->setTitle('Паспорт');
+        
+        $tab->fields->add(new Kwf_Form_Field_TextField('ruPassportNumber', 'Паспорт (RU) №'))
+        ->setWidth(400)
+        ->setAllowBlank(true);
+        
+        $tab->fields->add(new Kwf_Form_Field_DateField('ruPassportDate', 'Дата выдачи'));
+        
+        $tab->fields->add(new Kwf_Form_Field_TextField('ruPassportCompany', 'Кто выдал'))
+        ->setWidth(400);
+        
+        $tab->fields->add(new Kwf_Form_Field_TextField('enPassportNumber', 'Паспорт (EN) №'))
+        ->setWidth(400)
+        ->setAllowBlank(true);
+        
+        $tab->fields->add(new Kwf_Form_Field_DateField('enPassportDate', 'Срок окончания'));
+        
+        $tab->fields->add(new Kwf_Form_Field_TextField('enPassportCompany', 'Кто выдал'))
+        ->setWidth(400);
+        
+        $tab->fields->add(new Kwf_Form_Field_Select('sex', trlKwf('Sex')))
+        ->setValues(array('male' => trlKwf('Male'), 'female' => trlKwf('Female')))
+        ->setWidth(90)
+        ->setAllowBlank(false);
+        $tab->fields->add(new Kwf_Form_Field_DateField('birthDate', trlKwf('Birthdate')));
+        $tab->fields->add(new Kwf_Form_Field_TextField('birthPlace', trlKwf('Birthplace')))
+        ->setWidth(400);
+        
+        $tab->fields->add(new Kwf_Form_Field_TextField('citizenship', 'Гражданство'))
+        ->setWidth(400)
+        ->setAllowBlank(true);
+
+        $tab = $tabs->add();
         $tab->setTitle(trlKwf('Permissions'));
         
         $userModel = Kwf_Model_Abstract::getInstance('Kwf_User_Model');

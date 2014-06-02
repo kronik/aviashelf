@@ -44,7 +44,8 @@ class DocumentsController extends Kwf_Controller_Action_Auto_Grid_Ex
         $this->_columns->add(new Kwf_Grid_Column('number', 'Номер документа'))->setWidth(200);
         $this->_columns->add(new Kwf_Grid_Column_Date('startDate', trlKwf('Doc Start Date')));
         $this->_columns->add(new Kwf_Grid_Column_Date('endDate', trlKwf('Doc End Date')))->setRenderer('docCheckDate');
-        $this->_columns->add(new Kwf_Grid_Column('gradeName', trlKwf('Note')))->setWidth(300)->setRenderer('checkGrade');
+        $this->_columns->add(new Kwf_Grid_Column('gradeName', 'Примечание'))->setWidth(200)->setRenderer('checkGrade');
+        $this->_columns->add(new Kwf_Grid_Column('comment', 'Комментарий'))->setWidth(300);
         #$this->_columns->add(new Kwf_Grid_Column_Image('Picture', trlKwf('Image'), 'Picture'))->setMaxHeight(300)->setWidth(250);
         
         #$select = new Kwf_Form_Field_Select();
