@@ -277,6 +277,40 @@ Ext.util.Format.exCheckDate = function(val, record, field)
     return val;
 };
 
+Ext.util.Format.exCheckDateWithFlag = function(val, record, field)
+{
+    if ((val == null) || (val == '')) {
+        return val;
+    }
+    
+    var tokens = val.split('|');
+    var valDate = new Date (tokens[0]);
+    var flag = tokens[1];
+    var month = valDate.getMonth();
+    var monthStr = month < 10 ? '0' + month : month;
+    var day = valDate.getDay();
+    var dayStr = day < 10 ? '0' + day : day;
+    var year = valDate.getYear();
+    
+    var newdate = dayStr + "-" + monthStr + "-" + year;
+    
+    var dateToCheck1 = new Date();
+    
+    var today = new Date();
+    
+    dateToCheck1.setDate(dateToCheck1.getDate() + 30);
+    
+    if (((valDate > today) && (valDate > dateToCheck1)) || (flag == "1")) {
+        return '<span style="color:green;">' + valDate.format('d-m-Y') + '</span>';
+    } else if ((valDate > today) && (valDate < dateToCheck1)) {
+        return '<span style="color:orange;">' + valDate.format('d-m-Y') + '</span>';
+    } else {
+        return '<span style="color:red;">' + valDate.format('d-m-Y') + '</span>';
+    }
+    return valDate;
+};
+
+
 Ext.util.Format.checkGrade = function(val)
 {
     if ((val == null) || (val == '')) {
