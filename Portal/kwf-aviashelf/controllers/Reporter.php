@@ -1857,7 +1857,7 @@ class Reporter
                 $employeeWork = $employeeWorks[$i];
                 
                 $workTimeStr = $employeeWork->workTime1;
-                $workTime = new DateTime ($workTimeStr);
+                $workTime = DateTime::createFromFormat('H:i:s', $workTimeStr);
                 $workTimeStr = $workTime->format('H:i');
                 
                 $normalTimeStr = $employeeWork->timePerDay;
@@ -1886,7 +1886,7 @@ class Reporter
             for ($i=15; $i<count($employeeWorks); $i++) {
                 $employeeWork = $employeeWorks[$i];
                 $workTimeStr = $employeeWork->workTime1;
-                $workTime = new DateTime ($workTimeStr);
+                $workTime = DateTime::createFromFormat('H:i:s', $workTimeStr);
                 $workTimeStr = $workTime->format('H:i');
 
                 $normalTimeStr = $employeeWork->timePerDay;
@@ -1916,7 +1916,7 @@ class Reporter
                 $employeeWork = $employeeWorks[$i];
                 
                 $workTimeStr = $employeeWork->workTime3;
-                $workTime = new DateTime ($workTimeStr);
+                $workTime = DateTime::createFromFormat('H:i:s', $workTimeStr);
                 $workTimeStr = $workTime->format('H:i');
                 
                 if ($workTimeStr != '00:00') {
