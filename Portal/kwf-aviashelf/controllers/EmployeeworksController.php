@@ -17,7 +17,7 @@ class EmployeeworksController extends Kwf_Controller_Action_Auto_Grid_Ex
         
         $users = Kwf_Registry::get('userModel');
 
-        $this->_filters = array('text' => array('type' => 'TextField'));
+        $this->_filters = array('typeName' => array('type' => 'TextField'), 'workDate' => array('type' => 'DateRange'));
         $this->_queryFields = array('employeeName', 'typeName');
 
         if ($users->getAuthedUserRole() == 'admin' || $users->getAuthedUserRole() == 'power') {

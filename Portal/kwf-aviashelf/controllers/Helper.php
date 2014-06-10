@@ -770,7 +770,8 @@ class Helper {
                         throw new Kwf_Exception_Client('Нет типа для маски: <' . $suggestedTypeMask . '>.');
                     }
                 }
-                
+//                p($startDate->format('Y-m-d') . ': ' . $suggestedTypeName . ': ' . $newRow->typeName);
+
 //                if ($employee->lastname == 'Афонин') {
 //                    
 //                    p($suggestedTypeName);
