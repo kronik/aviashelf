@@ -1857,6 +1857,11 @@ class Reporter
                 $employeeWork = $employeeWorks[$i];
                 
                 $workTimeStr = $employeeWork->workTime1;
+                
+                if (strlen($workTimeStr) == 0) {
+                    $workTimeStr = '00:00:00';
+                }
+                
                 $workTime = DateTime::createFromFormat('H:i:s', $workTimeStr);
                 $workTimeStr = $workTime->format('H:i');
                 
@@ -1886,6 +1891,11 @@ class Reporter
             for ($i=15; $i<count($employeeWorks); $i++) {
                 $employeeWork = $employeeWorks[$i];
                 $workTimeStr = $employeeWork->workTime1;
+                
+                if (strlen($workTimeStr) == 0) {
+                    $workTimeStr = '00:00:00';
+                }
+                
                 $workTime = DateTime::createFromFormat('H:i:s', $workTimeStr);
                 $workTimeStr = $workTime->format('H:i');
 
