@@ -35,7 +35,7 @@ class EmployeeworksentryController extends Kwf_Controller_Action_Auto_Form_Ex
         $typeSelect = $typeModel->select()->order('pos');
         $types = $typeModel->getRows($typeSelect);
         
-        $records = array();
+        $records = array('' => 'НЕТ');
         
         foreach ($types as $type) {
             $records[$type->value] = $type->value;
