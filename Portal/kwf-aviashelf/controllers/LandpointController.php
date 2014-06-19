@@ -31,12 +31,12 @@ class LandpointController extends Kwf_Controller_Action_Auto_Form
         $this->_form->add(new Kwf_Form_Field_TextField('address', trlKwf('Address')))
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_NumberField('longitude', trlKwf('Longitude')))
+        $this->_form->add(new Kwf_Form_Field_TextField('latitudeString', trlKwf('Latitude')))
         ->setWidth(400);
         
-        $this->_form->add(new Kwf_Form_Field_NumberField('latitude', trlKwf('Latitude')))
+        $this->_form->add(new Kwf_Form_Field_TextField('longitudeString', trlKwf('Longitude')))
         ->setWidth(400);
-        
+
         $this->_form->add(new Kwf_Form_Field_TextArea('comment', trlKwf('Comment')))
         ->setHeight(70)
         ->setWidth(400);

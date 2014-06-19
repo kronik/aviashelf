@@ -1124,6 +1124,8 @@ CREATE TABLE IF NOT EXISTS `landPoints` (
     `phone` varchar(300) COLLATE utf8_unicode_ci,
     `latitude` float,
     `longitude` float,
+    `latitudeString` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `longitudeString` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     PRIMARY KEY (`id`),
     INDEX `id` (`id` ASC)
