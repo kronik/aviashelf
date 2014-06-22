@@ -23,7 +23,8 @@ class StaffgroupsfilterController extends Kwf_Controller_Action_Auto_Grid_Ex
             $s->whereEquals('groupId', $this->_getParam('positionId'));
             $ret->where(new Kwf_Model_Select_Expr_Child_Contains('EmployeeStaffRoles', $s))
             ->whereEquals('isOOO', false)
-            ->whereEquals('isAllowed', '1');
+            ->whereEquals('isAllowed', '1')
+            ->order('lastname');
         }
         
         return $ret;
