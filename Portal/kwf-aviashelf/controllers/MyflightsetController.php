@@ -14,7 +14,7 @@ class MyflightsetController extends Kwf_Controller_Action_Auto_Form
         $wstypeSelect = $wstypeModel->select();
         
         $setTypeModel = Kwf_Model_Abstract::getInstance('Linkdata');
-        $setTypeSelect = $setTypeModel->select()->whereEquals('name', 'Тип захода')->order('value');
+        $setTypeSelect = $setTypeModel->select()->whereEquals('name', 'Тип заходов')->order('value');
         
         $this->_form->add(new Kwf_Form_Field_Select('wsTypeId', trlKwf('WsType')))
         ->setValues($wstypeModel)
