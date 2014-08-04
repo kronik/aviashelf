@@ -108,6 +108,10 @@ class FlightaccessController extends Kwf_Controller_Action_Auto_Form
         ->setWidth(400);
         
         $this->_form->add(new Kwf_Form_Field_Checkbox('finished', 'Выполнено'));
+        
+        $this->_form->add(new Kwf_Form_Field_File('File', trlKwf('File')))
+        ->setShowPreview(true)
+        ->setAllowOnlyImages(false);
     }
     
     protected function updateReferences(Kwf_Model_Row_Interface $row)

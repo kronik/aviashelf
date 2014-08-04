@@ -114,6 +114,33 @@ class FlightfullresultController extends Kwf_Controller_Action_Auto_Form_Ex
             
             $results = $resultsModel->getRows($resultsSelect);
             
+            $objectivesModel = Kwf_Model_Abstract::getInstance('FlightObjectives');
+            $objectivesSelect = $objectivesModel->select()->whereEquals('flightId', $row->flightId);
+            $objectiveRows = $objectivesModel->getRows($objectivesSelect);
+            
+            $objectiveIds = array();
+            
+            foreach ($objectiveRows as $objectiveRow) {
+                array_push($objectiveIds, $objectiveRow->objectiveId);
+            }
+            
+            $canAddFlightResults = TRUE;
+            
+            $objectivesModel = Kwf_Model_Abstract::getInstance('Objectives');
+            $objectivesSelect = $objectivesModel->select()->whereEquals('name', 'Цель полета')->where('id IN (?)', $objectiveIds);
+            $objectiveRows = $objectivesModel->getRows($objectivesSelect);
+            
+            foreach ($objectiveRows as $objectiveRow) {
+                if ($this->isContain('Тренировка', $objectiveRow->value)) {
+                    $canAddFlightResults = FALSE;
+                    break;
+                }
+            }
+            
+            if ($canAddFlightResults == FALSE) {
+                return;
+            }
+            
             foreach ($results as $result) {
                 if (($result->flightTime == NULL) || ($result->flightTime == '00:00') || ($result->flightTime == '00:00:00')) {
                     

@@ -169,3 +169,9 @@ Ext.util.Format.planerStateColorer = function(val)
     }
     return val;
 };
+
+Ext.util.Format.boldStyler = function(val)
+{
+    return '<span style="color:black;font-weight:bold">' + val + '</span>';
+};
+

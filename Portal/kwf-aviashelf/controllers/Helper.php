@@ -162,7 +162,7 @@ class Helper {
                 
                 foreach ($positionRows as $positionRow) {
                     
-                    if (in_array($positionRow->resultId, $existingResults) == true) {
+                    if ((in_array($positionRow->resultId, $existingResults) == TRUE)) {
                         continue;
                     }
                     
@@ -173,7 +173,7 @@ class Helper {
                 
                 foreach ($positionExtraRows as $positionExtraRow) {
                     
-                    if (in_array($positionExtraRow->resultId, $existingResults) == true) {
+                    if ((in_array($positionExtraRow->resultId, $existingResults) == TRUE)) {
                         continue;
                     }
                     
@@ -469,7 +469,12 @@ class Helper {
             
             $employeeworksSelect = $employeeworksModel->select()->where(new Kwf_Model_Select_Expr_Sql($workSelectStmt));
             $employeeworks = $employeeworksModel->getRows($employeeworksSelect);
-
+            
+            $specModel = Kwf_Model_Abstract::getInstance('Specialities');
+            
+            $specSelect = $specModel->select()->whereEquals('id', $employee->specId);
+            $specRow = $specModel->getRow($specSelect);
+            
             while ($startDate < $endDate) {
                 
                 $startDateStr = $startDate->format('Y-m-d');
@@ -544,6 +549,12 @@ class Helper {
                 $newRow->workTime3 = '00:00';
                 $newRow->workTime4 = '00:00';
                 $newRow->workTime5 = '00:00';
+                
+                $newRow->speciality = (string)$specRow;
+
+                if ($newRow->speciality == NULL) {
+                    $newRow->speciality = '';
+                }
                 
                 foreach ($resultRecords as $resultRecord) {
                     

@@ -9,6 +9,8 @@ class Acl extends Kwf_Acl
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_menuitem', array('text'=>trlKwfStatic('Dictionaries'), 'icon'=>'book.png')));
         
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_tasks', array('text'=>trlKwfStatic('Tasks'), 'icon'=>'time.png'), '/tasks'));
+        
+        $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_folders', array('text'=>'Библиотека', 'icon'=>'book.png'), '/folders'));
 
         $this->addResource(new Kwf_Acl_Resource_MenuDropdown('default_staffmenuitem', array('text'=>trlKwfStatic('Employees'), 'icon'=>'user.png')));
         $this->addResource(new Kwf_Acl_Resource_MenuUrl('default_employees', array('text'=>trlKwfStatic('Flight crew'), 'icon'=>'user.png'), '/employees'), 'default_staffmenuitem');
@@ -62,6 +64,10 @@ class Acl extends Kwf_Acl
         //$this->addResource(new Zend_Acl_Resource('default_tasks'), 'default_index');
 //        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
 //        $this->addResource(new Zend_Acl_Resource('default_flightplans'), 'default_index');
+        
+        $this->addResource(new Zend_Acl_Resource('default_folder'), 'default_folders');
+        $this->addResource(new Zend_Acl_Resource('default_books'), 'default_folders');
+        $this->addResource(new Zend_Acl_Resource('default_book'), 'default_books');
         $this->addResource(new Zend_Acl_Resource('default_link'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdata'), 'default_links');
         $this->addResource(new Zend_Acl_Resource('default_linkdataentry'), 'default_linkdata');
@@ -202,6 +208,7 @@ class Acl extends Kwf_Acl
         $this->allow('user', 'default_flightaccesses');
         $this->allow('user', 'default_employeetasks');
         $this->allow('user', 'default_employeelogs');
+        $this->allow('user', 'default_folders');
         
         $this->allow('viewer', 'default_flightsmenuitem');
         $this->allow('viewer', 'default_simpleflightplans');
@@ -230,6 +237,7 @@ class Acl extends Kwf_Acl
         $this->deny('viewer', 'default_flightsets');
         $this->deny('viewer', 'default_flightfiles');
         $this->deny('viewer', 'default_flightplans');
+        $this->deny('viewer', 'default_folders');
         $this->deny('user', 'default_flightplans');
         
         $this->allow('kws', 'default_index');
@@ -327,6 +335,7 @@ class Acl extends Kwf_Acl
         $this->allow(array('admin', 'power'), 'default_flightaccesses');
         $this->allow(array('admin', 'power'), 'default_employeetasks');
         $this->allow(array('admin', 'power'), 'default_employeelogs');
+        $this->allow(array('admin', 'power'), 'default_folders');
 
         $this->allow('guest', 'kwf_media_upload');
         $this->allow('guest', 'kwf_user_login');

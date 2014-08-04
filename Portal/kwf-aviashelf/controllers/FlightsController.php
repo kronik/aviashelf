@@ -36,7 +36,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid_Ex
             $this->_editDialog = array(
                                            'controllerUrl' => '/flight',
                                            'width' => 550,
-                                           'height' => 410,
+                                           'height' => 450,
                                            'type' => 'WindowFormEx'
                                        );
         }
@@ -46,6 +46,7 @@ class FlightsController extends Kwf_Controller_Action_Auto_Grid_Ex
         }
         
         $this->_columns->add(new Kwf_Grid_Column('flightStartTime', trlKwf('Time'), 50))->setRenderer('flightTimeCorrect');
+        $this->_columns->add(new Kwf_Grid_Column('flightStartActualTime', 'Факт. время', 70))->setRenderer('flightTimeCorrect');
         $this->_columns->add(new Kwf_Grid_Column('number', trlKwf('Number'), 70));
         $this->_columns->add(new Kwf_Grid_Column('requestNumber', trlKwf('Task number'), 70));
         $this->_columns->add(new Kwf_Grid_Column('planeName', trlKwf('Bort'), 70));

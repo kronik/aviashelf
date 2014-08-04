@@ -35,6 +35,7 @@ class FlightController extends Kwf_Controller_Action_Auto_Form_Ex
         ->setAllowBlank(false);
         
         $tab->fields->add(new Kwf_Form_Field_TimeField('flightStartTime', trlKwf('Start Time')))->setIncrement(5);
+        $tab->fields->add(new Kwf_Form_Field_TimeField('flightStartActualTime', 'Факт. время'))->setIncrement(5);
 
         $airplanesModel = Kwf_Model_Abstract::getInstance('Airplanes');
         $airplanesSelect = $airplanesModel->select();

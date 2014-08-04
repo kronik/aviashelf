@@ -35,6 +35,24 @@ CREATE TABLE IF NOT EXISTS `tasks` (
     KEY `picture_id` (`picture_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `folders` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `title` varchar(300) COLLATE utf8_unicode_ci,
+    `description` varchar(1000) COLLATE utf8_unicode_ci,
+    PRIMARY KEY (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `books` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `folderId` int NOT NULL,
+    `title` varchar(300) COLLATE utf8_unicode_ci,
+    `description` varchar(1000) COLLATE utf8_unicode_ci,
+    `file_id` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `userId` (`folderId`),
+    KEY `picture_id` (`file_id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `speciality` (
     `id` int NOT NULL,
     `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
@@ -771,6 +789,7 @@ CREATE TABLE IF NOT EXISTS `flightTasks` (
     `subCompanyName` varchar(100) COLLATE utf8_unicode_ci,
     `flightStartDate` date NOT NULL,
     `flightStartTime` time,
+    `flightStartActualTime` time,
     `groupId` int NOT NULL,
     `planeId` int NOT NULL,
     `planeName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -883,9 +902,11 @@ CREATE TABLE IF NOT EXISTS `flightAccesses` (
     `comment` varchar(1000) COLLATE utf8_unicode_ci,
     `flightsCount` int NOT NULL DEFAULT 0,
     `setsCount` int NOT NULL DEFAULT 0,
+    `file_id` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `docId` (`docId`),
-    INDEX `id` (`id` ASC)
+    INDEX `id` (`id` ASC),
+    KEY `file_id` (`file_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `flightCheckTypes` (
@@ -1186,6 +1207,7 @@ CREATE TABLE IF NOT EXISTS `employeeWorks` (
     `workId` int NOT NULL,
     `employeeId` int NOT NULL,
     `employeeName` varchar(300) COLLATE utf8_unicode_ci,
+    `speciality` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     `workDate` date NOT NULL,
     `typeId` int NOT NULL,
     `typeName` varchar(100) COLLATE utf8_unicode_ci,
