@@ -472,9 +472,14 @@ class Helper {
             
             $specModel = Kwf_Model_Abstract::getInstance('Specialities');
             
-            $specSelect = $specModel->select()->whereEquals('id', $employee->specId);
-            $specRow = $specModel->getRow($specSelect);
+            $specRow = NULL;
             
+            if ($employee->specId == NULL) {
+                throw new Kwf_Exception_Client('Нет специальности у сотрудника: ' . (string)$employee);
+            } else {
+                $specSelect = $specModel->select()->whereEquals('id', $employee->specId);
+                $specRow = $specModel->getRow($specSelect);
+            }
             while ($startDate < $endDate) {
                 
                 $startDateStr = $startDate->format('Y-m-d');
