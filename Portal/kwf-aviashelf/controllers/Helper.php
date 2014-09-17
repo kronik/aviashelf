@@ -475,7 +475,7 @@ class Helper {
             $specRow = NULL;
             
             if ($employee->specId == NULL) {
-                throw new Kwf_Exception_Client('Нет специальности у сотрудника: ' . (string)$employee);
+//                throw new Kwf_Exception_Client('Нет специальности у сотрудника: ' . (string)$employee);
             } else {
                 $specSelect = $specModel->select()->whereEquals('id', $employee->specId);
                 $specRow = $specModel->getRow($specSelect);
